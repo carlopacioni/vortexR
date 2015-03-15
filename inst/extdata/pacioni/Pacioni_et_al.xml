@@ -1,0 +1,2853 @@
+<VORTEXInputFile Version="10.00">
+  <GeneralProjectInformation title="Pacioni_et_al">
+    <ProjectTitle>Pacioni_et_al</ProjectTitle>
+    <ProjectPath>C:\Users\30373314\Documents\VortexR\Examples</ProjectPath>
+    <ProjectNotes>
+    </ProjectNotes>
+    <nscenes>7</nscenes>
+    <SpecialOptions>
+      <rtGraphs>True</rtGraphs>
+      <quietRuns>True</quietRuns>
+      <excludeLastPop>False</excludeLastPop>
+      <AnimListFlag>0</AnimListFlag>
+      <fullAnimList>0</fullAnimList>
+      <censusFlag>True</censusFlag>
+      <censusRuns>1000</censusRuns>
+      <outHFlag>False</outHFlag>
+      <outGSvars>0</outGSvars>
+      <outPSvars>0</outPSvars>
+      <ISHarvest>0</ISHarvest>
+      <breedPriority>0</breedPriority>
+      <GDinclude>False</GDinclude>
+      <PSinclude>False</PSinclude>
+      <delayMort0>False</delayMort0>
+      <UndocumentedOptions>
+      </UndocumentedOptions>
+    </SpecialOptions>
+  </GeneralProjectInformation>
+  <Scenario scenario="1">
+    <Notes scenario="1">
+      <Scene>
+      </Scene>
+      <Species>
+      </Species>
+      <StateVar>
+      </StateVar>
+      <Dispersal>
+      </Dispersal>
+      <ReproSystem>
+      </ReproSystem>
+      <ReproRates>
+      </ReproRates>
+      <Mortality>
+      </Mortality>
+      <Catastrophe>
+      </Catastrophe>
+      <MateMonop>
+      </MateMonop>
+      <InitN>
+      </InitN>
+      <K>
+      </K>
+      <Harvest>
+      </Harvest>
+      <Supplementation>
+      </Supplementation>
+      <Genetics>
+      </Genetics>
+    </Notes>
+    <Settings scenario="1">
+      <Name>baseline</Name>
+      <ST>False</ST>
+      <nRuns>3</nRuns>
+      <nYears>120</nYears>
+      <YrDays>91</YrDays>
+      <ExtDef1Sex>False</ExtDef1Sex>
+      <ExtDefFunc>True</ExtDefFunc>
+      <ExtDefN>50</ExtDefN>
+      <nPops>1</nPops>
+      <PopBase>False</PopBase>
+    </Settings>
+    <ModelSteps scenario="1">
+      <Step>EV</Step>
+      <Step>Breed</Step>
+      <Step>Mortality</Step>
+      <Step>Age</Step>
+      <Step>Disperse</Step>
+      <Step>Harvest</Step>
+      <Step>Supplement</Step>
+      <Step>rCalc</Step>
+      <Step>Ktruncation</Step>
+      <Step>UpdateVars</Step>
+      <Step>Census</Step>
+    </ModelSteps>
+    <SpeciesDescription scenario="1">
+      <InbrDepr>False</InbrDepr>
+      <LethalEquiv>0</LethalEquiv>
+      <PercentLethals>0</PercentLethals>
+      <EVconcordance>True</EVconcordance>
+      <EVcorrelation>0.5</EVcorrelation>
+      <Catastrophes nCats="1">
+        <CatLabel>Baiting</CatLabel>
+      </Catastrophes>
+    </SpeciesDescription>
+    <StateVariables scenario="1">
+      <GlobalStateVariables GSvars="0" />
+      <PopulationStateVariables PSvars="4" />
+      <IndividualStateVariables ISvars="3">
+        <ISVar var="1">
+          <Label>InbV</Label>
+          <InitState>=I</InitState>
+          <BirthState>=I</BirthState>
+          <TransState>=IS1</TransState>
+        </ISVar>
+        <ISVar var="2">
+          <Label>AddInb</Label>
+          <InitState>=MAX(0;((0.06*NRAND)+0.2))</InitState>
+          <BirthState>=MAX(0;((0.06*NRAND)+0.2))</BirthState>
+          <TransState>=IS2</TransState>
+        </ISVar>
+        <ISVar var="3">
+          <Label>mort</Label>
+          <InitState>=100*{1-[(1-(4.4*0.01))*EXP(-3.5*MIN(1;(I+IS2)))]}</InitState>
+          <BirthState>100*{1-[(1-(4.4*0.01))*EXP(-3.5*MIN(1;(I+IS2)))]}</BirthState>
+          <TransState>=IS3</TransState>
+        </ISVar>
+      </IndividualStateVariables>
+    </StateVariables>
+    <DefaultVarValues nDefs="0" />
+    <ReproductiveSystem scenario="1">
+      <Monogamy>False</Monogamy>
+      <Polygamy>True</Polygamy>
+      <LTMonogamy>False</LTMonogamy>
+      <LTPolygamy>False</LTPolygamy>
+      <Hermaphroditic>False</Hermaphroditic>
+      <FemaleBreedingAge>2</FemaleBreedingAge>
+      <MaleBreedingAge>3</MaleBreedingAge>
+      <FemaleLastBreedingAge>36</FemaleLastBreedingAge>
+      <MaleLastBreedingAge>36</MaleLastBreedingAge>
+      <MaximumAge>36</MaximumAge>
+      <maxBroods>1</maxBroods>
+      <maxBroodSize>1</maxBroodSize>
+      <UseNormal>False</UseNormal>
+      <UseFullDistr>True</UseFullDistr>
+      <SexRatio>50</SexRatio>
+    </ReproductiveSystem>
+    <StableAgeDistribution scenario="1">Stable</StableAgeDistribution>
+    <TranslocateOption scenario="1">
+      <Translocate>False</Translocate>
+      <TranslocationSurvival>0</TranslocationSurvival>
+    </TranslocateOption>
+    <GeneticManagement scenario="1">
+      <ImportStudbook>False</ImportStudbook>
+      <StudbookFile>
+      </StudbookFile>
+      <StudbookAppend>False</StudbookAppend>
+      <NeutralLoci>1</NeutralLoci>
+      <Tally1Locus>True</Tally1Locus>
+      <TallyOtherLoci>False</TallyOtherLoci>
+      <TallyAllLoci>False</TallyAllLoci>
+      <ImportAlleleFreqsFile>False</ImportAlleleFreqsFile>
+      <AlleleFreqsFile>
+      </AlleleFreqsFile>
+      <OutputGenePop>False</OutputGenePop>
+      <OutputAlleleFreqFile>False</OutputAlleleFreqFile>
+      <MutationLoci>0</MutationLoci>
+      <MutationRate>0</MutationRate>
+    </GeneticManagement>
+    <PopulationRates scenario="1">
+      <Population pop="1">
+        <Label>Population 1</Label>
+        <PopStateVariables pop="1">
+          <PSVar var="1">
+            <Label>PS1</Label>
+            <InitState>=IMEAN1</InitState>
+            <TransState>=IMEAN1</TransState>
+          </PSVar>
+          <PSVar var="2">
+            <Label>PS2</Label>
+            <InitState>=IMEAN2</InitState>
+            <TransState>=IMEAN2</TransState>
+          </PSVar>
+          <PSVar var="3">
+            <Label>PS3</Label>
+            <InitState>=IMEAN3</InitState>
+            <TransState>=IMEAN3</TransState>
+          </PSVar>
+          <PSVar var="4">
+            <Label>PS4</Label>
+            <InitState>=RAND</InitState>
+            <TransState>=RAND</TransState>
+          </PSVar>
+        </PopStateVariables>
+        <DensityDependence pop="1">
+          <DDRepro>False</DDRepro>
+          <DDP0>50</DDP0>
+          <DDPK>25</DDPK>
+          <DDAllee>1</DDAllee>
+          <DDSlope>2</DDSlope>
+        </DensityDependence>
+        <ReproductiveRates pop="1">
+          <PercentBreed>=(89.3-((89.3-57)*((N/K)^16)))*(N/(0.1+N))</PercentBreed>
+          <EVBreed>3.5</EVBreed>
+          <Brood n="0">25</Brood>
+          <Brood n="1">75</Brood>
+          <BroodMean>2.5</BroodMean>
+          <BroodSD>1</BroodSD>
+          <BroodSize size="1">100</BroodSize>
+        </ReproductiveRates>
+        <MortalityRates pop="1">
+          <FemaleMort age="0">4.4</FemaleMort>
+          <EVFemaleMort age="0">0.4</EVFemaleMort>
+          <FemaleMort age="1">15</FemaleMort>
+          <EVFemaleMort age="1">1.5</EVFemaleMort>
+          <FemaleMort age="2">3.9</FemaleMort>
+          <EVFemaleMort age="2">0.39</EVFemaleMort>
+          <MaleMort age="0">4.4</MaleMort>
+          <EVMaleMort age="0">0.4</EVMaleMort>
+          <MaleMort age="1">10</MaleMort>
+          <EVMaleMort age="1">1</EVMaleMort>
+          <MaleMort age="2">7</MaleMort>
+          <EVMaleMort age="2">0.7</EVMaleMort>
+          <MaleMort age="3">3.9</MaleMort>
+          <EVMaleMort age="3">0.39</EVMaleMort>
+        </MortalityRates>
+        <Catastrophes pop="1">
+          <Catastrophe cat="1">
+            <Label>Baiting</Label>
+            <GlobalLocal>Global</GlobalLocal>
+            <Frequency>0</Frequency>
+            <SeverityRepro>=[1-(PS4*0.148)]^(N/K)</SeverityRepro>
+            <SeverityMort>=[1-(PS4*0.45)]^(N/K)</SeverityMort>
+          </Catastrophe>
+        </Catastrophes>
+        <Monopolization pop="1">
+          <PercentMales>80</PercentMales>
+        </Monopolization>
+        <InitialPopulationSize pop="1">
+          <InitialN>300</InitialN>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">150</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <FemalesAge age="3">0</FemalesAge>
+          <FemalesAge age="4">0</FemalesAge>
+          <FemalesAge age="5">0</FemalesAge>
+          <FemalesAge age="6">0</FemalesAge>
+          <FemalesAge age="7">0</FemalesAge>
+          <FemalesAge age="8">0</FemalesAge>
+          <FemalesAge age="9">0</FemalesAge>
+          <FemalesAge age="10">0</FemalesAge>
+          <FemalesAge age="11">0</FemalesAge>
+          <FemalesAge age="12">0</FemalesAge>
+          <FemalesAge age="13">0</FemalesAge>
+          <FemalesAge age="14">0</FemalesAge>
+          <FemalesAge age="15">0</FemalesAge>
+          <FemalesAge age="16">0</FemalesAge>
+          <FemalesAge age="17">0</FemalesAge>
+          <FemalesAge age="18">0</FemalesAge>
+          <FemalesAge age="19">0</FemalesAge>
+          <FemalesAge age="20">0</FemalesAge>
+          <FemalesAge age="21">0</FemalesAge>
+          <FemalesAge age="22">0</FemalesAge>
+          <FemalesAge age="23">0</FemalesAge>
+          <FemalesAge age="24">0</FemalesAge>
+          <FemalesAge age="25">0</FemalesAge>
+          <FemalesAge age="26">0</FemalesAge>
+          <FemalesAge age="27">0</FemalesAge>
+          <FemalesAge age="28">0</FemalesAge>
+          <FemalesAge age="29">0</FemalesAge>
+          <FemalesAge age="30">0</FemalesAge>
+          <FemalesAge age="31">0</FemalesAge>
+          <FemalesAge age="32">0</FemalesAge>
+          <FemalesAge age="33">0</FemalesAge>
+          <FemalesAge age="34">0</FemalesAge>
+          <FemalesAge age="35">0</FemalesAge>
+          <FemalesAge age="36">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">150</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+          <MalesAge age="4">0</MalesAge>
+          <MalesAge age="5">0</MalesAge>
+          <MalesAge age="6">0</MalesAge>
+          <MalesAge age="7">0</MalesAge>
+          <MalesAge age="8">0</MalesAge>
+          <MalesAge age="9">0</MalesAge>
+          <MalesAge age="10">0</MalesAge>
+          <MalesAge age="11">0</MalesAge>
+          <MalesAge age="12">0</MalesAge>
+          <MalesAge age="13">0</MalesAge>
+          <MalesAge age="14">0</MalesAge>
+          <MalesAge age="15">0</MalesAge>
+          <MalesAge age="16">0</MalesAge>
+          <MalesAge age="17">0</MalesAge>
+          <MalesAge age="18">0</MalesAge>
+          <MalesAge age="19">0</MalesAge>
+          <MalesAge age="20">0</MalesAge>
+          <MalesAge age="21">0</MalesAge>
+          <MalesAge age="22">0</MalesAge>
+          <MalesAge age="23">0</MalesAge>
+          <MalesAge age="24">0</MalesAge>
+          <MalesAge age="25">0</MalesAge>
+          <MalesAge age="26">0</MalesAge>
+          <MalesAge age="27">0</MalesAge>
+          <MalesAge age="28">0</MalesAge>
+          <MalesAge age="29">0</MalesAge>
+          <MalesAge age="30">0</MalesAge>
+          <MalesAge age="31">0</MalesAge>
+          <MalesAge age="32">0</MalesAge>
+          <MalesAge age="33">0</MalesAge>
+          <MalesAge age="34">0</MalesAge>
+          <MalesAge age="35">0</MalesAge>
+          <MalesAge age="36">0</MalesAge>
+        </InitialPopulationSize>
+        <CarryingCapacity pop="1">
+          <K>500</K>
+          <EVK>50</EVK>
+          <Ktrend>False</Ktrend>
+          <Kyears>5</Kyears>
+          <Kchange>-10</Kchange>
+          <Kcriteria>False</Kcriteria>
+          <Ktest>=N</Ktest>
+          <Kpriority>0</Kpriority>
+          <AllowK>False</AllowK>
+          <KAllow>1</KAllow>
+        </CarryingCapacity>
+        <Harvest pop="1">
+          <Harvest>False</Harvest>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <HarvCriteria>1</HarvCriteria>
+          <IHarvCriteria>1</IHarvCriteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Harvest>
+        <Supplementation pop="1">
+          <Supplement>False</Supplement>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <Criteria>1</Criteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Supplementation>
+        <GeneticManagement pop="1">
+          <BreedMaintainK>False</BreedMaintainK>
+          <AvoidInbr>False</AvoidInbr>
+          <AvoidInbrF>1</AvoidInbrF>
+          <PairMKdynamic>False</PairMKdynamic>
+          <PairMKStatic>False</PairMKStatic>
+          <SetKin>0</SetKin>
+          <MaxNMates>0</MaxNMates>
+          <NumTriesFindMate>10</NumTriesFindMate>
+        </GeneticManagement>
+      </Population>
+    </PopulationRates>
+  </Scenario>
+  <Scenario scenario="2">
+    <Notes scenario="2">
+      <Scene>
+      </Scene>
+      <Species>
+      </Species>
+      <StateVar>
+      </StateVar>
+      <Dispersal>
+      </Dispersal>
+      <ReproSystem>
+      </ReproSystem>
+      <ReproRates>
+      </ReproRates>
+      <Mortality>
+      </Mortality>
+      <Catastrophe>
+      </Catastrophe>
+      <MateMonop>
+      </MateMonop>
+      <InitN>
+      </InitN>
+      <K>
+      </K>
+      <Harvest>
+      </Harvest>
+      <Supplementation>
+      </Supplementation>
+      <Genetics>
+      </Genetics>
+    </Notes>
+    <Settings scenario="2">
+      <Name>ST_Classic</Name>
+      <ST>True</ST>
+      <nRuns>3</nRuns>
+      <nYears>120</nYears>
+      <YrDays>91</YrDays>
+      <ExtDef1Sex>False</ExtDef1Sex>
+      <ExtDefFunc>True</ExtDefFunc>
+      <ExtDefN>50</ExtDefN>
+      <nPops>1</nPops>
+      <PopBase>False</PopBase>
+    </Settings>
+    <ModelSteps scenario="2">
+      <Step>EV</Step>
+      <Step>Breed</Step>
+      <Step>Mortality</Step>
+      <Step>Age</Step>
+      <Step>Disperse</Step>
+      <Step>Harvest</Step>
+      <Step>Supplement</Step>
+      <Step>rCalc</Step>
+      <Step>Ktruncation</Step>
+      <Step>UpdateVars</Step>
+      <Step>Census</Step>
+    </ModelSteps>
+    <SpeciesDescription scenario="2">
+      <InbrDepr>False</InbrDepr>
+      <LethalEquiv>=0</LethalEquiv>
+      <PercentLethals>0</PercentLethals>
+      <EVconcordance>True</EVconcordance>
+      <EVcorrelation>0.5</EVcorrelation>
+      <Catastrophes nCats="1">
+        <CatLabel>Baiting</CatLabel>
+      </Catastrophes>
+    </SpeciesDescription>
+    <StateVariables scenario="2">
+      <GlobalStateVariables GSvars="7">
+        <GSVar var="1">
+          <Label>SV1</Label>
+          <InitState>=ST*(SCHOOSE((488+123*SCENE);500;1000))+((ST=0)*2000)</InitState>
+          <TransState>=GS1</TransState>
+        </GSVar>
+        <GSVar var="2">
+          <Label>SV2</Label>
+          <InitState>=ST*(SCHOOSE((933+123*SCENE);2;3;4;5;6))+((ST=0)*1)</InitState>
+          <TransState>=GS2</TransState>
+        </GSVar>
+        <GSVar var="3">
+          <Label>SV3</Label>
+          <InitState>=ST*(SCHOOSE((273+123*SCENE);2;3;4;5;6))+((ST=0)*1)</InitState>
+          <TransState>=GS3</TransState>
+        </GSVar>
+        <GSVar var="4">
+          <Label>SV4</Label>
+          <InitState>=ST*(SCHOOSE((681+123*SCENE);2;3;4;5;6))+((ST=0)*1)</InitState>
+          <TransState>=GS4</TransState>
+        </GSVar>
+        <GSVar var="5">
+          <Label>SV5</Label>
+          <InitState>=ST*(SCHOOSE((785+123*SCENE);0.2;0.3))+((ST=0)*0.1)</InitState>
+          <TransState>=GS5</TransState>
+        </GSVar>
+        <GSVar var="6">
+          <Label>SV6</Label>
+          <InitState>=ST*(SCHOOSE((284+123*SCENE);60;90;100))+((ST=0)*80)</InitState>
+          <TransState>=GS6</TransState>
+        </GSVar>
+        <GSVar var="7">
+          <Label>SV7</Label>
+          <InitState>=ST*(SCHOOSE((723+123*SCENE);100))+((ST=0)*300)</InitState>
+          <TransState>=GS7</TransState>
+        </GSVar>
+      </GlobalStateVariables>
+      <PopulationStateVariables PSvars="4" />
+      <IndividualStateVariables ISvars="3">
+        <ISVar var="1">
+          <Label>InbV</Label>
+          <InitState>=I</InitState>
+          <BirthState>=I</BirthState>
+          <TransState>=IS1</TransState>
+        </ISVar>
+        <ISVar var="2">
+          <Label>AddInb</Label>
+          <InitState>=MAX(0;((0.06*NRAND)+0.2))</InitState>
+          <BirthState>=MAX(0;((0.06*NRAND)+0.2))</BirthState>
+          <TransState>=IS2</TransState>
+        </ISVar>
+        <ISVar var="3">
+          <Label>mort</Label>
+          <InitState>=100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]}</InitState>
+          <BirthState>=100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]}</BirthState>
+          <TransState>=IS3</TransState>
+        </ISVar>
+      </IndividualStateVariables>
+    </StateVariables>
+    <DefaultVarValues nDefs="0" />
+    <ReproductiveSystem scenario="2">
+      <Monogamy>False</Monogamy>
+      <Polygamy>True</Polygamy>
+      <LTMonogamy>False</LTMonogamy>
+      <LTPolygamy>False</LTPolygamy>
+      <Hermaphroditic>False</Hermaphroditic>
+      <FemaleBreedingAge>2</FemaleBreedingAge>
+      <MaleBreedingAge>3</MaleBreedingAge>
+      <FemaleLastBreedingAge>36</FemaleLastBreedingAge>
+      <MaleLastBreedingAge>36</MaleLastBreedingAge>
+      <MaximumAge>36</MaximumAge>
+      <maxBroods>1</maxBroods>
+      <maxBroodSize>1</maxBroodSize>
+      <UseNormal>False</UseNormal>
+      <UseFullDistr>True</UseFullDistr>
+      <SexRatio>50</SexRatio>
+    </ReproductiveSystem>
+    <StableAgeDistribution scenario="2">Stable</StableAgeDistribution>
+    <TranslocateOption scenario="2">
+      <Translocate>False</Translocate>
+      <TranslocationSurvival>0</TranslocationSurvival>
+      <TranslocationIf>1</TranslocationIf>
+    </TranslocateOption>
+    <GeneticManagement scenario="2">
+      <ImportStudbook>False</ImportStudbook>
+      <StudbookFile>
+      </StudbookFile>
+      <StudbookAppend>False</StudbookAppend>
+      <NeutralLoci>1</NeutralLoci>
+      <Tally1Locus>True</Tally1Locus>
+      <TallyOtherLoci>False</TallyOtherLoci>
+      <TallyAllLoci>False</TallyAllLoci>
+      <ImportAlleleFreqsFile>False</ImportAlleleFreqsFile>
+      <AlleleFreqsFile>
+      </AlleleFreqsFile>
+      <OutputGenePop>False</OutputGenePop>
+      <OutputAlleleFreqFile>False</OutputAlleleFreqFile>
+      <MutationLoci>0</MutationLoci>
+      <MutationRate>0</MutationRate>
+    </GeneticManagement>
+    <PopulationRates scenario="2">
+      <Population pop="1">
+        <Label>Population 1</Label>
+        <PopStateVariables pop="1">
+          <PSVar var="1">
+            <Label>PS1</Label>
+            <InitState>=IMEAN1</InitState>
+            <TransState>=IMEAN1</TransState>
+          </PSVar>
+          <PSVar var="2">
+            <Label>PS2</Label>
+            <InitState>=IMEAN2</InitState>
+            <TransState>=IMEAN2</TransState>
+          </PSVar>
+          <PSVar var="3">
+            <Label>PS3</Label>
+            <InitState>=IMEAN3</InitState>
+            <TransState>=IMEAN3</TransState>
+          </PSVar>
+          <PSVar var="4">
+            <Label>PS4</Label>
+            <InitState>=RAND</InitState>
+            <TransState>=RAND</TransState>
+          </PSVar>
+        </PopStateVariables>
+        <DensityDependence pop="1">
+          <DDRepro>False</DDRepro>
+          <DDP0>50</DDP0>
+          <DDPK>25</DDPK>
+          <DDAllee>1</DDAllee>
+          <DDSlope>2</DDSlope>
+        </DensityDependence>
+        <ReproductiveRates pop="1">
+          <PercentBreed>=(89.3-((89.3-57)*((N/SV1)^16)))*(N/(0.1+N))</PercentBreed>
+          <EVBreed>3.5</EVBreed>
+          <Brood n="0">25</Brood>
+          <Brood n="1">75</Brood>
+          <BroodMean>2.5</BroodMean>
+          <BroodSD>1</BroodSD>
+          <BroodSize size="1">100</BroodSize>
+        </ReproductiveRates>
+        <MortalityRates pop="1">
+          <FemaleMort age="0">=100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]}</FemaleMort>
+          <EVFemaleMort age="0">=(100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]})*SV5</EVFemaleMort>
+          <FemaleMort age="1">=15*SV3</FemaleMort>
+          <EVFemaleMort age="1">=(15*SV3)*SV5</EVFemaleMort>
+          <FemaleMort age="2">=3.9*SV2</FemaleMort>
+          <EVFemaleMort age="2">=(3.9*SV2)*SV5</EVFemaleMort>
+          <MaleMort age="0">=100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]}</MaleMort>
+          <EVMaleMort age="0">=(100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]})*SV5</EVMaleMort>
+          <MaleMort age="1">=10*SV3</MaleMort>
+          <EVMaleMort age="1">=(10*SV3)*SV5</EVMaleMort>
+          <MaleMort age="2">=7*SV3</MaleMort>
+          <EVMaleMort age="2">=(7*SV3)*SV5</EVMaleMort>
+          <MaleMort age="3">=3.9*SV2</MaleMort>
+          <EVMaleMort age="3">=(3.9*SV2)*SV5</EVMaleMort>
+        </MortalityRates>
+        <Catastrophes pop="1">
+          <Catastrophe cat="1">
+            <Label>Baiting</Label>
+            <GlobalLocal>Global</GlobalLocal>
+            <Frequency>=0</Frequency>
+            <SeverityRepro>=[1-(PS4*0.148*1)-(0.148*(1-1))]^[(N/SV1)*1]</SeverityRepro>
+            <SeverityMort>=[1-(PS4*0.45*1)-(0.45*(1-1))]^[(N/SV1)*1]</SeverityMort>
+          </Catastrophe>
+        </Catastrophes>
+        <Monopolization pop="1">
+          <PercentMales>=SV6</PercentMales>
+        </Monopolization>
+        <InitialPopulationSize pop="1">
+          <InitialN>=SV7</InitialN>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">11</FemalesAge>
+          <FemalesAge age="2">6</FemalesAge>
+          <FemalesAge age="3">5</FemalesAge>
+          <FemalesAge age="4">4</FemalesAge>
+          <FemalesAge age="5">3</FemalesAge>
+          <FemalesAge age="6">3</FemalesAge>
+          <FemalesAge age="7">2</FemalesAge>
+          <FemalesAge age="8">2</FemalesAge>
+          <FemalesAge age="9">2</FemalesAge>
+          <FemalesAge age="10">1</FemalesAge>
+          <FemalesAge age="11">1</FemalesAge>
+          <FemalesAge age="12">1</FemalesAge>
+          <FemalesAge age="13">1</FemalesAge>
+          <FemalesAge age="14">1</FemalesAge>
+          <FemalesAge age="15">1</FemalesAge>
+          <FemalesAge age="16">0</FemalesAge>
+          <FemalesAge age="17">0</FemalesAge>
+          <FemalesAge age="18">1</FemalesAge>
+          <FemalesAge age="19">0</FemalesAge>
+          <FemalesAge age="20">0</FemalesAge>
+          <FemalesAge age="21">0</FemalesAge>
+          <FemalesAge age="22">1</FemalesAge>
+          <FemalesAge age="23">0</FemalesAge>
+          <FemalesAge age="24">0</FemalesAge>
+          <FemalesAge age="25">0</FemalesAge>
+          <FemalesAge age="26">0</FemalesAge>
+          <FemalesAge age="27">0</FemalesAge>
+          <FemalesAge age="28">0</FemalesAge>
+          <FemalesAge age="29">0</FemalesAge>
+          <FemalesAge age="30">0</FemalesAge>
+          <FemalesAge age="31">0</FemalesAge>
+          <FemalesAge age="32">0</FemalesAge>
+          <FemalesAge age="33">0</FemalesAge>
+          <FemalesAge age="34">0</FemalesAge>
+          <FemalesAge age="35">0</FemalesAge>
+          <FemalesAge age="36">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">11</MalesAge>
+          <MalesAge age="2">7</MalesAge>
+          <MalesAge age="3">6</MalesAge>
+          <MalesAge age="4">5</MalesAge>
+          <MalesAge age="5">4</MalesAge>
+          <MalesAge age="6">3</MalesAge>
+          <MalesAge age="7">3</MalesAge>
+          <MalesAge age="8">3</MalesAge>
+          <MalesAge age="9">2</MalesAge>
+          <MalesAge age="10">1</MalesAge>
+          <MalesAge age="11">2</MalesAge>
+          <MalesAge age="12">1</MalesAge>
+          <MalesAge age="13">1</MalesAge>
+          <MalesAge age="14">1</MalesAge>
+          <MalesAge age="15">0</MalesAge>
+          <MalesAge age="16">1</MalesAge>
+          <MalesAge age="17">0</MalesAge>
+          <MalesAge age="18">1</MalesAge>
+          <MalesAge age="19">0</MalesAge>
+          <MalesAge age="20">0</MalesAge>
+          <MalesAge age="21">1</MalesAge>
+          <MalesAge age="22">0</MalesAge>
+          <MalesAge age="23">0</MalesAge>
+          <MalesAge age="24">0</MalesAge>
+          <MalesAge age="25">0</MalesAge>
+          <MalesAge age="26">0</MalesAge>
+          <MalesAge age="27">0</MalesAge>
+          <MalesAge age="28">0</MalesAge>
+          <MalesAge age="29">0</MalesAge>
+          <MalesAge age="30">0</MalesAge>
+          <MalesAge age="31">1</MalesAge>
+          <MalesAge age="32">0</MalesAge>
+          <MalesAge age="33">0</MalesAge>
+          <MalesAge age="34">0</MalesAge>
+          <MalesAge age="35">0</MalesAge>
+          <MalesAge age="36">0</MalesAge>
+        </InitialPopulationSize>
+        <CarryingCapacity pop="1">
+          <K>=SV1</K>
+          <EVK>=SV1*0.1</EVK>
+          <Ktrend>False</Ktrend>
+          <Kyears>5</Kyears>
+          <Kchange>-10</Kchange>
+          <Kcriteria>False</Kcriteria>
+          <Ktest>=N</Ktest>
+          <Kpriority>0</Kpriority>
+          <AllowK>False</AllowK>
+          <KAllow>1</KAllow>
+        </CarryingCapacity>
+        <Harvest pop="1">
+          <Harvest>False</Harvest>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <HarvCriteria>1</HarvCriteria>
+          <IHarvCriteria>1</IHarvCriteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Harvest>
+        <Supplementation pop="1">
+          <Supplement>False</Supplement>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <Criteria>1</Criteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Supplementation>
+        <GeneticManagement pop="1">
+          <BreedMaintainK>False</BreedMaintainK>
+          <AvoidInbr>False</AvoidInbr>
+          <AvoidInbrF>1</AvoidInbrF>
+          <PairMKdynamic>False</PairMKdynamic>
+          <PairMKStatic>False</PairMKStatic>
+          <SetKin>0</SetKin>
+          <MaxNMates>0</MaxNMates>
+          <NumTriesFindMate>10</NumTriesFindMate>
+        </GeneticManagement>
+      </Population>
+    </PopulationRates>
+  </Scenario>
+  <Scenario scenario="3">
+    <Notes scenario="3">
+      <Scene>
+      </Scene>
+      <Species>
+      </Species>
+      <StateVar>
+      </StateVar>
+      <Dispersal>
+      </Dispersal>
+      <ReproSystem>
+      </ReproSystem>
+      <ReproRates>
+      </ReproRates>
+      <Mortality>
+      </Mortality>
+      <Catastrophe>
+      </Catastrophe>
+      <MateMonop>
+      </MateMonop>
+      <InitN>
+      </InitN>
+      <K>
+      </K>
+      <Harvest>
+      </Harvest>
+      <Supplementation>
+      </Supplementation>
+      <Genetics>
+      </Genetics>
+    </Notes>
+    <Settings scenario="3">
+      <Name>ST_LHS</Name>
+      <ST>True</ST>
+      <nRuns>3</nRuns>
+      <nYears>120</nYears>
+      <YrDays>91</YrDays>
+      <ExtDef1Sex>False</ExtDef1Sex>
+      <ExtDefFunc>True</ExtDefFunc>
+      <ExtDefN>50</ExtDefN>
+      <nPops>1</nPops>
+      <PopBase>False</PopBase>
+    </Settings>
+    <ModelSteps scenario="3">
+      <Step>EV</Step>
+      <Step>Breed</Step>
+      <Step>Mortality</Step>
+      <Step>Age</Step>
+      <Step>Disperse</Step>
+      <Step>Harvest</Step>
+      <Step>Supplement</Step>
+      <Step>rCalc</Step>
+      <Step>Ktruncation</Step>
+      <Step>UpdateVars</Step>
+      <Step>Census</Step>
+    </ModelSteps>
+    <SpeciesDescription scenario="3">
+      <InbrDepr>False</InbrDepr>
+      <LethalEquiv>=0</LethalEquiv>
+      <PercentLethals>0</PercentLethals>
+      <EVconcordance>True</EVconcordance>
+      <EVcorrelation>0.5</EVcorrelation>
+      <Catastrophes nCats="1">
+        <CatLabel>Baiting</CatLabel>
+      </Catastrophes>
+    </SpeciesDescription>
+    <StateVariables scenario="3">
+      <GlobalStateVariables GSvars="7">
+        <GSVar var="1">
+          <Label>SV1</Label>
+          <InitState>1</InitState>
+          <TransState>=GS1</TransState>
+        </GSVar>
+        <GSVar var="2">
+          <Label>SV2</Label>
+          <InitState>1</InitState>
+          <TransState>=GS2</TransState>
+        </GSVar>
+        <GSVar var="3">
+          <Label>SV3</Label>
+          <InitState>1</InitState>
+          <TransState>=GS3</TransState>
+        </GSVar>
+        <GSVar var="4">
+          <Label>SV4</Label>
+          <InitState>1</InitState>
+          <TransState>=GS4</TransState>
+        </GSVar>
+        <GSVar var="5">
+          <Label>SV5</Label>
+          <InitState>0.1</InitState>
+          <TransState>=GS5</TransState>
+        </GSVar>
+        <GSVar var="6">
+          <Label>SV6</Label>
+          <InitState>80</InitState>
+          <TransState>=GS6</TransState>
+        </GSVar>
+        <GSVar var="7">
+          <Label>SV7</Label>
+          <InitState>300</InitState>
+          <TransState>=GS7</TransState>
+        </GSVar>
+      </GlobalStateVariables>
+      <PopulationStateVariables PSvars="4" />
+      <IndividualStateVariables ISvars="3">
+        <ISVar var="1">
+          <Label>InbV</Label>
+          <InitState>=I</InitState>
+          <BirthState>=I</BirthState>
+          <TransState>=IS1</TransState>
+        </ISVar>
+        <ISVar var="2">
+          <Label>AddInb</Label>
+          <InitState>=MAX(0;((0.06*NRAND)+0.2))</InitState>
+          <BirthState>=MAX(0;((0.06*NRAND)+0.2))</BirthState>
+          <TransState>=IS2</TransState>
+        </ISVar>
+        <ISVar var="3">
+          <Label>mort</Label>
+          <InitState>=100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]}</InitState>
+          <BirthState>=100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]}</BirthState>
+          <TransState>=IS3</TransState>
+        </ISVar>
+      </IndividualStateVariables>
+    </StateVariables>
+    <DefaultVarValues nDefs="0" />
+    <ReproductiveSystem scenario="3">
+      <Monogamy>False</Monogamy>
+      <Polygamy>True</Polygamy>
+      <LTMonogamy>False</LTMonogamy>
+      <LTPolygamy>False</LTPolygamy>
+      <Hermaphroditic>False</Hermaphroditic>
+      <FemaleBreedingAge>2</FemaleBreedingAge>
+      <MaleBreedingAge>3</MaleBreedingAge>
+      <FemaleLastBreedingAge>36</FemaleLastBreedingAge>
+      <MaleLastBreedingAge>36</MaleLastBreedingAge>
+      <MaximumAge>36</MaximumAge>
+      <maxBroods>1</maxBroods>
+      <maxBroodSize>1</maxBroodSize>
+      <UseNormal>False</UseNormal>
+      <UseFullDistr>True</UseFullDistr>
+      <SexRatio>50</SexRatio>
+    </ReproductiveSystem>
+    <StableAgeDistribution scenario="3">Stable</StableAgeDistribution>
+    <TranslocateOption scenario="3">
+      <Translocate>False</Translocate>
+      <TranslocationSurvival>0</TranslocationSurvival>
+      <TranslocationIf>1</TranslocationIf>
+    </TranslocateOption>
+    <GeneticManagement scenario="3">
+      <ImportStudbook>False</ImportStudbook>
+      <StudbookFile>
+      </StudbookFile>
+      <StudbookAppend>False</StudbookAppend>
+      <NeutralLoci>1</NeutralLoci>
+      <Tally1Locus>True</Tally1Locus>
+      <TallyOtherLoci>False</TallyOtherLoci>
+      <TallyAllLoci>False</TallyAllLoci>
+      <ImportAlleleFreqsFile>False</ImportAlleleFreqsFile>
+      <AlleleFreqsFile>
+      </AlleleFreqsFile>
+      <OutputGenePop>False</OutputGenePop>
+      <OutputAlleleFreqFile>False</OutputAlleleFreqFile>
+      <MutationLoci>0</MutationLoci>
+      <MutationRate>0</MutationRate>
+    </GeneticManagement>
+    <PopulationRates scenario="3">
+      <Population pop="1">
+        <Label>Population 1</Label>
+        <PopStateVariables pop="1">
+          <PSVar var="1">
+            <Label>PS1</Label>
+            <InitState>=IMEAN1</InitState>
+            <TransState>=IMEAN1</TransState>
+          </PSVar>
+          <PSVar var="2">
+            <Label>PS2</Label>
+            <InitState>=IMEAN2</InitState>
+            <TransState>=IMEAN2</TransState>
+          </PSVar>
+          <PSVar var="3">
+            <Label>PS3</Label>
+            <InitState>=IMEAN3</InitState>
+            <TransState>=IMEAN3</TransState>
+          </PSVar>
+          <PSVar var="4">
+            <Label>PS4</Label>
+            <InitState>=RAND</InitState>
+            <TransState>=RAND</TransState>
+          </PSVar>
+        </PopStateVariables>
+        <DensityDependence pop="1">
+          <DDRepro>False</DDRepro>
+          <DDP0>50</DDP0>
+          <DDPK>25</DDPK>
+          <DDAllee>1</DDAllee>
+          <DDSlope>2</DDSlope>
+        </DensityDependence>
+        <ReproductiveRates pop="1">
+          <PercentBreed>=(89.3-((89.3-57)*((N/SV1)^16)))*(N/(0.1+N))</PercentBreed>
+          <EVBreed>3.5</EVBreed>
+          <Brood n="0">25</Brood>
+          <Brood n="1">75</Brood>
+          <BroodMean>2.5</BroodMean>
+          <BroodSD>1</BroodSD>
+          <BroodSize size="1">100</BroodSize>
+        </ReproductiveRates>
+        <MortalityRates pop="1">
+          <FemaleMort age="0">=100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]}</FemaleMort>
+          <EVFemaleMort age="0">=(100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]})*SV5</EVFemaleMort>
+          <FemaleMort age="1">=15*SV3</FemaleMort>
+          <EVFemaleMort age="1">=(15*SV3)*SV5</EVFemaleMort>
+          <FemaleMort age="2">=3.9*SV2</FemaleMort>
+          <EVFemaleMort age="2">=(3.9*SV2)*SV5</EVFemaleMort>
+          <MaleMort age="0">=100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]}</MaleMort>
+          <EVMaleMort age="0">=(100*{1-[(1-(4.4*SV4*0.01))*EXP(-0*MIN(1;(I+IS2)))]})*SV5</EVMaleMort>
+          <MaleMort age="1">=10*SV3</MaleMort>
+          <EVMaleMort age="1">=(10*SV3)*SV5</EVMaleMort>
+          <MaleMort age="2">=7*SV3</MaleMort>
+          <EVMaleMort age="2">=(7*SV3)*SV5</EVMaleMort>
+          <MaleMort age="3">=3.9*SV2</MaleMort>
+          <EVMaleMort age="3">=(3.9*SV2)*SV5</EVMaleMort>
+        </MortalityRates>
+        <Catastrophes pop="1">
+          <Catastrophe cat="1">
+            <Label>Baiting</Label>
+            <GlobalLocal>Global</GlobalLocal>
+            <Frequency>=0</Frequency>
+            <SeverityRepro>=[1-(PS4*0.148*1)-(0.148*(1-1))]^[(N/SV1)*1]</SeverityRepro>
+            <SeverityMort>=[1-(PS4*0.45*1)-(0.45*(1-1))]^[(N/SV1)*1]</SeverityMort>
+          </Catastrophe>
+        </Catastrophes>
+        <Monopolization pop="1">
+          <PercentMales>=SV6</PercentMales>
+        </Monopolization>
+        <InitialPopulationSize pop="1">
+          <InitialN>=SV7</InitialN>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">150</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <FemalesAge age="3">0</FemalesAge>
+          <FemalesAge age="4">0</FemalesAge>
+          <FemalesAge age="5">0</FemalesAge>
+          <FemalesAge age="6">0</FemalesAge>
+          <FemalesAge age="7">0</FemalesAge>
+          <FemalesAge age="8">0</FemalesAge>
+          <FemalesAge age="9">0</FemalesAge>
+          <FemalesAge age="10">0</FemalesAge>
+          <FemalesAge age="11">0</FemalesAge>
+          <FemalesAge age="12">0</FemalesAge>
+          <FemalesAge age="13">0</FemalesAge>
+          <FemalesAge age="14">0</FemalesAge>
+          <FemalesAge age="15">0</FemalesAge>
+          <FemalesAge age="16">0</FemalesAge>
+          <FemalesAge age="17">0</FemalesAge>
+          <FemalesAge age="18">0</FemalesAge>
+          <FemalesAge age="19">0</FemalesAge>
+          <FemalesAge age="20">0</FemalesAge>
+          <FemalesAge age="21">0</FemalesAge>
+          <FemalesAge age="22">0</FemalesAge>
+          <FemalesAge age="23">0</FemalesAge>
+          <FemalesAge age="24">0</FemalesAge>
+          <FemalesAge age="25">0</FemalesAge>
+          <FemalesAge age="26">0</FemalesAge>
+          <FemalesAge age="27">0</FemalesAge>
+          <FemalesAge age="28">0</FemalesAge>
+          <FemalesAge age="29">0</FemalesAge>
+          <FemalesAge age="30">0</FemalesAge>
+          <FemalesAge age="31">0</FemalesAge>
+          <FemalesAge age="32">0</FemalesAge>
+          <FemalesAge age="33">0</FemalesAge>
+          <FemalesAge age="34">0</FemalesAge>
+          <FemalesAge age="35">0</FemalesAge>
+          <FemalesAge age="36">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">150</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+          <MalesAge age="4">0</MalesAge>
+          <MalesAge age="5">0</MalesAge>
+          <MalesAge age="6">0</MalesAge>
+          <MalesAge age="7">0</MalesAge>
+          <MalesAge age="8">0</MalesAge>
+          <MalesAge age="9">0</MalesAge>
+          <MalesAge age="10">0</MalesAge>
+          <MalesAge age="11">0</MalesAge>
+          <MalesAge age="12">0</MalesAge>
+          <MalesAge age="13">0</MalesAge>
+          <MalesAge age="14">0</MalesAge>
+          <MalesAge age="15">0</MalesAge>
+          <MalesAge age="16">0</MalesAge>
+          <MalesAge age="17">0</MalesAge>
+          <MalesAge age="18">0</MalesAge>
+          <MalesAge age="19">0</MalesAge>
+          <MalesAge age="20">0</MalesAge>
+          <MalesAge age="21">0</MalesAge>
+          <MalesAge age="22">0</MalesAge>
+          <MalesAge age="23">0</MalesAge>
+          <MalesAge age="24">0</MalesAge>
+          <MalesAge age="25">0</MalesAge>
+          <MalesAge age="26">0</MalesAge>
+          <MalesAge age="27">0</MalesAge>
+          <MalesAge age="28">0</MalesAge>
+          <MalesAge age="29">0</MalesAge>
+          <MalesAge age="30">0</MalesAge>
+          <MalesAge age="31">0</MalesAge>
+          <MalesAge age="32">0</MalesAge>
+          <MalesAge age="33">0</MalesAge>
+          <MalesAge age="34">0</MalesAge>
+          <MalesAge age="35">0</MalesAge>
+          <MalesAge age="36">0</MalesAge>
+        </InitialPopulationSize>
+        <CarryingCapacity pop="1">
+          <K>=SV1</K>
+          <EVK>=SV1*0.1</EVK>
+          <Ktrend>False</Ktrend>
+          <Kyears>5</Kyears>
+          <Kchange>-10</Kchange>
+          <Kcriteria>False</Kcriteria>
+          <Ktest>=N</Ktest>
+          <Kpriority>0</Kpriority>
+          <AllowK>False</AllowK>
+          <KAllow>1</KAllow>
+        </CarryingCapacity>
+        <Harvest pop="1">
+          <Harvest>False</Harvest>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <HarvCriteria>1</HarvCriteria>
+          <IHarvCriteria>1</IHarvCriteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Harvest>
+        <Supplementation pop="1">
+          <Supplement>False</Supplement>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <Criteria>1</Criteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Supplementation>
+        <GeneticManagement pop="1">
+          <BreedMaintainK>False</BreedMaintainK>
+          <AvoidInbr>False</AvoidInbr>
+          <AvoidInbrF>1</AvoidInbrF>
+          <PairMKdynamic>False</PairMKdynamic>
+          <PairMKStatic>False</PairMKStatic>
+          <SetKin>0</SetKin>
+          <MaxNMates>0</MaxNMates>
+          <NumTriesFindMate>10</NumTriesFindMate>
+        </GeneticManagement>
+      </Population>
+    </PopulationRates>
+  </Scenario>
+  <Scenario scenario="4">
+    <Notes scenario="4">
+      <Scene>
+      </Scene>
+      <Species>
+      </Species>
+      <StateVar>
+      </StateVar>
+      <Dispersal>
+      </Dispersal>
+      <ReproSystem>
+      </ReproSystem>
+      <ReproRates>
+      </ReproRates>
+      <Mortality>
+      </Mortality>
+      <Catastrophe>
+      </Catastrophe>
+      <MateMonop>
+      </MateMonop>
+      <InitN>
+      </InitN>
+      <K>
+      </K>
+      <Harvest>
+      </Harvest>
+      <Supplementation>
+      </Supplementation>
+      <Genetics>
+      </Genetics>
+    </Notes>
+    <Settings scenario="4">
+      <Name>Factors_Classic_Inb</Name>
+      <ST>True</ST>
+      <nRuns>3</nRuns>
+      <nYears>120</nYears>
+      <YrDays>91</YrDays>
+      <ExtDef1Sex>False</ExtDef1Sex>
+      <ExtDefFunc>True</ExtDefFunc>
+      <ExtDefN>50</ExtDefN>
+      <nPops>1</nPops>
+      <PopBase>False</PopBase>
+    </Settings>
+    <ModelSteps scenario="4">
+      <Step>EV</Step>
+      <Step>Breed</Step>
+      <Step>Mortality</Step>
+      <Step>Age</Step>
+      <Step>Disperse</Step>
+      <Step>Harvest</Step>
+      <Step>Supplement</Step>
+      <Step>rCalc</Step>
+      <Step>Ktruncation</Step>
+      <Step>UpdateVars</Step>
+      <Step>Census</Step>
+    </ModelSteps>
+    <SpeciesDescription scenario="4">
+      <InbrDepr>True</InbrDepr>
+      <LethalEquiv>=SV1</LethalEquiv>
+      <PercentLethals>100</PercentLethals>
+      <EVconcordance>True</EVconcordance>
+      <EVcorrelation>0.5</EVcorrelation>
+      <Catastrophes nCats="1">
+        <CatLabel>Baiting</CatLabel>
+      </Catastrophes>
+    </SpeciesDescription>
+    <StateVariables scenario="4">
+      <GlobalStateVariables GSvars="2">
+        <GSVar var="1">
+          <Label>SV1</Label>
+          <InitState>=ST*(SCHOOSE((700+123*SCENE);1.57;5))+((ST=0)*0)</InitState>
+          <TransState>=GS1</TransState>
+        </GSVar>
+        <GSVar var="2">
+          <Label>SV2</Label>
+          <InitState>=ST*(SCHOOSE((983+123*SCENE);1.57;3.5))+((ST=0)*0)</InitState>
+          <TransState>=GS2</TransState>
+        </GSVar>
+      </GlobalStateVariables>
+      <PopulationStateVariables PSvars="4" />
+      <IndividualStateVariables ISvars="3">
+        <ISVar var="1">
+          <Label>InbV</Label>
+          <InitState>=I</InitState>
+          <BirthState>=I</BirthState>
+          <TransState>=IS1</TransState>
+        </ISVar>
+        <ISVar var="2">
+          <Label>AddInb</Label>
+          <InitState>=MAX(0;((0.06*NRAND)+(1-0.835)))</InitState>
+          <BirthState>=MAX(0;((0.06*NRAND)+(1-0.835)))</BirthState>
+          <TransState>=IS2</TransState>
+        </ISVar>
+        <ISVar var="3">
+          <Label>mort</Label>
+          <InitState>=100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]}</InitState>
+          <BirthState>=100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]}</BirthState>
+          <TransState>=IS3</TransState>
+        </ISVar>
+      </IndividualStateVariables>
+    </StateVariables>
+    <DefaultVarValues nDefs="0" />
+    <ReproductiveSystem scenario="4">
+      <Monogamy>False</Monogamy>
+      <Polygamy>True</Polygamy>
+      <LTMonogamy>False</LTMonogamy>
+      <LTPolygamy>False</LTPolygamy>
+      <Hermaphroditic>False</Hermaphroditic>
+      <FemaleBreedingAge>2</FemaleBreedingAge>
+      <MaleBreedingAge>3</MaleBreedingAge>
+      <FemaleLastBreedingAge>36</FemaleLastBreedingAge>
+      <MaleLastBreedingAge>36</MaleLastBreedingAge>
+      <MaximumAge>36</MaximumAge>
+      <maxBroods>1</maxBroods>
+      <maxBroodSize>1</maxBroodSize>
+      <UseNormal>False</UseNormal>
+      <UseFullDistr>True</UseFullDistr>
+      <SexRatio>50</SexRatio>
+    </ReproductiveSystem>
+    <StableAgeDistribution scenario="4">Stable</StableAgeDistribution>
+    <TranslocateOption scenario="4">
+      <Translocate>False</Translocate>
+      <TranslocationSurvival>0</TranslocationSurvival>
+      <TranslocationIf>1</TranslocationIf>
+    </TranslocateOption>
+    <GeneticManagement scenario="4">
+      <ImportStudbook>False</ImportStudbook>
+      <StudbookFile>
+      </StudbookFile>
+      <StudbookAppend>False</StudbookAppend>
+      <NeutralLoci>1</NeutralLoci>
+      <Tally1Locus>True</Tally1Locus>
+      <TallyOtherLoci>False</TallyOtherLoci>
+      <TallyAllLoci>False</TallyAllLoci>
+      <ImportAlleleFreqsFile>False</ImportAlleleFreqsFile>
+      <AlleleFreqsFile>
+      </AlleleFreqsFile>
+      <OutputGenePop>False</OutputGenePop>
+      <OutputAlleleFreqFile>False</OutputAlleleFreqFile>
+      <MutationLoci>0</MutationLoci>
+      <MutationRate>0</MutationRate>
+    </GeneticManagement>
+    <PopulationRates scenario="4">
+      <Population pop="1">
+        <Label>Population 1</Label>
+        <PopStateVariables pop="1">
+          <PSVar var="1">
+            <Label>PS1</Label>
+            <InitState>=IMEAN1</InitState>
+            <TransState>=IMEAN1</TransState>
+          </PSVar>
+          <PSVar var="2">
+            <Label>PS2</Label>
+            <InitState>=IMEAN2</InitState>
+            <TransState>=IMEAN2</TransState>
+          </PSVar>
+          <PSVar var="3">
+            <Label>PS3</Label>
+            <InitState>=IMEAN3</InitState>
+            <TransState>=IMEAN3</TransState>
+          </PSVar>
+          <PSVar var="4">
+            <Label>PS4</Label>
+            <InitState>=RAND</InitState>
+            <TransState>=RAND</TransState>
+          </PSVar>
+        </PopStateVariables>
+        <DensityDependence pop="1">
+          <DDRepro>False</DDRepro>
+          <DDP0>50</DDP0>
+          <DDPK>25</DDPK>
+          <DDAllee>1</DDAllee>
+          <DDSlope>2</DDSlope>
+        </DensityDependence>
+        <ReproductiveRates pop="1">
+          <PercentBreed>=(89.3-((89.3-57)*((N/K)^16)))*(N/(0.1+N))</PercentBreed>
+          <EVBreed>3.5</EVBreed>
+          <Brood n="0">25</Brood>
+          <Brood n="1">75</Brood>
+          <BroodMean>2.5</BroodMean>
+          <BroodSD>1</BroodSD>
+          <BroodSize size="1">100</BroodSize>
+        </ReproductiveRates>
+        <MortalityRates pop="1">
+          <FemaleMort age="0">=100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]}</FemaleMort>
+          <EVFemaleMort age="0">=(100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]})*0.1</EVFemaleMort>
+          <FemaleMort age="1">=15</FemaleMort>
+          <EVFemaleMort age="1">=15*0.1</EVFemaleMort>
+          <FemaleMort age="2">=3.9</FemaleMort>
+          <EVFemaleMort age="2">=3.9*0.1</EVFemaleMort>
+          <MaleMort age="0">=100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]}</MaleMort>
+          <EVMaleMort age="0">=(100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]})*0.1</EVMaleMort>
+          <MaleMort age="1">=10</MaleMort>
+          <EVMaleMort age="1">=1</EVMaleMort>
+          <MaleMort age="2">=7</MaleMort>
+          <EVMaleMort age="2">=0.7</EVMaleMort>
+          <MaleMort age="3">=3.9</MaleMort>
+          <EVMaleMort age="3">=0.39</EVMaleMort>
+        </MortalityRates>
+        <Catastrophes pop="1">
+          <Catastrophe cat="1">
+            <Label>Baiting</Label>
+            <GlobalLocal>Global</GlobalLocal>
+            <Frequency>=0</Frequency>
+            <SeverityRepro>=1</SeverityRepro>
+            <SeverityMort>=1</SeverityMort>
+          </Catastrophe>
+        </Catastrophes>
+        <Monopolization pop="1">
+          <PercentMales>=80</PercentMales>
+        </Monopolization>
+        <InitialPopulationSize pop="1">
+          <InitialN>=300</InitialN>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">150</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <FemalesAge age="3">0</FemalesAge>
+          <FemalesAge age="4">0</FemalesAge>
+          <FemalesAge age="5">0</FemalesAge>
+          <FemalesAge age="6">0</FemalesAge>
+          <FemalesAge age="7">0</FemalesAge>
+          <FemalesAge age="8">0</FemalesAge>
+          <FemalesAge age="9">0</FemalesAge>
+          <FemalesAge age="10">0</FemalesAge>
+          <FemalesAge age="11">0</FemalesAge>
+          <FemalesAge age="12">0</FemalesAge>
+          <FemalesAge age="13">0</FemalesAge>
+          <FemalesAge age="14">0</FemalesAge>
+          <FemalesAge age="15">0</FemalesAge>
+          <FemalesAge age="16">0</FemalesAge>
+          <FemalesAge age="17">0</FemalesAge>
+          <FemalesAge age="18">0</FemalesAge>
+          <FemalesAge age="19">0</FemalesAge>
+          <FemalesAge age="20">0</FemalesAge>
+          <FemalesAge age="21">0</FemalesAge>
+          <FemalesAge age="22">0</FemalesAge>
+          <FemalesAge age="23">0</FemalesAge>
+          <FemalesAge age="24">0</FemalesAge>
+          <FemalesAge age="25">0</FemalesAge>
+          <FemalesAge age="26">0</FemalesAge>
+          <FemalesAge age="27">0</FemalesAge>
+          <FemalesAge age="28">0</FemalesAge>
+          <FemalesAge age="29">0</FemalesAge>
+          <FemalesAge age="30">0</FemalesAge>
+          <FemalesAge age="31">0</FemalesAge>
+          <FemalesAge age="32">0</FemalesAge>
+          <FemalesAge age="33">0</FemalesAge>
+          <FemalesAge age="34">0</FemalesAge>
+          <FemalesAge age="35">0</FemalesAge>
+          <FemalesAge age="36">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">150</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+          <MalesAge age="4">0</MalesAge>
+          <MalesAge age="5">0</MalesAge>
+          <MalesAge age="6">0</MalesAge>
+          <MalesAge age="7">0</MalesAge>
+          <MalesAge age="8">0</MalesAge>
+          <MalesAge age="9">0</MalesAge>
+          <MalesAge age="10">0</MalesAge>
+          <MalesAge age="11">0</MalesAge>
+          <MalesAge age="12">0</MalesAge>
+          <MalesAge age="13">0</MalesAge>
+          <MalesAge age="14">0</MalesAge>
+          <MalesAge age="15">0</MalesAge>
+          <MalesAge age="16">0</MalesAge>
+          <MalesAge age="17">0</MalesAge>
+          <MalesAge age="18">0</MalesAge>
+          <MalesAge age="19">0</MalesAge>
+          <MalesAge age="20">0</MalesAge>
+          <MalesAge age="21">0</MalesAge>
+          <MalesAge age="22">0</MalesAge>
+          <MalesAge age="23">0</MalesAge>
+          <MalesAge age="24">0</MalesAge>
+          <MalesAge age="25">0</MalesAge>
+          <MalesAge age="26">0</MalesAge>
+          <MalesAge age="27">0</MalesAge>
+          <MalesAge age="28">0</MalesAge>
+          <MalesAge age="29">0</MalesAge>
+          <MalesAge age="30">0</MalesAge>
+          <MalesAge age="31">0</MalesAge>
+          <MalesAge age="32">0</MalesAge>
+          <MalesAge age="33">0</MalesAge>
+          <MalesAge age="34">0</MalesAge>
+          <MalesAge age="35">0</MalesAge>
+          <MalesAge age="36">0</MalesAge>
+        </InitialPopulationSize>
+        <CarryingCapacity pop="1">
+          <K>=500</K>
+          <EVK>50</EVK>
+          <Ktrend>False</Ktrend>
+          <Kyears>5</Kyears>
+          <Kchange>-10</Kchange>
+          <Kcriteria>False</Kcriteria>
+          <Ktest>=N</Ktest>
+          <Kpriority>0</Kpriority>
+          <AllowK>False</AllowK>
+          <KAllow>1</KAllow>
+        </CarryingCapacity>
+        <Harvest pop="1">
+          <Harvest>False</Harvest>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <HarvCriteria>1</HarvCriteria>
+          <IHarvCriteria>1</IHarvCriteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Harvest>
+        <Supplementation pop="1">
+          <Supplement>False</Supplement>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <Criteria>1</Criteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Supplementation>
+        <GeneticManagement pop="1">
+          <BreedMaintainK>False</BreedMaintainK>
+          <AvoidInbr>False</AvoidInbr>
+          <AvoidInbrF>1</AvoidInbrF>
+          <PairMKdynamic>False</PairMKdynamic>
+          <PairMKStatic>False</PairMKStatic>
+          <SetKin>0</SetKin>
+          <MaxNMates>0</MaxNMates>
+          <NumTriesFindMate>10</NumTriesFindMate>
+        </GeneticManagement>
+      </Population>
+    </PopulationRates>
+  </Scenario>
+  <Scenario scenario="5">
+    <Notes scenario="5">
+      <Scene>
+      </Scene>
+      <Species>
+      </Species>
+      <StateVar>
+      </StateVar>
+      <Dispersal>
+      </Dispersal>
+      <ReproSystem>
+      </ReproSystem>
+      <ReproRates>
+      </ReproRates>
+      <Mortality>
+      </Mortality>
+      <Catastrophe>
+      </Catastrophe>
+      <MateMonop>
+      </MateMonop>
+      <InitN>
+      </InitN>
+      <K>
+      </K>
+      <Harvest>
+      </Harvest>
+      <Supplementation>
+      </Supplementation>
+      <Genetics>
+      </Genetics>
+    </Notes>
+    <Settings scenario="5">
+      <Name>Factors_LHS</Name>
+      <ST>True</ST>
+      <nRuns>3</nRuns>
+      <nYears>120</nYears>
+      <YrDays>91</YrDays>
+      <ExtDef1Sex>False</ExtDef1Sex>
+      <ExtDefFunc>True</ExtDefFunc>
+      <ExtDefN>50</ExtDefN>
+      <nPops>1</nPops>
+      <PopBase>False</PopBase>
+    </Settings>
+    <ModelSteps scenario="5">
+      <Step>EV</Step>
+      <Step>Breed</Step>
+      <Step>Mortality</Step>
+      <Step>Age</Step>
+      <Step>Disperse</Step>
+      <Step>Harvest</Step>
+      <Step>Supplement</Step>
+      <Step>rCalc</Step>
+      <Step>Ktruncation</Step>
+      <Step>UpdateVars</Step>
+      <Step>Census</Step>
+    </ModelSteps>
+    <SpeciesDescription scenario="5">
+      <InbrDepr>True</InbrDepr>
+      <LethalEquiv>=SV2</LethalEquiv>
+      <PercentLethals>100</PercentLethals>
+      <EVconcordance>True</EVconcordance>
+      <EVcorrelation>0.5</EVcorrelation>
+      <Catastrophes nCats="1">
+        <CatLabel>Baiting</CatLabel>
+      </Catastrophes>
+    </SpeciesDescription>
+    <StateVariables scenario="5">
+      <GlobalStateVariables GSvars="7">
+        <GSVar var="1">
+          <Label>SV1</Label>
+          <InitState>1</InitState>
+          <TransState>=GS1</TransState>
+        </GSVar>
+        <GSVar var="2">
+          <Label>SV2</Label>
+          <InitState>0</InitState>
+          <TransState>=GS2</TransState>
+        </GSVar>
+        <GSVar var="3">
+          <Label>SV3</Label>
+          <InitState>0</InitState>
+          <TransState>=GS3</TransState>
+        </GSVar>
+        <GSVar var="4">
+          <Label>SV4</Label>
+          <InitState>0</InitState>
+          <TransState>=GS4</TransState>
+        </GSVar>
+        <GSVar var="5">
+          <Label>SV5</Label>
+          <InitState>0</InitState>
+          <TransState>=GS5</TransState>
+        </GSVar>
+        <GSVar var="6">
+          <Label>SV6</Label>
+          <InitState>0</InitState>
+          <TransState>=GS6</TransState>
+        </GSVar>
+        <GSVar var="7">
+          <Label>SV7</Label>
+          <InitState>0.835</InitState>
+          <TransState>=GS7</TransState>
+        </GSVar>
+      </GlobalStateVariables>
+      <PopulationStateVariables PSvars="4" />
+      <IndividualStateVariables ISvars="3">
+        <ISVar var="1">
+          <Label>InbV</Label>
+          <InitState>=I</InitState>
+          <BirthState>=I</BirthState>
+          <TransState>=IS1</TransState>
+        </ISVar>
+        <ISVar var="2">
+          <Label>AddInb</Label>
+          <InitState>=MAX(0;((0.06*NRAND)+(1-SV7)))</InitState>
+          <BirthState>=MAX(0;((0.06*NRAND)+(1-SV7)))</BirthState>
+          <TransState>=IS2</TransState>
+        </ISVar>
+        <ISVar var="3">
+          <Label>mort</Label>
+          <InitState>=100*{1-[(1-(4.4*0.01))*EXP(-SV3*MIN(1;(I+IS2)))]}</InitState>
+          <BirthState>=100*{1-[(1-(4.4*0.01))*EXP(-SV3*MIN(1;(I+IS2)))]}</BirthState>
+          <TransState>=IS3</TransState>
+        </ISVar>
+      </IndividualStateVariables>
+    </StateVariables>
+    <DefaultVarValues nDefs="0" />
+    <ReproductiveSystem scenario="5">
+      <Monogamy>False</Monogamy>
+      <Polygamy>True</Polygamy>
+      <LTMonogamy>False</LTMonogamy>
+      <LTPolygamy>False</LTPolygamy>
+      <Hermaphroditic>False</Hermaphroditic>
+      <FemaleBreedingAge>2</FemaleBreedingAge>
+      <MaleBreedingAge>3</MaleBreedingAge>
+      <FemaleLastBreedingAge>36</FemaleLastBreedingAge>
+      <MaleLastBreedingAge>36</MaleLastBreedingAge>
+      <MaximumAge>36</MaximumAge>
+      <maxBroods>1</maxBroods>
+      <maxBroodSize>1</maxBroodSize>
+      <UseNormal>False</UseNormal>
+      <UseFullDistr>True</UseFullDistr>
+      <SexRatio>50</SexRatio>
+    </ReproductiveSystem>
+    <StableAgeDistribution scenario="5">Stable</StableAgeDistribution>
+    <TranslocateOption scenario="5">
+      <Translocate>False</Translocate>
+      <TranslocationSurvival>0</TranslocationSurvival>
+    </TranslocateOption>
+    <GeneticManagement scenario="5">
+      <ImportStudbook>False</ImportStudbook>
+      <StudbookFile>
+      </StudbookFile>
+      <StudbookAppend>False</StudbookAppend>
+      <NeutralLoci>1</NeutralLoci>
+      <Tally1Locus>True</Tally1Locus>
+      <TallyOtherLoci>False</TallyOtherLoci>
+      <TallyAllLoci>False</TallyAllLoci>
+      <ImportAlleleFreqsFile>False</ImportAlleleFreqsFile>
+      <AlleleFreqsFile>
+      </AlleleFreqsFile>
+      <OutputGenePop>False</OutputGenePop>
+      <OutputAlleleFreqFile>False</OutputAlleleFreqFile>
+      <MutationLoci>0</MutationLoci>
+      <MutationRate>0</MutationRate>
+    </GeneticManagement>
+    <PopulationRates scenario="5">
+      <Population pop="1">
+        <Label>Population 1</Label>
+        <PopStateVariables pop="1">
+          <PSVar var="1">
+            <Label>PS1</Label>
+            <InitState>=IMEAN1</InitState>
+            <TransState>=IMEAN1</TransState>
+          </PSVar>
+          <PSVar var="2">
+            <Label>PS2</Label>
+            <InitState>=IMEAN2</InitState>
+            <TransState>=IMEAN2</TransState>
+          </PSVar>
+          <PSVar var="3">
+            <Label>PS3</Label>
+            <InitState>=IMEAN3</InitState>
+            <TransState>=IMEAN3</TransState>
+          </PSVar>
+          <PSVar var="4">
+            <Label>PS4</Label>
+            <InitState>=RAND</InitState>
+            <TransState>=RAND</TransState>
+          </PSVar>
+        </PopStateVariables>
+        <DensityDependence pop="1">
+          <DDRepro>False</DDRepro>
+          <DDP0>50</DDP0>
+          <DDPK>25</DDPK>
+          <DDAllee>1</DDAllee>
+          <DDSlope>2</DDSlope>
+        </DensityDependence>
+        <ReproductiveRates pop="1">
+          <PercentBreed>=(89.3-((89.3-57)*((N/SV1)^16)))*(N/(0.1+N))</PercentBreed>
+          <EVBreed>3.5</EVBreed>
+          <Brood n="0">25</Brood>
+          <Brood n="1">75</Brood>
+          <BroodMean>2.5</BroodMean>
+          <BroodSD>1</BroodSD>
+          <BroodSize size="1">100</BroodSize>
+        </ReproductiveRates>
+        <MortalityRates pop="1">
+          <FemaleMort age="0">=100*{1-[(1-(4.4*0.01))*EXP(-SV3*MIN(1;(I+IS2)))]}</FemaleMort>
+          <EVFemaleMort age="0">=(100*{1-[(1-(4.4*0.01))*EXP(-SV3*MIN(1;(I+IS2)))]})*0.1</EVFemaleMort>
+          <FemaleMort age="1">=15</FemaleMort>
+          <EVFemaleMort age="1">=15*0.1</EVFemaleMort>
+          <FemaleMort age="2">=3.9</FemaleMort>
+          <EVFemaleMort age="2">=3.9*0.1</EVFemaleMort>
+          <MaleMort age="0">=100*{1-[(1-(4.4*0.01))*EXP(-SV3*MIN(1;(I+IS2)))]}</MaleMort>
+          <EVMaleMort age="0">=(100*{1-[(1-(4.4*0.01))*EXP(-SV3*MIN(1;(I+IS2)))]})*0.1</EVMaleMort>
+          <MaleMort age="1">=10</MaleMort>
+          <EVMaleMort age="1">=0*0.1</EVMaleMort>
+          <MaleMort age="2">=7</MaleMort>
+          <EVMaleMort age="2">=7*0.1</EVMaleMort>
+          <MaleMort age="3">=3.9</MaleMort>
+          <EVMaleMort age="3">=3.9*0.1</EVMaleMort>
+        </MortalityRates>
+        <Catastrophes pop="1">
+          <Catastrophe cat="1">
+            <Label>Baiting</Label>
+            <GlobalLocal>Global</GlobalLocal>
+            <Frequency>=ROUND(SV4*0.01)*100</Frequency>
+            <SeverityRepro>=[1-(PS4*0.148*ROUND(SV5))-(0.148*(1-ROUND(SV5)))]^(IF(ROUND(SV6)=1;(N/SV1);1))</SeverityRepro>
+            <SeverityMort>=[1-(PS4*0.45*ROUND(SV5))-(0.45*(1-ROUND(SV5)))]^(IF(ROUND(SV6)=1;(N/SV1);1))</SeverityMort>
+          </Catastrophe>
+        </Catastrophes>
+        <Monopolization pop="1">
+          <PercentMales>=80</PercentMales>
+        </Monopolization>
+        <InitialPopulationSize pop="1">
+          <InitialN>=300</InitialN>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">150</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <FemalesAge age="3">0</FemalesAge>
+          <FemalesAge age="4">0</FemalesAge>
+          <FemalesAge age="5">0</FemalesAge>
+          <FemalesAge age="6">0</FemalesAge>
+          <FemalesAge age="7">0</FemalesAge>
+          <FemalesAge age="8">0</FemalesAge>
+          <FemalesAge age="9">0</FemalesAge>
+          <FemalesAge age="10">0</FemalesAge>
+          <FemalesAge age="11">0</FemalesAge>
+          <FemalesAge age="12">0</FemalesAge>
+          <FemalesAge age="13">0</FemalesAge>
+          <FemalesAge age="14">0</FemalesAge>
+          <FemalesAge age="15">0</FemalesAge>
+          <FemalesAge age="16">0</FemalesAge>
+          <FemalesAge age="17">0</FemalesAge>
+          <FemalesAge age="18">0</FemalesAge>
+          <FemalesAge age="19">0</FemalesAge>
+          <FemalesAge age="20">0</FemalesAge>
+          <FemalesAge age="21">0</FemalesAge>
+          <FemalesAge age="22">0</FemalesAge>
+          <FemalesAge age="23">0</FemalesAge>
+          <FemalesAge age="24">0</FemalesAge>
+          <FemalesAge age="25">0</FemalesAge>
+          <FemalesAge age="26">0</FemalesAge>
+          <FemalesAge age="27">0</FemalesAge>
+          <FemalesAge age="28">0</FemalesAge>
+          <FemalesAge age="29">0</FemalesAge>
+          <FemalesAge age="30">0</FemalesAge>
+          <FemalesAge age="31">0</FemalesAge>
+          <FemalesAge age="32">0</FemalesAge>
+          <FemalesAge age="33">0</FemalesAge>
+          <FemalesAge age="34">0</FemalesAge>
+          <FemalesAge age="35">0</FemalesAge>
+          <FemalesAge age="36">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">150</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+          <MalesAge age="4">0</MalesAge>
+          <MalesAge age="5">0</MalesAge>
+          <MalesAge age="6">0</MalesAge>
+          <MalesAge age="7">0</MalesAge>
+          <MalesAge age="8">0</MalesAge>
+          <MalesAge age="9">0</MalesAge>
+          <MalesAge age="10">0</MalesAge>
+          <MalesAge age="11">0</MalesAge>
+          <MalesAge age="12">0</MalesAge>
+          <MalesAge age="13">0</MalesAge>
+          <MalesAge age="14">0</MalesAge>
+          <MalesAge age="15">0</MalesAge>
+          <MalesAge age="16">0</MalesAge>
+          <MalesAge age="17">0</MalesAge>
+          <MalesAge age="18">0</MalesAge>
+          <MalesAge age="19">0</MalesAge>
+          <MalesAge age="20">0</MalesAge>
+          <MalesAge age="21">0</MalesAge>
+          <MalesAge age="22">0</MalesAge>
+          <MalesAge age="23">0</MalesAge>
+          <MalesAge age="24">0</MalesAge>
+          <MalesAge age="25">0</MalesAge>
+          <MalesAge age="26">0</MalesAge>
+          <MalesAge age="27">0</MalesAge>
+          <MalesAge age="28">0</MalesAge>
+          <MalesAge age="29">0</MalesAge>
+          <MalesAge age="30">0</MalesAge>
+          <MalesAge age="31">0</MalesAge>
+          <MalesAge age="32">0</MalesAge>
+          <MalesAge age="33">0</MalesAge>
+          <MalesAge age="34">0</MalesAge>
+          <MalesAge age="35">0</MalesAge>
+          <MalesAge age="36">0</MalesAge>
+        </InitialPopulationSize>
+        <CarryingCapacity pop="1">
+          <K>=SV1</K>
+          <EVK>=SV1*0.1</EVK>
+          <Ktrend>False</Ktrend>
+          <Kyears>5</Kyears>
+          <Kchange>-10</Kchange>
+          <Kcriteria>False</Kcriteria>
+          <Ktest>=N</Ktest>
+          <Kpriority>0</Kpriority>
+          <AllowK>False</AllowK>
+          <KAllow>1</KAllow>
+        </CarryingCapacity>
+        <Harvest pop="1">
+          <Harvest>False</Harvest>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <HarvCriteria>1</HarvCriteria>
+          <IHarvCriteria>1</IHarvCriteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Harvest>
+        <Supplementation pop="1">
+          <Supplement>False</Supplement>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <Criteria>1</Criteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Supplementation>
+        <GeneticManagement pop="1">
+          <BreedMaintainK>False</BreedMaintainK>
+          <AvoidInbr>False</AvoidInbr>
+          <AvoidInbrF>1</AvoidInbrF>
+          <PairMKdynamic>False</PairMKdynamic>
+          <PairMKStatic>False</PairMKStatic>
+          <SetKin>0</SetKin>
+          <MaxNMates>0</MaxNMates>
+          <NumTriesFindMate>10</NumTriesFindMate>
+        </GeneticManagement>
+      </Population>
+    </PopulationRates>
+  </Scenario>
+  <Scenario scenario="6">
+    <Notes scenario="6">
+      <Scene>
+      </Scene>
+      <Species>
+      </Species>
+      <StateVar>
+      </StateVar>
+      <Dispersal>
+      </Dispersal>
+      <ReproSystem>
+      </ReproSystem>
+      <ReproRates>
+      </ReproRates>
+      <Mortality>
+      </Mortality>
+      <Catastrophe>
+      </Catastrophe>
+      <MateMonop>
+      </MateMonop>
+      <InitN>
+      </InitN>
+      <K>
+      </K>
+      <Harvest>
+      </Harvest>
+      <Supplementation>
+      </Supplementation>
+      <Genetics>
+      </Genetics>
+    </Notes>
+    <Settings scenario="6">
+      <Name>Factors_Classic_Pred</Name>
+      <ST>True</ST>
+      <nRuns>3</nRuns>
+      <nYears>120</nYears>
+      <YrDays>91</YrDays>
+      <ExtDef1Sex>False</ExtDef1Sex>
+      <ExtDefFunc>True</ExtDefFunc>
+      <ExtDefN>50</ExtDefN>
+      <nPops>1</nPops>
+      <PopBase>False</PopBase>
+    </Settings>
+    <ModelSteps scenario="6">
+      <Step>EV</Step>
+      <Step>Breed</Step>
+      <Step>Mortality</Step>
+      <Step>Age</Step>
+      <Step>Disperse</Step>
+      <Step>Harvest</Step>
+      <Step>Supplement</Step>
+      <Step>rCalc</Step>
+      <Step>Ktruncation</Step>
+      <Step>UpdateVars</Step>
+      <Step>Census</Step>
+    </ModelSteps>
+    <SpeciesDescription scenario="6">
+      <InbrDepr>False</InbrDepr>
+      <LethalEquiv>0</LethalEquiv>
+      <PercentLethals>100</PercentLethals>
+      <EVconcordance>True</EVconcordance>
+      <EVcorrelation>0.5</EVcorrelation>
+      <Catastrophes nCats="1">
+        <CatLabel>Baiting</CatLabel>
+      </Catastrophes>
+    </SpeciesDescription>
+    <StateVariables scenario="6">
+      <GlobalStateVariables GSvars="2">
+        <GSVar var="1">
+          <Label>SV1</Label>
+          <InitState>0</InitState>
+          <TransState>=GS1</TransState>
+        </GSVar>
+        <GSVar var="2">
+          <Label>SV2</Label>
+          <InitState>0</InitState>
+          <TransState>=GS2</TransState>
+        </GSVar>
+      </GlobalStateVariables>
+      <PopulationStateVariables PSvars="6" />
+      <IndividualStateVariables ISvars="3">
+        <ISVar var="1">
+          <Label>InbV</Label>
+          <InitState>=I</InitState>
+          <BirthState>=I</BirthState>
+          <TransState>=IS1</TransState>
+        </ISVar>
+        <ISVar var="2">
+          <Label>AddInb</Label>
+          <InitState>=MAX(0;((0.06*NRAND)+0.2))</InitState>
+          <BirthState>=MAX(0;((0.06*NRAND)+0.2))</BirthState>
+          <TransState>=IS2</TransState>
+        </ISVar>
+        <ISVar var="3">
+          <Label>mort</Label>
+          <InitState>=4.4</InitState>
+          <BirthState>=4.4</BirthState>
+          <TransState>=IS3</TransState>
+        </ISVar>
+      </IndividualStateVariables>
+    </StateVariables>
+    <DefaultVarValues nDefs="0" />
+    <ReproductiveSystem scenario="6">
+      <Monogamy>False</Monogamy>
+      <Polygamy>True</Polygamy>
+      <LTMonogamy>False</LTMonogamy>
+      <LTPolygamy>False</LTPolygamy>
+      <Hermaphroditic>False</Hermaphroditic>
+      <FemaleBreedingAge>2</FemaleBreedingAge>
+      <MaleBreedingAge>3</MaleBreedingAge>
+      <FemaleLastBreedingAge>36</FemaleLastBreedingAge>
+      <MaleLastBreedingAge>36</MaleLastBreedingAge>
+      <MaximumAge>36</MaximumAge>
+      <maxBroods>1</maxBroods>
+      <maxBroodSize>1</maxBroodSize>
+      <UseNormal>False</UseNormal>
+      <UseFullDistr>True</UseFullDistr>
+      <SexRatio>50</SexRatio>
+    </ReproductiveSystem>
+    <StableAgeDistribution scenario="6">Stable</StableAgeDistribution>
+    <TranslocateOption scenario="6">
+      <Translocate>False</Translocate>
+      <TranslocationSurvival>0</TranslocationSurvival>
+      <TranslocationIf>1</TranslocationIf>
+    </TranslocateOption>
+    <GeneticManagement scenario="6">
+      <ImportStudbook>False</ImportStudbook>
+      <StudbookFile>
+      </StudbookFile>
+      <StudbookAppend>False</StudbookAppend>
+      <NeutralLoci>1</NeutralLoci>
+      <Tally1Locus>True</Tally1Locus>
+      <TallyOtherLoci>False</TallyOtherLoci>
+      <TallyAllLoci>False</TallyAllLoci>
+      <ImportAlleleFreqsFile>False</ImportAlleleFreqsFile>
+      <AlleleFreqsFile>
+      </AlleleFreqsFile>
+      <OutputGenePop>False</OutputGenePop>
+      <OutputAlleleFreqFile>False</OutputAlleleFreqFile>
+      <MutationLoci>0</MutationLoci>
+      <MutationRate>0</MutationRate>
+    </GeneticManagement>
+    <PopulationRates scenario="6">
+      <Population pop="1">
+        <Label>Population 1</Label>
+        <PopStateVariables pop="1">
+          <PSVar var="1">
+            <Label>PS1</Label>
+            <InitState>=IMEAN1</InitState>
+            <TransState>=IMEAN1</TransState>
+          </PSVar>
+          <PSVar var="2">
+            <Label>PS2</Label>
+            <InitState>=IMEAN2</InitState>
+            <TransState>=IMEAN2</TransState>
+          </PSVar>
+          <PSVar var="3">
+            <Label>PS3</Label>
+            <InitState>=IMEAN3</InitState>
+            <TransState>=IMEAN3</TransState>
+          </PSVar>
+          <PSVar var="4">
+            <Label>PS4</Label>
+            <InitState>=RAND</InitState>
+            <TransState>=RAND</TransState>
+          </PSVar>
+          <PSVar var="5">
+            <Label>repr</Label>
+            <InitState>=[1-(PS4*0.111*SV1)-(0.111*(1-SV1))]^(IF(SV2=1;(N/K);1))</InitState>
+            <TransState>=[1-(PS4*0.111*SV1)-(0.111*(1-SV1))]^(IF(SV2=1;(N/K);1))</TransState>
+          </PSVar>
+          <PSVar var="6">
+            <Label>surv</Label>
+            <InitState>=[1-(PS4*0.45*SV1)-(0.45*(1-SV1))]^(IF(SV2=1;(N/K);1))</InitState>
+            <TransState>=[1-(PS4*0.45*SV1)-(0.45*(1-SV1))]^(IF(SV2=1;(N/K);1))</TransState>
+          </PSVar>
+        </PopStateVariables>
+        <DensityDependence pop="1">
+          <DDRepro>False</DDRepro>
+          <DDP0>50</DDP0>
+          <DDPK>25</DDPK>
+          <DDAllee>1</DDAllee>
+          <DDSlope>2</DDSlope>
+        </DensityDependence>
+        <ReproductiveRates pop="1">
+          <PercentBreed>=(89.3-((89.3-57)*((N/K)^16)))*(N/(0.1+N))</PercentBreed>
+          <EVBreed>3.5</EVBreed>
+          <Brood n="0">25</Brood>
+          <Brood n="1">75</Brood>
+          <BroodMean>2.5</BroodMean>
+          <BroodSD>1</BroodSD>
+          <BroodSize size="1">100</BroodSize>
+        </ReproductiveRates>
+        <MortalityRates pop="1">
+          <FemaleMort age="0">=4.4</FemaleMort>
+          <EVFemaleMort age="0">=0.44</EVFemaleMort>
+          <FemaleMort age="1">=15</FemaleMort>
+          <EVFemaleMort age="1">=1.5</EVFemaleMort>
+          <FemaleMort age="2">=3.9</FemaleMort>
+          <EVFemaleMort age="2">=0.39</EVFemaleMort>
+          <MaleMort age="0">=4.4</MaleMort>
+          <EVMaleMort age="0">=0.44</EVMaleMort>
+          <MaleMort age="1">=10</MaleMort>
+          <EVMaleMort age="1">=1</EVMaleMort>
+          <MaleMort age="2">=7</MaleMort>
+          <EVMaleMort age="2">=0.7</EVMaleMort>
+          <MaleMort age="3">=3.9</MaleMort>
+          <EVMaleMort age="3">=0.39</EVMaleMort>
+        </MortalityRates>
+        <Catastrophes pop="1">
+          <Catastrophe cat="1">
+            <Label>Baiting</Label>
+            <GlobalLocal>Global</GlobalLocal>
+            <Frequency>=100</Frequency>
+            <SeverityRepro>=[1-(PS4*0.148*SV1)-(0.148*(1-SV1))]^(IF(SV2=1;(N/K);1))</SeverityRepro>
+            <SeverityMort>=[1-(PS4*0.45*SV1)-(0.45*(1-SV1))]^(IF(SV2=1;(N/K);1))</SeverityMort>
+          </Catastrophe>
+        </Catastrophes>
+        <Monopolization pop="1">
+          <PercentMales>=80</PercentMales>
+        </Monopolization>
+        <InitialPopulationSize pop="1">
+          <InitialN>=300</InitialN>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">150</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <FemalesAge age="3">0</FemalesAge>
+          <FemalesAge age="4">0</FemalesAge>
+          <FemalesAge age="5">0</FemalesAge>
+          <FemalesAge age="6">0</FemalesAge>
+          <FemalesAge age="7">0</FemalesAge>
+          <FemalesAge age="8">0</FemalesAge>
+          <FemalesAge age="9">0</FemalesAge>
+          <FemalesAge age="10">0</FemalesAge>
+          <FemalesAge age="11">0</FemalesAge>
+          <FemalesAge age="12">0</FemalesAge>
+          <FemalesAge age="13">0</FemalesAge>
+          <FemalesAge age="14">0</FemalesAge>
+          <FemalesAge age="15">0</FemalesAge>
+          <FemalesAge age="16">0</FemalesAge>
+          <FemalesAge age="17">0</FemalesAge>
+          <FemalesAge age="18">0</FemalesAge>
+          <FemalesAge age="19">0</FemalesAge>
+          <FemalesAge age="20">0</FemalesAge>
+          <FemalesAge age="21">0</FemalesAge>
+          <FemalesAge age="22">0</FemalesAge>
+          <FemalesAge age="23">0</FemalesAge>
+          <FemalesAge age="24">0</FemalesAge>
+          <FemalesAge age="25">0</FemalesAge>
+          <FemalesAge age="26">0</FemalesAge>
+          <FemalesAge age="27">0</FemalesAge>
+          <FemalesAge age="28">0</FemalesAge>
+          <FemalesAge age="29">0</FemalesAge>
+          <FemalesAge age="30">0</FemalesAge>
+          <FemalesAge age="31">0</FemalesAge>
+          <FemalesAge age="32">0</FemalesAge>
+          <FemalesAge age="33">0</FemalesAge>
+          <FemalesAge age="34">0</FemalesAge>
+          <FemalesAge age="35">0</FemalesAge>
+          <FemalesAge age="36">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">150</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+          <MalesAge age="4">0</MalesAge>
+          <MalesAge age="5">0</MalesAge>
+          <MalesAge age="6">0</MalesAge>
+          <MalesAge age="7">0</MalesAge>
+          <MalesAge age="8">0</MalesAge>
+          <MalesAge age="9">0</MalesAge>
+          <MalesAge age="10">0</MalesAge>
+          <MalesAge age="11">0</MalesAge>
+          <MalesAge age="12">0</MalesAge>
+          <MalesAge age="13">0</MalesAge>
+          <MalesAge age="14">0</MalesAge>
+          <MalesAge age="15">0</MalesAge>
+          <MalesAge age="16">0</MalesAge>
+          <MalesAge age="17">0</MalesAge>
+          <MalesAge age="18">0</MalesAge>
+          <MalesAge age="19">0</MalesAge>
+          <MalesAge age="20">0</MalesAge>
+          <MalesAge age="21">0</MalesAge>
+          <MalesAge age="22">0</MalesAge>
+          <MalesAge age="23">0</MalesAge>
+          <MalesAge age="24">0</MalesAge>
+          <MalesAge age="25">0</MalesAge>
+          <MalesAge age="26">0</MalesAge>
+          <MalesAge age="27">0</MalesAge>
+          <MalesAge age="28">0</MalesAge>
+          <MalesAge age="29">0</MalesAge>
+          <MalesAge age="30">0</MalesAge>
+          <MalesAge age="31">0</MalesAge>
+          <MalesAge age="32">0</MalesAge>
+          <MalesAge age="33">0</MalesAge>
+          <MalesAge age="34">0</MalesAge>
+          <MalesAge age="35">0</MalesAge>
+          <MalesAge age="36">0</MalesAge>
+        </InitialPopulationSize>
+        <CarryingCapacity pop="1">
+          <K>=2000</K>
+          <EVK>=200</EVK>
+          <Ktrend>False</Ktrend>
+          <Kyears>5</Kyears>
+          <Kchange>-10</Kchange>
+          <Kcriteria>False</Kcriteria>
+          <Ktest>=N</Ktest>
+          <Kpriority>0</Kpriority>
+          <AllowK>False</AllowK>
+          <KAllow>1</KAllow>
+        </CarryingCapacity>
+        <Harvest pop="1">
+          <Harvest>False</Harvest>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <HarvCriteria>1</HarvCriteria>
+          <IHarvCriteria>1</IHarvCriteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Harvest>
+        <Supplementation pop="1">
+          <Supplement>False</Supplement>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <Criteria>1</Criteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Supplementation>
+        <GeneticManagement pop="1">
+          <BreedMaintainK>False</BreedMaintainK>
+          <AvoidInbr>False</AvoidInbr>
+          <AvoidInbrF>1</AvoidInbrF>
+          <PairMKdynamic>False</PairMKdynamic>
+          <PairMKStatic>False</PairMKStatic>
+          <SetKin>0</SetKin>
+          <MaxNMates>0</MaxNMates>
+          <NumTriesFindMate>10</NumTriesFindMate>
+        </GeneticManagement>
+      </Population>
+    </PopulationRates>
+  </Scenario>
+  <Scenario scenario="7">
+    <Notes scenario="7">
+      <Scene>
+      </Scene>
+      <Species>
+      </Species>
+      <StateVar>
+      </StateVar>
+      <Dispersal>
+      </Dispersal>
+      <ReproSystem>
+      </ReproSystem>
+      <ReproRates>
+      </ReproRates>
+      <Mortality>
+      </Mortality>
+      <Catastrophe>
+      </Catastrophe>
+      <MateMonop>
+      </MateMonop>
+      <InitN>
+      </InitN>
+      <K>
+      </K>
+      <Harvest>
+      </Harvest>
+      <Supplementation>
+      </Supplementation>
+      <Genetics>
+      </Genetics>
+    </Notes>
+    <Settings scenario="7">
+      <Name>Factors_Classic_Inb_064</Name>
+      <ST>True</ST>
+      <nRuns>3</nRuns>
+      <nYears>120</nYears>
+      <YrDays>91</YrDays>
+      <ExtDef1Sex>False</ExtDef1Sex>
+      <ExtDefFunc>True</ExtDefFunc>
+      <ExtDefN>50</ExtDefN>
+      <nPops>1</nPops>
+      <PopBase>False</PopBase>
+    </Settings>
+    <ModelSteps scenario="7">
+      <Step>EV</Step>
+      <Step>Breed</Step>
+      <Step>Mortality</Step>
+      <Step>Age</Step>
+      <Step>Disperse</Step>
+      <Step>Harvest</Step>
+      <Step>Supplement</Step>
+      <Step>rCalc</Step>
+      <Step>Ktruncation</Step>
+      <Step>UpdateVars</Step>
+      <Step>Census</Step>
+    </ModelSteps>
+    <SpeciesDescription scenario="7">
+      <InbrDepr>True</InbrDepr>
+      <LethalEquiv>=SV1</LethalEquiv>
+      <PercentLethals>100</PercentLethals>
+      <EVconcordance>True</EVconcordance>
+      <EVcorrelation>0.5</EVcorrelation>
+      <Catastrophes nCats="1">
+        <CatLabel>Baiting</CatLabel>
+      </Catastrophes>
+    </SpeciesDescription>
+    <StateVariables scenario="7">
+      <GlobalStateVariables GSvars="2">
+        <GSVar var="1">
+          <Label>SV1</Label>
+          <InitState>=ST*(SCHOOSE((792+123*SCENE);1.57;5))+((ST=0)*0)</InitState>
+          <TransState>=GS1</TransState>
+        </GSVar>
+        <GSVar var="2">
+          <Label>SV2</Label>
+          <InitState>=ST*(SCHOOSE((650+123*SCENE);1.57;3.5))+((ST=0)*0)</InitState>
+          <TransState>=GS2</TransState>
+        </GSVar>
+      </GlobalStateVariables>
+      <PopulationStateVariables PSvars="4" />
+      <IndividualStateVariables ISvars="3">
+        <ISVar var="1">
+          <Label>InbV</Label>
+          <InitState>=I</InitState>
+          <BirthState>=I</BirthState>
+          <TransState>=IS1</TransState>
+        </ISVar>
+        <ISVar var="2">
+          <Label>AddInb</Label>
+          <InitState>=MAX(0;((0.06*NRAND)+(1-0.64)))</InitState>
+          <BirthState>=MAX(0;((0.06*NRAND)+(1-0.64)))</BirthState>
+          <TransState>=IS2</TransState>
+        </ISVar>
+        <ISVar var="3">
+          <Label>mort</Label>
+          <InitState>=100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]}</InitState>
+          <BirthState>=100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]}</BirthState>
+          <TransState>=IS3</TransState>
+        </ISVar>
+      </IndividualStateVariables>
+    </StateVariables>
+    <DefaultVarValues nDefs="0" />
+    <ReproductiveSystem scenario="7">
+      <Monogamy>False</Monogamy>
+      <Polygamy>True</Polygamy>
+      <LTMonogamy>False</LTMonogamy>
+      <LTPolygamy>False</LTPolygamy>
+      <Hermaphroditic>False</Hermaphroditic>
+      <FemaleBreedingAge>2</FemaleBreedingAge>
+      <MaleBreedingAge>3</MaleBreedingAge>
+      <FemaleLastBreedingAge>36</FemaleLastBreedingAge>
+      <MaleLastBreedingAge>36</MaleLastBreedingAge>
+      <MaximumAge>36</MaximumAge>
+      <maxBroods>1</maxBroods>
+      <maxBroodSize>1</maxBroodSize>
+      <UseNormal>False</UseNormal>
+      <UseFullDistr>True</UseFullDistr>
+      <SexRatio>50</SexRatio>
+    </ReproductiveSystem>
+    <StableAgeDistribution scenario="7">Stable</StableAgeDistribution>
+    <TranslocateOption scenario="7">
+      <Translocate>False</Translocate>
+      <TranslocationSurvival>0</TranslocationSurvival>
+      <TranslocationIf>1</TranslocationIf>
+    </TranslocateOption>
+    <GeneticManagement scenario="7">
+      <ImportStudbook>False</ImportStudbook>
+      <StudbookFile>
+      </StudbookFile>
+      <StudbookAppend>False</StudbookAppend>
+      <NeutralLoci>1</NeutralLoci>
+      <Tally1Locus>True</Tally1Locus>
+      <TallyOtherLoci>False</TallyOtherLoci>
+      <TallyAllLoci>False</TallyAllLoci>
+      <ImportAlleleFreqsFile>False</ImportAlleleFreqsFile>
+      <AlleleFreqsFile>
+      </AlleleFreqsFile>
+      <OutputGenePop>False</OutputGenePop>
+      <OutputAlleleFreqFile>False</OutputAlleleFreqFile>
+      <MutationLoci>0</MutationLoci>
+      <MutationRate>0</MutationRate>
+    </GeneticManagement>
+    <PopulationRates scenario="7">
+      <Population pop="1">
+        <Label>Population 1</Label>
+        <PopStateVariables pop="1">
+          <PSVar var="1">
+            <Label>PS1</Label>
+            <InitState>=IMEAN1</InitState>
+            <TransState>=IMEAN1</TransState>
+          </PSVar>
+          <PSVar var="2">
+            <Label>PS2</Label>
+            <InitState>=IMEAN2</InitState>
+            <TransState>=IMEAN2</TransState>
+          </PSVar>
+          <PSVar var="3">
+            <Label>PS3</Label>
+            <InitState>=IMEAN3</InitState>
+            <TransState>=IMEAN3</TransState>
+          </PSVar>
+          <PSVar var="4">
+            <Label>PS4</Label>
+            <InitState>=RAND</InitState>
+            <TransState>=RAND</TransState>
+          </PSVar>
+        </PopStateVariables>
+        <DensityDependence pop="1">
+          <DDRepro>False</DDRepro>
+          <DDP0>50</DDP0>
+          <DDPK>25</DDPK>
+          <DDAllee>1</DDAllee>
+          <DDSlope>2</DDSlope>
+        </DensityDependence>
+        <ReproductiveRates pop="1">
+          <PercentBreed>=(89.3-((89.3-57)*((N/K)^16)))*(N/(0.1+N))</PercentBreed>
+          <EVBreed>3.5</EVBreed>
+          <Brood n="0">25</Brood>
+          <Brood n="1">75</Brood>
+          <BroodMean>2.5</BroodMean>
+          <BroodSD>1</BroodSD>
+          <BroodSize size="1">100</BroodSize>
+        </ReproductiveRates>
+        <MortalityRates pop="1">
+          <FemaleMort age="0">=100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]}</FemaleMort>
+          <EVFemaleMort age="0">=(100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]})*0.1</EVFemaleMort>
+          <FemaleMort age="1">=15</FemaleMort>
+          <EVFemaleMort age="1">=1.5</EVFemaleMort>
+          <FemaleMort age="2">=3.9</FemaleMort>
+          <EVFemaleMort age="2">=0.39</EVFemaleMort>
+          <MaleMort age="0">=100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]}</MaleMort>
+          <EVMaleMort age="0">=(100*{1-[(1-(4.4*0.01))*EXP(-SV2*MIN(1;(I+IS2)))]})*0.1</EVMaleMort>
+          <MaleMort age="1">=10</MaleMort>
+          <EVMaleMort age="1">=1</EVMaleMort>
+          <MaleMort age="2">=7</MaleMort>
+          <EVMaleMort age="2">=0.7</EVMaleMort>
+          <MaleMort age="3">=3.9</MaleMort>
+          <EVMaleMort age="3">=0.39</EVMaleMort>
+        </MortalityRates>
+        <Catastrophes pop="1">
+          <Catastrophe cat="1">
+            <Label>Baiting</Label>
+            <GlobalLocal>Global</GlobalLocal>
+            <Frequency>=0</Frequency>
+            <SeverityRepro>=1</SeverityRepro>
+            <SeverityMort>=1</SeverityMort>
+          </Catastrophe>
+        </Catastrophes>
+        <Monopolization pop="1">
+          <PercentMales>=80</PercentMales>
+        </Monopolization>
+        <InitialPopulationSize pop="1">
+          <InitialN>=300</InitialN>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">150</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <FemalesAge age="3">0</FemalesAge>
+          <FemalesAge age="4">0</FemalesAge>
+          <FemalesAge age="5">0</FemalesAge>
+          <FemalesAge age="6">0</FemalesAge>
+          <FemalesAge age="7">0</FemalesAge>
+          <FemalesAge age="8">0</FemalesAge>
+          <FemalesAge age="9">0</FemalesAge>
+          <FemalesAge age="10">0</FemalesAge>
+          <FemalesAge age="11">0</FemalesAge>
+          <FemalesAge age="12">0</FemalesAge>
+          <FemalesAge age="13">0</FemalesAge>
+          <FemalesAge age="14">0</FemalesAge>
+          <FemalesAge age="15">0</FemalesAge>
+          <FemalesAge age="16">0</FemalesAge>
+          <FemalesAge age="17">0</FemalesAge>
+          <FemalesAge age="18">0</FemalesAge>
+          <FemalesAge age="19">0</FemalesAge>
+          <FemalesAge age="20">0</FemalesAge>
+          <FemalesAge age="21">0</FemalesAge>
+          <FemalesAge age="22">0</FemalesAge>
+          <FemalesAge age="23">0</FemalesAge>
+          <FemalesAge age="24">0</FemalesAge>
+          <FemalesAge age="25">0</FemalesAge>
+          <FemalesAge age="26">0</FemalesAge>
+          <FemalesAge age="27">0</FemalesAge>
+          <FemalesAge age="28">0</FemalesAge>
+          <FemalesAge age="29">0</FemalesAge>
+          <FemalesAge age="30">0</FemalesAge>
+          <FemalesAge age="31">0</FemalesAge>
+          <FemalesAge age="32">0</FemalesAge>
+          <FemalesAge age="33">0</FemalesAge>
+          <FemalesAge age="34">0</FemalesAge>
+          <FemalesAge age="35">0</FemalesAge>
+          <FemalesAge age="36">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">150</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+          <MalesAge age="4">0</MalesAge>
+          <MalesAge age="5">0</MalesAge>
+          <MalesAge age="6">0</MalesAge>
+          <MalesAge age="7">0</MalesAge>
+          <MalesAge age="8">0</MalesAge>
+          <MalesAge age="9">0</MalesAge>
+          <MalesAge age="10">0</MalesAge>
+          <MalesAge age="11">0</MalesAge>
+          <MalesAge age="12">0</MalesAge>
+          <MalesAge age="13">0</MalesAge>
+          <MalesAge age="14">0</MalesAge>
+          <MalesAge age="15">0</MalesAge>
+          <MalesAge age="16">0</MalesAge>
+          <MalesAge age="17">0</MalesAge>
+          <MalesAge age="18">0</MalesAge>
+          <MalesAge age="19">0</MalesAge>
+          <MalesAge age="20">0</MalesAge>
+          <MalesAge age="21">0</MalesAge>
+          <MalesAge age="22">0</MalesAge>
+          <MalesAge age="23">0</MalesAge>
+          <MalesAge age="24">0</MalesAge>
+          <MalesAge age="25">0</MalesAge>
+          <MalesAge age="26">0</MalesAge>
+          <MalesAge age="27">0</MalesAge>
+          <MalesAge age="28">0</MalesAge>
+          <MalesAge age="29">0</MalesAge>
+          <MalesAge age="30">0</MalesAge>
+          <MalesAge age="31">0</MalesAge>
+          <MalesAge age="32">0</MalesAge>
+          <MalesAge age="33">0</MalesAge>
+          <MalesAge age="34">0</MalesAge>
+          <MalesAge age="35">0</MalesAge>
+          <MalesAge age="36">0</MalesAge>
+        </InitialPopulationSize>
+        <CarryingCapacity pop="1">
+          <K>=500</K>
+          <EVK>=50</EVK>
+          <Ktrend>False</Ktrend>
+          <Kyears>5</Kyears>
+          <Kchange>-10</Kchange>
+          <Kcriteria>False</Kcriteria>
+          <Ktest>=N</Ktest>
+          <Kpriority>0</Kpriority>
+          <AllowK>False</AllowK>
+          <KAllow>1</KAllow>
+        </CarryingCapacity>
+        <Harvest pop="1">
+          <Harvest>False</Harvest>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <HarvCriteria>1</HarvCriteria>
+          <IHarvCriteria>1</IHarvCriteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Harvest>
+        <Supplementation pop="1">
+          <Supplement>False</Supplement>
+          <StartYear>0</StartYear>
+          <EndYear>0</EndYear>
+          <Interval>1</Interval>
+          <Criteria>1</Criteria>
+          <FemalesAge age="0">0</FemalesAge>
+          <FemalesAge age="1">0</FemalesAge>
+          <FemalesAge age="2">0</FemalesAge>
+          <MalesAge age="0">0</MalesAge>
+          <MalesAge age="1">0</MalesAge>
+          <MalesAge age="2">0</MalesAge>
+          <MalesAge age="3">0</MalesAge>
+        </Supplementation>
+        <GeneticManagement pop="1">
+          <BreedMaintainK>False</BreedMaintainK>
+          <AvoidInbr>False</AvoidInbr>
+          <AvoidInbrF>1</AvoidInbrF>
+          <PairMKdynamic>False</PairMKdynamic>
+          <PairMKStatic>False</PairMKStatic>
+          <SetKin>0</SetKin>
+          <MaxNMates>0</MaxNMates>
+          <NumTriesFindMate>10</NumTriesFindMate>
+        </GeneticManagement>
+      </Population>
+    </PopulationRates>
+  </Scenario>
+  <SensitivityTests STs="6">
+    <ST>
+      <Name>ST_Classic</Name>
+      <Base>ST_Classic</Base>
+      <Sampled>False</Sampled>
+      <LHS>False</LHS>
+      <SingleFactor>True</SingleFactor>
+      <nSamples>100</nSamples>
+      <nSampled>100</nSampled>
+      <STvars nvars="7">
+        <STvar var="1">
+          <Description>K</Description>
+          <GSlabel>GS1</GSlabel>
+          <baseVal>2000</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>500</val>
+            <val>1000</val>
+          </Vals>
+        </STvar>
+        <STvar var="2">
+          <Description>Ad_Mor</Description>
+          <GSlabel>GS2</GSlabel>
+          <baseVal>1</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>2</val>
+            <val>3</val>
+            <val>4</val>
+            <val>5</val>
+            <val>6</val>
+          </Vals>
+        </STvar>
+        <STvar var="3">
+          <Description>Juv_Sub_Mor</Description>
+          <GSlabel>GS3</GSlabel>
+          <baseVal>1</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>2</val>
+            <val>3</val>
+            <val>4</val>
+            <val>5</val>
+            <val>6</val>
+          </Vals>
+        </STvar>
+        <STvar var="4">
+          <Description>PY_Mor</Description>
+          <GSlabel>GS4</GSlabel>
+          <baseVal>1</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>2</val>
+            <val>3</val>
+            <val>4</val>
+            <val>5</val>
+            <val>6</val>
+          </Vals>
+        </STvar>
+        <STvar var="5">
+          <Description>SD_Mor</Description>
+          <GSlabel>GS5</GSlabel>
+          <baseVal>0.1</baseVal>
+          <minVal>0.1</minVal>
+          <maxVal>0.3</maxVal>
+          <increment>0.1</increment>
+          <Vals>
+            <val>0.2</val>
+            <val>0.3</val>
+          </Vals>
+        </STvar>
+        <STvar var="6">
+          <Description>Male_Breed</Description>
+          <GSlabel>GS6</GSlabel>
+          <baseVal>80</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>60</val>
+            <val>90</val>
+            <val>100</val>
+          </Vals>
+        </STvar>
+        <STvar var="7">
+          <Description>InitPopSize</Description>
+          <GSlabel>GS7</GSlabel>
+          <baseVal>300</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>100</val>
+          </Vals>
+        </STvar>
+      </STvars>
+    </ST>
+    <ST>
+      <Name>ST_LHS</Name>
+      <Base>ST_LHS</Base>
+      <Sampled>False</Sampled>
+      <LHS>True</LHS>
+      <SingleFactor>False</SingleFactor>
+      <nSamples>50</nSamples>
+      <nSampled>50</nSampled>
+      <STvars nvars="7">
+        <STvar var="1">
+          <Description>K</Description>
+          <GSlabel>GS1</GSlabel>
+          <baseVal>1</baseVal>
+          <minVal>500</minVal>
+          <maxVal>2000</maxVal>
+          <increment>30.6122448979592</increment>
+          <Vals />
+        </STvar>
+        <STvar var="2">
+          <Description>Ad_Mor</Description>
+          <GSlabel>GS2</GSlabel>
+          <baseVal>1</baseVal>
+          <minVal>1</minVal>
+          <maxVal>6</maxVal>
+          <increment>0.102040816326531</increment>
+          <Vals />
+        </STvar>
+        <STvar var="3">
+          <Description>Juv_Sub_Mor</Description>
+          <GSlabel>GS3</GSlabel>
+          <baseVal>1</baseVal>
+          <minVal>1</minVal>
+          <maxVal>6</maxVal>
+          <increment>0.102040816326531</increment>
+          <Vals />
+        </STvar>
+        <STvar var="4">
+          <Description>PY_Mor</Description>
+          <GSlabel>GS4</GSlabel>
+          <baseVal>1</baseVal>
+          <minVal>1</minVal>
+          <maxVal>6</maxVal>
+          <increment>0.102040816326531</increment>
+          <Vals />
+        </STvar>
+        <STvar var="5">
+          <Description>SD_Mor</Description>
+          <GSlabel>GS5</GSlabel>
+          <baseVal>0.1</baseVal>
+          <minVal>0.1</minVal>
+          <maxVal>0.3</maxVal>
+          <increment>0.00408163265306122</increment>
+          <Vals />
+        </STvar>
+        <STvar var="6">
+          <Description>Male_Breed</Description>
+          <GSlabel>GS6</GSlabel>
+          <baseVal>80</baseVal>
+          <minVal>60</minVal>
+          <maxVal>100</maxVal>
+          <increment>0.816326530612245</increment>
+          <Vals />
+        </STvar>
+        <STvar var="7">
+          <Description>InitPopSize</Description>
+          <GSlabel>GS7</GSlabel>
+          <baseVal>300</baseVal>
+          <minVal>100</minVal>
+          <maxVal>300</maxVal>
+          <increment>4.08163265306122</increment>
+          <Vals />
+        </STvar>
+      </STvars>
+    </ST>
+    <ST>
+      <Name>Factors_Classic_Inb</Name>
+      <Base>Factors_Classic_Inb</Base>
+      <Sampled>False</Sampled>
+      <LHS>False</LHS>
+      <SingleFactor>True</SingleFactor>
+      <nSamples>1</nSamples>
+      <nSampled>1</nSampled>
+      <STvars nvars="2">
+        <STvar var="1">
+          <Description>LetEq</Description>
+          <GSlabel>GS1</GSlabel>
+          <baseVal>0</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>1.57</val>
+            <val>5</val>
+          </Vals>
+        </STvar>
+        <STvar var="2">
+          <Description>RecLet</Description>
+          <GSlabel>GS2</GSlabel>
+          <baseVal>0</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>1.57</val>
+            <val>3.5</val>
+          </Vals>
+        </STvar>
+      </STvars>
+    </ST>
+    <ST>
+      <Name>Factors_LHS</Name>
+      <Base>Factors_LHS</Base>
+      <Sampled>False</Sampled>
+      <LHS>True</LHS>
+      <SingleFactor>False</SingleFactor>
+      <nSamples>50</nSamples>
+      <nSampled>50</nSampled>
+      <STvars nvars="7">
+        <STvar var="1">
+          <Description>K</Description>
+          <GSlabel>GS1</GSlabel>
+          <baseVal>1</baseVal>
+          <minVal>500</minVal>
+          <maxVal>2000</maxVal>
+          <increment>30.6122448979592</increment>
+          <Vals />
+        </STvar>
+        <STvar var="2">
+          <Description>LetEq</Description>
+          <GSlabel>GS2</GSlabel>
+          <baseVal>0</baseVal>
+          <minVal>0</minVal>
+          <maxVal>5</maxVal>
+          <increment>0.102040816326531</increment>
+          <Vals />
+        </STvar>
+        <STvar var="3">
+          <Description>RecLet</Description>
+          <GSlabel>GS3</GSlabel>
+          <baseVal>0</baseVal>
+          <minVal>0</minVal>
+          <maxVal>3.5</maxVal>
+          <increment>0.0714285714285714</increment>
+          <Vals />
+        </STvar>
+        <STvar var="4">
+          <Description>Pred</Description>
+          <GSlabel>GS4</GSlabel>
+          <baseVal>0</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>2.04081632653061</increment>
+          <Vals />
+        </STvar>
+        <STvar var="5">
+          <Description>Baiting_Y_N</Description>
+          <GSlabel>GS5</GSlabel>
+          <baseVal>0</baseVal>
+          <minVal>0</minVal>
+          <maxVal>1</maxVal>
+          <increment>0.0204081632653061</increment>
+          <Vals />
+        </STvar>
+        <STvar var="6">
+          <Description>PredDensDep</Description>
+          <GSlabel>GS6</GSlabel>
+          <baseVal>0</baseVal>
+          <minVal>0</minVal>
+          <maxVal>1</maxVal>
+          <increment>0.0204081632653061</increment>
+          <Vals />
+        </STvar>
+        <STvar var="7">
+          <Description>Het</Description>
+          <GSlabel>GS7</GSlabel>
+          <baseVal>0.835</baseVal>
+          <minVal>0.64</minVal>
+          <maxVal>0.835</maxVal>
+          <increment>0.00397959183673469</increment>
+          <Vals />
+        </STvar>
+      </STvars>
+    </ST>
+    <ST>
+      <Name>Factors_Classic_Pred</Name>
+      <Base>Factors_Classic_Pred</Base>
+      <Sampled>False</Sampled>
+      <LHS>False</LHS>
+      <SingleFactor>False</SingleFactor>
+      <nSamples>1</nSamples>
+      <nSampled>4</nSampled>
+      <STvars nvars="2">
+        <STvar var="1">
+          <Description>Baiting_Y_N</Description>
+          <GSlabel>GS1</GSlabel>
+          <baseVal>0</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>0</val>
+            <val>1</val>
+          </Vals>
+        </STvar>
+        <STvar var="2">
+          <Description>PredDensDep</Description>
+          <GSlabel>GS2</GSlabel>
+          <baseVal>0</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>0</val>
+            <val>1</val>
+          </Vals>
+        </STvar>
+      </STvars>
+    </ST>
+    <ST>
+      <Name>Factors_Classic_Inb_064</Name>
+      <Base>Factors_Classic_Inb_064</Base>
+      <Sampled>False</Sampled>
+      <LHS>False</LHS>
+      <SingleFactor>True</SingleFactor>
+      <nSamples>100</nSamples>
+      <nSampled>100</nSampled>
+      <STvars nvars="2">
+        <STvar var="1">
+          <Description>LetEq</Description>
+          <GSlabel>GS1</GSlabel>
+          <baseVal>0</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>1.57</val>
+            <val>5</val>
+          </Vals>
+        </STvar>
+        <STvar var="2">
+          <Description>RecLet</Description>
+          <GSlabel>GS2</GSlabel>
+          <baseVal>0</baseVal>
+          <minVal>0</minVal>
+          <maxVal>100</maxVal>
+          <increment>1</increment>
+          <Vals>
+            <val>1.57</val>
+            <val>3.5</val>
+          </Vals>
+        </STvar>
+      </STvars>
+    </ST>
+  </SensitivityTests>
+</VORTEXInputFile>

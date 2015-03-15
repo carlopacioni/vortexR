@@ -1,0 +1,6 @@
+$Scenario: ST_LHS(30)
+    ; Population 1;Population 1;Population 1;Population 1;Population 1
+Iteration;YrExt;   N;GeneDiv;Inbreed; Alleles
+   1;     ;  461;0.9291;0.0651;23.0
+   2;     ;  291;0.8715;0.1375;14.0
+   3;     ;   79;0.9101;0.1013;16.0
