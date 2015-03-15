@@ -5,7 +5,7 @@ An R package for Post Vortex Simulation Analysis
 Install the package from version control from within R:
 ```
 library(devtools)
-install_bitbucket("vortexr", "florianm")
+install_bitbucket("vortexR", "carlopacioni")
 ```
 
 ## Documentation
