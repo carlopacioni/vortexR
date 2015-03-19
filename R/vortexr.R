@@ -87,8 +87,8 @@ NULL
 #' @usage
 #' my.df <- data.frame(1, 1:10, sample(LETTERS[1:3], 10, replace = TRUE))
 #' my.folder <- system.file(getwd(), "test")
-#' df2disk(my.df, getwd(), "testname")
-#' df2disk(my.df, my.folder, "testname", "_testpostfix")
+#' df2disk(df=my.df, dirpath=getwd(), fname="testname")
+#' df2disk(df=my.df, dirpath=my.folder, fname="testname", postfix="_testpostfix")
 #' @export
 df2disk <- function(df, dirpath, fname, postfix=""){
 
@@ -335,7 +335,7 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 collate_dat <- function(project, runs,
                         scenario = NULL,
                         dir.in = NULL,
-                        save2disk=FALSE,
+                        save2disk=TRUE,
                         dir.out=NULL,
                         verbose=FALSE){
 
@@ -348,7 +348,7 @@ collate_dat <- function(project, runs,
   }
 
   if (is.null(dir.in)) {dir.in = getwd()}
-  if (is.null(dir.out)) {dir.out = system.file(getwd(), "out")}
+  if (is.null(dir.out)) {dir.out = paste0(getwd(), "/out")}
 
   files <- get_file_paths(
     path = dir.in,
@@ -385,7 +385,7 @@ collate_run <- function (
   scenario,
   numPops=1,
   dir.in = NULL,
-  save2disk=FALSE,
+  save2disk=TRUE,
   dir.out=NULL,
   verbose=FALSE) {
 
@@ -478,7 +478,7 @@ collate_yr <- function (
   scenario=NULL,
   npnm=1,
   dir.in = NULL,
-  save2disk=FALSE,
+  save2disk=TRUE,
   dir.out=NULL,
   verbose=FALSE) {
 
@@ -561,7 +561,7 @@ collate_yr <- function (
 #' @import plyr
 #' @export
 collate_proc_data <- function(data=NULL,
-                              save2disk=FALSE,
+                              save2disk=TRUE,
                               dir.out=NULL){
 
   if (is.null(dir.out)) {dir.out = system.file(getwd(), "out")}
@@ -596,7 +596,7 @@ conv_l_yr <- function (
   project=NA, # This is only used for the name of the file
   scenario=NA, # This is only used for the name of the file
   yrs=c(1, 2),
-  save2disk=FALSE,
+  save2disk=TRUE,
   dir.out=NULL
 ) {
   requireNamespace("plyr", quietly = TRUE)
@@ -659,6 +659,7 @@ conv_l_yr <- function (
 #' for all simulated years
 #'
 #' TODO reconcile RDataNameRoot with dir.out and save2disk
+#' TODO complete parameter descriptions
 #' @param data A list with a df from \code{collate_[dat, yr, run]}
 #'   as each element
 #' @param project The project name used in filenames
@@ -680,7 +681,7 @@ line_plot_year <- function(
   ST=TRUE,
   params=c("PExtinct", "Nextant", "Het", "Nalleles"),
   plotpops=c("all"),
-  save2disk=F,
+  save2disk=TRUE,
   dir.out=NULL) {
 
   require(ggplot2)
@@ -740,12 +741,13 @@ line_plot_year <- function(
   }
 
   if (save2disk == T) {
+    # Save dataframe
     df2disk(censusAll, dir.out, paste0(project, "_", scenario), "_lcensus")
-  }
 
-
-  if (save2disk == T) {
+    # Save multi-page PDF
     dev.off()
+
+    # Save ggplot objects
     save(list=(ls(pattern=paste(RDataNameRoot, "_", ".*", "_", "plot", sep=""))),
          file=paste(RDataNameRoot, "_", "YearVsParamsPlots.RData", sep=""))
   }
@@ -757,7 +759,14 @@ line_plot_year <- function(
 
 #' Generate line plots of the relevant parameters for the selected populations,
 #' from year zero to yearmid
+#'
+#' TODO longer description
+#' TODO params
+#' TODO working @examples
+#' TODO dir.in, dir.out
+#'
 #' @param name desc
+#'
 #' @param save2disk Whether to save the output to disk
 #' @return line plot(s)
 #' @import ggplot2
@@ -771,7 +780,7 @@ line_plot_year_mid <- function(
   yrmid=1,
   params=c("PExtinct", "Nextant", "Het", "Nalleles"),
   plotpops=c("all"),
-  save2disk=T) {
+  save2disk=TRUE) {
 
   require(ggplot2)
   require(grid)
@@ -843,6 +852,11 @@ line_plot_year_mid <- function(
 #' Generate dot plots of mean parameter values for each population (row) at each
 #' year value requested with 'yrs' (columns). Bars represent standard deviation.
 #'
+#'TODO description
+#'TODO params
+#'TODO examples
+#'TODO save2disk
+#'
 #' @param name desc
 #' @param save2disk Whether to save the output to disk
 #' @return dot plots of mean parameter values with standard deviation
@@ -858,7 +872,7 @@ dot_plot <- function(
   params=c("PExtinct", "Nextant", "Het", "Nalleles"),
   setcolour="scen.name",
   plotpops=c("all"),
-  save2disk=T) {
+  save2disk=TRUE) {
 
   require(ggplot2)
   require(grid)
@@ -945,6 +959,11 @@ dot_plot <- function(
 
 #' Generates a matrix of scatter plots
 #'
+#'TODO description
+#'TODO params
+#'TODO examples
+#'TODO save2disk
+#'
 #' @param name desc
 #' @param save2disk Whether to save the output to disk
 #' @return a matrix of scatter plots
@@ -958,7 +977,7 @@ m_scatter <- function (
   popn=1,
   param="N",
   vs=NA,
-  save2disk=T
+  save2disk=TRUE
 ) {
   require(GGally)
   require(data.table)
@@ -1011,6 +1030,11 @@ m_scatter <- function (
 
 #' Create a table that summarises simulation parameters for each scenario
 #'
+#'TODO description
+#'TODO params
+#'TODO examples
+#'TODO save2disk
+#'
 #' @param name desc
 #' @param save2disk Whether to save the output to disk
 #' @return a data.frame with scenario names and parameter values
@@ -1024,7 +1048,7 @@ lookup_table <- function (
   ST=TRUE,
   pop="Population 1", # the name of the pop to be used as reference
   SVs=c("SV1"),
-  save2disk=T
+  save2disk=TRUE
 ) {
   require(data.table)
 
@@ -1062,7 +1086,7 @@ Ne <- function (
   gen=1,
   yr0=1,
   yrt=2,
-  save2disk=T
+  save2disk=TRUE
 ) {
   require(data.table)
 
@@ -1125,7 +1149,7 @@ Nb <- function (
   gen=1,
   yr0=1,
   yrt=2,
-  save2disk=T
+  save2disk=TRUE
 ) {
 
   require(plyr)
@@ -1241,7 +1265,7 @@ Pairwise <- function(
   type=NA,
   group.mean=FALSE,
   SVs=NA,
-  save2disk=T
+  save2disk=TRUE
 ) {
 
   require(data.table)
@@ -1649,7 +1673,7 @@ fit_regression <- function (
   l=1, # Level for glmulti search: 1 main effect, 2 main effects + interactions
   n.cand=30,
   set.size=NA,
-  save2disk=T
+  save2disk=TRUE
 ) {
   # Load required packages. Loading of betareg and R.utils are delayed after
   # it has been checked that they actually are needed to avoid wasting time
