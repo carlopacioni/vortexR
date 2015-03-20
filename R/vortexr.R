@@ -99,7 +99,7 @@ df2disk <- function(df, dirpath, fname, postfix=""){
        compress="xz")
 
   write.table(d,
-              file=system.file(dirpath, paste0(fname, postfix, ".csv")),
+              file=system.file(dirpath, paste0(fname, postfix, ".txt")),
               sep=";",
               row.names=FALSE)
 }
