@@ -123,11 +123,11 @@ get_file_paths <- function(path, pattern, fn_name, verbose = FALSE){
                                         full.names = TRUE))
 
   if (length(files) == 0) {
-    message(paste("WARNING vortexr::", fn_name,"found no files",
-                  "containing '", fname, "' in", path))
+    stop(paste0("ERROR vortexr::", fn_name," found no files",
+                  " containing '", fname, "' in ", path))
   } else {
     if (verbose){
-      msg <- paste("INFO vortexR::collate_yr found", length(files),
+      msg <- paste("INFO vortexR::", fn_name," found", length(files),
                    "matching files in", path, ":")
       message(cat(msg, files, sep = "\n"))
     }
