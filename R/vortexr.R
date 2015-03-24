@@ -95,13 +95,11 @@ df2disk <- function(df, dirpath, fname, postfix=""){
   dir.create(dirpath, showWarnings = FALSE)
 
   save(d,
-       file=system.file(dirpath, paste0(fname, postfix, ".rda")),
+       file=paste0(dirpath, "/", fname, postfix, ".rda")),
        compress="xz")
 
-  write.table(d,
-              file=system.file(dirpath, paste0(fname, postfix, ".txt")),
-              sep=";",
-              row.names=FALSE)
+  write.table(d, file=paste0(dirpath, "/", fname, postfix, ".txt"),
+              sep=";", row.names=FALSE)
 }
 
 
