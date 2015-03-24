@@ -127,8 +127,8 @@ get_file_paths <- function(path, pattern, fn_name, verbose = FALSE){
                   " containing '", fname, "' in ", path))
   } else {
     if (verbose){
-      msg <- paste("INFO vortexR::", fn_name," found", length(files),
-                   "matching files in", path, ":")
+      msg <- paste0("INFO vortexR::", fn_name," found ", length(files),
+                   " matching files in ", path, ":")
       message(cat(msg, files, sep = "\n"))
     }
     return(files)
@@ -1221,9 +1221,7 @@ See documentation for more information")
                               by=list(Scenario,Population)]
   message("Done!")
 
-  if (save2disk == T) {
-    df2disk(harm.means, fname)
-  }
+  if (save2disk == T) {df2disk(harm.means, fname)}
   return(harm.means)
 }
 
@@ -1475,7 +1473,7 @@ Pairwise <- function(
     df2disk(ssmd.table, fname, ".SSMD.table")
     df2disk(ssmd.table.pvalues, fname, ".SSMD.table.pvalues")
     df2disk(ranks.sc, fname, ".ranks.sc.RData")
-    df2disk(ranks.ssmd, fname, ".ranks.SSMD.RData")
+    df2disk(ranks.ssmd, fname, ".ranks.SSMD")
     capture.output(print(kendall.out, quote=F),
                    file=paste0(fname,".kendall.txt"))
   }
@@ -1588,11 +1586,11 @@ Pairwise <- function(
       lapply(ranks.mssmd.fin, kendall, TRUE))
 
     if (save2disk == T) {
-      df2disk(mean.coef.table, fname, ".mean.coef.table.RData")
-      df2disk(mean.ssmd.table, fname, ".mean.SSMD.table.RData")
-      df2disk(mean.ssmd.table.pvalues, fname, ".mean.SSMD.table.pvalues.RData")
-      df2disk(ranks.msc, fname, ".ranks.msc.RData")
-      df2disk(ranks.mssmd, fname, ".ranks.mSSMD.RData")
+      df2disk(mean.coef.table, fname, ".mean.coef.table")
+      df2disk(mean.ssmd.table, fname, ".mean.SSMD.table")
+      df2disk(mean.ssmd.table.pvalues, fname, ".mean.SSMD.table.pvalues")
+      df2disk(ranks.msc, fname, ".ranks.msc")
+      df2disk(ranks.mssmd, fname, ".ranks.mSSMD")
       capture.output(print(kendall.mean.out, quote=F),
                      file=paste0(RDataNameRoot, ".Kendall.means.txt"))
     }
@@ -1707,7 +1705,7 @@ fit_regression <- function (
   print(summary(paramvalues))
   # set up formula to be used in regression models
   formula <- as.formula(paste0(param, "~", xs))
-  name <- paste(project, scenario, param, "best.mod.RData", sep="_")
+  name <- paste(project, scenario, param, sep="_")
 
   if (param %in% count.data) {
     # Preliminary fit the GLM
@@ -1797,9 +1795,8 @@ fit_regression <- function (
 
   if (save2disk == T) {
     message("Best models saved to disk in the file ...best.mod.RData")
-    save(best.mod, file=paste0("./", dir.out, "/", name))
-    pdf(paste0("./", dir.out"/",
-               paste(project, scenario, param, "IC_plot.pdf", sep="_")))
+    save(best.mod, file=paste0(dir.out, "/", name, "_best.mod.RData",))
+    pdf(paste0(dir.out, "/", name, "_IC_plot.pdf"))
     plot(best.mod, type="p")
     dev.off()
   }
