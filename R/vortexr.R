@@ -94,9 +94,7 @@ df2disk <- function(df, dirpath, fname, postfix=""){
 
   dir.create(dirpath, showWarnings = FALSE)
 
-  save(d,
-       file=paste0(dirpath, "/", fname, postfix, ".rda")),
-       compress="xz")
+  save(d, file=paste0(dirpath, "/", fname, postfix, ".rda")), compress="xz")
 
   write.table(d, file=paste0(dirpath, "/", fname, postfix, ".txt"),
               sep=";", row.names=FALSE)
@@ -831,7 +829,7 @@ line_plot_year_mid <- function(
     dev.off()
     save(list=(ls(pattern=paste(RDataNameRoot, "_", ".*", "_", "Mid", "plot",
                                 sep=""))),
-         file=paste(RDataNameRoot, "_", "YearMidVsParamsPlots.RData", sep=""))
+         file=paste(RDataNameRoot, "_", "YearMidVsParamsPlots.rda", sep=""))
   }
 
   names(r.line_plot_year_mid) <- ls(pattern=paste(RDataNameRoot, "_", ".*", "_",
@@ -940,7 +938,7 @@ dot_plot <- function(
     dev.off()
     save(list=(ls(pattern=paste(RDataNameRoot, "_", ".*", "_",
                                 "dot_plot", sep=""))),
-         file=paste(RDataNameRoot, "_", "dot_plots.RData", sep=""))
+         file=paste(RDataNameRoot, "_", "dot_plots.rda", sep=""))
   }
 
   names(r.dot_plot) <- ls(pattern=paste(RDataNameRoot, "_", ".*", "_",
@@ -1013,7 +1011,7 @@ m_scatter <- function (
     pdf(file="./Regression/scatter.plot.pdf")
     print(corrMtrx)
     dev.off()
-    save(corrMtrx, file="./Regression/scatter.plot.RData")
+    save(corrMtrx, file="./Regression/scatter.plot.rda")
   }
   return(corrMtrx)
 }
@@ -1470,7 +1468,7 @@ Pairwise <- function(
     df2disk(table.coef, fname, ".coef.table")
     df2disk(ssmd.table, fname, ".SSMD.table")
     df2disk(ssmd.table.pvalues, fname, ".SSMD.table.pvalues")
-    df2disk(ranks.sc, fname, ".ranks.sc.RData")
+    df2disk(ranks.sc, fname, ".ranks.sc")
     df2disk(ranks.ssmd, fname, ".ranks.SSMD")
     capture.output(print(kendall.out, quote=F),
                    file=paste0(fname,".kendall.txt"))
@@ -1792,8 +1790,8 @@ fit_regression <- function (
   print (tnp)
 
   if (save2disk == T) {
-    message("Best models saved to disk in the file ...best.mod.RData")
-    save(best.mod, file=paste0(dir.out, "/", name, "_best.mod.RData",))
+    message("Best models saved to disk in the file ...best.mod.rda")
+    save(best.mod, file=paste0(dir.out, "/", name, "_best.mod.rda",))
     pdf(paste0(dir.out, "/", name, "_IC_plot.pdf"))
     plot(best.mod, type="p")
     dev.off()
