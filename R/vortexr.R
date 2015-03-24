@@ -86,7 +86,7 @@ NULL
 #' @param postfix An optional name postfix
 #' @usage
 #' my.df <- data.frame(1, 1:10, sample(LETTERS[1:3], 10, replace = TRUE))
-#' my.folder <- system.file(getwd(), "test")
+#' my.folder <- paste0(getwd(), "/test")
 #' df2disk(df=my.df, dirpath=getwd(), fname="testname")
 #' df2disk(df=my.df, dirpath=my.folder, fname="testname", postfix="_testpostfix")
 #' @export
@@ -336,7 +336,7 @@ collate_dat <- function(project, runs,
                         scenario = NULL,
                         dir.in = NULL,
                         save2disk=TRUE,
-                        dir.out=NULL,
+                        dir.out="ProcessedData",
                         verbose=FALSE){
 
   if (is.null(scenario)) {
@@ -348,7 +348,6 @@ collate_dat <- function(project, runs,
   }
 
   if (is.null(dir.in)) {dir.in = getwd()}
-  if (is.null(dir.out)) {dir.out = paste0(getwd(), "/out")}
 
   files <- get_file_paths(
     path = dir.in,
@@ -386,18 +385,18 @@ collate_run <- function (
   numPops=1,
   dir.in = NULL,
   save2disk=TRUE,
-  dir.out=NULL,
+  dir.out="ProcessedData",
   verbose=FALSE) {
 
   run = data.frame()
   lrun= data.frame()
 
   if (is.null(dir.in)) {dir.in <- getwd()}
-  if (is.null(dir.out)) {dir.out <- system.file(getwd(), "out")}
+  fname <- paste(project, scenario, sep="_")
 
   files <- get_file_paths(
     path = dir.in,
-    pattern = paste0("^", project, "_", scenario,".*\\.run$"),
+    pattern = paste0("^", fname,".*\\.run$"),
     fn_name = "collate_run",
     verbose = verbose)
 
@@ -479,15 +478,15 @@ collate_yr <- function (
   npnm=1,
   dir.in = NULL,
   save2disk=TRUE,
-  dir.out=NULL,
+  dir.out="ProcessedData",
   verbose=FALSE) {
 
   if (is.null(dir.in)) {dir.in = getwd()}
-  if (is.null(dir.out)) {dir.out = system.file(getwd(), "out")}
+  fname <- paste0(project, "_", scenario)
 
   files <- get_file_paths(
     path = dir.in,
-    pattern = paste0("^", project, "_", scenario, ".*\\.yr$"),
+    pattern = paste0("^", fname, ".*\\.yr$"),
     fn_name = "collate_yr",
     verbose = verbose)
 
@@ -508,7 +507,7 @@ collate_yr <- function (
     iter_ln <- grep(pattern="^Iteration ", lines)
 
     # Number of rows underneath subheading
-    n_rows <- if (length(iter_ln) > 1) (iter_ln[2] - iter_ln[1] - 1) else -1
+    n_rows <- if (length(iter_ln) > 1) (iter_ln[2] - iter_ln[1] - 1) else - 1
 
     # Extract data from each Iteration subheading in file
     one_yr <- lapply(1:length(iter_ln), CompileIter,
@@ -562,9 +561,7 @@ collate_yr <- function (
 #' @export
 collate_proc_data <- function(data=NULL,
                               save2disk=TRUE,
-                              dir.out=NULL){
-
-  if (is.null(dir.out)) {dir.out = system.file(getwd(), "out")}
+                              dir.out="ProcessedData"){
 
   # TODO use data.table::rbindlist
   dfs <- plyr::rbind.fill(data)
@@ -597,11 +594,10 @@ conv_l_yr <- function (
   scenario=NA, # This is only used for the name of the file
   yrs=c(1, 2),
   save2disk=TRUE,
-  dir.out=NULL
+  dir.out="ProcessedData"
 ) {
   requireNamespace("plyr", quietly = TRUE)
   requireNamespace("data.table", quietly = TRUE)
-  if (is.null(dir.out)) {dir.out = system.file(getwd(), "out")}
 
   LongFormat <- function (numPop) {
     k <- numPop - 1
@@ -682,12 +678,10 @@ line_plot_year <- function(
   params=c("PExtinct", "Nextant", "Het", "Nalleles"),
   plotpops=c("all"),
   save2disk=TRUE,
-  dir.out=NULL) {
+  dir.out="Plots") {
 
   require(ggplot2)
   require(grid)
-
-  if (is.null(dir.out)) {dir.out = system.file(getwd(), "out")}
 
   if (plotpops == "all")
     plotpops <- unique(data$pop.name)
@@ -721,7 +715,7 @@ line_plot_year <- function(
   r.line_plot_year <- list()
   i <- 0
   if (save2disk == T) {
-    dir.create("Plots", showWarnings=FALSE)
+    dir.create(dir.out, showWarnings=FALSE)
     pdf(paste(RDataNameRoot, "_", "YearVsParamsPlots.pdf", sep=""))
   }
 
@@ -741,8 +735,6 @@ line_plot_year <- function(
   }
 
   if (save2disk == T) {
-    # Save dataframe
-    df2disk(censusAll, dir.out, paste0(project, "_", scenario), "_lcensus")
 
     # Save multi-page PDF
     dev.off()
@@ -780,7 +772,8 @@ line_plot_year_mid <- function(
   yrmid=1,
   params=c("PExtinct", "Nextant", "Het", "Nalleles"),
   plotpops=c("all"),
-  save2disk=TRUE) {
+  save2disk=TRUE,
+  dir.out="Plots") {
 
   require(ggplot2)
   require(grid)
@@ -817,7 +810,7 @@ line_plot_year_mid <- function(
   r.line_plot_year_mid <- list()
   i <- 0
   if (save2disk == T) {
-    dir.create("Plots", showWarnings=FALSE)
+    dir.create(dir.out, showWarnings=FALSE)
     pdf(paste(RDataNameRoot, "_", "YearMidVsParamsPlots.pdf", sep=""))
   }
 
@@ -1048,14 +1041,14 @@ lookup_table <- function (
   ST=TRUE,
   pop="Population 1", # the name of the pop to be used as reference
   SVs=c("SV1"),
-  save2disk=TRUE
-) {
+  save2disk=TRUE,
+  dir.out="ProcessedData") {
   require(data.table)
 
-  RDataNameRoot <- if (ST == TRUE) {
-    paste("./out/", project, "_", scenario, sep="")
+  fname <- if (ST == TRUE) {
+    paste0(project, "_", scenario)
   } else {
-    paste0("./out/", project)
+    project
   }
 
   LookUpT <- data.table(data)
@@ -1064,9 +1057,7 @@ lookup_table <- function (
   setnames(LookUpT, "scen.name", "Scenario")
 
   if(save2disk == T) {
-    dir.create("./out", showWarnings = FALSE)
-    write.table(LookUpT, file=paste0(RDataNameRoot, "_LookUpT.txt"), sep=";",
-                row.names=FALSE)
+    df2disk(LookUpT, dir.out, fname, "_LookUpT")
   }
   return(LookUpT)
 }
@@ -1086,7 +1077,9 @@ Ne <- function (
   gen=1,
   yr0=1,
   yrt=2,
-  save2disk=TRUE
+  save2disk=TRUE,
+  fname="Ne",
+  dir.out="DataAnalysis"
 ) {
   require(data.table)
 
@@ -1119,8 +1112,7 @@ Ne <- function (
   r.Ne <- r.Ne[ , Scenario := scenarios]
 
   if (save2disk == T) {
-    dir.create("./DataAnalysis", showWarnings=FALSE)
-    write.table(r.Ne, file="./DataAnalysis/Ne.txt", sep=";", row.names=FALSE)
+    df2disk(r.Ne, fname)
   }
 
   message(paste("Effective population size based on loss of gene diversity from year",
@@ -1141,7 +1133,7 @@ when passing the same argument values to the Ne and Nb functions. See documentat
 #' @import data.table
 #' @export
 ### Nb (effective pop size based on number of breeders)
-Nb <- function (
+Nadult <- function (
   data=NULL,
   scenarios="all",
   numPopsNoMeta=1, # Number of pops without the metapop
@@ -1149,8 +1141,9 @@ Nb <- function (
   gen=1,
   yr0=1,
   yrt=2,
-  save2disk=TRUE
-) {
+  save2disk=TRUE,
+  fname="Nadult",
+  dir.out="DataAnalysis") {
 
   require(plyr)
   require(data.table)
@@ -1229,8 +1222,7 @@ See documentation for more information")
   message("Done!")
 
   if (save2disk == T) {
-    dir.create("./DataAnalysis", showWarnings=FALSE)
-    write.table(harm.means, file="./DataAnalysis/Nb.txt", sep=";", row.names=FALSE)
+    df2disk(harm.means, fname)
   }
   return(harm.means)
 }
@@ -1265,8 +1257,8 @@ Pairwise <- function(
   type=NA,
   group.mean=FALSE,
   SVs=NA,
-  save2disk=TRUE
-) {
+  save2disk=TRUE,
+  dir.out="Pairwise") {
 
   require(data.table)
   require(irr)
@@ -1287,10 +1279,10 @@ Pairwise <- function(
   suppressWarnings(if (!yrs == "max" & !is.numeric(yrs))
     stop("invalid value(s) for 'yrs' "))
 
-  RDataNameRoot <- if (ST == TRUE) {
-    paste("./DataAnalysis/", project, "_", scenario, sep="")
+  fname <- if (ST == TRUE) {
+    paste(project, "_", scenario, sep="")
   } else {
-    paste0("./DataAnalysis/", project)
+    project
   }
 
   # set yrs to max
@@ -1479,28 +1471,13 @@ Pairwise <- function(
     cat("Rank comparison of SSMD", "\n"), lapply(ranks.ssmd.fin, kendall, TRUE))
   if (save2disk == T) {
     # write results
-    dir.create("./DataAnalysis", showWarnings=FALSE)
-    save(table.coef, file=paste(RDataNameRoot, ".coef.table.RData", sep=""))
-    save(ssmd.table, file=paste(RDataNameRoot, ".SSMD.table.RData", sep=""))
-    save(ssmd.table.pvalues,
-         file=paste(RDataNameRoot, ".SSMD.table.pvalues.RData", sep=""))
-    write.table(table.coef,
-                file=paste(RDataNameRoot, ".coef.table.txt", sep=""),
-                sep=";", row.names=FALSE)
-    write.table(ssmd.table,
-                file=paste(RDataNameRoot, ".SSMD.table.txt", sep=""),
-                sep=";", row.names=FALSE)
-    write.table(ssmd.table.pvalues,
-                file=paste(RDataNameRoot, ".SSMD.table.pvalues.txt", sep=""),
-                sep=";", row.names=FALSE)
-    save(ranks.sc, file=paste(RDataNameRoot, ".ranks.sc.RData", sep=""))
-    write.table(ranks.sc, file=paste(RDataNameRoot, ".ranks.sc.txt", sep=""),
-                sep=";", row.names=FALSE)
-    save(ranks.ssmd, file=paste0(RDataNameRoot,".ranks.SSMD.RData"))
-    write.table(ranks.ssmd, file=paste0(RDataNameRoot,".ranks.SSMD.txt"),
-                sep=";", row.names=FALSE)
+    df2disk(table.coef, fname, ".coef.table")
+    df2disk(ssmd.table, fname, ".SSMD.table")
+    df2disk(ssmd.table.pvalues, fname, ".SSMD.table.pvalues")
+    df2disk(ranks.sc, fname, ".ranks.sc.RData")
+    df2disk(ranks.ssmd, fname, ".ranks.SSMD.RData")
     capture.output(print(kendall.out, quote=F),
-                   file=paste0(RDataNameRoot,".kendall.txt"))
+                   file=paste0(fname,".kendall.txt"))
   }
   # Collate results in a list
   r.OneWay<-list(coef.table=table.coef,
@@ -1611,27 +1588,11 @@ Pairwise <- function(
       lapply(ranks.mssmd.fin, kendall, TRUE))
 
     if (save2disk == T) {
-      save(mean.coef.table, file=paste0(RDataNameRoot,
-                                       ".mean.coef.table.RData"))
-      save(mean.ssmd.table, file=paste0(RDataNameRoot,
-                                       ".mean.SSMD.table.RData"))
-      save(mean.ssmd.table.pvalues, file=paste0(RDataNameRoot,
-                                               ".mean.SSMD.table.pvalues.RData"))
-      write.table(mean.coef.table,
-                  file=paste0(RDataNameRoot, ".mean.coef.table.txt"),
-                  sep=";", row.names=FALSE)
-      write.table(mean.ssmd.table,
-                  file=paste0(RDataNameRoot, ".mean.SSMD.table.txt"),
-                  sep=";", row.names=FALSE)
-      write.table(mean.ssmd.table.pvalues,
-                  file=paste0(RDataNameRoot, ".mean.SSMD.table.pvalues.txt"),
-                  sep=";", row.names=FALSE)
-      save(ranks.msc, file=paste(RDataNameRoot, ".ranks.msc.RData", sep=""))
-      write.table(ranks.msc, file=paste(RDataNameRoot, ".ranks.msc.txt", sep=""),
-                  sep=";", row.names=FALSE)
-      save(ranks.mssmd, file=paste0(RDataNameRoot, ".ranks.mSSMD.RData"))
-      write.table(ranks.mssmd, file=paste0(RDataNameRoot, ".ranks.mSSMD.txt"),
-                  sep=";", row.names=FALSE)
+      df2disk(mean.coef.table, fname, ".mean.coef.table.RData")
+      df2disk(mean.ssmd.table, fname, ".mean.SSMD.table.RData")
+      df2disk(mean.ssmd.table.pvalues, fname, ".mean.SSMD.table.pvalues.RData")
+      df2disk(ranks.msc, fname, ".ranks.msc.RData")
+      df2disk(ranks.mssmd, fname, ".ranks.mSSMD.RData")
       capture.output(print(kendall.mean.out, quote=F),
                      file=paste0(RDataNameRoot, ".Kendall.means.txt"))
     }
@@ -1673,8 +1634,8 @@ fit_regression <- function (
   l=1, # Level for glmulti search: 1 main effect, 2 main effects + interactions
   n.cand=30,
   set.size=NA,
-  save2disk=TRUE
-) {
+  save2disk=TRUE,
+  dir.out="FitRegression") {
   # Load required packages. Loading of betareg and R.utils are delayed after
   # it has been checked that they actually are needed to avoid wasting time
   # loading packages that are not used.
@@ -1733,8 +1694,8 @@ fit_regression <- function (
   # rather than a vector (as it doesn't with GeneDiv)
   paramvalues <- data[[param]]
   if (save2disk == T) {
-    dir.create("Regression", showWarnings = FALSE)
-    pdf(paste0("./Regression/",
+    dir.create(dir.out, showWarnings = FALSE)
+    pdf(paste0("./", "/",
                paste(project, scenario, param, "histogram.pdf", sep="_")))
   }
 
@@ -1836,8 +1797,8 @@ fit_regression <- function (
 
   if (save2disk == T) {
     message("Best models saved to disk in the file ...best.mod.RData")
-    save(best.mod, file=paste0("./Regression/", name))
-    pdf(paste0("./Regression/",
+    save(best.mod, file=paste0("./", dir.out, "/", name))
+    pdf(paste0("./", dir.out"/",
                paste(project, scenario, param, "IC_plot.pdf", sep="_")))
     plot(best.mod, type="p")
     dev.off()
