@@ -657,7 +657,6 @@ conv_l_yr <- function (
 #' @param project The project name used in filenames
 #' @param scenario The scenario name used in filenames
 #' @param save2disk Whether to save the output to disk
-#' @param ST
 #' @param params
 #' @param plotpops
 #' @param save2disk Whether to save the output to disk
@@ -668,9 +667,8 @@ conv_l_yr <- function (
 #' @export
 line_plot_year <- function(
   data=NULL,
-  project=NA,
-  scenario=NA,
-  ST=TRUE,
+  project=NULL,
+  scenario=NULL,
   params=c("PExtinct", "Nextant", "Het", "Nalleles"),
   plotpops=c("all"),
   save2disk=TRUE,
@@ -700,10 +698,10 @@ line_plot_year <- function(
     }
   }
 
-  RDataNameRoot <- if (ST == TRUE) {
-    paste("./Plots/", project, "_", scenario, sep="")
+  fname_root <- if (is.null(scenario) {
+    project
   } else {
-    paste0("./Plots/", project)
+    paste0(project, "_", scenario)
   }
 
   popstdat <- subset(data, pop.name %in% plotpops)
@@ -712,12 +710,12 @@ line_plot_year <- function(
   i <- 0
   if (save2disk == T) {
     dir.create(dir.out, showWarnings=FALSE)
-    pdf(paste(RDataNameRoot, "_", "YearVsParamsPlots.pdf", sep=""))
+    pdf(paste(dir.out, "/", fname_root, "_", "YearVsParamsPlots.pdf", sep=""))
   }
 
   for (param in params) {
     i <- i + 1
-    root <- paste(RDataNameRoot, "_", param, sep="")
+    root <- paste0(fname_root, "_", param)
     g <- ggplot(popstdat, aes_string(x="Year", y=param)) +
       geom_line(aes(color=scen.name)) +
       facet_grid(pop.name~.)
@@ -736,11 +734,11 @@ line_plot_year <- function(
     dev.off()
 
     # Save ggplot objects
-    save(list=(ls(pattern=paste(RDataNameRoot, "_", ".*", "_", "plot", sep=""))),
-         file=paste(RDataNameRoot, "_", "YearVsParamsPlots.RData", sep=""))
+    save(list=(ls(pattern=paste(fname_root, "_", ".*", "_", "plot", sep=""))),
+         file=paste(fname_root, "_", "YearVsParamsPlots.rda", sep=""))
   }
 
-  names(r.line_plot_year) <- ls(pattern=paste(RDataNameRoot, "_", ".*", "_",
+  names(r.line_plot_year) <- ls(pattern=paste(fname_root, "_", ".*", "_",
                                             "plot", sep=""))
   return(r.line_plot_year)
 }
