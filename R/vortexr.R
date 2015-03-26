@@ -534,7 +534,7 @@ collate_yr <- function(project=NULL,
     df2disk(censusMeansDT, dir.out, fname, "_census_means")
   }
 
-  return(list(all=censusAll, means=censusMeansDT))
+  return(list(census=censusAll, census_means=censusMeansDT))
 }
 
 #------------------------------------------------------------------------------#
@@ -633,7 +633,7 @@ conv_l_yr <- function(data=NULL,
   }
 
   if (save2disk == T) {
-    df2disk(censusAll, dir.out, paste0(project, "_", scenario), "_lcensus")
+    df2disk(lcensus, dir.out, paste0(project, "_", scenario), "_lcensus")
   }
   return(lcensus)
 }
@@ -641,7 +641,6 @@ conv_l_yr <- function(data=NULL,
 #' Generate line plots of the relevant parameters for the selected populations,
 #' for all simulated years
 #'
-#' TODO reconcile RDataNameRoot with dir.out and save2disk
 #' TODO complete parameter descriptions
 #' @param data A list with a df from \code{collate_[dat, yr, run]}
 #'   as each element
@@ -656,14 +655,13 @@ conv_l_yr <- function(data=NULL,
 #' @import ggplot2
 #' @import grid
 #' @export
-line_plot_year <- function(
-  data=NULL,
-  project=NULL,
-  scenario=NULL,
-  params=c("PExtinct", "Nextant", "Het", "Nalleles"),
-  plotpops=c("all"),
-  save2disk=TRUE,
-  dir.out="Plots") {
+line_plot_year <- function(data=NULL,
+                           project=NULL,
+                           scenario=NULL,
+                           params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+                           plotpops=c("all"),
+                           save2disk=TRUE,
+                           dir.out="Plots") {
 
   require(ggplot2)
   require(grid)
@@ -701,7 +699,7 @@ line_plot_year <- function(
   i <- 0
   if (save2disk == T) {
     dir.create(dir.out, showWarnings=FALSE)
-    pdf(paste(dir.out, "/", fname_root, "_", "YearVsParamsPlots.pdf", sep=""))
+    pdf(paste(dir.out, "/", fname_root, "_", "YearVsParams.pdf", sep=""))
   }
 
   for (param in params) {
@@ -720,13 +718,9 @@ line_plot_year <- function(
   }
 
   if (save2disk == T) {
-
-    # Save multi-page PDF
     dev.off()
-
-    # Save ggplot objects
     save(list=(ls(pattern=paste(fname_root, "_", ".*", "_", "plot", sep=""))),
-         file=paste(fname_root, "_", "YearVsParamsPlots.rda", sep=""))
+         file=paste(dir.out, "/", fname_root, "_", "YearVsParams.rda", sep=""))
   }
 
   names(r.line_plot_year) <- ls(pattern=paste(fname_root, "_", ".*", "_",
@@ -751,9 +745,8 @@ line_plot_year <- function(
 #' @export
 line_plot_year_mid <- function(
   data=NULL,
-  project=NA,
-  scenario=NA,
-  ST=TRUE,
+  project=NULL,
+  scenario=NULL,
   yrmid=1,
   params=c("PExtinct", "Nextant", "Het", "Nalleles"),
   plotpops=c("all"),
@@ -784,10 +777,10 @@ line_plot_year_mid <- function(
     }
   }
 
-  RDataNameRoot <- if (ST == TRUE) {
-    paste0("./Plots/", project, "_", scenario)
+  fname_root <- if (is.null(scenario)) {
+    project
   } else {
-    paste0("./Plots/", project)
+    paste0(project, "_", scenario)
   }
 
   yrmidstdat <- subset(data, Year <= yrmid & pop.name %in% plotpops)
@@ -796,7 +789,7 @@ line_plot_year_mid <- function(
   i <- 0
   if (save2disk == T) {
     dir.create(dir.out, showWarnings=FALSE)
-    pdf(paste(RDataNameRoot, "_", "YearMidVsParamsPlots.pdf", sep=""))
+    pdf(paste0(dir.out, "/", fname_root, "_", "YearMidVsParams.pdf"))
   }
 
   for (param in params) {
@@ -816,9 +809,8 @@ line_plot_year_mid <- function(
   }
   if (save2disk == T) {
     dev.off()
-    save(list=(ls(pattern=paste(RDataNameRoot, "_", ".*", "_", "Mid", "plot",
-                                sep=""))),
-         file=paste(RDataNameRoot, "_", "YearMidVsParamsPlots.rda", sep=""))
+    save(list=(ls(pattern=paste0(fname_root, "_", ".*", "_", "Mid", "plot"))),
+         file=paste0(dir.out, "/", fname_root, "_", "YearMidVsParamsPlots.rda"))
   }
 
   names(r.line_plot_year_mid) <- ls(pattern=paste(RDataNameRoot, "_", ".*", "_",
@@ -841,16 +833,15 @@ line_plot_year_mid <- function(
 #' @import ggplot2
 #' @import grid
 #' @export
-dot_plot <- function(
-  data=NULL,
-  project=NA,
-  scenario=NA,
-  ST=TRUE,
-  yrs=c(1,2),
-  params=c("PExtinct", "Nextant", "Het", "Nalleles"),
-  setcolour="scen.name",
-  plotpops=c("all"),
-  save2disk=TRUE) {
+dot_plot <- function(data=NULL,
+                     project=NA,
+                     scenario=NA,
+                     yrs=c(1,2),
+                     params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+                     setcolour="scen.name",
+                     plotpops=c("all"),
+                     save2disk=TRUE,
+                     dir.out="Plots") {
 
   require(ggplot2)
   require(grid)
@@ -861,10 +852,10 @@ dot_plot <- function(
   # Set up headings for params
   params <- make.names(params)
 
-  RDataNameRoot <- if (ST == TRUE) {
-    paste("./Plots/", project, "_", scenario, sep="")
+  fname_root <- if (is.null(scenario)) {
+    project
   } else {
-    paste0("./Plots/", project)
+    paste0(project, "_", scenario)
   }
 
   # set legend size
@@ -892,13 +883,13 @@ dot_plot <- function(
 
   r.dot_plot <- list()
   if (save2disk == T) {
-    dir.create("Plots", showWarnings=FALSE)
-    pdf(paste(RDataNameRoot, "_", "dot_plots.pdf", sep=""))
+    dir.create(dir.out, showWarnings=FALSE)
+    pdf(paste(dir.out, "/", fname_root, "_", "dot_plots.pdf", sep=""))
   }
 
   for (i in 1:length(params)) {
     yrstdat <- subset(popstdat, Year %in% yrs)
-    root <- paste(RDataNameRoot, "_", params[i], sep="")
+    root <- paste(fname_root, "_", params[i], sep="")
     min <- yrstdat[params[i]] - yrstdat[SD[i]]
     names(min) <- "min"
     max <- yrstdat[params[i]] + yrstdat[SD[i]]
@@ -923,15 +914,14 @@ dot_plot <- function(
     assign(paste(root, "_", "dot_plot", sep=""), d)
     r.dot_plot[[i]] <- d
   }
+  pat <- paste0(fname_root, "_", ".*", "_", "dot_plot")
   if (save2disk == T) {
     dev.off()
-    save(list=(ls(pattern=paste(RDataNameRoot, "_", ".*", "_",
-                                "dot_plot", sep=""))),
-         file=paste(RDataNameRoot, "_", "dot_plots.rda", sep=""))
+    save(list=(ls(pattern=pat)),
+         file=paste0(dir.out, "/", fname_root, "_", "dot_plots.rda"))
   }
 
-  names(r.dot_plot) <- ls(pattern=paste(RDataNameRoot, "_", ".*", "_",
-                                       "dot_plot", sep=""))
+  names(r.dot_plot) <- ls(pattern=pat)
   return(r.dot_plot)
 }
 
@@ -947,16 +937,16 @@ dot_plot <- function(
 #' @return a matrix of scatter plots
 #' @import data.table
 #' @export
-m_scatter <- function (
-  data=NULL, # input file (any output of collate_dat, collate_yr, collate_run)
-  data.type="dat", # possible options are "dat", "yr" or "run"
-  lookUp=NA,
-  yr=1,
-  popn=1,
-  param="N",
-  vs=NA,
-  save2disk=TRUE
-) {
+m_scatter <- function (data=NULL,
+                       # input file (any output of collate_dat, collate_yr, collate_run)
+                      data.type="dat", # possible options are "dat", "yr" or "run"
+                      lookUp=NA,
+                      yr=1,
+                      popn=1,
+                      param="N",
+                      vs=NA,
+                      save2disk=TRUE,
+                      dir.out="Plots") {
   require(GGally)
   require(data.table)
 
@@ -995,12 +985,11 @@ m_scatter <- function (
                                    params=c(method="loess", colour="red")))
 
   if (save2disk == T) {
-    # Save the scatter plot to disk
-    dir.create("./Regression", showWarnings=FALSE)
-    pdf(file="./Regression/scatter.plot.pdf")
+    dir.create(dir.out, showWarnings=FALSE)
+    pdf(file=paste0(dir.out, "/","m_scatter_plots.pdf"))
     print(corrMtrx)
     dev.off()
-    save(corrMtrx, file="./Regression/scatter.plot.rda")
+    save(corrMtrx, file=paste0(dir.out, "/", "m_scatter_plots.rda"))
   }
   return(corrMtrx)
 }
