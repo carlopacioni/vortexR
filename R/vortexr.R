@@ -94,9 +94,9 @@ df2disk <- function(df, dirpath, fname, postfix=""){
 
   dir.create(dirpath, showWarnings = FALSE)
 
-  save(d, file=paste0(dirpath, "/", fname, postfix, ".rda")), compress="xz")
+  save(df, file=paste0(dirpath, "/", fname, postfix, ".rda"), compress="xz")
 
-  write.table(d, file=paste0(dirpath, "/", fname, postfix, ".txt"),
+  write.table(df, file=paste0(dirpath, "/", fname, postfix, ".txt"),
               sep=";", row.names=FALSE)
 }
 
@@ -125,7 +125,7 @@ get_file_paths <- function(path, pattern, fn_name, verbose = FALSE){
     if (verbose){
       msg <- paste0("INFO vortexR::", fn_name," found ", length(files),
                    " matching files in ", path, ":")
-      message(cat(msg, files, sep = "\n"))
+      message(msg)
     }
     return(files)
   }
@@ -351,8 +351,12 @@ collate_dat <- function(project, runs,
     fn_name = "collate_dat",
     verbose = verbose)
 
-    d <- data.frame()
-    for (filename in files) {d <- rbind(d, collate_one_dat(filename, runs))}
+  d <- data.frame()
+  if (verbose){message("vortexR::collate_dat is reading:")}
+    for (filename in files) {
+      if (verbose){message(filename, "\r")}
+      d <- rbind(d, collate_one_dat(filename, runs))
+    }
     if (save2disk == T) {df2disk(d, dir.out, fname, "_data")}
     return(d)
 }
@@ -698,7 +702,7 @@ line_plot_year <- function(
     }
   }
 
-  fname_root <- if (is.null(scenario) {
+  fname_root <- if (is.null(scenario)) {
     project
   } else {
     paste0(project, "_", scenario)
@@ -1127,7 +1131,7 @@ when passing the same argument values to the Ne and Nb functions. See documentat
 #' @import data.table
 #' @export
 ### Nb (effective pop size based on number of breeders)
-Nadult <- function (
+Nb <- function (
   data=NULL,
   scenarios="all",
   numPopsNoMeta=1, # Number of pops without the metapop
