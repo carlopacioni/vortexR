@@ -1008,21 +1008,19 @@ m_scatter <- function (data=NULL,
 #' @import data.table
 #' @export
 # the user may have set up his own SVs so he/she has to provide a list of SVs
-lookup_table <- function (
-  data=NULL,
-  project=NA,
-  scenario=NA,
-  ST=TRUE,
-  pop="Population 1", # the name of the pop to be used as reference
-  SVs=c("SV1"),
-  save2disk=TRUE,
-  dir.out="ProcessedData") {
+lookup_table <-  function(data=NULL,
+                          project=NULL,
+                          scenario=NULL,
+                          pop="Population 1", # the name of the pop to be used as reference
+                          SVs=c("SV1"),
+                          save2disk=TRUE,
+                          dir.out="ProcessedData") {
   require(data.table)
 
-  fname <- if (ST == TRUE) {
-    paste0(project, "_", scenario)
-  } else {
+  fname <- if (is.null(scenario)) {
     project
+  } else {
+    paste0(project, "_", scenario)
   }
 
   LookUpT <- data.table(data)
@@ -1045,22 +1043,18 @@ lookup_table <- function (
 #' @import data.table
 #' @export
 ### Ne (effective pop size based on genetic loss)
-Ne <- function (
-  data=NULL,
-  scenarios="all",
-  gen=1,
-  yr0=1,
-  yrt=2,
-  save2disk=TRUE,
-  fname="Ne",
-  dir.out="DataAnalysis"
-) {
+Ne <-  function(data=NULL,
+                scenarios="all",
+                gen=1,
+                yr0=1,
+                yrt=2,
+                save2disk=TRUE,
+                fname="Ne",
+                dir.out="DataAnalysis") {
   require(data.table)
 
   # Function definitions
-  NeOne <- function (scenario) {
-
-
+  NeOne <- function(scenario) {
           stdatDT <- data.table(data)
           setkeyv(stdatDT, c("scen.name", "Year"))
 
@@ -1086,14 +1080,14 @@ Ne <- function (
   r.Ne <- r.Ne[ , Scenario := scenarios]
 
   if (save2disk == T) {
-    df2disk(r.Ne, fname)
+    df2disk(r.Ne, dir.out, fname)
   }
 
   message(paste("Effective population size based on loss of gene diversity from year",
                 round(yr0 + gen), "to year", yrt))
   message("NOTE: The first year used in the calculations is adjusted using
 the generation time provided (yr0 + gen) so that Ne:N ratio can be directly calculated
-when passing the same argument values to the Ne and Nb functions. See documentation for more information")
+when passing the same argument values to the Ne and Nadults functions. See documentation for more information")
   return(r.Ne)
 }
 
@@ -1107,23 +1101,22 @@ when passing the same argument values to the Ne and Nb functions. See documentat
 #' @import data.table
 #' @export
 ### Nb (effective pop size based on number of breeders)
-Nb <- function (
-  data=NULL,
-  scenarios="all",
-  numPopsNoMeta=1, # Number of pops without the metapop
-  appendMeta=FALSE,
-  gen=1,
-  yr0=1,
-  yrt=2,
-  save2disk=TRUE,
-  fname="Nadult",
-  dir.out="DataAnalysis") {
+Nb <- function (data=NULL,
+                scenarios="all",
+                numPopsNoMeta=1, # Number of pops without the metapop
+                appendMeta=FALSE,
+                gen=1,
+                yr0=1,
+                yrt=2,
+                save2disk=TRUE,
+                fname="Nadult",
+                dir.out="DataAnalysis") {
 
   require(plyr)
   require(data.table)
 
   # Function definitions
-  HarmMean <- function (x) 1/mean(1/(x))
+  HarmMean <- function(x) 1/mean(1/(x))
 
   LongFormat <- function (numPop) {
     k <- numPop - 1
@@ -1177,7 +1170,7 @@ Nb <- function (
                 "to year", round(yrt-gen)))
   message("NOTE: The last year used in the calculations is adjusted using
 the generation time provided (yrt - gen) so that Ne:N ratio can be directly
-calculated when passing the same argument values to the Ne and Nb functions.
+calculated when passing the same argument values to the Ne and Nadults functions.
 See documentation for more information")
 
   if (scenarios == "all")
@@ -1195,7 +1188,7 @@ See documentation for more information")
                               by=list(Scenario,Population)]
   message("Done!")
 
-  if (save2disk == T) {df2disk(harm.means, fname)}
+  if (save2disk == T) {df2disk(harm.means, dir.out, fname)}
   return(harm.means)
 }
 
