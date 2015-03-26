@@ -147,7 +147,7 @@ se2sd <- function(se, no) {se * sqrt(no)}
 #' @param prefix A text prefix, default: ""
 #' @usage
 #' PrefixAndRepeat(c("a","b","c"), 3, "pop_")
-PrefixAndRepeat <- function (chars, times=1, prefix="") {
+PrefixAndRepeat <- function(chars, times=1, prefix="") {
   rep(paste0(prefix, chars), times)
 }
 
@@ -161,13 +161,7 @@ PrefixAndRepeat <- function (chars, times=1, prefix="") {
 #' @param lines An object returned from readLines()
 #' @param header A character vector of column names
 #' @return A data.frame
-CompileIter <- function (iter,
-                         filename,
-                         n_rows,
-                         iter_ln,
-                         lines,
-                         header) {
-  # we should be parsing lines, not read.table again
+CompileIter <- function (iter, filename, n_rows, iter_ln, lines, header) {
   temp.df <- read.table(filename, header=FALSE, sep=";",
                         nrows=n_rows, skip=iter_ln[iter],
                         colClasses="numeric", comment.char="")
@@ -344,11 +338,10 @@ collate_dat <- function(project=NULL, runs,
 
   if (is.null(dir.in)) {dir.in <- getwd()}
 
-  files <- get_file_paths(
-    path=dir.in,
-    pattern=pat,
-    fn_name="collate_dat",
-    verbose=verbose)
+  files <- get_file_paths(path=dir.in,
+                          pattern=pat,
+                          fn_name="collate_dat",
+                          verbose=verbose)
 
   d <- data.frame()
   if (verbose){message("vortexR::collate_dat is reading:")}
@@ -378,14 +371,13 @@ collate_dat <- function(project=NULL, runs,
 #' @usage
 #' pac.dir <- system.file("extdata", "pacioni", package="vortexr")
 #' pac.run.lhs <- collate_run("Pacioni_et_al", "ST_LHS", 1, dir.in = pac.dir)
-collate_run <- function (
-  project=NULL,
-  scenario=NULL,
-  numPops=1,
-  dir.in=NULL,
-  save2disk=TRUE,
-  dir.out="ProcessedData",
-  verbose=FALSE) {
+collate_run <- function(project=NULL,
+                        scenario=NULL,
+                        numPops=1,
+                        dir.in=NULL,
+                        save2disk=TRUE,
+                        dir.out="ProcessedData",
+                        verbose=FALSE) {
 
   run <- data.frame()
   lrun <- data.frame()
@@ -393,14 +385,14 @@ collate_run <- function (
   if (is.null(dir.in)) {dir.in <- getwd()}
   fname <- paste(project, scenario, sep="_")
 
-  files <- get_file_paths(
-    path=dir.in,
-    pattern=paste0("^", fname,".*\\.run$"),
-    fn_name="collate_run",
-    verbose=verbose)
+  files <- get_file_paths(path=dir.in,
+                          pattern=paste0("^", fname,".*\\.run$"),
+                          fn_name="collate_run",
+                          verbose=verbose)
 
+  if (verbose){message("vortexR::collate_run is reading:")}
   for (filename in files) {
-    if (verbose) {message(cat("Reading", filename, "\n"))}
+    if (verbose) {message(filename, "\r")}
     h <- gsub(" ", "", read.table(filename, header=FALSE, sep=";",
             nrows=1, skip=2, colClasses="character", comment.char=""))
 
@@ -471,30 +463,28 @@ collate_run <- function (
 #' @usage
 #' pac.dir <- system.file("extdata", "pacioni", package="vortexr")
 #' pac.yr <- collate_yr("Pacioni_et_al", "ST_Classic", 1, dir.in = pac.dir)
-collate_yr <- function (
-  project=NULL,
-  scenario=NULL,
-  npnm=1,
-  dir.in=NULL,
-  save2disk=TRUE,
-  dir.out="ProcessedData",
-  verbose=FALSE) {
+collate_yr <- function(project=NULL,
+                        scenario=NULL,
+                        npnm=1,
+                        dir.in=NULL,
+                        save2disk=TRUE,
+                        dir.out="ProcessedData",
+                        verbose=FALSE) {
 
   if (is.null(dir.in)) {dir.in <- getwd()}
   fname <- paste0(project, "_", scenario)
 
-  files <- get_file_paths(
-    path=dir.in,
-    pattern=paste0("^", fname, ".*\\.yr$"),
-    fn_name="collate_yr",
-    verbose=verbose)
+  files <- get_file_paths(path=dir.in,
+                          pattern=paste0("^", fname, ".*\\.yr$"),
+                          fn_name="collate_yr",
+                          verbose=verbose)
 
   censusData <- vector(mode="list", length=length(files))
 
+  if (verbose){message("vortexR::collate_yr is reading:")}
   for (i in 1:length(files)) {
-
     lines <- readLines(files[i])
-    if (verbose) {message(cat(files[i]))} # print file name being read
+    if (verbose) {message(files[i], "\r")}
 
     # Header
     header <- as.vector(sapply(strsplit(lines[3], ";"), stringr::str_trim))
@@ -585,20 +575,18 @@ collate_proc_data <- function(data=NULL,
 #' @return a data.frame in long format
 #' @import data.table plyr
 #' @export
-conv_l_yr <- function (
-  data=NULL,
-  npnm=1,
-  appendMeta=FALSE,
-  project=NULL, # This is only used for the name of the file
-  scenario=NULL, # This is only used for the name of the file
-  yrs=c(1, 2),
-  save2disk=TRUE,
-  dir.out="ProcessedData"
-) {
+conv_l_yr <- function(data=NULL,
+                      npnm=1,
+                      appendMeta=FALSE,
+                      project=NULL, # This is only used for the name of the file
+                      scenario=NULL, # This is only used for the name of the file
+                      yrs=c(1, 2),
+                      save2disk=TRUE,
+                      dir.out="ProcessedData") {
   requireNamespace("plyr", quietly=TRUE)
   requireNamespace("data.table", quietly=TRUE)
 
-  LongFormat <- function (numPop) {
+  LongFormat <- function(numPop) {
     k <- numPop - 1
     cstart <- 4 + (k * ncolpop)
     cend <- 4 + ncolpop * numPop - 1
