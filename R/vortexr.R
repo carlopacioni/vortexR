@@ -354,7 +354,7 @@ collate_dat <- function(project=NULL, runs,
   if (verbose){message("vortexR::collate_dat is reading:")}
     for (filename in files) {
       if (verbose){message(filename, "\r")}
-      d <- rbind(d, collate_one_dat(filename, runs, verbose))
+      d <- rbind(d, collate_one_dat(filename, runs))
     }
     if (save2disk == T) {df2disk(d, dir.out, fname, "_data")}
     return(d)
