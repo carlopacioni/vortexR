@@ -354,7 +354,7 @@ collate_dat <- function(project=NULL, runs,
   if (verbose){message("vortexR::collate_dat is reading:")}
     for (filename in files) {
       if (verbose){message(filename, "\r")}
-      d <- rbind(d, collate_one_dat(filename, runs))
+      d <- rbind(d, collate_one_dat(filename, runs, verbose))
     }
     if (save2disk == T) {df2disk(d, dir.out, fname, "_data")}
     return(d)
@@ -379,8 +379,8 @@ collate_dat <- function(project=NULL, runs,
 #' pac.dir <- system.file("extdata", "pacioni", package="vortexr")
 #' pac.run.lhs <- collate_run("Pacioni_et_al", "ST_LHS", 1, dir.in = pac.dir)
 collate_run <- function (
-  project,
-  scenario,
+  project=NULL,
+  scenario=NULL,
   numPops=1,
   dir.in=NULL,
   save2disk=TRUE,
@@ -472,7 +472,7 @@ collate_run <- function (
 #' pac.dir <- system.file("extdata", "pacioni", package="vortexr")
 #' pac.yr <- collate_yr("Pacioni_et_al", "ST_Classic", 1, dir.in = pac.dir)
 collate_yr <- function (
-  project,
+  project=NULL,
   scenario=NULL,
   npnm=1,
   dir.in=NULL,
@@ -589,8 +589,8 @@ conv_l_yr <- function (
   data=NULL,
   npnm=1,
   appendMeta=FALSE,
-  project=NA, # This is only used for the name of the file
-  scenario=NA, # This is only used for the name of the file
+  project=NULL, # This is only used for the name of the file
+  scenario=NULL, # This is only used for the name of the file
   yrs=c(1, 2),
   save2disk=TRUE,
   dir.out="ProcessedData"
