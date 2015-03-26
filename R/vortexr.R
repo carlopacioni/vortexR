@@ -1212,18 +1212,17 @@ See documentation for more information")
 #' @import data.table irr
 #' @export
 #'
-Pairwise <- function(
-  data=NULL,
-  project=NA,
-  scenario=NA,
-  params=c("PExtinct", "Nextant", "Het", "Nalleles"),
-  yrs="max",
-  ST=FALSE,
-  type=NA,
-  group.mean=FALSE,
-  SVs=NA,
-  save2disk=TRUE,
-  dir.out="Pairwise") {
+Pairwise <-  function(data=NULL,
+                      project=NULL,
+                      scenario=NULL,
+                      params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+                      yrs="max",
+                      ST=FALSE,
+                      type=NA,
+                      group.mean=FALSE,
+                      SVs=NA,
+                      save2disk=TRUE,
+                      dir.out="DataAnalysis/Pairwise") {
 
   require(data.table)
   require(irr)
@@ -1232,13 +1231,13 @@ Pairwise <- function(
   SEname <- function(par) paste("SE.", par, ".", sep="")
   SDname <- function(parSD) paste("SD.", parSD, ".", sep="")
   naming.coef <- function(naming) paste("C", "_", naming, yr, sep="")
-  naming.ssmd <- function(naming.ssmd) paste("SSMD", "_",
-                                             naming.ssmd, yr, sep="")
-  pval <- function (x) pnorm(abs(x), lower.tail=FALSE)
+  naming.ssmd <- function(naming.ssmd)
+                      paste("SSMD", "_", naming.ssmd, yr, sep="")
+  pval <- function(x) pnorm(abs(x), lower.tail=FALSE)
 
   # Flag (false) columns where all entries are NA
-  FColsAllNA <- function(lranks) apply(lranks, 2,
-                                       function(chk) !all(is.na(chk)))
+  FColsAllNA <- function(lranks)
+                        apply(lranks, 2, function(chk) !all(is.na(chk)))
 
   # Error handling
   suppressWarnings(if (!yrs == "max" & !is.numeric(yrs))
@@ -1251,22 +1250,18 @@ Pairwise <- function(
   }
 
   # set yrs to max
-  suppressWarnings(if (yrs == "max")
-    yrs <- max(data$Year))
+  suppressWarnings(if (yrs == "max") {yrs <- max(data$Year)})
 
   # set group.mean if needed
-  if (ST == TRUE & type == "Single-Factor" & length(SVs) > 1)
-    group.mean <- T
+  if (ST == TRUE & type == "Single-Factor" & length(SVs) > 1) {group.mean <- T}
 
   # Set up headings for params and SE and SD
   params <- make.names(params)
   SE <- sapply(params, SEname)
-  if ("r.stoch" %in% params)
-    SE["r.stoch"] <- "SE.r."
+  if ("r.stoch" %in% params) {SE["r.stoch"] <- "SE.r."}
 
   SD <- sapply(params, SDname)
-  if ("r.stoch" %in% params)
-    SD["r.stoch"] <- "SD.r."
+  if ("r.stoch" %in% params) {SD["r.stoch"] <- "SD.r."}
 
   # Create a dataframe for the base scenario.
   if (ST == TRUE ) {
@@ -1581,26 +1576,25 @@ Pairwise <- function(
 #' @return a glmulti object with the best models found
 #' @import glmulti data.table plyr
 #' @export
-fit_regression <- function (
-  data=NULL,
-  lookUp=NA,
-  census=T,
-  yr=NA,
-  project=NA,
-  scenario=NA,
-  popn=NA, # the number of the pop to be analysed
-  param="GeneDiv" , # dependent variable
-  vs=c("GS1"), # independent variable(s)
-  # List of params that would use Poisson error distribution
-  count.data=c("Nextant", "Nall", "Nalleles", "N", "AM", "AF", "Subadults",
-               "Juv", "nDams", "nBroods", "nProgeny", "nImmigrants",
-               "nEmigrants", "nHarvested", "nSupplemented", "YrExt", "Alleles"),
-  ic="aic",
-  l=1, # Level for glmulti search: 1 main effect, 2 main effects + interactions
-  n.cand=30,
-  set.size=NA,
-  save2disk=TRUE,
-  dir.out="FitRegression") {
+fit_regression <-  function(data=NULL,
+                            lookUp=NA,
+                            census=T,
+                            yr=NA,
+                            project=NA,
+                            scenario=NA,
+                            popn=NA, # the number of the pop to be analysed
+                            param="GeneDiv" , # dependent variable
+                            vs=c("GS1"), # independent variable(s)
+                            # List of params that would use Poisson error distribution
+                            count.data=c("Nextant", "Nall", "Nalleles", "N", "AM", "AF", "Subadults",
+                                         "Juv", "nDams", "nBroods", "nProgeny", "nImmigrants",
+                                         "nEmigrants", "nHarvested", "nSupplemented", "YrExt", "Alleles"),
+                            ic="aic",
+                            l=1, # Level for glmulti search: 1 main effect, 2 main effects + interactions
+                            n.cand=30,
+                            set.size=NA,
+                            save2disk=TRUE,
+                            dir.out="FitRegression") {
   # Load required packages. Loading of betareg and R.utils are delayed after
   # it has been checked that they actually are needed to avoid wasting time
   # loading packages that are not used.
@@ -1611,7 +1605,7 @@ fit_regression <- function (
   # Functions
 
   # Selecet method for glmulti search
-  select_method <- function (cand, n.cand) {
+  select_method <- function(cand, n.cand) {
     if (cand > n.cand) {m <- "g"} else {m <- "h"}
     return(m)
   }
