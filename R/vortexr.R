@@ -92,7 +92,7 @@ NULL
 #' @export
 df2disk <- function(df, dirpath, fname, postfix=""){
 
-  dir.create(dirpath, showWarnings = FALSE)
+  dir.create(dirpath, showWarnings=FALSE)
 
   save(df, file=paste0(dirpath, "/", fname, postfix, ".rda"), compress="xz")
 
@@ -113,10 +113,10 @@ df2disk <- function(df, dirpath, fname, postfix=""){
 #' @param verbose Debug messages, default: FALSE
 #' @return A character vector of fully qualified file paths
 #' @import gtools
-get_file_paths <- function(path, pattern, fn_name, verbose = FALSE){
-  files <- gtools::mixedsort(list.files(path = path,
-                                        pattern = pattern,
-                                        full.names = TRUE))
+get_file_paths <- function(path, pattern, fn_name, verbose=FALSE){
+  files <- gtools::mixedsort(list.files(path=path,
+                                        pattern=pattern,
+                                        full.names=TRUE))
 
   if (length(files) == 0) {
     stop(paste0("ERROR vortexr::", fn_name," found no files",
@@ -220,12 +220,12 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
   }
 
   # Column names
-  h <- make.names(read.table(filename, header = FALSE, sep = ";", nrows = 1,
+  h <- make.names(read.table(filename, header=FALSE, sep=";", nrows=1,
                               skip=(popLn[1] - 3), colClasses="character"))
 
   # Scenario name
-  scen <- read.table(filename, header = FALSE, sep = ";", nrows = 1,
-                     skip = (popLn[1] - 2), colClasses = "character")
+  scen <- read.table(filename, header=FALSE, sep=";", nrows=1,
+                     skip=(popLn[1] - 2), colClasses="character")
 
   # Loop over populations
   for (pop in 1:popN) {
@@ -233,14 +233,13 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
     readAfter <- popLn[pop]
 
     # Read population data block
-    tmp <- read.table(
-      filename, header = FALSE, sep = ";",
-      nrows = readFor, skip = readAfter,
-      colClasses = "numeric", comment.char = "")
+    tmp <- read.table(filename, header=FALSE, sep=";",
+      nrows=readFor, skip=readAfter,
+      colClasses="numeric", comment.char="")
     colnames(tmp) <- h
 
     # Create vector with population name
-    popNameStarts <- attr(regexpr(pattern = "^Population ", lines[popLn]),
+    popNameStarts <- attr(regexpr(pattern="^Population ", lines[popLn]),
                           "match.length") + 4
     popName <- substr(lines[popLn], popNameStarts, nchar(lines[popLn]))
     if (pop > 1 & pop == max(popN)) {
@@ -253,8 +252,8 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
     scen.name <- unlist(scen.name <- rep(scen, length=length(tmp$Year)))
 
     # Create vectors of Standard Deviations of PExtant and PExtinct
-    SD.PExtant. <- sapply(tmp$SE.PExtant., se2sd, no = runs)
-    SD.PExtinct. <- sapply(tmp$SE.PExtinct., se2sd, no = runs)
+    SD.PExtant. <- sapply(tmp$SE.PExtant., se2sd, no=runs)
+    SD.PExtinct. <- sapply(tmp$SE.PExtinct., se2sd, no=runs)
 
     # Add scenario name, popname, and probability SDs as columns to data.frame
     tmp <- cbind(scen.name, pop.name, tmp, SD.PExtant., SD.PExtinct.)
@@ -328,9 +327,9 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #' # Dirpath falls back to current working directory
 #' setwd(camp.dir)
 #' sta <- collate_dat("Starlingv3PopBased", 1000)
-collate_dat <- function(project, runs,
-                        scenario = NULL,
-                        dir.in = NULL,
+collate_dat <- function(project=NULL, runs,
+                        scenario=NULL,
+                        dir.in=NULL,
                         save2disk=TRUE,
                         dir.out="ProcessedData",
                         verbose=FALSE){
@@ -343,13 +342,13 @@ collate_dat <- function(project, runs,
     pat <- paste0("^", fname, ".*\\.stdat$")
   }
 
-  if (is.null(dir.in)) {dir.in = getwd()}
+  if (is.null(dir.in)) {dir.in <- getwd()}
 
   files <- get_file_paths(
-    path = dir.in,
-    pattern = pat,
-    fn_name = "collate_dat",
-    verbose = verbose)
+    path=dir.in,
+    pattern=pat,
+    fn_name="collate_dat",
+    verbose=verbose)
 
   d <- data.frame()
   if (verbose){message("vortexR::collate_dat is reading:")}
@@ -383,22 +382,22 @@ collate_run <- function (
   project,
   scenario,
   numPops=1,
-  dir.in = NULL,
+  dir.in=NULL,
   save2disk=TRUE,
   dir.out="ProcessedData",
   verbose=FALSE) {
 
-  run = data.frame()
-  lrun= data.frame()
+  run <- data.frame()
+  lrun <- data.frame()
 
   if (is.null(dir.in)) {dir.in <- getwd()}
   fname <- paste(project, scenario, sep="_")
 
   files <- get_file_paths(
-    path = dir.in,
-    pattern = paste0("^", fname,".*\\.run$"),
-    fn_name = "collate_run",
-    verbose = verbose)
+    path=dir.in,
+    pattern=paste0("^", fname,".*\\.run$"),
+    fn_name="collate_run",
+    verbose=verbose)
 
   for (filename in files) {
     if (verbose) {message(cat("Reading", filename, "\n"))}
@@ -476,21 +475,21 @@ collate_yr <- function (
   project,
   scenario=NULL,
   npnm=1,
-  dir.in = NULL,
+  dir.in=NULL,
   save2disk=TRUE,
   dir.out="ProcessedData",
   verbose=FALSE) {
 
-  if (is.null(dir.in)) {dir.in = getwd()}
+  if (is.null(dir.in)) {dir.in <- getwd()}
   fname <- paste0(project, "_", scenario)
 
   files <- get_file_paths(
-    path = dir.in,
-    pattern = paste0("^", fname, ".*\\.yr$"),
-    fn_name = "collate_yr",
-    verbose = verbose)
+    path=dir.in,
+    pattern=paste0("^", fname, ".*\\.yr$"),
+    fn_name="collate_yr",
+    verbose=verbose)
 
-  censusData <- vector(mode = "list", length=length(files))
+  censusData <- vector(mode="list", length=length(files))
 
   for (i in 1:length(files)) {
 
@@ -537,7 +536,7 @@ collate_yr <- function (
 
 
   data.table::setkey(censusAll, Scenario, Year)
-  censusMeansDT <- censusAll[ , lapply(.SD, mean), by = "Scenario,Year"]
+  censusMeansDT <- censusAll[ , lapply(.SD, mean), by="Scenario,Year"]
   censusMeansDT <- censusMeansDT[ , Iteration := NULL]
 
   if (save2disk == T) {
@@ -596,8 +595,8 @@ conv_l_yr <- function (
   save2disk=TRUE,
   dir.out="ProcessedData"
 ) {
-  requireNamespace("plyr", quietly = TRUE)
-  requireNamespace("data.table", quietly = TRUE)
+  requireNamespace("plyr", quietly=TRUE)
+  requireNamespace("data.table", quietly=TRUE)
 
   LongFormat <- function (numPop) {
     k <- numPop - 1
@@ -697,7 +696,7 @@ line_plot_year <- function(
       legKeySize <- 2.5
       legTxtSize <- 5
     } else {
-      legKeySize <- round(160 / nscen, digits = 2)
+      legKeySize <- round(160 / nscen, digits=2)
       legTxtSize <- 5
     }
   }
@@ -792,7 +791,7 @@ line_plot_year_mid <- function(
       legKeySize <- 2.5
       legTxtSize <- 5
     } else {
-      legKeySize <- round(160 / nscen, digits = 2)
+      legKeySize <- round(160 / nscen, digits=2)
       legTxtSize <- 5
     }
   }
@@ -890,7 +889,7 @@ dot_plot <- function(
       legKeySize <- 2.5
       legTxtSize <- 5
     } else {
-      legKeySize <- round(160 / nLegItems, digits = 2)
+      legKeySize <- round(160 / nLegItems, digits=2)
       legTxtSize <- 5
     }
   }
@@ -905,7 +904,7 @@ dot_plot <- function(
 
   r.dot_plot <- list()
   if (save2disk == T) {
-    dir.create("Plots", showWarnings = FALSE)
+    dir.create("Plots", showWarnings=FALSE)
     pdf(paste(RDataNameRoot, "_", "dot_plots.pdf", sep=""))
   }
 
@@ -919,7 +918,7 @@ dot_plot <- function(
     yrstdat <- cbind(yrstdat,min, max)
     limits <- aes(ymax=max, ymin=min)
     d <- ggplot(yrstdat,
-                aes_string(color=setcolour, x="scen.name", y= params[i])) +
+                aes_string(color=setcolour, x="scen.name", y=params[i])) +
       geom_point() +
       theme(axis.text.x=element_text(angle=-90, size=5, vjust=1)) +
       xlab("Scenario") +
@@ -1001,15 +1000,15 @@ m_scatter <- function (
   setkey(data, Population)
   data <- data[.(pop), ] # Select pop
   suppressWarnings(if (!is.na(lookUp)) {
-    data <- join(data, lookUp, by = 'Scenario', type="left")
+    data <- join(data, lookUp, by='Scenario', type="left")
   } )
   corrMtrx <- ggpairs(data[ , c(vs, param), with=FALSE], alpha=0.2,
-                      lower = list(continuous = "smooth",
-                                   params = c(method = "loess", colour="red")))
+                      lower = list(continuous="smooth",
+                                   params=c(method="loess", colour="red")))
 
   if (save2disk == T) {
     # Save the scatter plot to disk
-    dir.create("./Regression", showWarnings = FALSE)
+    dir.create("./Regression", showWarnings=FALSE)
     pdf(file="./Regression/scatter.plot.pdf")
     print(corrMtrx)
     dev.off()
@@ -1051,7 +1050,7 @@ lookup_table <- function (
 
   LookUpT <- data.table(data)
   setkey(LookUpT, pop.name, Year)
-  LookUpT <- LookUpT[J(pop, 0), c("scen.name", SVs), with = FALSE]
+  LookUpT <- LookUpT[J(pop, 0), c("scen.name", SVs), with=FALSE]
   setnames(LookUpT, "scen.name", "Scenario")
 
   if(save2disk == T) {
@@ -1617,7 +1616,7 @@ fit_regression <- function (
   lookUp=NA,
   census=T,
   yr=NA,
-  project= NA,
+  project=NA,
   scenario=NA,
   popn=NA, # the number of the pop to be analysed
   param="GeneDiv" , # dependent variable
@@ -1654,7 +1653,7 @@ fit_regression <- function (
   links <- c("logit", "probit", "cloglog", "cauchit", "loglog")
 
   suppressWarnings(if (!is.na(lookUp)) {
-    data <- join(data, lookUp, by = 'Scenario', type="left")
+    data <- join(data, lookUp, by='Scenario', type="left")
   } )
 
   # convert data.table
@@ -1690,12 +1689,12 @@ fit_regression <- function (
   # rather than a vector (as it doesn't with GeneDiv)
   paramvalues <- data[[param]]
   if (save2disk == T) {
-    dir.create(dir.out, showWarnings = FALSE)
+    dir.create(dir.out, showWarnings=FALSE)
     pdf(paste0("./", "/",
                paste(project, scenario, param, "histogram.pdf", sep="_")))
   }
 
-  hist(paramvalues,  main = paste("Histogram of", param), xlab = param)
+  hist(paramvalues,  main=paste("Histogram of", param), xlab=param)
   if (save2disk == T)
     dev.off()
 
