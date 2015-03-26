@@ -555,7 +555,7 @@ collate_proc_data <- function(data=NULL,
   # TODO use data.table::rbindlist
   dfs <- plyr::rbind.fill(data)
 
-  if (save2disk == T) {df2disk(censusAll, dir.out, "CombinedDB")}
+  if (save2disk == T) {df2disk(dfs, dir.out, "CombinedDB")}
 
   return(dfs)
 }
