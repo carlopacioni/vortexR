@@ -794,7 +794,7 @@ line_plot_year_mid <- function(
 
   for (param in params) {
     i <- i + 1
-    root <- paste(RDataNameRoot, "_", param, sep="")
+    root <- paste(fname_root, param, sep="_")
     g <- ggplot(yrmidstdat, aes_string(x="Year", y=param)) +
       geom_line(aes(color=scen.name)) +
       facet_grid(pop.name~.)
@@ -807,14 +807,14 @@ line_plot_year_mid <- function(
     r.line_plot_year_mid[[i]] <- plot
     assign(paste(root, "_", "Mid", "plot", sep=""), g)
   }
+  pat <- paste0(fname_root, "_", ".*", "_", "Mid", "plot")
   if (save2disk == T) {
     dev.off()
-    save(list=(ls(pattern=paste0(fname_root, "_", ".*", "_", "Mid", "plot"))),
-         file=paste0(dir.out, "/", fname_root, "_", "YearMidVsParamsPlots.rda"))
+    save(list=(ls(pattern=pat)),
+         file=paste0(dir.out, "/", fname_root, "_", "YearMidVsParams.rda"))
   }
 
-  names(r.line_plot_year_mid) <- ls(pattern=paste(RDataNameRoot, "_", ".*", "_",
-                                               "Mid", "plot", sep=""))
+  names(r.line_plot_year_mid) <- ls(pattern=pat)
   return(r.line_plot_year_mid)
 }
 
@@ -946,6 +946,7 @@ m_scatter <- function (data=NULL,
                       param="N",
                       vs=NA,
                       save2disk=TRUE,
+                      fname=NULL,
                       dir.out="Plots") {
   require(GGally)
   require(data.table)
@@ -986,10 +987,10 @@ m_scatter <- function (data=NULL,
 
   if (save2disk == T) {
     dir.create(dir.out, showWarnings=FALSE)
-    pdf(file=paste0(dir.out, "/","m_scatter_plots.pdf"))
+    pdf(file=paste0(dir.out, "/", fname, "m_scatter_plots.pdf"))
     print(corrMtrx)
     dev.off()
-    save(corrMtrx, file=paste0(dir.out, "/", "m_scatter_plots.rda"))
+    save(corrMtrx, file=paste0(dir.out, "/", fname, "m_scatter_plots.rda"))
   }
   return(corrMtrx)
 }
@@ -1431,13 +1432,13 @@ Pairwise <-  function(data=NULL,
     cat("Rank comparison of SSMD", "\n"), lapply(ranks.ssmd.fin, kendall, TRUE))
   if (save2disk == T) {
     # write results
-    df2disk(table.coef, fname, ".coef.table")
-    df2disk(ssmd.table, fname, ".SSMD.table")
-    df2disk(ssmd.table.pvalues, fname, ".SSMD.table.pvalues")
-    df2disk(ranks.sc, fname, ".ranks.sc")
-    df2disk(ranks.ssmd, fname, ".ranks.SSMD")
+    df2disk(table.coef, dir.out, fname, ".coef.table")
+    df2disk(ssmd.table, dir.out, fname, ".SSMD.table")
+    df2disk(ssmd.table.pvalues, dir.out, fname, ".SSMD.table.pvalues")
+    df2disk(ranks.sc, dir.out, fname, ".ranks.sc")
+    df2disk(ranks.ssmd, dir.out, fname, ".ranks.SSMD")
     capture.output(print(kendall.out, quote=F),
-                   file=paste0(fname,".kendall.txt"))
+                   file=paste0(dir.out, "/", fname,".kendall.txt"))
   }
   # Collate results in a list
   r.OneWay<-list(coef.table=table.coef,
@@ -1548,13 +1549,13 @@ Pairwise <-  function(data=NULL,
       lapply(ranks.mssmd.fin, kendall, TRUE))
 
     if (save2disk == T) {
-      df2disk(mean.coef.table, fname, ".mean.coef.table")
-      df2disk(mean.ssmd.table, fname, ".mean.SSMD.table")
-      df2disk(mean.ssmd.table.pvalues, fname, ".mean.SSMD.table.pvalues")
-      df2disk(ranks.msc, fname, ".ranks.msc")
-      df2disk(ranks.mssmd, fname, ".ranks.mSSMD")
+      df2disk(mean.coef.table, dir.out, fname, ".mean.coef.table")
+      df2disk(mean.ssmd.table, dir.out, fname, ".mean.SSMD.table")
+      df2disk(mean.ssmd.table.pvalues, dir.out, fname, ".mean.SSMD.table.pvalues")
+      df2disk(ranks.msc, dir.out, fname, ".ranks.msc")
+      df2disk(ranks.mssmd, dir.out, fname, ".ranks.mSSMD")
       capture.output(print(kendall.mean.out, quote=F),
-                     file=paste0(RDataNameRoot, ".Kendall.means.txt"))
+                     file=paste0(dir.out, "/", fname, ".Kendall.means.txt"))
     }
 
     # Collate results for means
