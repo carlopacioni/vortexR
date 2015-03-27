@@ -1580,8 +1580,8 @@ fit_regression <-  function(data=NULL,
                             lookUp=NA,
                             census=T,
                             yr=NA,
-                            project=NA,
-                            scenario=NA,
+                            project=NULL,
+                            scenario=NULL,
                             popn=NA, # the number of the pop to be analysed
                             param="GeneDiv" , # dependent variable
                             vs=c("GS1"), # independent variable(s)
@@ -1650,23 +1650,21 @@ fit_regression <-  function(data=NULL,
   # Plot param
   # Tried DT[, plot(GeneDiv)] to call the plot directily within data.table
   # but when I use param rather than the column names DT return a datatable
-  # rather than a vector (as it doesn't with GeneDiv)
+  # rather than a vector (as it does with GeneDiv)
   paramvalues <- data[[param]]
+  name <- paste(project, scenario, param, sep="_")
   if (save2disk == T) {
     dir.create(dir.out, showWarnings=FALSE)
-    pdf(paste0("./", "/",
-               paste(project, scenario, param, "histogram.pdf", sep="_")))
+    pdf(paste0(dir.out, "/", paste(name, "histogram.pdf", sep="_")))
   }
 
   hist(paramvalues,  main=paste("Histogram of", param), xlab=param)
-  if (save2disk == T)
-    dev.off()
+  if (save2disk == T) {dev.off()}
 
   message(paste("summary of", param))
   print(summary(paramvalues))
   # set up formula to be used in regression models
   formula <- as.formula(paste0(param, "~", xs))
-  name <- paste(project, scenario, param, sep="_")
 
   if (param %in% count.data) {
     # Preliminary fit the GLM
