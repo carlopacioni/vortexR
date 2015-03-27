@@ -489,7 +489,7 @@ collate_yr <- function(project=NULL,
     # Header
     header <- as.vector(sapply(strsplit(lines[3], ";"), stringr::str_trim))
     ncolpop <- (length(header) - 1) / npnm
-    hsuff <- as.vector(sapply(1:npnm, PrefixAndRepeat, times=ncolpop))
+    hsuff <- as.vector(sapply(1:npnm, PrefixAndRepeat, times=ncolpop, prefix="pop"))
     header <- c("Year", paste0(header[2:length(header)], hsuff))
 
     # Line numbers of "Iteration" subheadings
