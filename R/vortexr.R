@@ -1595,7 +1595,7 @@ fit_regression <-  function(data=NULL,
                             n.cand=30,
                             set.size=NA,
                             save2disk=TRUE,
-                            dir.out="FitRegression") {
+                            dir.out="DataAnalysis/FitRegression") {
   # Load required packages. Loading of betareg and R.utils are delayed after
   # it has been checked that they actually are needed to avoid wasting time
   # loading packages that are not used.
@@ -1755,7 +1755,7 @@ fit_regression <-  function(data=NULL,
 
   if (save2disk == T) {
     message("Best models saved to disk in the file ...best.mod.rda")
-    save(best.mod, file=paste0(dir.out, "/", name, "_best.mod.rda",))
+    save(best.mod, file=paste0(dir.out, "/", name, "_best.mod.rda"))
     pdf(paste0(dir.out, "/", name, "_IC_plot.pdf"))
     plot(best.mod, type="p")
     dev.off()
