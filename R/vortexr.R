@@ -400,12 +400,12 @@ collate_run <- function(project=NULL,
                        colClasses="numeric", comment.char="")
     colnames(trun) <- h
 
-    scenario <- read.table(filename, header=FALSE, sep=":", nrows=1, skip=0,
+    Scenario <- read.table(filename, header=FALSE, sep=":", nrows=1, skip=0,
                            colClasses="character", , comment.char="")
-    scenario <- gsub(" ", "", scenario)[2]
+    Scenario <- gsub(" ", "", Scenario)[2]
 
-    scenario <- rep(scenario, length=length(trun$Iteration))
-    trun <- cbind(scenario, trun)
+    Scenario <- rep(Scenario, length=length(trun$Iteration))
+    trun <- cbind(Scenario, trun)
     run <- rbind(run, trun)
   }
 
