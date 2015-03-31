@@ -109,8 +109,8 @@ df2disk <- function(df, dirpath, fname, postfix=""){
 #'
 #' @param path The directory to search in
 #' @param pattern A pattern to match file names
-#' @param fn_name The vortexr function name for debug messages
-#' @param verbose Debug messages, default: FALSE
+#' @param fn_name The vortexR function name for verbose messages
+#' @param verbose Progress messages, default: FALSE
 #' @return A character vector of fully qualified file paths
 #' @import gtools
 get_file_paths <- function(path, pattern, fn_name, verbose=FALSE){
@@ -154,10 +154,10 @@ PrefixAndRepeat <- function(chars, times=1, prefix="") {
 
 #' Remove subheadings and downfill scenario name and subheadings as columns.
 #'
-#' @param iter An integer number
+#' @param iter The iteration (run) number
 #' @param filename The fully qualified filename to read from
 #' @param n_rows The number of rows to read from the file
-#' @param iter_ln A numeric vector of relevant row numbers
+#' @param iter_ln The number of rows to skip from the file
 #' @param lines An object returned from readLines()
 #' @param header A character vector of column names
 #' @return A data.frame
@@ -187,7 +187,7 @@ CompileIter <- function (iter, filename, n_rows, iter_ln, lines, header) {
 #'
 #' @param filename The fully qualified filename of a Vortex .dat or .stdat file
 #' @param runs The number of simulation runs
-#' @param verbose verbose messages, default: FALSE
+#' @param verbose Progress messages, default: FALSE
 #' @return a data.frame with data from one .dat or .stdat file and
 #'  population/scenario names as factors
 #' @export
@@ -259,10 +259,11 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #' Collate Vortex .dat or .stdat output files into one data.frame.
 #'
 #' \code{collate_dat} collates all Vortex output files in a given directory
-#' matching a given project name into one data.frame using \code{collate_one_dat}.
+#' matching a given project name (and scenario name when relevant)into one
+#' data.frame using \code{collate_one_dat}.
 #'
 #' The number of Vortex simulation runs has to be specified, as it cannot be
-#' inferred by vortexr.
+#' inferred by vortexR.
 #'
 #' To read Vortex output files from Sensitivity Testing with the extension
 #' ".stdat", specify a scenario name. It is assumed that only file names
@@ -272,14 +273,14 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #' project (and, optionally, the scenario) name will be read.
 #' If no matching files are found in the given directory, NULL will be returned.
 #'
-#' @param project The project name used in .st and .stdat filenames
+#' @param project The project name to be imported
 #' @param runs The number of Vortex simulation runs
-#' @param scenario The scenario name used in .stdat files, default: NULL
+#' @param scenario The scenario name if ST, default: NULL
 #' @param dir.in The local folder containing Vortex files, default: NULL. If
 #'   not specified, will fall back to use current working directory.
-#' @param save2disk Whether to save the data as rda and csv, default: FALSE
-#' @param dir.out The local path to store the output in. default: ./out
-#' @param verbose verbose messages, default: FALSE
+#' @param save2disk Whether to save the data as rda and csv, default: TRUE
+#' @param dir.out The local path to store the output. Default: ProcessedData
+#' @param verbose Progress messages, default: TRUE
 #' @return a data.frame with data from all matching Vortex files or NULL
 #' @import gtools
 #' @export
@@ -326,7 +327,7 @@ collate_dat <- function(project=NULL, runs,
                         dir.in=NULL,
                         save2disk=TRUE,
                         dir.out="ProcessedData",
-                        verbose=FALSE){
+                        verbose=TRUE){
 
   if (is.null(scenario)) {
     fname <- project
@@ -356,15 +357,9 @@ collate_dat <- function(project=NULL, runs,
 
 #' Collate Vortex .run output files into one named list.
 #'
-#' @param project The project name used in filenames
-#' @param scenario The scenario name used in filenames
-#' @param numpops The total number of simulated populations including
-#'   metapopulations
-#' @param dir.in The local folder containing Vortex files, default: NULL. If
-#'   not specified, will fall back to use current working directory.
-#' @param save2disk Whether to save the data as rda and csv, default: FALSE
-#' @param dir.out The local path to store the output in. default: ./out
-#' @param verbose verbose messages, default: FALSE
+#' @param npops The total number of simulated populations including the
+#'   metapopulation
+#' @inheritParams collate_dat
 #' @return a list with two elements: run, a data.frame with data from all
 #'   Vortex files and lrun, where the same data are re-arranged in long format
 #' @export
@@ -373,11 +368,11 @@ collate_dat <- function(project=NULL, runs,
 #' pac.run.lhs <- collate_run("Pacioni_et_al", "ST_LHS", 1, dir.in = pac.dir)
 collate_run <- function(project=NULL,
                         scenario=NULL,
-                        numPops=1,
+                        npops=1,
                         dir.in=NULL,
                         save2disk=TRUE,
                         dir.out="ProcessedData",
-                        verbose=FALSE) {
+                        verbose=TRUE) {
 
   run <- data.frame()
   lrun <- data.frame()
@@ -410,14 +405,14 @@ collate_run <- function(project=NULL,
   }
 
   # Number of cols for each pop except the intial, fixed cols
-  ncolpop <- (length(h) - 1) / numPops
+  ncolpop <- (length(h) - 1) / npops
   popnames <- read.table(filename, header=FALSE, sep=";", nrows=1, skip=1,
                          colClasses="character", comment.char="")
   popnames <- gsub(" ", "", popnames)
   pop <- unique(popnames[2:length(popnames)])
 
   # Reshape df in long format
-  for (numPop in 1:numPops) {
+  for (numPop in 1:npops) {
     k <- numPop - 1
     Cstart <- 3 + (k*ncolpop)
     Cend <- 3 + ncolpop * numPop - 1
@@ -446,17 +441,11 @@ collate_run <- function(project=NULL,
 #' \code{collate_yr} collates all the .yr output from Vortex into one R object
 #' and calculates the mean for each simulated year across all iterations
 #'
-#' @param project The project name used in filenames
-#' @param scenario The scenario name used in filenames
-#' @param npnm The total number of populations excluding metapopulations, which
-#'   cannot be inferred from the Vortex output
-#' @param dir.in The local folder containing Vortex files, default: NULL. If
-#'   not specified, will fall back to use current working directory.
-#' @param save2disk Whether to save the data as rda and csv, default: FALSE
-#' @param dir.out The local path to store the output in. default: ./out
-#' @param verbose verbose messages, default: FALSE
-#' @return a list with two elements: "all", a data.frame with data from all
-#' Vortex files and "means", a data.table with the mean of each parameter
+#' @param npops_noMeta The total number of populations excluding the metapopulation,
+#' default: 1
+#' @inheritParams collate_dat
+#' @return a list with two elements: "census", a data.frame with data from all
+#' Vortex files and "census_means", a data.table with the mean of each parameter
 #' across all iterations for each simulated year
 #' @import data.table
 #' @export
@@ -465,11 +454,11 @@ collate_run <- function(project=NULL,
 #' pac.yr <- collate_yr("Pacioni_et_al", "ST_Classic", 1, dir.in = pac.dir)
 collate_yr <- function(project=NULL,
                         scenario=NULL,
-                        npnm=1,
+                        npops_noMeta=1,
                         dir.in=NULL,
                         save2disk=TRUE,
                         dir.out="ProcessedData",
-                        verbose=FALSE) {
+                        verbose=TRUE) {
 
   if (is.null(dir.in)) {dir.in <- getwd()}
   fname <- paste0(project, "_", scenario)
@@ -488,8 +477,9 @@ collate_yr <- function(project=NULL,
 
     # Header
     header <- as.vector(sapply(strsplit(lines[3], ";"), stringr::str_trim))
-    ncolpop <- (length(header) - 1) / npnm
-    hsuff <- as.vector(sapply(1:npnm, PrefixAndRepeat, times=ncolpop, prefix="pop"))
+    ncolpop <- (length(header) - 1) / npops_noMeta
+    hsuff <- as.vector(sapply(1:npops_noMeta, PrefixAndRepeat,
+                              times=ncolpop, prefix="pop"))
     header <- c("Year", paste0(header[2:length(header)], hsuff))
 
     # Line numbers of "Iteration" subheadings
@@ -538,14 +528,16 @@ collate_yr <- function(project=NULL,
 }
 
 #------------------------------------------------------------------------------#
-# Data processing
-#
-#' Collate processed data from any of the 'collate' functions
+
+#' Collate processed data generated by any of the 'collate' functions
+#'
+#' \code{collate_proc_data} collates multiple dfs generated by any of the
+#' 'collate' functions. Only dfs generated by the same function can be comined
+#' together, Missing data are filled with NA.
 #'
 #' @param data A list with a df from \code{collate_[dat, yr, run]} as each element
-#' @param save2disk Whether to save the output to disk
-#' @param dir.out The local path to store the output in. default: ./out
-#' @return A data.frame with the collated data. Missing data filled with NA.
+#' @inheritParams collate_dat
+#' @return A data.frame with the collated data. Missing data are filled with NA.
 #' @import plyr
 #' @export
 collate_proc_data <- function(data=NULL,
@@ -560,26 +552,27 @@ collate_proc_data <- function(data=NULL,
   return(dfs)
 }
 
-#' Convert 'Census' (generated by collate_yr) into long format
+#' Convert 'census' (generated by collate_yr) into long format
 #'
-#' @param data A list with a df from \code{collate_[dat, yr, run]}
-#'   as each element
-#' @param npnm The total number of pops without metapopulations, default: 1
+#' \code{conv_l_yr} converts the first element of the output from \code{collate_yr}
+#' (census) in long format. This can then be fed into downstream analysis
+#' (e.g. fit_regression)
+#'
+#' @param data The df 'census' from \code{collate_yr}
 #' @param appendMeta Whether to calculate data for the metapopulation,
 #'   default: False
-#' @param project The project name used in filenames
-#' @param scenario The scenario name used in filenames
-#' @param yrs
-#' @param save2disk Whether to save the output to disk
-#' @param dir.out The local path to store the output in. default: ./out
-#' @return a data.frame in long format
+#' @param project The project name (used to name the output)
+#' @param scenario The scenario name (used to name the output)
+#' @param yrs The year(s) that need to be retained in the output
+#' @inheritParams collate_dat
+#' @return the census data.frame in long format
 #' @import data.table plyr
 #' @export
 conv_l_yr <- function(data=NULL,
-                      npnm=1,
+                      npops_noMeta=1,
                       appendMeta=FALSE,
-                      project=NULL, # This is only used for the name of the file
-                      scenario=NULL, # This is only used for the name of the file
+                      project=NULL,
+                      scenario=NULL,
                       yrs=c(1, 2),
                       save2disk=TRUE,
                       dir.out="ProcessedData") {
@@ -599,19 +592,19 @@ conv_l_yr <- function(data=NULL,
 
   h <- names(data)
   # Number of cols for each pop except the first 3, which are fixed cols
-  ncolpop <- (length(h) - 3) / npnm
+  ncolpop <- (length(h) - 3) / npops_noMeta
   # Headings without pop suffix
   h1 <- gsub(pattern="pop1", "", h[4:(4 + ncolpop - 1)])
   setkey(data, Year)
   data<- data[.(yrs), ] # Select the yrs
 
   # Reshape df in long format
-  tldata <- lapply(1:npnm, LongFormat)
+  tldata <- lapply(1:npops_noMeta, LongFormat)
 
   lcensus <- rbindlist(tldata)
 
   # If more than one pop, do Metapopulation calculations and rbind
-  if (npnm > 1 & appendMeta == T) {
+  if (npops_noMeta > 1 & appendMeta == T) {
     message("Doing calculations for Metapopulation...")
     message("Please wait...")
 
@@ -622,7 +615,7 @@ conv_l_yr <- function(data=NULL,
     message("Done...")
     message("Appending Metapopulation data to Census data frame...")
     gs <- names(lcensus)[grep(pattern="^GS", names(lcensus))]
-    meta[ , Population := rep(paste0("pop", npnm + 1), nrow(data))]
+    meta[ , Population := rep(paste0("pop", npops_noMeta + 1), nrow(data))]
     setcolorder(meta, c("Scenario", "Iteration", "Year", "Population", census))
     meta[ , (gs) := tldata[[1]][ , gs, with=FALSE]]
 
@@ -638,19 +631,20 @@ conv_l_yr <- function(data=NULL,
   return(lcensus)
 }
 
-#' Generate line plots of the relevant parameters for the selected populations,
-#' for all simulated years
+#' Line plots of Vortex parameters vs years
 #'
-#' TODO complete parameter descriptions
-#' @param data A list with a df from \code{collate_[dat, yr, run]}
-#'   as each element
-#' @param project The project name used in filenames
-#' @param scenario The scenario name used in filenames
-#' @param save2disk Whether to save the output to disk
-#' @param params
-#' @param plotpops
-#' @param save2disk Whether to save the output to disk
-#' @param dir.out The local path to store the output in. default: ./out
+#' \code {line_plot_year} generates line plots of the selected Vortex parameters
+#' for the selected populations, for all simulated years
+#'
+#' @param data A df from \code{collate_dat}
+#' @param project The project name (used to name the output)
+#' @param scenario The scenario name (used to name the output)
+#' @param save2disk Whether to save the output to disk, default: TRUE
+#' @param params Vortex parameters to be plotted,
+#' default: c("PExtinct", "Nextant", "Het", "Nalleles")
+#' @param plotpops The populations to be included in the plot, default: 'all'
+#' @param save2disk Whether to save the output to disk, default: TRUE
+#' @param dir.out The local path to store the output. Default: Plots
 #' @return line plot(s)
 #' @import ggplot2
 #' @import grid
@@ -728,30 +722,27 @@ line_plot_year <- function(data=NULL,
   return(r.line_plot_year)
 }
 
-#' Generate line plots of the relevant parameters for the selected populations,
-#' from year zero to yearmid
+#' Line plots of Vortex parameters vs years
 #'
-#' TODO longer description
-#' TODO params
+#' \code {line_plot_year_mid} generates line plots of the selected Vortex parameters
+#' for the selected populations, from year zero to yrmid
+#'
 #' TODO working @examples
-#' TODO dir.in, dir.out
 #'
-#' @param name desc
-#'
-#' @param save2disk Whether to save the output to disk
+#' @param yrmid The last year to plot
+#' @inheritParams line_plot_year
 #' @return line plot(s)
 #' @import ggplot2
 #' @import grid
 #' @export
-line_plot_year_mid <- function(
-  data=NULL,
-  project=NULL,
-  scenario=NULL,
-  yrmid=1,
-  params=c("PExtinct", "Nextant", "Het", "Nalleles"),
-  plotpops=c("all"),
-  save2disk=TRUE,
-  dir.out="Plots") {
+line_plot_year_mid <-  function(data=NULL,
+                                project=NULL,
+                                scenario=NULL,
+                                yrmid=1,
+                                params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+                                plotpops=c("all"),
+                                save2disk=TRUE,
+                                dir.out="Plots") {
 
   require(ggplot2)
   require(grid)
@@ -819,16 +810,16 @@ line_plot_year_mid <- function(
 }
 
 
-#' Generate dot plots of mean parameter values for each population (row) at each
-#' year value requested with 'yrs' (columns). Bars represent standard deviation.
+#' Dot plots of mean Vortex parameters.
 #'
-#'TODO description
-#'TODO params
+#' \code {dot_plot} generates dot plots of mean parameter values for each population
+#' (row) at each year value requested with 'yrs' (columns).
+#' Bars represent standard deviation
+#'
 #'TODO examples
-#'TODO save2disk
-#'
-#' @param name desc
-#' @param save2disk Whether to save the output to disk
+#' @param yrs The years to be included in the plot
+#' @param setcolour Variable to be used to set colours of data, default: scen.name
+#' @inheritParams line_plot_year
 #' @return dot plots of mean parameter values with standard deviation
 #' @import ggplot2
 #' @import grid
@@ -927,20 +918,29 @@ dot_plot <- function(data=NULL,
 
 #' Generates a matrix of scatter plots
 #'
-#'TODO description
+#' \code{m_scatter} generates a matrix of pairwise scatter plots
+#'
 #'TODO params
 #'TODO examples
 #'TODO save2disk
 #'
-#' @param name desc
-#' @param save2disk Whether to save the output to disk
+#' @param data  the output from \code {collate_dat}, the long format of the
+#' output from \code {collate_run} or the output from \code{con_l_yr}
+#' @param data_type The type of input data. Possible options are "dat", "yr" or "run"
+#' @param lookup A table to add relevant variable matched using the scenarios
+#' names
+#' @param yr The year to be plotted
+#' @param popn The sequential number of the population (in integer)
+#' @param param The parameter to be plotted in the last raw
+#' @param vs The parameters to be plotted
+#' @param fname The name of the files where to save the output
+#' @inheritParams line_plot_year
 #' @return a matrix of scatter plots
 #' @import data.table
 #' @export
 m_scatter <- function (data=NULL,
-                       # input file (any output of collate_dat, collate_yr, collate_run)
-                      data.type="dat", # possible options are "dat", "yr" or "run"
-                      lookUp=NA,
+                      data_type="dat", # possible options are "dat", "yr" or "run"
+                      lookup=NA,
                       yr=1,
                       popn=1,
                       param="N",
@@ -954,7 +954,7 @@ m_scatter <- function (data=NULL,
   # Set up headings for param
   param <- make.names(param)
 
-  if (data.type == "dat") {
+  if (data_type == "dat") {
     data <- data.table(data)
 
     # Replace col names if dat.
@@ -966,7 +966,7 @@ m_scatter <- function (data=NULL,
     data <- data[J(yr), ]
     pop <- data[ , levels(Population)][popn]
   } else {
-    if (data.type == "yr") {
+    if (data_type == "yr") {
       setkey(data, Year)
       data <- data[J(yr), ]
       pop <- paste0("pop", popn) # The pop is selected with its number.
@@ -978,8 +978,8 @@ m_scatter <- function (data=NULL,
 
   setkey(data, Population)
   data <- data[.(pop), ] # Select pop
-  suppressWarnings(if (!is.na(lookUp)) {
-    data <- join(data, lookUp, by='Scenario', type="left")
+  suppressWarnings(if (!is.na(lookup)) {
+    data <- join(data, lookup, by='Scenario', type="left")
   } )
   corrMtrx <- ggpairs(data[ , c(vs, param), with=FALSE], alpha=0.2,
                       lower = list(continuous="smooth",
