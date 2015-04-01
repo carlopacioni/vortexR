@@ -290,38 +290,38 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #' pac.dir <- system.file("extdata", "pacioni", package="vortexr")
 #'
 #' # Campbell example, project "Starlingv3PopBased" (.dat)
-#' sta <- collate_dat("Starlingv3PopBased", 1000, dir.in = camp.dir)
+#' sta <- collate_dat("Starlingv3PopBased", 10000, dir.in = camp.dir)
 #'
 #' # Campbell example, project "Starlingv3PopBased",
 #' #   sensitivity test scenario "MReductEvy5" (.stdat)
-#' sta.evy5 <- collate_dat("Starlingv3PopBased", 1000,
+#' sta.evy5 <- collate_dat("Starlingv3PopBased", 10000,
 #'   scenario = "MReductEvy5", dir.in = camp.dir)
 #'
 #' # Campbell example, project "Starlingv3PopBased",
 #' #   sensitivity test scenario "MReduction_B11_09Evy5" (.stdat)
-#' sta.b11 <- collate_dat("Starlingv3PopBased", 1000,
+#' sta.b11 <- collate_dat("Starlingv3PopBased", 10000,
 #'   scenario = "MReduction_B11_09Evy5", dir.in = camp.dir)
 #'
 #' # Pacioni et al. example, project "Pacioni_et_al",
 #' #   sensitivity test scenario "ST_Classic" (.stdat)
-#' pac.clas <- collate_dat("Pacioni_et_al", 1000,
+#' pac.clas <- collate_dat("Pacioni_et_al", 3,
 #'   scenario = "ST_Classic", dir.in = pac.dir)
 #'
 #' # Pacioni et al. example, project "Pacioni_et_al",
 #' #   sensitivity test scenario "ST_LHS" (.stdat)
-#' pac.lhs <- collate_dat("Pacioni_et_al", 1000,
+#' pac.lhs <- collate_dat("Pacioni_et_al", 3,
 #'   scenario = "ST_LHS", dir.in = pac.dir)
 #'
 #' # Save collated data as Rda and CSV to ./out
 #' \dontrun{
-#' pac.lhs <- collate_dat("Pacioni_et_al", 1000,
+#' pac.lhs <- collate_dat("Pacioni_et_al", 3,
 #'   scenario = "ST_LHS", dir.in = pac.dir,
 #'   save2disk = TRUE, dir.out = system.file(getwd(), "out"))
 #' }
 #'
 #' # Dirpath falls back to current working directory
 #' setwd(camp.dir)
-#' sta <- collate_dat("Starlingv3PopBased", 1000)
+#' sta <- collate_dat("Starlingv3PopBased", 10000)
 collate_dat <- function(project=NULL, runs,
                         scenario=NULL,
                         dir.in=NULL,
