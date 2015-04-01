@@ -273,7 +273,7 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #' project (and, optionally, the scenario) name will be read.
 #' If no matching files are found in the given directory, NULL will be returned.
 #'
-#' @param project The project name to be imported
+#' @param project Vortex project name to be imported
 #' @param runs The number of Vortex simulation runs
 #' @param scenario The scenario name if ST, default: NULL
 #' @param dir.in The local folder containing Vortex files, default: NULL. If
@@ -560,11 +560,11 @@ collate_proc_data <- function(data=NULL,
 #'
 #' @param data The df 'census' from \code{collate_yr}
 #' @param appendMeta Whether to calculate data for the metapopulation,
-#'   default: False
-#' @param project The project name (used to name the output)
-#' @param scenario The scenario name (used to name the output)
+#'   default: FALSE
+#' @param project Vortex project name (used to name the output)
+#' @param scenario Vortex scenario name (used to name the output)
 #' @param yrs The year(s) that need to be retained in the output
-#' @inheritParams collate_dat
+#' @inheritParams collate_yr
 #' @return the census data.frame in long format
 #' @import data.table plyr
 #' @export
@@ -637,8 +637,8 @@ conv_l_yr <- function(data=NULL,
 #' for the selected populations, for all simulated years
 #'
 #' @param data A df from \code{collate_dat}
-#' @param project The project name (used to name the output)
-#' @param scenario The scenario name (used to name the output)
+#' @param project Vortex project name (used to name the output)
+#' @param scenario Vortex scenario name (used to name the output)
 #' @param save2disk Whether to save the output to disk, default: TRUE
 #' @param params Vortex parameters to be plotted,
 #' default: c("PExtinct", "Nextant", "Het", "Nalleles")
@@ -920,11 +920,9 @@ dot_plot <- function(data=NULL,
 #'
 #' \code{m_scatter} generates a matrix of pairwise scatter plots
 #'
-#'TODO params
 #'TODO examples
-#'TODO save2disk
 #'
-#' @param data  the output from \code {collate_dat}, the long format of the
+#' @param data  The output from \code {collate_dat}, the long format of the
 #' output from \code {collate_run} or the output from \code{con_l_yr}
 #' @param data_type The type of input data. Possible options are "dat", "yr" or "run"
 #' @param lookup A table to add relevant variable matched using the scenarios
@@ -998,13 +996,20 @@ m_scatter <- function (data=NULL,
 
 #' Create a table that summarises simulation parameters for each scenario
 #'
-#'TODO description
-#'TODO params
-#'TODO examples
-#'TODO save2disk
+#' \code{lookup_table} creates a table that summarises simulation parameters.
+#' The final table will have a line for each scenario and one column for each
+#' parameter requested with \code{SVs}. If the Vortex project has more than one
+#' populations, the user has to indicate a populaiton ot be used as reference
 #'
-#' @param name desc
-#' @param save2disk Whether to save the output to disk
+#'TODO examples
+#'
+#' @param data The output from \code {collate_dat}
+#' @param project Vortex project name (used to name the output)
+#' @param scenario Vortex scenario name (used to name the output)
+#' @param pop The name of the pop to be used as reference
+#' @param SVs The parameters to include in the table
+#' @param save2disk Whether to save the output to disk, default: TRUE
+#' @param dir.out The local path to store the output. Default: ProcessedData
 #' @return a data.frame with scenario names and parameter values
 #' @import data.table
 #' @export
@@ -1012,7 +1017,7 @@ m_scatter <- function (data=NULL,
 lookup_table <-  function(data=NULL,
                           project=NULL,
                           scenario=NULL,
-                          pop="Population 1", # the name of the pop to be used as reference
+                          pop="Population 1",
                           SVs=c("SV1"),
                           save2disk=TRUE,
                           dir.out="ProcessedData") {
@@ -1035,11 +1040,20 @@ lookup_table <-  function(data=NULL,
   return(LookUpT)
 }
 
-#' Calculate the effective population size (Ne) based on the loss of genetic
-#' diversity (expected heterozygosity) using the temporal approach
+#' Calculate the effective population size (Ne)
 #'
-#' @param name desc
-#' @param save2disk Whether to save the output to disk
+#' \code{Ne} calculates the effective population size (Ne) for several scenarios
+#' based on the loss of genetic diversity (expected heterozygosity) using the
+#' temporal approach.
+#'
+#' @param data The output from \code {collate_dat}
+#' @param scenario A vector of scenario names for which Ne need to be calculated,
+#' default: "all"
+#' @param gen The generation time express in years
+#' @param yr0,yrt The time window to be considered (first and last year respectively)
+#' @param save2disk Whether to save the output to disk, deafult: TRUE
+#' @param fname The name of the files where to save the output, defult: "Ne"
+#' @param dir.out The local path to store the output. Default: DataAnalysis
 #' @return a data.table with Ne values
 #' @import data.table
 #' @export
@@ -1092,25 +1106,32 @@ when passing the same argument values to the Ne and Nadults functions. See docum
   return(r.Ne)
 }
 
-#' Calculate the harmonic mean of the total number of adults (effective number
-#' of breeders) between two points in time
+#' Calculate the harmonic mean of the total number of adults between two years
 #'
-#' @param name desc
-#' @param save2disk Whether to save the output to disk
+#' \code{Nadults} calculates, for several scenarios, the harmonic mean of the total
+#' number of adults between two years for several scenarios. These can be use to
+#' calculate Ne/N ratios where relevant
+#'
+#' @param data The second element (census_means) of the output from \cose{collate_yr}
+#' @param npops_noMeta The total number of populations excluding the metapopulation,
+#' default: 1
+#' @param appendMeta Whether to calculate data for the metapopulation,
+#' default: FALSE
+#' @param fname The name of the files where to save the output, defult: "Nadults"
+#' @inheritParams Ne
 #' @return a data.table with Nb values
 #' @import plyr
 #' @import data.table
 #' @export
-### Nb (effective pop size based on number of breeders)
 Nb <- function (data=NULL,
                 scenarios="all",
-                numPopsNoMeta=1, # Number of pops without the metapop
+                npops_noMeta=1,
                 appendMeta=FALSE,
                 gen=1,
                 yr0=1,
                 yrt=2,
                 save2disk=TRUE,
-                fname="Nadult",
+                fname="Nadults",
                 dir.out="DataAnalysis") {
 
   require(plyr)
@@ -1135,17 +1156,17 @@ Nb <- function (data=NULL,
   h <- names(data)
 
   # Number of cols for each pop except the first 2, which are fixed cols
-  ncolpop <- (length(h) - 2) / numPopsNoMeta
+  ncolpop <- (length(h) - 2) / npops_noMeta
   # Headings without pop suffix
   h1 <- gsub(pattern="pop1", "", h[3:(3 + ncolpop - 1)])
 
   # Reshape df in long format
-  tldata <- lapply(1:numPopsNoMeta, LongFormat)
+  tldata <- lapply(1:npops_noMeta, LongFormat)
 
   lcensusMeans <- rbindlist(tldata)
 
   # If more than one pop, do Metapopulation calculations and rbind
-  if (numPopsNoMeta > 1 & appendMeta == T) {
+  if (npops_noMeta > 1 & appendMeta == T) {
     message("Doing calculations for Metapopulation...")
     message("Please wait...")
 
@@ -1156,7 +1177,7 @@ Nb <- function (data=NULL,
     message("Done...")
     message("Appending Metapopulation data to CensusMeans data frame...")
     gs <- names(lcensusMeans)[grep(pattern="^GS", names(lcensusMeans))]
-    meta[ , Population := rep(paste0("pop", numPopsNoMeta + 1), nrow(data))]
+    meta[ , Population := rep(paste0("pop", npops_noMeta + 1), nrow(data))]
     setcolorder(meta, c("Scenario", "Year", "Population", census))
     meta[ , (gs) := tldata[[1]][ , gs, with=FALSE]]
 
@@ -1194,21 +1215,28 @@ See documentation for more information")
 }
 
 
-#' Pairwise Conduct pairwise comparisons against a baseline scenario and rank scenarios accordingly
+#' Basic statistics to compare scenarios
 #'
-#' @param data A data.frame generated by VortexR::collate_dat()
+#' \code{Pairwise} conducts pairwise comparisons against a baseline scenario
+#' uing sensitivity coefficients and strictly standardised mean difference. It also
+#' ranks scenarios (and/or parameters when relevant) accordingly
+#'
+#' @param data A data.frame generated by \code{collate_dat}
 #' @param project The Vortex project name
-#' @param scenario The Vortex scenario name
+#' @param scenario The ST Vortex scenario name or the scenario that should be
+#' used as baseline if simulations were not conducted with the ST module
 #' @param params Parameters to be compared,
 #'  default: c("PExtinct", "Nextant", "Het", "Nalleles")
 #' @param yrs The year(s) to be analysed, default: "max"
 #' @param ST Whether files are from sensitivity analysis (TRUE),
 #'  or not (FALSE, default)
-#' @param type Type of ST
+#' @param type Type of ST. Possible options are: "Sampled",
+#' "Latin Hypercube Sampling", "Factorial" or "Single-Factor"
 #' @param group.mean Whether calculate the mean of the statistics
 #'  (SSMD and Sensitivity Coeffiecient) by group
 #' @param SVs Parameters to be used to group scenarios, default: NA
-#' @param save2disk Whether to save the output to disk
+#' @param save2disk Whether to save the output to disk, deafult: TRUE
+#' @param dir.out The local path to store the output. Default: DataAnalysis/Pairwise
 #' @return several output. See documentation for details
 #' @import data.table irr
 #' @export
@@ -1572,28 +1600,55 @@ Pairwise <-  function(data=NULL,
 
 #' Search for the best regression model(s) given a list of predictors
 #'
-#' @param name desc
-#' @param save2disk Whether to save the output to disk
+#'
+#' \code{fit_regression} fit either a Generilised Linear Model or a betareg model
+#' to the data and search for the best model(s) using the R package glmulti.
+#' \code{fit_regression} will conduct an exaustive search if ncand is less or
+#' equal to the number of candidate models, otherwise it will use a genetic
+#' search method (see glmulti documentations for more details about the search
+#' methods)
+#'
+#' @param data The long format of census (from \code{conv_l_yr}) or run (lrun,
+#' the second element) of the output from \code{collate_run}
+#' @param lookup (Optional) A look-up table where the scenario names are listed
+#' together with the (missing) variables needed to fit the regression models
+#' @param census Whether the input is census data
+#' @param yr The year that has to be used in the analysis if census=TRUE
+#' @param project Vortex project name
+#' @param scenario Vortex scenario name
+#' @param popn The sequential number of the population (in integer)
+#' @param param The dependent variable
+#' @param vs Character vector with independent variable(s)
+#' @param count_data Character vector with param(s) that are counts and would use
+#' a Poisson error distribution
+#' @param ic Information criterion
+#' @param l Level for glmulti search: 1 main effects, 2 main effects + interactions
+#' @param ncand The threshold of candidate models after which switch to the
+#' genetic search method, default: 30
+#' @param set_size Value to be used in confsetsize (from \code{\link[glmulti]{glmulti}}
+#' The number of models to be looked for, i.e. the size of the returned confidence
+#' set.)
+#' @param save2disk Whether to save the output to disk, default: TRUE
+#' @param dir.out The local path to store the output. Default: DataAnalysis/FitRegression
 #' @return a glmulti object with the best models found
 #' @import glmulti data.table plyr
 #' @export
 fit_regression <-  function(data=NULL,
-                            lookUp=NA,
+                            lookup=NA,
                             census=T,
                             yr=NA,
                             project=NULL,
                             scenario=NULL,
-                            popn=NA, # the number of the pop to be analysed
-                            param="GeneDiv" , # dependent variable
-                            vs=c("GS1"), # independent variable(s)
-                            # List of params that would use Poisson error distribution
-                            count.data=c("Nextant", "Nall", "Nalleles", "N", "AM", "AF", "Subadults",
+                            popn=NA,
+                            param="N" ,
+                            vs=c("GS1"),
+                            count_data=c("Nextant", "Nall", "Nalleles", "N", "AM", "AF", "Subadults",
                                          "Juv", "nDams", "nBroods", "nProgeny", "nImmigrants",
                                          "nEmigrants", "nHarvested", "nSupplemented", "YrExt", "Alleles"),
                             ic="aic",
-                            l=1, # Level for glmulti search: 1 main effect, 2 main effects + interactions
-                            n.cand=30,
-                            set.size=NA,
+                            l=1,
+                            ncand=30,
+                            set_size=NA,
                             save2disk=TRUE,
                             dir.out="DataAnalysis/FitRegression") {
   # Load required packages. Loading of betareg and R.utils are delayed after
@@ -1606,8 +1661,12 @@ fit_regression <-  function(data=NULL,
   # Functions
 
   # Selecet method for glmulti search
-  select_method <- function(cand, n.cand) {
-    if (cand > n.cand) {m <- "g"} else {m <- "h"}
+  select_method <- function(cand, ncand) {
+    if (cand > ncand) {
+      m <- "g"
+    } else {
+      m <- "h"
+    }
     return(m)
   }
 
@@ -1617,8 +1676,8 @@ fit_regression <-  function(data=NULL,
   # vector with available link functions to be used with betareg
   links <- c("logit", "probit", "cloglog", "cauchit", "loglog")
 
-  suppressWarnings(if (!is.na(lookUp)) {
-    data <- join(data, lookUp, by='Scenario', type="left")
+  suppressWarnings(if (!is.na(lookup)) {
+    data <- join(data, lookup, by='Scenario', type="left")
   } )
 
   # convert data.table
@@ -1641,7 +1700,7 @@ fit_regression <-  function(data=NULL,
 
   xs <- paste(vs, collapse="*") # get ready the vs for the formula
 
-  if (param %in% count.data) {
+  if (param %in% count_data) {
     data[ , (param) := round(.SD), .SDcols=param]
     fam <- "poisson"
   } else {
@@ -1667,7 +1726,7 @@ fit_regression <-  function(data=NULL,
   # set up formula to be used in regression models
   formula <- as.formula(paste0(param, "~", xs))
 
-  if (param %in% count.data) {
+  if (param %in% count_data) {
     # Preliminary fit the GLM
     message("Fitting a GLM...")
     glm1 <- glm(data=data, formula, family=fam, na.action=na.omit)
@@ -1694,10 +1753,10 @@ fit_regression <-  function(data=NULL,
       message("NOTE: the Information Criterion for model search was changed to QAIC")
       ic <- "qaic"
     }
-    m <- select_method (cand, n.cand)
-    if (is.na(set.size)) {
-      set.size <- min(cand, n.cand)
-      message(paste("confsetsize set to", set.size))
+    m <- select_method (cand, ncand)
+    if (is.na(set_size)) {
+      set_size <- min(cand, ncand)
+      message(paste("confsetsize set to", set_size))
     }
     message(paste("Search method set to", m))
     message(paste("Search for best candidate models using level =",
@@ -1706,7 +1765,7 @@ fit_regression <-  function(data=NULL,
     # Search for best model(s) with glmulti
     tnp <- system.time(best.mod <- do.call("glmulti",
                                            list(glm1, family=fam, crit=ic,
-                                               method=m, confsetsize=set.size,
+                                               method=m, confsetsize=set_size,
                                                plotty=F, report=F, level=l,
                                                name=name, na.action=na.omit)))
   } else {
@@ -1734,17 +1793,17 @@ fit_regression <-  function(data=NULL,
     # chance to stop it.
     # It can't go earlier because the cand call is different depending
     # on the model used
-    m <- select_method (cand, n.cand)
-    if (is.na(set.size)) {
-      set.size <- min(cand, n.cand)
-      message(paste("confsetsize set to", set.size))
+    m <- select_method (cand, ncand)
+    if (is.na(set_size)) {
+      set_size <- min(cand, ncand)
+      message(paste("confsetsize set to", set_size))
     }
     message(paste("Using search method:", m))
     message(paste("Search for best candidate models using level =", l,
                   "started..."))
     tnp <- system.time(best.mod <- do.call("glmulti",
                                            list(formula, data=data,  crit=ic,
-                                                method=m, confsetsize=set.size,
+                                                method=m, confsetsize=set_size,
                                                 plotty=F, report=F, level=l,
                                                 name=name, fitfunc=betareg,
                                                 link=links[linkpos],
