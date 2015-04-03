@@ -2,69 +2,121 @@
 # Data
 #------------------------------------------------------------------------------#
 
-#' @name sta
-#' @title Campbell example, project "Starlingv3PopBased" (.dat)
-#' @description Data from Campbell example, project "Starlingv3PopBased" (.dat)
-#' @format a \code{data.frame} with 1632 obervations of 44 variables
-#' @source Campbell study
+#' @name sta.main
+#' @title Collated results from Vortex scenarios used in Campbell et al (in press)
+#' @description A dataset with the results from the main Vortex scenarios used
+#'  in Campbell et al (in press). Vortex outputs, from the project named
+#'  "Starlingv3PopBased" (.dat files), were collated with \code{collate_dat}.
+#' @usage data(sta.main)
+#' @format a \code{data.frame} with 1632 obervations of 44 variables.
+#' @source Campbell et al. In press. Assessing the economic benefits of starling
+#'  detection and control to Western Australia. Australasian Journal of
+#'  Environmental Management
 NULL
 
 #' @name sta.evy5
-#' @title Campbell example, project "Starlingv3PopBased" (.dat),
-#'   sensitivity test scenario "MReductEvy5" (.stdat)
-#' @description Data from Campbell example, project "Starlingv3PopBased" (.dat),
-#'   sensitivity test scenario "MReductEvy5" (.stdat)
-#' @format a \code{data.frame} with 1020 obervations of 47 variables
-#' @source Campbell study
+#' @title Collated results from Vortex scenarios used in Campbell et al (in press)
+#' @description A dataset with the results from Vortex scenarios used in
+#'  Campbell et al (in press) to simulate major application of control measures
+#'  in every 5 year cycle. Vortex outputs, from the project named
+#'  "Starlingv3PopBased" and the sensitivity test scenario "MReductEvy5"
+#'  (.stdat files), were collated with \code{collate_dat}.
+#' @usage data(sta.evy5)
+#' @format a \code{data.frame} with 1020 obervations of 47 variables.
+#' @source Campbell et al. In press. Assessing the economic benefits of starling
+#'  detection and control to Western Australia. Australasian Journal of
+#'  Environmental Management
 NULL
 
-#' @name sta.b11
-#' @title Campbell example, project "Starlingv3PopBased" (.dat),
-#'   sensitivity test scenario "MReduction_B11_09Evy5" (.stdat)
-#' @description Data from Campbell example,
-#'   project "Starlingv3PopBased" (.dat),
-#'   sensitivity test scenario "MReduction_B11_09Evy5" (.stdat)
-#' @format a \code{data.frame} with 1020 obervations of 47 variables
-#' @source Campbell study
+#' @name sta.evy5.b11
+#' @title Collated results from Vortex scenarios used in Campbell et al (in press)
+#' @description A dataset with the results from Vortex scenarios used in Campbell
+#'  et al (in press) to simulate major application of control measures in every
+#'  5 year cycle, maintaining 2011 levels of investiment. Vortex outputs, from
+#'  the project named "Starlingv3PopBased" and the sensitivity test scenario
+#'  "MReduction_B11_09Evy5" (.stdat files), were collated with \code{collate_dat}.
+#' @usage data(sta.evy5.b11)
+#' @format a \code{data.frame} with 1020 obervations of 47 variables.
+#' @source Campbell et al. In press. Assessing the economic benefits of starling
+#'  detection and control to Western Australia. Australasian Journal of
+#'  Environmental Management
 NULL
 
 #' @name pac.clas
-#' @title Pacioni et al. example, project "Pacioni_et_al",
-#'   sensitivity test scenario "ST_Classic" (.stdat)
-#' @description Data from Pacioni et al. example,
-#'   project "Pacioni_et_al",
-#'   sensitivity test scenario "ST_Classic" (.stdat)
-#' @format a \code{data.frame} of 2904 observations of 68 variables
-#' @source Pacioni et al.
+#' @title Collated results from Vortex scenarios used in Pacioni et al. (in prep)
+#' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
+#'  analysis on demographic parameters. Vortex outputs, from the project named
+#'  "Pacioni_et_al" and (Single-Factor) sensitivity test scenario "ST_Classic"
+#'  (.stdat files), were collated with \code{collate_dat}.
+#' @usage data(pac.clas)
+#' @format a \code{data.frame} of 2904 observations of 68 variables.
+#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#'  Predators and genetic fitness: key threatening factors for the conservation
+#'  of bettong species. Pacific Concervation Biology.
 NULL
 
 #' @name pac.lhs
-#' @title Pacioni et al. example, project "Pacioni_et_al",
-#' sensitivity test scenario "ST_LHS" (.stdat)
-#' @description Data from Pacioni et al. example, project "Pacioni_et_al",
-#'   sensitivity test scenario "ST_LHS" (.stdat)
-#' @format A \code{data.frame} of 6171 observations of 68 variables
-#' @source Pacioni et al.
+#' @title Collated results from Vortex scenarios used in Pacioni et al. (in prep)
+#' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
+#'  analysis on demographic parameters. Vortex outputs, from the project named
+#'  "Pacioni_et_al" and (Latin Hypercube Sampling) sensitivity test scenario
+#'  "ST_LHS" (.stdat files), were collated with \code{collate_dat}.
+#' @usage data(pac.lhs)
+#' @format A \code{data.frame} of 6171 observations of 68 variables.
+#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#'  Predators and genetic fitness: key threatening factors for the conservation
+#'  of bettong species. Pacific Concervation Biology.
 NULL
 
 #' @name pac.run.lhs
-#' @title Pacioni et al. example, project "Pacioni_et_al",
-#' sensitivity test scenario "ST_LHS" (.stdat), "run"
-#' @description Data from Pacioni et al. example, project "Pacioni_et_al",
-#'   sensitivity test scenario "ST_LHS" (.stdat), "run"
+#' @title Collated results from Vortex scenarios used in Pacioni et al. (in prep)
+#' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
+#'  analysis on demographic parameters. Vortex outputs, from the project named
+#'  "Pacioni_et_al" and (Latin Hypercube Sampling) sensitivity test scenario
+#'  "ST_LHS" (.run files), were collated with \code{collate_run}.
+#' @usage data(pac.run.lhs)
 #' @format A named list of two \code{data.frame}s:
-#'   run (153 obs, 7 var), lrun (153 obs, 8 var)
-#' @source Pacioni et al.
+#'   run (153 obs, 7 var), lrun (153 obs, 8 var).
+#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#'  Predators and genetic fitness: key threatening factors for the conservation
+#'  of bettong species. Pacific Concervation Biology.
 NULL
 
 #' @name pac.yr
-#' @title Pacioni et al. example, project "Pacioni_et_al",
-#' sensitivity test scenario "ST_Classic" (.yr), "yr"
-#' @description Data from Pacioni et al. example, project "Pacioni_et_al",
-#'   sensitivity test scenario "ST_Classic" (.yr), "yr"
+#' @title Collated results from Vortex scenarios used in Pacioni et al. (in prep)
+#' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
+#'  analysis on demographic parameters. Vortex outputs, from the project named
+#'  "Pacioni_et_al" and (Single-Factor) sensitivity test scenario "ST_Classic"
+#'  (.yr files), were collated with \code{collate_yr}.
+#' @usage data(pac.yr)
 #' @format A named list of two \code{element}s:
-#'   all (8712 obs, 26 var), means (2904 obs, 25 var)
-#' @source Pacioni et al.
+#'   all (8712 obs, 26 var), means (2904 obs, 25 var).
+#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#'  Predators and genetic fitness: key threatening factors for the conservation
+#'  of bettong species. Pacific Concervation Biology.
+NULL
+
+#------------------------------------------------------------------------------#
+# Data - Raw Vortex outputs
+#------------------------------------------------------------------------------#
+#' @name pacioni
+#' @title Raw Vortex outputs from Pacioni et al. (in prep)
+#' @description A folder with Vortex outputs from Pacioni et al. (in prep) used
+#'  to run examples and Vortex project file. NOTE: these simulations are shorter
+#'  than those presented in the paper (only 3 runs for 120 'Vortex-years'.
+#' @format One .xml file and several .run and .stdat files.
+#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#'  Predators and genetic fitness: key threatening factors for the conservation
+#'  of bettong species. Pacific Concervation Biology.
+NULL
+
+#' @name campbell
+#' @title Raw Vortex outputs from Campbell et al (in press)
+#' @description A folder with Vortex outputs from Campbell et al (in press).
+#' @format Several .dat and .stdat files.
+#' @source Campbell et al. In press. Assessing the economic benefits of starling
+#'  detection and control to Western Australia. Australasian Journal of
+#'  Environmental Management
 NULL
 
 #------------------------------------------------------------------------------#
@@ -73,8 +125,8 @@ NULL
 
 #' Save a data.frame as both Rdata and CSV
 #'
-#' \code{df2disk} saves a given data.frame as both Rdata and CSV with a given
-#' name and optional name postfix to a given location.
+#' \code{df2disk} saves to disk a given data.frame as both Rdata and CSV with a
+#' given name and optional name postfix to a given location.
 #'
 #' \code{df2disk} is used by the \code{collate_} functions when the operator
 #' chooses to save2disk.
@@ -84,7 +136,8 @@ NULL
 #'   necessary
 #' @param fname The file name
 #' @param postfix An optional name postfix
-#' @usage
+#'
+#' @examples
 #' my.df <- data.frame(1, 1:10, sample(LETTERS[1:3], 10, replace = TRUE))
 #' my.folder <- paste0(getwd(), "/test")
 #' df2disk(df=my.df, dirpath=getwd(), fname="testname")
@@ -106,6 +159,8 @@ df2disk <- function(df, dirpath, fname, postfix=""){
 #------------------------------------------------------------------------------#
 
 #' Return file paths of files matching a pattern in a directory
+#'
+#' File names are sorted using gtools::mixedsort().
 #'
 #' @param path The directory to search in
 #' @param pattern A pattern to match file names
@@ -140,19 +195,19 @@ get_file_paths <- function(path, pattern, fn_name, verbose=FALSE){
 se2sd <- function(se, no) {se * sqrt(no)}
 
 
-#' Return a prefixed and repeated string of characters.
+#' Return a prefixed and repeated string of character
 #'
 #' @param chars A string of characters (popvalue)
 #' @param times The number of repetitions (ncolpop), default: 1
 #' @param prefix A text prefix, default: ""
-#' @usage
+#' @examples
 #' PrefixAndRepeat(c("a","b","c"), 3, "pop_")
 PrefixAndRepeat <- function(chars, times=1, prefix="") {
   rep(paste0(prefix, chars), times)
 }
 
 
-#' Remove subheadings and downfill scenario name and subheadings as columns.
+#' Compile iterations from .yr file
 #'
 #' @param iter The iteration (run) number
 #' @param filename The fully qualified filename to read from
