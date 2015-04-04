@@ -104,6 +104,8 @@ NULL
 #' @description A folder with Vortex outputs from Pacioni et al. (in prep) used
 #'  to run examples and Vortex project file. NOTE: these simulations are shorter
 #'  than those presented in the paper (only 3 runs for 120 'Vortex-years'.
+#' @usage # To retrieve the path to the files use:
+#'  pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 #' @format One .xml file and several .run and .stdat files.
 #' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
@@ -113,6 +115,8 @@ NULL
 #' @name campbell
 #' @title Raw Vortex outputs from Campbell et al (in press)
 #' @description A folder with Vortex outputs from Campbell et al (in press).
+#' @usage # To retrieve the path to the files use:
+#'  pac.dir <- system.file("extdata", "campbell", package="vortexR")
 #' @format Several .dat and .stdat files.
 #' @source Campbell et al. In press. Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of
@@ -174,7 +178,7 @@ get_file_paths <- function(path, pattern, fn_name, verbose=FALSE){
                                         full.names=TRUE))
 
   if (length(files) == 0) {
-    stop(paste0("ERROR vortexr::", fn_name," found no files",
+    stop(paste0("ERROR vortexR::", fn_name," found no files",
                   " containing '", fname, "' in ", path))
   } else {
     if (verbose){
@@ -207,7 +211,10 @@ PrefixAndRepeat <- function(chars, times=1, prefix="") {
 }
 
 
-#' Compile iterations from .yr file
+#' Compile iterations from one .yr file
+#'
+#' Compile iterations from one .yr file and add a column with scenario names and
+#' one with iteration number
 #'
 #' @param iter The iteration (run) number
 #' @param filename The fully qualified filename to read from
@@ -232,10 +239,10 @@ CompileIter <- function (iter, filename, n_rows, iter_ln, lines, header) {
 
 
 #------------------------------------------------------------------------------#
-# Data loading
+# Data processing
 #------------------------------------------------------------------------------#
 
-#' Collate one local Vortex output file into a data.frame.
+#' Collate one local Vortex output file into a data.frame
 #'
 #' \code{collate_one_dat} parses one Vortex .dat or .stdat file, and returns the
 #' data within as one data.frame.
@@ -243,9 +250,13 @@ CompileIter <- function (iter, filename, n_rows, iter_ln, lines, header) {
 #' @param filename The fully qualified filename of a Vortex .dat or .stdat file
 #' @param runs The number of simulation runs
 #' @param verbose Progress messages, default: FALSE
-#' @return a data.frame with data from one .dat or .stdat file and
+#' @return A data.frame with data from one .dat or .stdat file and
 #'  population/scenario names as factors
 #' @export
+#' @examples
+#' # Pacioni et al. example files. See ?pacioni for more details.
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+#' one.st.classic <- collate_one_dat("Pacioni_et_al_ST_Classic(Base).stdat", 3)
 collate_one_dat <- function(filename, runs, verbose=FALSE){
 
   if (verbose) {message(cat("INFO vortexR::collate_one_dat parsing", filename))}
@@ -311,10 +322,10 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
   return(x)
 }
 
-#' Collate Vortex .dat or .stdat output files into one data.frame.
+#' Collate Vortex .dat or .stdat output files into one data.frame
 #'
-#' \code{collate_dat} collates all Vortex output files in a given directory
-#' matching a given project name (and scenario name when relevant) into one
+#' \code{collate_dat} collates all Vortex output files matching a given project
+#' name (and scenario name when relevant) in a given directory into one
 #' data.frame using \code{collate_one_dat}.
 #'
 #' The number of Vortex simulation runs has to be specified, as it cannot be
@@ -322,12 +333,12 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #'
 #' To read Vortex output files from Sensitivity Testing with the extension
 #' ".stdat", specify the scenario name. If \code{scenario=NULL}, all files with
-#' extension .dat and matching the project name will be imported.
+#' extension .dat, matching the project name will be imported.
 #'
-#' \code{dir.in} may contain other files; only files matching the project (and,
+#' \code{dir_in} may contain other files; only files matching the project (and,
 #' optionally, the scenario) name will be read.
 #'
-#' \code{dir.out} is created within the working directory unless a full path is
+#' \code{dir_out} is created within the working directory unless a full path is
 #' provided.
 #'
 #' If no matching files are found in the given directory, an error is reported.
@@ -335,60 +346,50 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #' When \code{verbose=TRUE} the progress (i.e. the file being read) is reported
 #' on screen.
 #'
-#' @param project Vortex project name to be imported
-#' @param runs The number of Vortex simulation runs
+#' @param project The Vortex project name to be imported
 #' @param scenario The scenario name if ST, default: NULL
-#' @param dir.in The local folder containing Vortex files, default: NULL. If
+#' @param runs The number of Vortex simulation runs
+#' @param dir_in The local folder containing Vortex files, default: NULL. If
 #'   not specified, will fall back to use current working directory.
 #' @param save2disk Whether to save the data as rda and csv, default: TRUE
-#' @param dir.out The local path to store the output. Default: ProcessedData
+#' @param dir_out The local path to store the output. Default: ProcessedData
 #' @param verbose Progress messages, default: TRUE
 #' @return a data.frame with data from all matching Vortex files or NULL
 #' @import gtools
 #' @export
 #' @examples
-#' # Using Campbell and Pacioni et al. example files
-#' camp.dir <- system.file("extdata", "campbell", package="vortexr")
-#' pac.dir <- system.file("extdata", "pacioni", package="vortexr")
+#' # Using Campbell et al. and Pacioni et al. example files.
+#' # See ?pacioni and ?campbell for more details on example files.
+#' camp.dir <- system.file("extdata", "campbell", package="vortexR")
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 #'
 #' # Campbell example, project "Starlingv3PopBased" (.dat)
-#' sta <- collate_dat("Starlingv3PopBased", 10000, dir.in = camp.dir)
+#' starling <- collate_dat("Starlingv3PopBased", 10000,
+#'             dir_in=camp.dir, save2disk=FALSE)
 #'
-#' # Campbell example, project "Starlingv3PopBased",
-#' #   sensitivity test scenario "MReductEvy5" (.stdat)
-#' sta.evy5 <- collate_dat("Starlingv3PopBased", 10000,
-#'   scenario = "MReductEvy5", dir.in = camp.dir)
+#' # Read data from all .stdat of the project 'Pacioni_et_al' and the ST scenario
+#' #   'ST_Classic' and store the output in the object 'woylie.st.classic'
+#' woylie.st.classic <- collate_dat("Pacioni_et_al", 3, scenario = "ST_Classic",
+#'                      dir_in = pac.dir, save2disk=FALSE)
 #'
-#' # Campbell example, project "Starlingv3PopBased",
-#' #   sensitivity test scenario "MReduction_B11_09Evy5" (.stdat)
-#' sta.b11 <- collate_dat("Starlingv3PopBased", 10000,
-#'   scenario = "MReduction_B11_09Evy5", dir.in = camp.dir)
+#' # Read data from all .stdat of the project 'Pacioni_et_al' and the ST scenario
+#' #   'ST_LHS' and store the output in the object 'woylie.lhs'
+#' woylie.lhs <- collate_dat("Pacioni_et_al", 3, scenario = "ST_LHS",
+#'            dir_in = pac.dir, save2disk=FALSE)
 #'
-#' # Pacioni et al. example, project "Pacioni_et_al",
-#' #   sensitivity test scenario "ST_Classic" (.stdat)
-#' pac.clas <- collate_dat("Pacioni_et_al", 3,
-#'   scenario = "ST_Classic", dir.in = pac.dir)
-#'
-#' # Pacioni et al. example, project "Pacioni_et_al",
-#' #   sensitivity test scenario "ST_LHS" (.stdat)
-#' pac.lhs <- collate_dat("Pacioni_et_al", 3,
-#'   scenario = "ST_LHS", dir.in = pac.dir)
-#'
-#' # Save collated data as Rda and CSV to ./out
+#' # Save collated data as .Rda and .txt
 #' \dontrun{
-#' pac.lhs <- collate_dat("Pacioni_et_al", 3,
-#'   scenario = "ST_LHS", dir.in = pac.dir,
-#'   save2disk = TRUE, dir.out = system.file(getwd(), "out"))
+#' # Read data from all .stdat of the project 'Pacioni_et_al' and the ST scenario
+#' #   'ST_LHS' and store the output in the object 'woylie.lhs' and save output
+#' # to disk
+#' woylie.lhs <- collate_dat("Pacioni_et_al", 3, scenario = "ST_LHS",
+#'            dir_in = pac.dir)
 #' }
-#'
-#' # Dirpath falls back to current working directory
-#' setwd(camp.dir)
-#' sta <- collate_dat("Starlingv3PopBased", 10000)
 collate_dat <- function(project=NULL, runs,
                         scenario=NULL,
-                        dir.in=NULL,
+                        dir_in=NULL,
                         save2disk=TRUE,
-                        dir.out="ProcessedData",
+                        dir_out="ProcessedData",
                         verbose=TRUE){
 
   if (is.null(scenario)) {
@@ -399,33 +400,34 @@ collate_dat <- function(project=NULL, runs,
     pat <- paste0("^", fname, ".*\\.stdat$")
   }
 
-  if (is.null(dir.in)) {dir.in <- getwd()}
+  if (is.null(dir_in)) {dir_in <- getwd()}
 
-  files <- get_file_paths(path=dir.in,
+  files <- get_file_paths(path=dir_in,
                           pattern=pat,
                           fn_name="collate_dat",
                           verbose=verbose)
 
   d <- data.frame()
-  if (verbose){message("vortexR::collate_dat is reading:")}
+  if (verbose){message("vortexR::collate_dat is parsing:")}
     for (filename in files) {
       if (verbose){message(filename, "\r")}
       d <- rbind(d, collate_one_dat(filename, runs))
     }
-    if (save2disk == T) {df2disk(d, dir.out, fname, "_data")}
+    if (save2disk == T) {df2disk(d, dir_out, fname, "_data")}
     return(d)
 }
 
 
-#' Collate Vortex .run output files into one named list.
+#' Collate Vortex .run output files
 #'
-#'\code{collate_run} collates all Vortex output files with extension .run in a
-#' given directory matching the project name scenario name into one  named list.
+#' \code{collate_run} collates all Vortex output files with extension .run
+#' matching the project and scenario name in a given directory  into one  named
+#' list.
 #'
-#' \code{dir.in} may contain other files; only files matching the project and
+#' \code{dir_in} may contain other files; only files matching the project and
 #' the scenario name will be read.
 #'
-#' \code{dir.out} is created within the working directory unless a full path is
+#' \code{dir_out} is created within the working directory unless a full path is
 #' provided.
 #'
 #' If no matching files are found in the given directory, an error is reported.
@@ -433,35 +435,41 @@ collate_dat <- function(project=NULL, runs,
 #' When \code{verbose=TRUE} the progress (i.e. the file being read) is reported
 #' on screen.
 #'
+#' @param project The Vortex project name to be imported
+#' @param scenario The scenario name, default: NULL
 #' @param npops The total number of simulated populations including the
 #'   metapopulation
 #' @inheritParams collate_dat
 #' @return a list with two elements: run, a data.frame with data from all
 #'   Vortex files and lrun, where the same data are re-arranged in long format
 #' @export
-#' @usage
-#' pac.dir <- system.file("extdata", "pacioni", package="vortexr")
-#' pac.run.lhs <- collate_run("Pacioni_et_al", "ST_LHS", 1, dir.in = pac.dir)
+#' @examples
+#' # Using Pacioni et al. example files. See ?pacioni for more details.
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+#' # Run collate_run on all .run of the project 'Pacioni_et_al' and
+#  # the ST scenario 'ST_LHS' in the selected folder and tore the result in 'run'
+#' run <- collate_run("Pacioni_et_al", "ST_LHS", 1, dir_in=pac.dir,
+#'                    save2disk=FALSE)
 collate_run <- function(project=NULL,
                         scenario=NULL,
                         npops=1,
-                        dir.in=NULL,
+                        dir_in=NULL,
                         save2disk=TRUE,
-                        dir.out="ProcessedData",
+                        dir_out="ProcessedData",
                         verbose=TRUE) {
 
   run <- data.frame()
   lrun <- data.frame()
 
-  if (is.null(dir.in)) {dir.in <- getwd()}
+  if (is.null(dir_in)) {dir_in <- getwd()}
   fname <- paste(project, scenario, sep="_")
 
-  files <- get_file_paths(path=dir.in,
+  files <- get_file_paths(path=dir_in,
                           pattern=paste0("^", fname,".*\\.run$"),
                           fn_name="collate_run",
                           verbose=verbose)
 
-  if (verbose){message("vortexR::collate_run is reading:")}
+  if (verbose){message("vortexR::collate_run is parsing:")}
   for (filename in files) {
     if (verbose) {message(filename, "\r")}
     h <- gsub(" ", "", read.table(filename, header=FALSE, sep=";",
@@ -503,8 +511,8 @@ collate_run <- function(project=NULL,
   names(run) <- h # replace heading in run
 
   if (save2disk == T) {
-    df2disk(run, dir.out, fname, "_run")
-    df2disk(lrun, dir.out, fname, "_lrun")
+    df2disk(run, dir_out, fname, "_run")
+    df2disk(lrun, dir_out, fname, "_lrun")
   }
 
   r.RunST <- list(run=run, lrun=lrun)
@@ -512,15 +520,16 @@ collate_run <- function(project=NULL,
 }
 
 
-#' Collate Vortex .yr output files into one named list.
+#' Collate Vortex .yr output files
 #'
-#' \code{collate_yr} collates all the .yr output from Vortex into one R object
-#' and calculates the mean for each simulated year across all iterations.
+#' \code{collate_yr} collates all the .yr output from Vortex matching the project
+#' and scenario nameinto one R object and calculates the mean for each simulated
+#' year across all iterations.
 #'
-#' \code{dir.in} may contain other files; only files matching the project and
+#' \code{dir_in} may contain other files; only files matching the project and
 #' the scenario name will be read.
 #'
-#' \code{dir.out} is created within the working directory unless a full path is
+#' \code{dir_out} is created within the working directory unless a full path is
 #' provided.
 #'
 #' If no matching files are found in the given directory, an error is reported.
@@ -528,6 +537,8 @@ collate_run <- function(project=NULL,
 #' When \code{verbose=TRUE} the progress (i.e. the file being read) is reported
 #' on screen.
 #'
+#' @param project The Vortex project name to be imported
+#' @param scenario The scenario name, default: NULL
 #' @param npops_noMeta The total number of populations excluding the metapopulation,
 #' default: 1
 #' @inheritParams collate_dat
@@ -536,28 +547,34 @@ collate_run <- function(project=NULL,
 #' across all iterations for each simulated year
 #' @import data.table
 #' @export
-#' @usage
-#' pac.dir <- system.file("extdata", "pacioni", package="vortexr")
-#' pac.yr <- collate_yr("Pacioni_et_al", "ST_Classic", 1, dir.in = pac.dir)
-collate_yr <- function(project=NULL,
+#' @examples
+#' # Using Pacioni et al. example files. See ?pacioni for more details.
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+#'
+#' # Run collate_yr on all .yr of the project 'Pacioni_et_al' and the ST scenario
+#' # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'
+#' yr.st.classic <- collate_yr(project="Pacioni_et_al", scenario="ST_Classic",
+#'                             dir_in = pac.dir, save2disk=FALSE)
+
+collate_yr <-  function(project=NULL,
                         scenario=NULL,
                         npops_noMeta=1,
-                        dir.in=NULL,
+                        dir_in=NULL,
                         save2disk=TRUE,
-                        dir.out="ProcessedData",
+                        dir_out="ProcessedData",
                         verbose=TRUE) {
 
-  if (is.null(dir.in)) {dir.in <- getwd()}
+  if (is.null(dir_in)) {dir_in <- getwd()}
   fname <- paste0(project, "_", scenario)
 
-  files <- get_file_paths(path=dir.in,
+  files <- get_file_paths(path=dir_in,
                           pattern=paste0("^", fname, ".*\\.yr$"),
                           fn_name="collate_yr",
                           verbose=verbose)
 
   censusData <- vector(mode="list", length=length(files))
 
-  if (verbose){message("vortexR::collate_yr is reading:")}
+  if (verbose){message("vortexR::collate_yr is parsing:")}
   for (i in 1:length(files)) {
     lines <- readLines(files[i])
     if (verbose) {message(files[i], "\r")}
@@ -606,9 +623,9 @@ collate_yr <- function(project=NULL,
   censusMeansDT <- censusAll[ , lapply(.SD, mean), by="Scenario,Year"]
   censusMeansDT <- censusMeansDT[ , Iteration := NULL]
 
-  if (save2disk == T) {
-    df2disk(censusAll, dir.out, fname, "_census")
-    df2disk(censusMeansDT, dir.out, fname, "_census_means")
+  if (save2disk == TRUE) {
+    df2disk(censusAll, dir_out, fname, "_census")
+    df2disk(censusMeansDT, dir_out, fname, "_census_means")
   }
 
   return(list(census=censusAll, census_means=censusMeansDT))
@@ -618,16 +635,16 @@ collate_yr <- function(project=NULL,
 
 #' Collate processed data generated by any of the 'collate' functions
 #'
-#' \code{collate_proc_data} collates multiple dfs generated by any of the
+#' \code{collate_proc_data} collates multiple data frames generated by any of the
 #' 'collate' functions. This may be useful when, for example, data generated by
 #' different ST scenarios and/or 'standard' scenario runs are to be combined
 #' into a unique dataframe that can then be passed to other functions.
 #'
-#' Only dfs generated by the same function can be comined together. Missing data
+#' Only dfs generated by the same function can be combined together. Missing data
 #' are filled with NA.
 #'
-#' When \code{save2disk=TRUE} the files will be named "CombinedDB".
-#' \code{dir.out} is created within the working directory unless a full path is
+#' When \code{save2disk=TRUE} the output file will be named "CombinedDB".
+#' \code{dir_out} is created within the working directory unless a full path is
 #' provided.
 #'
 #' @param data A list where each element is a df from \code{collate_[dat, yr, run]}
@@ -635,32 +652,39 @@ collate_yr <- function(project=NULL,
 #' @return A data.frame with the collated data. Missing data are filled with NA.
 #' @import plyr
 #' @export
+#' @examples
+#' # Using Campbell et al. example data. See ?sta.main, ?sta.evy5, ?sta.evy5.b11
+#' # for more details.
+#' data(sta.main, sta.evy5, sta.evy5.b11)
+#' dfs <- list(sta.main, sta.evy5, sta.evy5.b11)
+#' combined <- collate_proc_data(dfs, save2disk=FALSE)
+
 collate_proc_data <- function(data=NULL,
                               save2disk=TRUE,
-                              dir.out="ProcessedData"){
+                              dir_out="ProcessedData"){
 
   # TODO use data.table::rbindlist
   dfs <- plyr::rbind.fill(data)
 
-  if (save2disk == T) {df2disk(dfs, dir.out, "CombinedDB")}
+  if (save2disk == T) {df2disk(dfs, dir_out, "CombinedDB")}
 
   return(dfs)
 }
 
-#' Convert 'census' (generated by collate_yr) into long format
+#' Convert 'census' data into long format
 #'
 #' \code{conv_l_yr} converts the first element of the output from \code{collate_yr}
-#' (census) in long format. This can then be fed into downstream analysis
+#' (census) in long format. This can be then fed into downstream analysis
 #' (e.g. fit_regression)
 #'
 #' \code{yrs} is used to indicate the years to be retained in the output. If more
 #' than one year is required, these may be requested defining a numeric vector,
 #' e.g. yrs=c(10, 20, 30). All simulated years can be included in the output by
-#' passing a numeric vector with all years.For example, assuming that 100 years
+#' passing a numeric vector with all years. For example, assuming that 100 years
 #' were simulated, using \code{yrs=1:100} would retain all 100 years in the
 #' output.
 #'
-#' \code{dir.out} is created within the working directory unless a full path is
+#' \code{dir_out} is created within the working directory unless a full path is
 #' provided.
 #'
 #' @param data The df 'census' from \code{collate_yr}
@@ -670,9 +694,13 @@ collate_proc_data <- function(data=NULL,
 #' @param scenario Vortex scenario name (used to name the output)
 #' @param yrs The year(s) that need to be retained in the output
 #' @inheritParams collate_yr
-#' @return the census data.frame in long format
+#' @return The census data.frame in long format
 #' @import data.table plyr
 #' @export
+#' @examples
+#' # Using Pacioni et al. example data. See ?pac.yr for more details.
+#' data(pac.yr)
+#' lyr.classic <- conv_l_yr(pac.yr[[1]] , yrs=c(60, 120), save2disk=FALSE)
 conv_l_yr <- function(data=NULL,
                       npops_noMeta=1,
                       appendMeta=FALSE,
@@ -680,7 +708,7 @@ conv_l_yr <- function(data=NULL,
                       scenario=NULL,
                       yrs=c(1, 2),
                       save2disk=TRUE,
-                      dir.out="ProcessedData") {
+                      dir_out="ProcessedData") {
   requireNamespace("plyr", quietly=TRUE)
   requireNamespace("data.table", quietly=TRUE)
 
@@ -731,15 +759,87 @@ conv_l_yr <- function(data=NULL,
   }
 
   if (save2disk == T) {
-    df2disk(lcensus, dir.out, paste0(project, "_", scenario), "_lcensus")
+    df2disk(lcensus, dir_out, paste0(project, "_", scenario), "_lcensus")
   }
   return(lcensus)
 }
 
+#' Summary table of simulation parameters
+#'
+#' \code{lookup_table} creates a table that summarises simulation parameters.
+#' The final table will have a line for each scenario and one column for each
+#' parameter requested with \code{SVs}.
+#'
+#' If the name of the populations were changed, the user has to indicate a
+#' populaiton to be used as reference, otherwise \code{lookup_table} will look
+#' for a population named "Population 1" (i.e. Vortex default name for the first
+#' population).
+#'
+#' \code{lookup_table} reports the values of SVs at year zero. This is done
+#' because parameters may take value 'zero' if the relevant population
+#' goes extinct.There are cases where Vortex may not evaluate some parameters at
+#' year 0. This may happen, for example, when a population is empty at
+#' initialization (i.e. the initial population size is zero), or when K is set
+#' to zero at the beginning of the simulation. The user should check the values
+#' reported and check the Vortex input files if these do not look correct.
+#'
+#' \code{SVs} can be any variable included in the data, incuding GS or PS set up
+#' in Vortex.
+#'
+#' @param data The output from \code{collate_dat}
+#' @param project Vortex project name (used to name the output)
+#' @param scenario Vortex scenario name (used to name the output)
+#' @param pop The name of the pop to be used as reference
+#' @param SVs The parameters to include in the table
+#' @param save2disk Whether to save the output to disk, default: TRUE
+#' @param dir_out The local path to store the output. Default: ProcessedData
+#' @return A data.frame with scenario names and parameter values
+#' @import data.table
+#' @export
+#' @examples
+#' # Using Pacioni et al. example data. See ?pac.clas for more details.
+#' data(pac.clas)
+#' lkup.st.classic <- lookup_table(data=pac.clas, project="Pacioni_et_al",
+#'                    scenario="ST_Classic", pop="Population 1",
+#'                    SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+#'                    save2disk=FALSE)
+lookup_table <-  function(data=NULL,
+                          project=NULL,
+                          scenario=NULL,
+                          pop="Population 1",
+                          SVs=c("SV1"),
+                          save2disk=TRUE,
+                          dir_out="ProcessedData") {
+  require(data.table)
+
+  fname <- if (is.null(scenario)) {
+    project
+  } else {
+    paste0(project, "_", scenario)
+  }
+
+  LookUpT <- data.table(data)
+  setkey(LookUpT, pop.name, Year)
+  LookUpT <- LookUpT[J(pop, 0), c("scen.name", SVs), with=FALSE]
+  setnames(LookUpT, "scen.name", "Scenario")
+
+  if(save2disk == T) {
+    df2disk(LookUpT, dir_out, fname, "_LookUpT")
+  }
+  return(LookUpT)
+}
+
+#------------------------------------------------------------------------------#
+# Data plotting
+#------------------------------------------------------------------------------#
+
 #' Line plots of Vortex parameters vs years
 #'
 #' \code{line_plot_year} generates line plots of the selected Vortex parameters
-#' for the selected populations, for all simulated years
+#' for the selected populations, for all simulated years.
+#'
+#' Plots are ggplot objects. When \code{save2disk=TRUE} these are saved as .rda
+#' and .pdf files
 #'
 #' @param data A df from \code{collate_dat}
 #' @param project Vortex project name (used to name the output)
@@ -749,18 +849,25 @@ conv_l_yr <- function(data=NULL,
 #' default: c("PExtinct", "Nextant", "Het", "Nalleles")
 #' @param plotpops The populations to be included in the plot, default: 'all'
 #' @param save2disk Whether to save the output to disk, default: TRUE
-#' @param dir.out The local path to store the output. Default: Plots
-#' @return line plot(s)
+#' @param dir_out The local path to store the output. Default: Plots
+#' @return Line plot(s)
 #' @import ggplot2
 #' @import grid
 #' @export
+#' @examples
+#' # Using Pacioni et al. example data. See ?pac.clas for more details.
+#' data(pac.clas)
+#' lineplot.st.classic <- line_plot_year(data=pac.clas, project="Pacioni_et_al",
+#'                        scenario="ST_Classic",
+#'                        params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+#'                        save2disk=FALSE)
 line_plot_year <- function(data=NULL,
                            project=NULL,
                            scenario=NULL,
                            params=c("PExtinct", "Nextant", "Het", "Nalleles"),
                            plotpops=c("all"),
                            save2disk=TRUE,
-                           dir.out="Plots") {
+                           dir_out="Plots") {
 
   require(ggplot2)
   require(grid)
@@ -797,8 +904,8 @@ line_plot_year <- function(data=NULL,
   r.line_plot_year <- list()
   i <- 0
   if (save2disk == T) {
-    dir.create(dir.out, showWarnings=FALSE)
-    pdf(paste(dir.out, "/", fname_root, "_", "YearVsParams.pdf", sep=""))
+    dir.create(dir_out, showWarnings=FALSE)
+    pdf(paste(dir_out, "/", fname_root, "_", "YearVsParams.pdf", sep=""))
   }
 
   for (param in params) {
@@ -819,7 +926,7 @@ line_plot_year <- function(data=NULL,
   if (save2disk == T) {
     dev.off()
     save(list=(ls(pattern=paste(fname_root, "_", ".*", "_", "plot", sep=""))),
-         file=paste(dir.out, "/", fname_root, "_", "YearVsParams.rda", sep=""))
+         file=paste(dir_out, "/", fname_root, "_", "YearVsParams.rda", sep=""))
   }
 
   names(r.line_plot_year) <- ls(pattern=paste(fname_root, "_", ".*", "_",
@@ -831,17 +938,27 @@ line_plot_year <- function(data=NULL,
 #'
 #' \code{line_plot_year_mid} generates line plots of the selected Vortex parameters
 #' for the selected populations, from year zero to yrmid. The purpose of these
-#' plots is to "zoom" in the initial phase of the simulations to better
+#' plots is to 'zoom' in the initial phase of the simulations to better
 #' appreciate dynamics of the parameters of interest.
 #'
-#' TODO working
+#' Plots are ggplot objects. When \code{save2disk=TRUE} these are saved as .rda
+#' and .pdf files
 #'
 #' @param yrmid The last year to plot
 #' @inheritParams line_plot_year
-#' @return line plot(s)
+#' @return Line plot(s)
 #' @import ggplot2
 #' @import grid
 #' @export
+#' @examples
+#' # Using Pacioni et al. example data. See ?pac.clas for more details.
+#' data(pac.clas)
+#' lineMidPlot.st.classic <- line_plot_year_mid(data=pac.clas,
+#'                           project="Pacioni_et_al",
+#'                           scenario="ST_Classic",
+#'                           yrmid=50,
+#'                           params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+#'                           save2disk=FALSE)
 line_plot_year_mid <-  function(data=NULL,
                                 project=NULL,
                                 scenario=NULL,
@@ -849,7 +966,7 @@ line_plot_year_mid <-  function(data=NULL,
                                 params=c("PExtinct", "Nextant", "Het", "Nalleles"),
                                 plotpops=c("all"),
                                 save2disk=TRUE,
-                                dir.out="Plots") {
+                                dir_out="Plots") {
 
   require(ggplot2)
   require(grid)
@@ -886,8 +1003,8 @@ line_plot_year_mid <-  function(data=NULL,
   r.line_plot_year_mid <- list()
   i <- 0
   if (save2disk == T) {
-    dir.create(dir.out, showWarnings=FALSE)
-    pdf(paste0(dir.out, "/", fname_root, "_", "YearMidVsParams.pdf"))
+    dir.create(dir_out, showWarnings=FALSE)
+    pdf(paste0(dir_out, "/", fname_root, "_", "YearMidVsParams.pdf"))
   }
 
   for (param in params) {
@@ -909,7 +1026,7 @@ line_plot_year_mid <-  function(data=NULL,
   if (save2disk == T) {
     dev.off()
     save(list=(ls(pattern=pat)),
-         file=paste0(dir.out, "/", fname_root, "_", "YearMidVsParams.rda"))
+         file=paste0(dir_out, "/", fname_root, "_", "YearMidVsParams.rda"))
   }
 
   names(r.line_plot_year_mid) <- ls(pattern=pat)
@@ -917,28 +1034,37 @@ line_plot_year_mid <-  function(data=NULL,
 }
 
 
-#' Dot plots of mean Vortex parameters.
+#' Dot plots of mean Vortex parameters
 #'
 #' \code{dot_plot} generates dot plots of mean parameter values for each population
-#' (row) at each year value requested with 'yrs' (columns).
-#' Bars represent standard deviation
+#' (row) at each year value requested with 'yrs' (columns). Bars represent
+#' standard deviation.
 #'
-#' \code{yrs} can be a numeric vector of length > 1 (e.g. \code{yrs=c(50,100)}).
-#' In such cases, each point in time will be plotted.
+#' Plots are ggplot objects. When \code{save2disk=TRUE} these are saved as .rda
+#' and .pdf files
+#'
+#' \code{yrs} can be a numeric vector of length >= 1 (e.g. \code{yrs=c(50,100)}).
+#' Each point in time will be plotted in different columns.
 #'
 #' If a continuous variable is passed to \code{setcolour}, a continuous gradient
 #' of colour will be assigned to the marker (e.g. for example, a scale from blue
 #' to black). If a sharp change of colours between different values of a
 #' continuos variable is desired, it has to be converted into a factor.
 #'
-#'TODO examples
 #' @param yrs The years to be included in the plot
 #' @param setcolour Variable to be used to set colours of data, default: scen.name
 #' @inheritParams line_plot_year
-#' @return dot plots of mean parameter values with standard deviation
+#' @return Dot plots of mean parameter values with standard deviation
 #' @import ggplot2
 #' @import grid
 #' @export
+#' @examples
+#' # Using Pacioni et al. example data. See ?pac.clas for more details.
+#' data(pac.clas)
+#' dot <- dot_plot(data=pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
+#'                yrs=c(80, 120),
+#'                params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+#'                save2disk=FALSE)
 dot_plot <- function(data=NULL,
                      project=NA,
                      scenario=NA,
@@ -947,7 +1073,7 @@ dot_plot <- function(data=NULL,
                      setcolour="scen.name",
                      plotpops=c("all"),
                      save2disk=TRUE,
-                     dir.out="Plots") {
+                     dir_out="Plots") {
 
   require(ggplot2)
   require(grid)
@@ -989,8 +1115,8 @@ dot_plot <- function(data=NULL,
 
   r.dot_plot <- list()
   if (save2disk == T) {
-    dir.create(dir.out, showWarnings=FALSE)
-    pdf(paste(dir.out, "/", fname_root, "_", "dot_plots.pdf", sep=""))
+    dir.create(dir_out, showWarnings=FALSE)
+    pdf(paste(dir_out, "/", fname_root, "_", "dot_plots.pdf", sep=""))
   }
 
   for (i in 1:length(params)) {
@@ -1024,14 +1150,14 @@ dot_plot <- function(data=NULL,
   if (save2disk == T) {
     dev.off()
     save(list=(ls(pattern=pat)),
-         file=paste0(dir.out, "/", fname_root, "_", "dot_plots.rda"))
+         file=paste0(dir_out, "/", fname_root, "_", "dot_plots.rda"))
   }
 
   names(r.dot_plot) <- ls(pattern=pat)
   return(r.dot_plot)
 }
 
-#' Generates a matrix of scatter plots.
+#' Generates a matrix of scatter plots
 #'
 #' \code{m_scatter} generates a matrix of pairwise scatter plots to graphically
 #' investigate possible associations between variables.
@@ -1042,8 +1168,6 @@ dot_plot <- function(data=NULL,
 #' It may be convenient to pass the dependent variable of a regression model
 #' with \code{param} so that all the pairwise scatter plots of this variable
 #' will be in one line.
-#'
-#'TODO examples
 #'
 #' @param data  The output from \code{collate_dat}, the long format of the
 #' output from \code{collate_run} or the output from \code{con_l_yr}
@@ -1056,9 +1180,27 @@ dot_plot <- function(data=NULL,
 #' @param vs The parameters to be plotted
 #' @param fname The name of the files where to save the output
 #' @inheritParams line_plot_year
-#' @return a matrix of scatter plots
+#' @return A matrix of scatter plots
 #' @import data.table
 #' @export
+#' @examples
+#' # Using Pacioni et al. example data. See ?pac.lhs for more details.
+#' data(pac.lhs)
+#' # Remove base scenario
+#' pac.lhs.no.base <- pac.lhs[!pac.lhs$scen.name == "ST_LHS(Base)", ]
+#'
+#' # Use function lookup_table to obtain correct parameter values at year 0
+#' lkup.ST_LHS <- lookup_table(data=pac.lhs.no.base, project="Pacioni_et_al",
+#'                             scenario="ST_LHS",
+#'                             pop="Population 1",
+#'                             SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+#'                             save2disk=FALSE)
+#'
+#' scatter.plot <- m_scatter(data=pac.lhs.no.base[1:33], data_type="dat",
+#'                           lookup=lkup.ST_LHS, yr=120, popn=1, param="Nall",
+#'                           vs=c("SV1", "SV2", "SV3"),
+#'                           save2disk=FALSE)
+
 m_scatter <- function (data=NULL,
                       data_type="dat", # possible options are "dat", "yr" or "run"
                       lookup=NA,
@@ -1068,7 +1210,7 @@ m_scatter <- function (data=NULL,
                       vs=NA,
                       save2disk=TRUE,
                       fname=NULL,
-                      dir.out="Plots") {
+                      dir_out="Plots") {
   require(GGally)
   require(data.table)
 
@@ -1107,88 +1249,33 @@ m_scatter <- function (data=NULL,
                                    params=c(method="loess", colour="red")))
 
   if (save2disk == T) {
-    dir.create(dir.out, showWarnings=FALSE)
-    pdf(file=paste0(dir.out, "/", fname, "m_scatter_plots.pdf"))
+    dir.create(dir_out, showWarnings=FALSE)
+    pdf(file=paste0(dir_out, "/", fname, "m_scatter_plots.pdf"))
     print(corrMtrx)
     dev.off()
-    save(corrMtrx, file=paste0(dir.out, "/", fname, "m_scatter_plots.rda"))
+    save(corrMtrx, file=paste0(dir_out, "/", fname, "m_scatter_plots.rda"))
   }
   return(corrMtrx)
 }
 
+#------------------------------------------------------------------------------#
+# Data plotting
+#------------------------------------------------------------------------------#
 
-#' Create a table that summarises simulation parameters for each scenario.
+#' Calculate the effective population size (Ne)
 #'
-#' \code{lookup_table} creates a table that summarises simulation parameters.
-#' The final table will have a line for each scenario and one column for each
-#' parameter requested with \code{SVs}.
-#'
-#' If the name of the populations were changed, the user has to indicate a
-#' populaiton to be used as reference, otherwise \code{lookup_table} will look
-#' for a population named "Population 1" (i.e. Vortex default name for the first)
-#' population.
-#'
-#' \code{lookup_table} reports the values of SVs at year zero. This is done
-#' because parameters may take value 'zero' if the relevant population
-#' goes extinct.There are cases where Vortex may not evaluate some parameters at
-#' year 0. This may happen, for example, when a population is empty at
-#' initialization (i.e. the initial population size is zero), or when K is set
-#' to zero at the beginning of the simulation. The user should check the values
-#' reported and check the Vortex input files if these do not look correct.
-#'
-#'TODO examples
-#'
-#' @param data The output from \code{collate_dat}
-#' @param project Vortex project name (used to name the output)
-#' @param scenario Vortex scenario name (used to name the output)
-#' @param pop The name of the pop to be used as reference
-#' @param SVs The parameters to include in the table
-#' @param save2disk Whether to save the output to disk, default: TRUE
-#' @param dir.out The local path to store the output. Default: ProcessedData
-#' @return a data.frame with scenario names and parameter values
-#' @import data.table
-#' @export
-# the user may have set up his own SVs so he/she has to provide a list of SVs
-lookup_table <-  function(data=NULL,
-                          project=NULL,
-                          scenario=NULL,
-                          pop="Population 1",
-                          SVs=c("SV1"),
-                          save2disk=TRUE,
-                          dir.out="ProcessedData") {
-  require(data.table)
-
-  fname <- if (is.null(scenario)) {
-    project
-  } else {
-    paste0(project, "_", scenario)
-  }
-
-  LookUpT <- data.table(data)
-  setkey(LookUpT, pop.name, Year)
-  LookUpT <- LookUpT[J(pop, 0), c("scen.name", SVs), with=FALSE]
-  setnames(LookUpT, "scen.name", "Scenario")
-
-  if(save2disk == T) {
-    df2disk(LookUpT, dir.out, fname, "_LookUpT")
-  }
-  return(LookUpT)
-}
-
-#' Calculate the effective population size (Ne).
-#'
-#' \code{Ne} calculates the effective population size (Ne) for several scenarios
-#' based on the loss of genetic diversity (expected heterozygosity) using the
-#' temporal approach.
+#' \code{Ne} calculates the effective population size (Ne) between \code{yr0}
+#' and \code{yrt} for several scenarios based on the loss of genetic diversity
+#' (expected heterozygosity) using the temporal approach.
 #'
 #' \code{yr0} is adjusted by adding the number of years of the generation time
 #' (rounded to the nearest integer).  In this way the user can provide the same
 #' \code{yr0,yrt} and \code{gen} to \code{Nadults} and \code{Ne} and these values
-#' are adjusted internally to correctly calculate the ratio. If this behaviour
-#' is not desired, use \code{gen=0}.
+#' are adjusted internally to correctly calculate the Ne/N ratios where relevant.
+#' If this behaviour is not desired, use \code{gen=0}.
 #'
-#' When a population goes extinct, the results of the calculations are spurious
-#' (they are 0.5).
+#' \strong{NOTE:} When a population goes extinct, the results of the calculations
+#' are spurious (they are 0.5). This may change in future versions.
 #'
 #' @param data The output from \code{collate_dat}
 #' @param scenario A vector of scenario names for which Ne need to be calculated,
@@ -1197,11 +1284,18 @@ lookup_table <-  function(data=NULL,
 #' @param yr0,yrt The time window to be considered (first and last year respectively)
 #' @param save2disk Whether to save the output to disk, deafult: TRUE
 #' @param fname The name of the files where to save the output, defult: "Ne"
-#' @param dir.out The local path to store the output. Default: DataAnalysis
-#' @return a data.table with Ne values
+#' @param dir_out The local path to store the output. Default: DataAnalysis
+#' @return A \code{data.table} (\code{data.frame} if \code{\link[data.table]{data.table}} is not
+#'  loaded) with Ne values
 #' @import data.table
 #' @export
-### Ne (effective pop size based on genetic loss)
+#' @examples
+#' # Using Pacioni et al. example data. See ?pac.clas for more details.
+#' data(pac.clas)
+#' # Calculate Ne for all scenarios in the data. Note the odd value for scenario
+#' # 12, consequent to the population going extinct.
+#' NeAll <- Ne(data=pac.clas, scenarios="all", gen=2.54, yr0=50, yrt=120,
+#'          save2disk=FALSE)
 Ne <-  function(data=NULL,
                 scenarios="all",
                 gen=1,
@@ -1209,7 +1303,7 @@ Ne <-  function(data=NULL,
                 yrt=2,
                 save2disk=TRUE,
                 fname="Ne",
-                dir.out="DataAnalysis") {
+                dir_out="DataAnalysis") {
   require(data.table)
 
   # Function definitions
@@ -1239,28 +1333,29 @@ Ne <-  function(data=NULL,
   r.Ne <- r.Ne[ , Scenario := scenarios]
 
   if (save2disk == T) {
-    df2disk(r.Ne, dir.out, fname)
+    df2disk(r.Ne, dir_out, fname)
   }
 
   message(paste("Effective population size based on loss of gene diversity from year",
                 round(yr0 + gen), "to year", yrt))
   message("NOTE: The first year used in the calculations is adjusted using
-the generation time provided (yr0 + gen) so that Ne:N ratio can be directly calculated
-when passing the same argument values to the Ne and Nadults functions. See documentation for more information")
+the generation time provided (yr0 + gen) so that Ne:N ratio can be directly
+calculated when passing the same argument values to the Ne and Nadults functions.
+See documentation for more information")
   return(r.Ne)
 }
 
-#' Calculate the harmonic mean of the total number of adults between two years.
+#' Calculate the harmonic mean of the total number of adults
 #'
 #' \code{Nadults} calculates, for several scenarios, the harmonic mean of the total
-#' number of adults between two years for several scenarios. These can be use to
+#' number of adults between \code{yr0} and \code{yrt}. These can be use to
 #' calculate Ne/N ratios where relevant.
 #'
 #' \code{yrt} is adjusted by subtracting the number of years of the generation
-#' time (rounded to the nearest integer. In this way the user can provide the
-#' same \code{yr0,yrt,gen} to \code{Nadults,Ne} and these values are adjusted
-#' internally to correctly calculate the ratio. If this behaviour is not desired,
-#' use \code{gen=0}.
+#' time (rounded to the nearest integer). In this way the user can provide the
+#' same \code{yr0,yrt} and \code{gen} to \code{Nadults} and \code{Ne} and these
+#' values are adjusted internally to correctly calculate the Ne/N ratios where
+#' relevant. If this behaviour is not desired, use \code{gen=0}.
 #'
 #' @param data The second element (census_means) of the output from \code{collate_yr}
 #' @param npops_noMeta The total number of populations excluding the metapopulation,
@@ -1269,12 +1364,18 @@ when passing the same argument values to the Ne and Nadults functions. See docum
 #' default: FALSE
 #' @param fname The name of the files where to save the output, defult: "Nadults"
 #' @inheritParams Ne
-#' @return a data.table with Nb values
+#' @return A \code{data.table} (\code{data.frame} if \code{\link[data.table]{data.table}} is not
+#'  loaded) with Nb values
 #' @import plyr
 #' @import data.table
 #' @export
+#' @examples
+#' # Using Pacioni et al. example data. See ?pac.yr for more details.
+#' data(pac.yr)
+#' NadultAll <- Nb(data=pac.yr[[2]], scenario="all", gen=2.54, yr0=50, yrt=120,
+#'              save2disk=FALSE)
 Nb <- function (data=NULL,
-                scenarios="all",
+                scenario="all",
                 npops_noMeta=1,
                 appendMeta=FALSE,
                 gen=1,
@@ -1282,7 +1383,7 @@ Nb <- function (data=NULL,
                 yrt=2,
                 save2disk=TRUE,
                 fname="Nadults",
-                dir.out="DataAnalysis") {
+                dir_out="DataAnalysis") {
 
   require(plyr)
   require(data.table)
@@ -1345,11 +1446,11 @@ the generation time provided (yrt - gen) so that Ne:N ratio can be directly
 calculated when passing the same argument values to the Ne and Nadults functions.
 See documentation for more information")
 
-  if (scenarios == "all")
-    scenarios <- data[ , unique(Scenario)]
+  if (scenario == "all")
+    scenario <- data[ , unique(Scenario)]
 
   setkey(lcensusMeans, Scenario)
-  slcensusMeans <- lcensusMeans[J(scenarios), ]
+  slcensusMeans <- lcensusMeans[J(scenario), ]
   setkey(slcensusMeans, Year)
   slcensusMeans <- slcensusMeans[.(yr0:round(yrt - gen)), ]
 
@@ -1360,16 +1461,19 @@ See documentation for more information")
                               by=list(Scenario,Population)]
   message("Done!")
 
-  if (save2disk == T) {df2disk(harm.means, dir.out, fname)}
+  if (save2disk == T) {df2disk(harm.means, dir_out, fname)}
   return(harm.means)
 }
 
+#------------------------------------------------------------------------------#
+# Data analysis
+#------------------------------------------------------------------------------#
 
-#' Pairwise comparisons and ranks of scenarios.
+#' Pairwise comparisons and ranks of scenarios
 #'
 #' \code{Pairwise} conducts pairwise comparisons against a baseline scenario
 #' uing sensitivity coefficients and strictly standardised mean difference. It also
-#' ranks scenarios (and/or parameters when relevant) accordingly.
+#' ranks scenarios (and/or parameters when relevant) using these statistics.
 #'
 #' When \code{yrs="max"} (default), VortexR automatically sets  \code{yrs} to
 #' the last year of the simulation.
@@ -1433,8 +1537,8 @@ See documentation for more information")
 #' @param SVs A character vector with the parameters to be used to group
 #' scenarios, default: NA
 #' @param save2disk Whether to save the output to disk, deafult: TRUE
-#' @param dir.out The local path to store the output. Default: DataAnalysis/Pairwise
-#' @return several output. See documentation for details
+#' @param dir_out The local path to store the output. Default: DataAnalysis/Pairwise
+#' @return Several output. See vignette for details.
 #' @references Conroy, S. D. S., and B. W. Brook. 2003. Demographic sensitivity and
 #' persistence of the threatened white- and orange-bellied frogs of Western
 #' Australia. Population Ecology 45:105-114.
@@ -1449,7 +1553,14 @@ See documentation for more information")
 #'
 #' @import data.table irr
 #' @export
-#'
+#' @examples
+#' # Using Pacioni et al. example data. See ?pac.clas for more details.
+#' data(pac.clas)
+#' pairw<-Pairwise(data=pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
+#'                params=c("Nall", "Het"), yrs=c(60,120), ST=T,
+#'                type="Single-Factor",
+#'                SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+#'                save2disk=FALSE)
 Pairwise <-  function(data=NULL,
                       project=NULL,
                       scenario=NULL,
@@ -1460,7 +1571,7 @@ Pairwise <-  function(data=NULL,
                       group.mean=FALSE,
                       SVs=NA,
                       save2disk=TRUE,
-                      dir.out="DataAnalysis/Pairwise") {
+                      dir_out="DataAnalysis/Pairwise") {
 
   require(data.table)
   require(irr)
@@ -1669,13 +1780,13 @@ Pairwise <-  function(data=NULL,
     cat("Rank comparison of SSMD", "\n"), lapply(ranks.ssmd.fin, kendall, TRUE))
   if (save2disk == T) {
     # write results
-    df2disk(table.coef, dir.out, fname, ".coef.table")
-    df2disk(ssmd.table, dir.out, fname, ".SSMD.table")
-    df2disk(ssmd.table.pvalues, dir.out, fname, ".SSMD.table.pvalues")
-    df2disk(ranks.sc, dir.out, fname, ".ranks.sc")
-    df2disk(ranks.ssmd, dir.out, fname, ".ranks.SSMD")
+    df2disk(table.coef, dir_out, fname, ".coef.table")
+    df2disk(ssmd.table, dir_out, fname, ".SSMD.table")
+    df2disk(ssmd.table.pvalues, dir_out, fname, ".SSMD.table.pvalues")
+    df2disk(ranks.sc, dir_out, fname, ".ranks.sc")
+    df2disk(ranks.ssmd, dir_out, fname, ".ranks.SSMD")
     capture.output(print(kendall.out, quote=F),
-                   file=paste0(dir.out, "/", fname,".kendall.txt"))
+                   file=paste0(dir_out, "/", fname,".kendall.txt"))
   }
   # Collate results in a list
   r.OneWay<-list(coef.table=table.coef,
@@ -1786,13 +1897,13 @@ Pairwise <-  function(data=NULL,
       lapply(ranks.mssmd.fin, kendall, TRUE))
 
     if (save2disk == T) {
-      df2disk(mean.coef.table, dir.out, fname, ".mean.coef.table")
-      df2disk(mean.ssmd.table, dir.out, fname, ".mean.SSMD.table")
-      df2disk(mean.ssmd.table.pvalues, dir.out, fname, ".mean.SSMD.table.pvalues")
-      df2disk(ranks.msc, dir.out, fname, ".ranks.msc")
-      df2disk(ranks.mssmd, dir.out, fname, ".ranks.mSSMD")
+      df2disk(mean.coef.table, dir_out, fname, ".mean.coef.table")
+      df2disk(mean.ssmd.table, dir_out, fname, ".mean.SSMD.table")
+      df2disk(mean.ssmd.table.pvalues, dir_out, fname, ".mean.SSMD.table.pvalues")
+      df2disk(ranks.msc, dir_out, fname, ".ranks.msc")
+      df2disk(ranks.mssmd, dir_out, fname, ".ranks.mSSMD")
       capture.output(print(kendall.mean.out, quote=F),
-                     file=paste0(dir.out, "/", fname, ".Kendall.means.txt"))
+                     file=paste0(dir_out, "/", fname, ".Kendall.means.txt"))
     }
 
     # Collate results for means
@@ -1807,11 +1918,12 @@ Pairwise <-  function(data=NULL,
 }
 
 
-#' Search for the best regression model(s) given a list of predictors.
+#' Search for the best regression model(s)
 #'
 #'
 #' \code{fit_regression} fits either a Generilized Linear Model or a betareg model
-#' to the data and search for the best model(s) using the R package glmulti.
+#' to the data and search for the best model(s) given a list of predictors using
+#' the R package glmulti.
 #'
 #' \code{fit_regression} fits a different type of regression model depending on the
 #' dependent variable. When this is a count (e.g. N or the number of alleles),
@@ -1844,7 +1956,9 @@ Pairwise <-  function(data=NULL,
 #' \code{fit_regression} will conduct an exaustive search if ncand is less or
 #' equal to the number of candidate models, otherwise it will use a genetic
 #' search method (see glmulti documentations for more details about the search
-#' methods).
+#' methods). When \code{\link[glmulti]{glmulti}} uses the genetic search method,
+#' two small files (with extension \code{.modgen.back} and \code{.mods.back.} are
+#' written in the working directory even if \code{save2disk=FALSE}.
 #'
 #' \code{fit_regression} explicitly ignores NA.
 #'
@@ -1874,19 +1988,82 @@ Pairwise <-  function(data=NULL,
 #' @param ncand The threshold of candidate models after which switch to the
 #' genetic search method, default: 30
 #' @param set_size Value to be used in confsetsize (from \code{\link[glmulti]{glmulti}}
-#' The number of models to be looked for, i.e. the size of the returned confidence
+#'  The number of models to be looked for, i.e. the size of the returned confidence
 #' set.)
 #' @param save2disk Whether to save the output to disk, default: TRUE
-#' @param dir.out The local path to store the output. Default: DataAnalysis/FitRegression
-#' @return a glmulti object with the best models found
-#' @references Calcagno, V., and C. de Mazancourt. 2010. glmulti: an R package for easy
-#' automated model selection with (generalized) linear models. Journal of
-#' Statistical Software 34:1-29.
+#' @param dir_out The local path to store the output.
+#'  Default: DataAnalysis/FitRegression
+#' @return A \code{glmulti} object with the best models found.
+#' @references Calcagno, V., and C. de Mazancourt. 2010. glmulti: an R package
+#' for easy automated model selection with (generalized) linear models. Journal
+#' of Statistical Software 34:1-29.
 #'
 #' Cribari-Neto, F., and Zeileis, A. (2010) Beta regression in R. Journal of
 #' Statistical Software 34(2).
 #' @import glmulti data.table plyr
 #' @export
+#' @examples
+#' # Using Pacioni et al. example data. See ?pac.run.lhs and ?pac.lhs for more
+#' # details.
+#' data(pac.run.lhs, pac.lhs)
+#'
+#' # Remove base scenario from .stdat data
+#' pac.lhs.no.base <- pac.lhs[!pac.lhs$scen.name == "ST_LHS(Base)", ]
+#'
+#' # Use function lookup_table to obtain correct parameter values at year 0
+#' lkup.ST_LHS <- lookup_table(data=pac.lhs.no.base, project="Pacioni_et_al",
+#'                             scenario="ST_LHS",
+#'                             pop="Population 1",
+#'                             SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+#'                             save2disk=FALSE)
+#'
+#' # Remove base scenario from .run output in long format
+#' lrun.ST_LHS.no.base <- pac.run.lhs[[2]][!pac.run.lhs[[2]]$Scenario == "ST_LHS(Base)", ]
+#'
+#' reg <- fit_regression(data=lrun.ST_LHS.no.base, lookup=lkup.ST_LHS,
+#'                       census=FALSE,
+#'                       project="Pacioni_et_al", scenario="ST_LHS", popn=1,
+#'                       param="N", vs=c("SV1", "SV2", "SV3"), l=2,  ncand=30,
+#'                       save2disk=FALSE)
+#'
+#'  # Clean up of residual files written by glmulti
+#'  # Note, in some OS (W) these files may be locked because in use by R and have
+#'  # to be manually after the R session has been either terminated or restarted
+#'  file.remove(c("Pacioni_et_al_ST_LHS_N.modgen.back",
+#'                "Pacioni_et_al_ST_LHS_N.mods.back"))
+#'
+#' # Example of information you can obtained once you have run fit_regression
+#'
+#' # The formula for the best model
+#' bestmodel <- reg@@formulas[1]
+#'
+#' # The formulae for the best 30 model
+#' bestmodels <- reg@@formulas
+#'
+#' # List of IC values
+#' qaicvalues <- reg@@crits
+#'
+#' # QAIC differences between the first 5 best models (stored in 'delta')
+#' delta <- as.vector(NULL)
+#' for (i in 1:5) {
+#'   del <- qaicvalues[i+1] - qaicvalues[i]
+#'   delta <- c(delta, del)
+#' }
+#'
+#' # The best model's coefficients
+#' coef.best <- coef(reg@@objects[[1]])
+#'
+#' # The model averaged coefficients
+#' coef.all <- coef.glmulti(reg)
+#' coefs <- data.frame(Estimate=coef.all[,1],
+#'                     Lower=coef.all[,1] - coef.all[,5],
+#'                     Upper=coef.all[,1] + coef.all[,5])
+#'
+#' # Plot IC profile
+#' plot(reg, type="p")
+#'
+#' # Plot of model averaged importance of terms
+#' plot(reg, type="s")
 fit_regression <-  function(data=NULL,
                             lookup=NA,
                             census=T,
@@ -1904,7 +2081,7 @@ fit_regression <-  function(data=NULL,
                             ncand=30,
                             set_size=NA,
                             save2disk=TRUE,
-                            dir.out="DataAnalysis/FitRegression") {
+                            dir_out="DataAnalysis/FitRegression") {
   # Load required packages. Loading of betareg and R.utils are delayed after
   # it has been checked that they actually are needed to avoid wasting time
   # loading packages that are not used.
@@ -1968,8 +2145,8 @@ fit_regression <-  function(data=NULL,
   paramvalues <- data[[param]]
   name <- paste(project, scenario, param, sep="_")
   if (save2disk == T) {
-    dir.create(dir.out, showWarnings=FALSE)
-    pdf(paste0(dir.out, "/", paste(name, "histogram.pdf", sep="_")))
+    dir.create(dir_out, showWarnings=FALSE)
+    pdf(paste0(dir_out, "/", paste(name, "histogram.pdf", sep="_")))
   }
 
   hist(paramvalues,  main=paste("Histogram of", param), xlab=param)
@@ -2068,8 +2245,8 @@ fit_regression <-  function(data=NULL,
 
   if (save2disk == T) {
     message("Best models saved to disk in the file ...best.mod.rda")
-    save(best.mod, file=paste0(dir.out, "/", name, "_best.mod.rda"))
-    pdf(paste0(dir.out, "/", name, "_IC_plot.pdf"))
+    save(best.mod, file=paste0(dir_out, "/", name, "_best.mod.rda"))
+    pdf(paste0(dir_out, "/", name, "_IC_plot.pdf"))
     plot(best.mod, type="p")
     dev.off()
   }
