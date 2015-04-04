@@ -1,4 +1,67 @@
 #------------------------------------------------------------------------------#
+# Package info
+#------------------------------------------------------------------------------#
+#' vortexR: an R package for Post Vortex Simulation Analysis
+#'
+#' \code{vortexR} facilitates Post Vortex Simulation Analysis (PVSA) by offering
+#' tools to collate multiple Vortex (v10) output files into one R object, generate
+#' plots and conduct basic analysis (e.g. pairwise comparisons of scenarios) and
+#' more advanced statistics such as fitting of a Generalised Linear Model (GLM)
+#' to investigate the main and the interaction effects of the variables of
+#' interest.
+#'
+#' \code{vortexR} has a number of functions that are useful during the development
+#' of a Vortex project and for its analysis after completion. \code{vortexR}
+#' makes it easy to automatise the creation of plots and computation of
+#' basic statistics to inspect the effect of changes carried out in the Vortex
+#' project. Once the project development is completed, the same framework used
+#' in \code{vortexR} during the development of the project can be
+#' refined and extended to include more advanced statistical analyses or can be
+#' easily included in Markdown documents for the creation of reports (by
+#' converting them into pdf) or update web-pages.
+#'
+#' The use of \code{vortexR} ensures reproducibility and standardises analytical
+#' approaches in population viability analysis.
+#'
+#' @section Documentations:
+#' Use \code{help(package = "vortexR")} for a list of \code{vortexR} functions and their
+#' specific documentations.
+#'
+#' A more detailed description of the package and functions can be opened with:
+#' \code{vignette(package="vortexR", topic="User-guide")}.
+#'
+#' More vignettes may be come available in the future. Use \code{vignette(package="vortexR")}
+#' to see all the available vignettes.
+#'
+#' @section Citation:
+#' If you use \code{vortexR}, please cite:
+#' Pacioni, C., and Mayer, F. (in prep) vortexR: an R package for post Vortex
+#' simulation analysis.
+#'
+#' @section Get in touch:
+#' Please, use \url{https://github.org/carlopacioni/vortexR/issues} to report any
+#' issue/bug with vortexR. If unsure, or for feedback, contact me at:
+#' carlo.pacioni 'at' gmail.com.
+#'
+#' @section Publications:
+#' \emph{Below there are listed a few publications that used \code{vortexR}.}
+#'
+#' Campbell et al. In press. Assessing the economic benefits of starling
+#'  detection and control to Western Australia. Australasian Journal of
+#'  Environmental Management.
+#'
+#' Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#'  Predators and genetic fitness: key threatening factors for the conservation
+#'  of bettong species. Pacific Concervation Biology.
+#'
+#' @docType package
+#'
+#' @name vortexR
+NULL
+
+
+
+#------------------------------------------------------------------------------#
 # Data
 #------------------------------------------------------------------------------#
 
