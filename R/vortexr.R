@@ -35,7 +35,7 @@
 #'
 #' @section Citation:
 #' If you use \code{vortexR}, please cite:
-#' Pacioni, C., and Mayer, F. (in prep) vortexR: an R package for post Vortex
+#' Pacioni, C., and Mayer, F. (in prep). vortexR: an R package for post Vortex
 #' simulation analysis.
 #'
 #' @section Get in touch:
@@ -46,7 +46,7 @@
 #' @section Publications:
 #' \emph{Below there are listed a few publications that used \code{vortexR}.}
 #'
-#' Campbell et al. In press. Assessing the economic benefits of starling
+#' Campbell et al. (in press). Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of
 #'  Environmental Management.
 #'
@@ -66,7 +66,7 @@ NULL
 #------------------------------------------------------------------------------#
 
 #' @name sta.main
-#' @title Collated results from Vortex scenarios used in Campbell et al (in press)
+#' @title Collated results from Vortex scenarios - Campbell et al (in press)
 #' @description A dataset with the results from the main Vortex scenarios used
 #'  in Campbell et al (in press). Vortex outputs, from the project named
 #'  "Starlingv3PopBased" (.dat files), were collated with \code{collate_dat}.
@@ -78,7 +78,7 @@ NULL
 NULL
 
 #' @name sta.evy5
-#' @title Collated results from Vortex scenarios used in Campbell et al (in press)
+#' @title Collated results from Vortex scenarios - Campbell et al (in press)
 #' @description A dataset with the results from Vortex scenarios used in
 #'  Campbell et al (in press) to simulate major application of control measures
 #'  in every 5 year cycle. Vortex outputs, from the project named
@@ -92,7 +92,7 @@ NULL
 NULL
 
 #' @name sta.evy5.b11
-#' @title Collated results from Vortex scenarios used in Campbell et al (in press)
+#' @title Collated results from Vortex scenarios - Campbell et al (in press)
 #' @description A dataset with the results from Vortex scenarios used in Campbell
 #'  et al (in press) to simulate major application of control measures in every
 #'  5 year cycle, maintaining 2011 levels of investiment. Vortex outputs, from
@@ -106,7 +106,7 @@ NULL
 NULL
 
 #' @name pac.clas
-#' @title Collated results from Vortex scenarios used in Pacioni et al. (in prep)
+#' @title Collated results from Vortex scenarios - Pacioni et al. (in prep)
 #' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
 #'  analysis on demographic parameters. Vortex outputs, from the project named
 #'  "Pacioni_et_al" and (Single-Factor) sensitivity test scenario "ST_Classic"
@@ -119,7 +119,7 @@ NULL
 NULL
 
 #' @name pac.lhs
-#' @title Collated results from Vortex scenarios used in Pacioni et al. (in prep)
+#' @title Collated results from Vortex scenarios - Pacioni et al. (in prep)
 #' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
 #'  analysis on demographic parameters. Vortex outputs, from the project named
 #'  "Pacioni_et_al" and (Latin Hypercube Sampling) sensitivity test scenario
@@ -132,7 +132,7 @@ NULL
 NULL
 
 #' @name pac.run.lhs
-#' @title Collated results from Vortex scenarios used in Pacioni et al. (in prep)
+#' @title Collated results from Vortex scenarios - Pacioni et al. (in prep)
 #' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
 #'  analysis on demographic parameters. Vortex outputs, from the project named
 #'  "Pacioni_et_al" and (Latin Hypercube Sampling) sensitivity test scenario
@@ -146,7 +146,7 @@ NULL
 NULL
 
 #' @name pac.yr
-#' @title Collated results from Vortex scenarios used in Pacioni et al. (in prep)
+#' @title Collated results from Vortex scenarios - Pacioni et al. (in prep)
 #' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
 #'  analysis on demographic parameters. Vortex outputs, from the project named
 #'  "Pacioni_et_al" and (Single-Factor) sensitivity test scenario "ST_Classic"
@@ -234,7 +234,6 @@ df2disk <- function(df, dirpath, fname, postfix=""){
 #' @param fn_name The vortexR function name for verbose messages
 #' @param verbose Progress messages, default: FALSE
 #' @return A character vector of fully qualified file paths
-#' @import gtools
 get_file_paths <- function(path, pattern, fn_name, verbose=FALSE){
   files <- gtools::mixedsort(list.files(path=path,
                                         pattern=pattern,
@@ -418,7 +417,6 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #' @param dir_out The local path to store the output. Default: ProcessedData
 #' @param verbose Progress messages, default: TRUE
 #' @return a data.frame with data from all matching Vortex files or NULL
-#' @import gtools
 #' @export
 #' @examples
 #' # Using Campbell et al. and Pacioni et al. example files.
@@ -618,7 +616,6 @@ collate_run <- function(project=NULL,
 #' # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'
 #' yr.st.classic <- collate_yr(project="Pacioni_et_al", scenario="ST_Classic",
 #'                             dir_in = pac.dir, save2disk=FALSE)
-
 collate_yr <-  function(project=NULL,
                         scenario=NULL,
                         npops_noMeta=1,
@@ -659,9 +656,9 @@ collate_yr <-  function(project=NULL,
     one_yr <- lapply(1:length(iter_ln), CompileIter,
                      files[i], n_rows, iter_ln, lines, header)
 
-    censusData[[i]] <- data.table::rbindlist(one_yr)
+    censusData[[i]] <- rbindlist(one_yr)
   }
-  censusAll <- data.table::rbindlist(censusData)
+  censusAll <- rbindlist(censusData)
 
 #   # Functional implementation without for-loop ------------------------------#
 #   # ll is a list of lists (one per file) of strings (one per line)
@@ -682,7 +679,7 @@ collate_yr <-  function(project=NULL,
 #   # end functional ----------------------------------------------------------#
 
 
-  data.table::setkey(censusAll, Scenario, Year)
+  setkey(censusAll, Scenario, Year)
   censusMeansDT <- censusAll[ , lapply(.SD, mean), by="Scenario,Year"]
   censusMeansDT <- censusMeansDT[ , Iteration := NULL]
 
@@ -713,7 +710,6 @@ collate_yr <-  function(project=NULL,
 #' @param data A list where each element is a df from \code{collate_[dat, yr, run]}
 #' @inheritParams collate_dat
 #' @return A data.frame with the collated data. Missing data are filled with NA.
-#' @import plyr
 #' @export
 #' @examples
 #' # Using Campbell et al. example data. See ?sta.main, ?sta.evy5, ?sta.evy5.b11
@@ -758,7 +754,7 @@ collate_proc_data <- function(data=NULL,
 #' @param yrs The year(s) that need to be retained in the output
 #' @inheritParams collate_yr
 #' @return The census data.frame in long format
-#' @import data.table plyr
+#' @import data.table
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.yr for more details.
@@ -772,8 +768,6 @@ conv_l_yr <- function(data=NULL,
                       yrs=c(1, 2),
                       save2disk=TRUE,
                       dir_out="ProcessedData") {
-  requireNamespace("plyr", quietly=TRUE)
-  requireNamespace("data.table", quietly=TRUE)
 
   LongFormat <- function(numPop) {
     k <- numPop - 1
@@ -792,7 +786,7 @@ conv_l_yr <- function(data=NULL,
   # Headings without pop suffix
   h1 <- gsub(pattern="pop1", "", h[4:(4 + ncolpop - 1)])
   setkey(data, Year)
-  data<- data[.(yrs), ] # Select the yrs
+  data <- data[.(yrs), ] # Select the yrs
 
   # Reshape df in long format
   tldata <- lapply(1:npops_noMeta, LongFormat)
@@ -817,7 +811,7 @@ conv_l_yr <- function(data=NULL,
 
     # with data.table v1.9.3 can use
     # rbindlist(list(lcensus, meta), use.names=TRUE, fill=TRUE)
-    lcensus <- rbind.fill(lcensus, meta)
+    lcensus <- plyr::rbind.fill(lcensus, meta)
     message("Done!")
   }
 
@@ -873,7 +867,6 @@ lookup_table <-  function(data=NULL,
                           SVs=c("SV1"),
                           save2disk=TRUE,
                           dir_out="ProcessedData") {
-  require(data.table)
 
   fname <- if (is.null(scenario)) {
     project
@@ -931,9 +924,6 @@ line_plot_year <- function(data=NULL,
                            plotpops=c("all"),
                            save2disk=TRUE,
                            dir_out="Plots") {
-
-  require(ggplot2)
-  require(grid)
 
   if (plotpops == "all")
     plotpops <- unique(data$pop.name)
@@ -1030,9 +1020,6 @@ line_plot_year_mid <-  function(data=NULL,
                                 plotpops=c("all"),
                                 save2disk=TRUE,
                                 dir_out="Plots") {
-
-  require(ggplot2)
-  require(grid)
 
   if (plotpops == "all")
     plotpops <- unique(data$pop.name)
@@ -1137,9 +1124,6 @@ dot_plot <- function(data=NULL,
                      plotpops=c("all"),
                      save2disk=TRUE,
                      dir_out="Plots") {
-
-  require(ggplot2)
-  require(grid)
 
   if (plotpops == "all")
     plotpops <- unique(data$pop.name)
@@ -1263,7 +1247,6 @@ dot_plot <- function(data=NULL,
 #'                           lookup=lkup.ST_LHS, yr=120, popn=1, param="Nall",
 #'                           vs=c("SV1", "SV2", "SV3"),
 #'                           save2disk=FALSE)
-
 m_scatter <- function (data=NULL,
                       data_type="dat", # possible options are "dat", "yr" or "run"
                       lookup=NA,
@@ -1274,8 +1257,6 @@ m_scatter <- function (data=NULL,
                       save2disk=TRUE,
                       fname=NULL,
                       dir_out="Plots") {
-  require(GGally)
-  require(data.table)
 
   # Set up headings for param
   param <- make.names(param)
@@ -1305,9 +1286,9 @@ m_scatter <- function (data=NULL,
   setkey(data, Population)
   data <- data[.(pop), ] # Select pop
   suppressWarnings(if (!is.na(lookup)) {
-    data <- join(data, lookup, by='Scenario', type="left")
+    data <- plyr::join(data, lookup, by='Scenario', type="left")
   } )
-  corrMtrx <- ggpairs(data[ , c(vs, param), with=FALSE], alpha=0.2,
+  corrMtrx <- GGally::ggpairs(data[ , c(vs, param), with=FALSE], alpha=0.2,
                       lower = list(continuous="smooth",
                                    params=c(method="loess", colour="red")))
 
@@ -1322,7 +1303,7 @@ m_scatter <- function (data=NULL,
 }
 
 #------------------------------------------------------------------------------#
-# Data plotting
+# Data analysis
 #------------------------------------------------------------------------------#
 
 #' Calculate the effective population size (Ne)
@@ -1367,7 +1348,6 @@ Ne <-  function(data=NULL,
                 save2disk=TRUE,
                 fname="Ne",
                 dir_out="DataAnalysis") {
-  require(data.table)
 
   # Function definitions
   NeOne <- function(scenario) {
@@ -1429,7 +1409,6 @@ See documentation for more information")
 #' @inheritParams Ne
 #' @return A \code{data.table} (\code{data.frame} if \code{\link[data.table]{data.table}} is not
 #'  loaded) with Nb values
-#' @import plyr
 #' @import data.table
 #' @export
 #' @examples
@@ -1447,9 +1426,6 @@ Nb <- function (data=NULL,
                 save2disk=TRUE,
                 fname="Nadults",
                 dir_out="DataAnalysis") {
-
-  require(plyr)
-  require(data.table)
 
   # Function definitions
   HarmMean <- function(x) 1/mean(1/(x))
@@ -1527,10 +1503,6 @@ See documentation for more information")
   if (save2disk == T) {df2disk(harm.means, dir_out, fname)}
   return(harm.means)
 }
-
-#------------------------------------------------------------------------------#
-# Data analysis
-#------------------------------------------------------------------------------#
 
 #' Pairwise comparisons and ranks of scenarios
 #'
@@ -1614,7 +1586,7 @@ See documentation for more information")
 #' Zhang, X. D. 2007. A pair of new statistical parameters for quality control
 #' in RNA interference high-throughput screening assays. Genomics 89:552-561.
 #'
-#' @import data.table irr
+#' @import data.table
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
@@ -1635,9 +1607,6 @@ Pairwise <-  function(data=NULL,
                       SVs=NA,
                       save2disk=TRUE,
                       dir_out="DataAnalysis/Pairwise") {
-
-  require(data.table)
-  require(irr)
 
   # Function definitions
   SEname <- function(par) paste("SE.", par, ".", sep="")
@@ -1837,10 +1806,11 @@ Pairwise <-  function(data=NULL,
   kendall.out <- list(coef=NULL, SSMD=NULL)
   # NOTE : kendall function handles na listwise
   kendall.out$coef <- capture.output(
-    cat("Rank comparison of sensitivity coefficients", "\n"),
-    lapply(ranks.sc.fin, kendall, TRUE))
+                      cat("Rank comparison of sensitivity coefficients", "\n"),
+                      lapply(ranks.sc.fin, irr::kendall, TRUE))
   kendall.out$SSMD <- capture.output(
-    cat("Rank comparison of SSMD", "\n"), lapply(ranks.ssmd.fin, kendall, TRUE))
+                      cat("Rank comparison of SSMD", "\n"),
+                      lapply(ranks.ssmd.fin, irr::kendall, TRUE))
   if (save2disk == T) {
     # write results
     df2disk(table.coef, dir_out, fname, ".coef.table")
@@ -1953,11 +1923,11 @@ Pairwise <-  function(data=NULL,
     names(ranks.mssmd.fin) <- popNames
     kendall.mean.out <- list(coef=NULL, SSMD=NULL)
     kendall.mean.out$coef <- capture.output(
-      print("Rank comparison of mean sensitivity coefficients"),
-      lapply(ranks.msc.fin, kendall, TRUE))
+                      print("Rank comparison of mean sensitivity coefficients"),
+                      lapply(ranks.msc.fin, irr::kendall, TRUE))
     kendall.mean.out$SSMD <- capture.output(
-      print("Rank comparison of mean SSMD"),
-      lapply(ranks.mssmd.fin, kendall, TRUE))
+                      print("Rank comparison of mean SSMD"),
+                      lapply(ranks.mssmd.fin, irr::kendall, TRUE))
 
     if (save2disk == T) {
       df2disk(mean.coef.table, dir_out, fname, ".mean.coef.table")
@@ -2063,7 +2033,7 @@ Pairwise <-  function(data=NULL,
 #'
 #' Cribari-Neto, F., and Zeileis, A. (2010) Beta regression in R. Journal of
 #' Statistical Software 34(2).
-#' @import glmulti data.table plyr
+#' @import glmulti data.table betareg
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.run.lhs and ?pac.lhs for more
@@ -2117,7 +2087,7 @@ Pairwise <-  function(data=NULL,
 #' coef.best <- coef(reg@@objects[[1]])
 #'
 #' # The model averaged coefficients
-#' coef.all <- coef.glmulti(reg)
+#' coef.all <- glmulti::coef.glmulti(reg)
 #' coefs <- data.frame(Estimate=coef.all[,1],
 #'                     Lower=coef.all[,1] - coef.all[,5],
 #'                     Upper=coef.all[,1] + coef.all[,5])
@@ -2145,14 +2115,7 @@ fit_regression <-  function(data=NULL,
                             set_size=NA,
                             save2disk=TRUE,
                             dir_out="DataAnalysis/FitRegression") {
-  # Load required packages. Loading of betareg and R.utils are delayed after
-  # it has been checked that they actually are needed to avoid wasting time
-  # loading packages that are not used.
-  require(glmulti)
-  require(data.table)
-  require(plyr)
-
-  # Functions
+  # Function definitions
 
   # Selecet method for glmulti search
   select_method <- function(cand, ncand) {
@@ -2171,7 +2134,7 @@ fit_regression <-  function(data=NULL,
   links <- c("logit", "probit", "cloglog", "cauchit", "loglog")
 
   suppressWarnings(if (!is.na(lookup)) {
-    data <- join(data, lookup, by='Scenario', type="left")
+    data <- plyr::join(data, lookup, by='Scenario', type="left")
   } )
 
   # convert data.table
@@ -2197,8 +2160,6 @@ fit_regression <-  function(data=NULL,
   if (param %in% count_data) {
     data[ , (param) := round(.SD), .SDcols=param]
     fam <- "poisson"
-  } else {
-    require(betareg)
   }
 
   # Plot param
@@ -2237,11 +2198,9 @@ fit_regression <-  function(data=NULL,
       message("Overdispersion was detected in the data.")
       # Fit the GLM with quasi- error distribution to get the dispersion parameter
       glm2 <- glm(data=data, formula, family="quasipoisson", na.action=na.omit)
-      message("Loading library for package: R.utils...")
-      require(R.utils)
 
       # Changed the c value for qaic search with glmulti
-      setOption("glmulti-cvalue", summary(glm2)$dispersion)
+      R.utils::setOption("glmulti-cvalue", summary(glm2)$dispersion)
       message(paste("Setting overdispersion parameter to:",
                     getOption("glmulti-cvalue")))
       message("NOTE: the Information Criterion for model search was changed to QAIC")
