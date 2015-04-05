@@ -1,0 +1,20 @@
+**Note on formatting style for vortexR**
+
+Most of the code is formatted following Google's R Style Guide. 
+However, some parts have been then re-formatted following Hadley's style suggestions from his book:
+r-packages. The latter re-formatting mainly concerns functions and arguments' names.
+
+Below, there is a summary to keep the style consistent within vortexR. 
+
+Use only lower cases and underscore "_" for exported functions' and arguments' 
+names (no CamelCases or dots ".").
+
+CamelCases and dots "." are OK in the code.
+
+Keep a space around operators except with "=" for functions' arguments.
+
+"if" statements only go in one line IF there is one command only (and with curly 
+brackets) otherwise split them over multiple lines.
+
+No full stop in the title and arguments' descriptions (within roxygen's comments) yes in all the rest.
+ 
