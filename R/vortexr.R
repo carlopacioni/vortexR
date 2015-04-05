@@ -1414,9 +1414,9 @@ See documentation for more information")
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.yr for more details.
 #' data(pac.yr)
-#' NadultAll <- Nb(data=pac.yr[[2]], scenario="all", gen=2.54, yr0=50, yrt=120,
+#' NadultAll <- Nadults(data=pac.yr[[2]], scenario="all", gen=2.54, yr0=50, yrt=120,
 #'              save2disk=FALSE)
-Nb <- function (data=NULL,
+Nadults <- function (data=NULL,
                 scenario="all",
                 npops_noMeta=1,
                 appendMeta=FALSE,
@@ -1506,7 +1506,7 @@ See documentation for more information")
 
 #' Pairwise comparisons and ranks of scenarios
 #'
-#' \code{Pairwise} conducts pairwise comparisons against a baseline scenario
+#' \code{pairwise} conducts pairwise comparisons against a baseline scenario
 #' uing sensitivity coefficients and strictly standardised mean difference. It also
 #' ranks scenarios (and/or parameters when relevant) using these statistics.
 #'
@@ -1517,7 +1517,7 @@ See documentation for more information")
 #' sensitivity coefficients (SC, Drechsler et al. 1998) and strictly
 #' standardised mean difference (SSDM, Zhang 2007).
 #'
-#' The Pairwise function ranks, for each population, the scenarios (and SVs if
+#' \code{pairwise} ranks, for each population, the scenarios (and SVs if
 #' relevant, see below) based on the absolute value of the statistics (either SC
 #' or SSMD) regardless of the sign. That is, the scenario with the absolute SC
 #' or SSMD value most different from zero will have a rank equal to '1'. The
@@ -1591,12 +1591,12 @@ See documentation for more information")
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
 #' data(pac.clas)
-#' pairw<-Pairwise(data=pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
+#' pairw<-pairwise(data=pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
 #'                params=c("Nall", "Het"), yrs=c(60,120), ST=T,
 #'                type="Single-Factor",
 #'                SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
 #'                save2disk=FALSE)
-Pairwise <-  function(data=NULL,
+pairwise <-  function(data=NULL,
                       project=NULL,
                       scenario=NULL,
                       params=c("PExtinct", "Nextant", "Het", "Nalleles"),
