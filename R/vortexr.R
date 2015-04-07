@@ -52,7 +52,7 @@
 #'
 #' Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
-#'  of bettong species. Pacific Concervation Biology.
+#'  of bettong species. Pacific Conservation Biology.
 #'
 #' @docType package
 #'
@@ -71,7 +71,7 @@ NULL
 #'  in Campbell et al (in press). Vortex outputs, from the project named
 #'  "Starlingv3PopBased" (.dat files), were collated with \code{collate_dat}.
 #' @usage data(sta.main)
-#' @format a \code{data.frame} with 1632 obervations of 44 variables.
+#' @format a \code{data.frame} with 1632 observations of 44 variables.
 #' @source Campbell et al. In press. Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of
 #'  Environmental Management
@@ -85,7 +85,7 @@ NULL
 #'  "Starlingv3PopBased" and the sensitivity test scenario "MReductEvy5"
 #'  (.stdat files), were collated with \code{collate_dat}.
 #' @usage data(sta.evy5)
-#' @format a \code{data.frame} with 1020 obervations of 47 variables.
+#' @format a \code{data.frame} with 1020 observations of 47 variables.
 #' @source Campbell et al. In press. Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of
 #'  Environmental Management
@@ -95,11 +95,11 @@ NULL
 #' @title Collated results from Vortex scenarios - Campbell et al (in press)
 #' @description A dataset with the results from Vortex scenarios used in Campbell
 #'  et al (in press) to simulate major application of control measures in every
-#'  5 year cycle, maintaining 2011 levels of investiment. Vortex outputs, from
+#'  5 year cycle, maintaining 2011 levels of investment. Vortex outputs, from
 #'  the project named "Starlingv3PopBased" and the sensitivity test scenario
 #'  "MReduction_B11_09Evy5" (.stdat files), were collated with \code{collate_dat}.
 #' @usage data(sta.evy5.b11)
-#' @format a \code{data.frame} with 1020 obervations of 47 variables.
+#' @format a \code{data.frame} with 1020 observations of 47 variables.
 #' @source Campbell et al. In press. Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of
 #'  Environmental Management
@@ -115,7 +115,7 @@ NULL
 #' @format a \code{data.frame} of 2904 observations of 68 variables.
 #' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
-#'  of bettong species. Pacific Concervation Biology.
+#'  of bettong species. Pacific Conservation Biology.
 NULL
 
 #' @name pac.lhs
@@ -128,7 +128,7 @@ NULL
 #' @format A \code{data.frame} of 6171 observations of 68 variables.
 #' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
-#'  of bettong species. Pacific Concervation Biology.
+#'  of bettong species. Pacific Conservation Biology.
 NULL
 
 #' @name pac.run.lhs
@@ -142,7 +142,7 @@ NULL
 #'   run (153 obs, 7 var), lrun (153 obs, 8 var).
 #' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
-#'  of bettong species. Pacific Concervation Biology.
+#'  of bettong species. Pacific Conservation Biology.
 NULL
 
 #' @name pac.yr
@@ -156,7 +156,7 @@ NULL
 #'   all (8712 obs, 26 var), means (2904 obs, 25 var).
 #' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
-#'  of bettong species. Pacific Concervation Biology.
+#'  of bettong species. Pacific Conservation Biology.
 NULL
 
 #------------------------------------------------------------------------------#
@@ -172,7 +172,7 @@ NULL
 #' @format One .xml file and several .run and .stdat files.
 #' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
-#'  of bettong species. Pacific Concervation Biology.
+#'  of bettong species. Pacific Conservation Biology.
 NULL
 
 #' @name campbell
@@ -584,7 +584,7 @@ collate_run <- function(project=NULL,
 #' Collate Vortex .yr output files
 #'
 #' \code{collate_yr} collates all the .yr output from Vortex matching the project
-#' and scenario nameinto one R object and calculates the mean for each simulated
+#' and scenario name into one R object and calculates the mean for each simulated
 #' year across all iterations.
 #'
 #' \code{dir_in} may contain other files; only files matching the project and
@@ -828,7 +828,7 @@ conv_l_yr <- function(data=NULL,
 #' parameter requested with \code{SVs}.
 #'
 #' If the name of the populations were changed, the user has to indicate a
-#' populaiton to be used as reference, otherwise \code{lookup_table} will look
+#' population to be used as reference, otherwise \code{lookup_table} will look
 #' for a population named "Population 1" (i.e. Vortex default name for the first
 #' population).
 #'
@@ -840,7 +840,7 @@ conv_l_yr <- function(data=NULL,
 #' to zero at the beginning of the simulation. The user should check the values
 #' reported and check the Vortex input files if these do not look correct.
 #'
-#' \code{SVs} can be any variable included in the data, incuding GS or PS set up
+#' \code{SVs} can be any variable included in the data, including GS or PS set up
 #' in Vortex.
 #'
 #' @param data The output from \code{collate_dat}
@@ -1099,7 +1099,7 @@ line_plot_year_mid <-  function(data=NULL,
 #' If a continuous variable is passed to \code{setcolour}, a continuous gradient
 #' of colour will be assigned to the marker (e.g. for example, a scale from blue
 #' to black). If a sharp change of colours between different values of a
-#' continuos variable is desired, it has to be converted into a factor.
+#' continuous variable is desired, it has to be converted into a factor.
 #'
 #' @param yrs The years to be included in the plot
 #' @param setcolour Variable to be used to set colours of data, default: scen.name
@@ -1326,7 +1326,7 @@ m_scatter <- function (data=NULL,
 #' default: "all"
 #' @param gen The generation time express in years
 #' @param yr0,yrt The time window to be considered (first and last year respectively)
-#' @param save2disk Whether to save the output to disk, deafult: TRUE
+#' @param save2disk Whether to save the output to disk, default: TRUE
 #' @param fname The name of the files where to save the output, defult: "Ne"
 #' @param dir_out The local path to store the output. Default: DataAnalysis
 #' @return A \code{data.table} (\code{data.frame} if \code{\link[data.table]{data.table}} is not
@@ -1507,7 +1507,7 @@ See documentation for more information")
 #' Pairwise comparisons and ranks of scenarios
 #'
 #' \code{pairwise} conducts pairwise comparisons against a baseline scenario
-#' uing sensitivity coefficients and strictly standardised mean difference. It also
+#' using sensitivity coefficients and strictly standardised mean difference. It also
 #' ranks scenarios (and/or parameters when relevant) using these statistics.
 #'
 #' When \code{yrs="max"} (default), VortexR automatically sets  \code{yrs} to
@@ -1568,10 +1568,10 @@ See documentation for more information")
 #' @param type Type of ST. Possible options are: "Sampled",
 #' "Latin Hypercube Sampling", "Factorial" or "Single-Factor"
 #' @param group.mean Whether calculate the mean of the statistics
-#'  (SSMD and Sensitivity Coeffiecient) by group. See details
+#'  (SSMD and Sensitivity Coefficient) by group. See details
 #' @param SVs A character vector with the parameters to be used to group
 #' scenarios, default: NA
-#' @param save2disk Whether to save the output to disk, deafult: TRUE
+#' @param save2disk Whether to save the output to disk, default: TRUE
 #' @param dir_out The local path to store the output. Default: DataAnalysis/Pairwise
 #' @return Several output. See vignette for details.
 #' @references Conroy, S. D. S., and B. W. Brook. 2003. Demographic sensitivity and
@@ -1954,7 +1954,7 @@ pairwise <-  function(data=NULL,
 #' Search for the best regression model(s)
 #'
 #'
-#' \code{fit_regression} fits either a Generilized Linear Model or a betareg model
+#' \code{fit_regression} fits either a Generalized Linear Model or a betareg model
 #' to the data and search for the best model(s) given a list of predictors using
 #' the R package glmulti.
 #'
@@ -1986,7 +1986,7 @@ pairwise <-  function(data=NULL,
 #'
 #' Successively, a search for the best model is carried out. This is performed
 #' with the R package \code{\link[glmulti]{glmulti}} (Calcagno & de Mazancourt 2010).
-#' \code{fit_regression} will conduct an exaustive search if ncand is less or
+#' \code{fit_regression} will conduct an exhaustive search if ncand is less or
 #' equal to the number of candidate models, otherwise it will use a genetic
 #' search method (see glmulti documentations for more details about the search
 #' methods). When \code{\link[glmulti]{glmulti}} uses the genetic search method,
