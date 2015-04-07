@@ -26,11 +26,11 @@ Imports:
     irr,
     plyr,
     quantmod,
-    R.utils,
-    testthat
+    R.utils
 Suggests:
     knitr,
     rmarkdown,
     devtools,
-    roxygen2
+    roxygen2,
+    testthat
 VignetteBuilder: knitr
