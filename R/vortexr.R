@@ -1289,6 +1289,7 @@ m_scatter <- function (data=NULL,
     data <- plyr::join(data, lookup, by='Scenario', type="left")
   } )
   corrMtrx <- GGally::ggpairs(data[ , c(vs, param), with=FALSE], alpha=0.2,
+                      axisLabels='internal',
                       lower = list(continuous="smooth",
                                    params=c(method="loess", colour="red")))
 
@@ -1611,7 +1612,7 @@ pairwise <-  function(data=NULL,
   # Function definitions
   SEname <- function(par) paste("SE.", par, ".", sep="")
   SDname <- function(parSD) paste("SD.", parSD, ".", sep="")
-  naming.coef <- function(naming) paste("C", "_", naming, yr, sep="")
+  naming.coef <- function(naming) paste("SC", "_", naming, yr, sep="")
   naming.ssmd <- function(naming.ssmd)
                       paste("SSMD", "_", naming.ssmd, yr, sep="")
   pval <- function(x) pnorm(abs(x), lower.tail=FALSE)
@@ -1803,9 +1804,9 @@ pairwise <-  function(data=NULL,
     }
   }
   names(ranks.ssmd.fin) <- popNames
-  kendall.out <- list(coef=NULL, SSMD=NULL)
+  kendall.out <- list(SC=NULL, SSMD=NULL)
   # NOTE : kendall function handles na listwise
-  kendall.out$coef <- capture.output(
+  kendall.out$SC <- capture.output(
                       cat("Rank comparison of sensitivity coefficients", "\n"),
                       lapply(ranks.sc.fin, irr::kendall, TRUE))
   kendall.out$SSMD <- capture.output(
