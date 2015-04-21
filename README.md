@@ -9,5 +9,6 @@ install_github("carlopacioni/vortexR")
 ```
 
 ## Documentation
-Use \code {help(package = "vortexR")} to see the documentation available.
+Use \code {help(vortexR)} or \code{?vortexR} to see a broad description of the package.
+Use \code {help(package = "vortexR")} to see the documentations available.
 Read the vignette for a more comprehensive description of the package.
