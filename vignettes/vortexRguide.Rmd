@@ -210,7 +210,8 @@ stdat.ST_LHS.no.base <- stdat.ST.LHS[!stdat.ST.LHS$scen.name == "ST_LHS(Base)", 
 # Create the lookup table
 lkup.ST_LHS <- lookup_table(data=stdat.ST_LHS.no.base, project="Pacioni_et_al",
                             scenario="ST_LHS", pop="Population 1",
-                            SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"))
+                            SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+                            save2disk=FALSE)
 ```
 
 We can graphically inspect the data with the function ```m_scatter```.
