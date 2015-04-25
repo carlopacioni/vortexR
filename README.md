@@ -7,7 +7,7 @@ Install the package from version control from within R:
 library(devtools)
 install_github("carlopacioni/vortexR")
 ```
-If you are on Windows and have not used `devtools` before, then you have to download the executable file CRAN webpage and run it. `devtools` can be installed from within R with 
+If you are on Windows and have not used `devtools` before, then you have to download the Rtools executable file from CRAN webpage and run it. `devtools` can be installed from within R with 
 ```
 install.packages("devtools")
 ```
