@@ -1826,7 +1826,7 @@ pairwise <-  function(data=NULL,
   r.OneWay<-list(coef.table=table.coef,
                  SSMD.table=ssmd.table,
                  SSMD.table.pvalues=ssmd.table.pvalues,
-                 ranks.coef=ranks.sc,
+                 ranks.SC=ranks.sc,
                  ranks.SSMD=ranks.ssmd,
                  Kendall=kendall.out)
   # if group.mean == TRUE calculate the mean for each SV and rank SVs
@@ -1922,8 +1922,8 @@ pairwise <-  function(data=NULL,
       }
     }
     names(ranks.mssmd.fin) <- popNames
-    kendall.mean.out <- list(coef=NULL, SSMD=NULL)
-    kendall.mean.out$coef <- capture.output(
+    kendall.mean.out <- list(SC=NULL, SSMD=NULL)
+    kendall.mean.out$SC <- capture.output(
                       print("Rank comparison of mean sensitivity coefficients"),
                       lapply(ranks.msc.fin, irr::kendall, TRUE))
     kendall.mean.out$SSMD <- capture.output(
@@ -1934,7 +1934,7 @@ pairwise <-  function(data=NULL,
       df2disk(mean.coef.table, dir_out, fname, ".mean.coef.table")
       df2disk(mean.ssmd.table, dir_out, fname, ".mean.SSMD.table")
       df2disk(mean.ssmd.table.pvalues, dir_out, fname, ".mean.SSMD.table.pvalues")
-      df2disk(ranks.msc, dir_out, fname, ".ranks.msc")
+      df2disk(ranks.msc, dir_out, fname, ".ranks.mSC")
       df2disk(ranks.mssmd, dir_out, fname, ".ranks.mSSMD")
       capture.output(print(kendall.mean.out, quote=F),
                      file=paste0(dir_out, "/", fname, ".Kendall.means.txt"))
@@ -1944,7 +1944,7 @@ pairwise <-  function(data=NULL,
     r.OneWay$mean.coef.table <- mean.coef.table
     r.OneWay$mean.SSMD.table <- mean.ssmd.table
     r.OneWay$mean.SSMD.table.pvalues <- mean.ssmd.table.pvalues
-    r.OneWay$ranks.mean.coef <- ranks.msc
+    r.OneWay$ranks.mean.SC <- ranks.msc
     r.OneWay$ranks.mean.SSMD <- ranks.mssmd
     r.OneWay$Kendall.means <- kendall.mean.out
   }
