@@ -23,6 +23,7 @@ Imports:
     gtools,
     grid,
     gridExtra,
+    GGally,
     irr,
     plyr,
     quantmod,
