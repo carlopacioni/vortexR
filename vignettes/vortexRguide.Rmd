@@ -1,7 +1,7 @@
 ---
 title: "vortexR: user's guide"
 author: "Carlo Pacioni and Florian Mayer"
-date: "`r Sys.Date()`"
+date: "27 Apr 2015"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{vortexR: user's guide}
@@ -13,10 +13,10 @@ vignette: >
 
 
 # Introduction
-```VortexR``` is an R package that automatises common post-Vortex simulation tasks, including collating Vortex output files, generating plots and conducting basic analysis (e.g. pairwise comparisons of scenarios) and more advanced statistics such as fitting of a regression Model to investigate the main and the interaction effects of the variables of interest. The user enters minimal information (e.g. directory, name of the project and Vortex running mode) using arguments in R functions. In some instances, VortexR will behave differently depending on the data that are fed in. Function-specific details are provided in the following sections of the manual.
+```VortexR``` is an R package that automatises common post-Vortex simulation tasks, including collating Vortex output files, generating plots and conducting basic analysis (e.g. pairwise comparisons of scenarios) and more advanced statistics such as fitting a regression Model to investigate the main and the interaction effects of the variables of interest. The user enters minimal information (e.g. directory, name of the project and Vortex running mode) using arguments in R functions. In some instances, VortexR will behave differently depending on the data that are fed in. Function-specific details are provided in the following sections of the manual.
 
 ## Installation
-```VortexR``` has been developed on R v 3.1.3 and, while it may work on previous R versions, this has not been tested and the user is strongly recommended to use v3.1.3 or greater. Similarly, ```VortexR``` was developed to be compatible with Vortex v10 (Lacy & Pollak 2013). Formatting of the outputs is slightly different in Vortex v10 compared to previous versions, which may cause issues. Some functions may process adequately outputs from previous versions, but it is responsibility of the user to make sure the correctness of the results. 
+```VortexR``` has been developed on R v3.1.3 and, while it may work on previous R versions, this has not been tested and the user is strongly recommended to use v3.1.3 or greater. If you are using windows and need to check or update your version of R (and installed packages), you can easily do that following the instructions in this [webpage](http://www.r-statistics.com/2013/03/updating-r-from-r-on-windows-using-the-installr-package/). Similarly, ```VortexR``` was developed to be compatible with Vortex v10 (Lacy & Pollak 2013). Formatting of the outputs is slightly different in Vortex v10 compared to previous versions, which may cause issues. Some functions may process adequately outputs from previous versions, but it is responsibility of the user to make sure the correctness of the results. 
 
 If you are at your first experiences with R, and have not installed it yet, go on [www.r-project.org](www.r-project.org) and download the latest version compatible with your operative system. While there is no strict requirement to do so, we find that using R with RStudio ([www.rstudio.com](www.rstudio.com)) is very handy, and it is also free! It will be very easy to keep clean and then capture your sequence of commands, including possible data manipulations, so that you can return to it later. From within R (or RStudio),  ```VortexR``` can be installed from the github repository with the command:
 ```{r eval=FALSE} 
@@ -24,17 +24,18 @@ library(devtools)
 install_github("carlopacioni/vortexR")
 ```
 
-which requires the R package ```devtools``` to be also installed (see [this link](http://cran.r-project.org/web/packages/devtools/README.html)) for details on its installation). 
+which requires the R package ```devtools``` to be also installed with ```install.packages("devtools")```. If you are on Windows, you have to install [Rtools](http://cran.r-project.org/bin/windows/Rtools/) (unless you have done so already), before you can use ```devtools```. Donwload the .exe file  and run it before you use ```library(devtools)```. If you are in trouble, see [this link](http://cran.r-project.org/web/packages/devtools/README.html) for details on its installation. 
+
+```VortexR``` makes heavy use of several R packages. Typically, these packages are installed when you install ```vortexR```.
+ 
+If you are using Windows, you may have problem installing and loading glmulti package and/or rJava. This is most likely because you do not have Java installed or are not using the same version as R. In other words, if you are using a 64 bit version of R, you also have to have installed a 64 bit version of Java. Note that if you have Java installed and use the Java website to check whether you have an up to date version of Java, it will report it as 'up-to-date' if you have the latest version of Java, but will not check whether it is a 32 or 64 bit. If R will not manage to install rJava, it won't install also another required package: glmulti. The easiest may be to go to 'control panel --> Program and Feature and check whether Java is installed. If you a 64 bit version of Java it will have a '64-bit' next to it in brackets. 
 
 R stores the data in objects (vectors, data.frames, lists, etc.) and you will be hearing these names a lot throughout this manual. If you are unsure what these are, or need any help to get around R and RStudio, there are plenty of resources on line. A good point where to start can be reading paragraph 1, 2, and 6 of [A very (short) intro to R](http://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf). 
 
 Many objects generated by VortexR are data.table (M Dowle et al. 2014). Data.tables are enhanced data.frames and make several operations much faster. You do not need to use the [data.table](www.cran.r-project.org/web/packages/data.table/index.html) package (if the package in not loaded, R will handle these objects effectively as data.frames), but after the initial learning curve, there may be some benefits when manipulating large datasets. If you want to find out whether an object is a data.table or a fata.frame, you can use: ```class(object_name)```.  
 
 Whatever object you create (or load) in R will be stored in your computer's physical memory, so these can't be larger than your computer's memory. Keep in mind this point if you run very long simulations, with lots of iterations and many populations because these will result in large Vortex output files.
-
-```VortexR``` makes heavy use of several R packages. Typically, these packages are installed when you install ```vortexR```.
  
-If you are using Windows, you may have problem installing and loading glmulti package and/or rJava. This is most likely because you do not have Java installed or are not using the same version as R. In other words, if you are using a 64 bit version of R, you also have to have installed a 64 bit version of Java. Note that if you have Java installed and use the Java website to check whether you have an up to date version of Java, it will report it as 'up-to-date' if you have the latest version of Java, but will not check whether it is a 32 or 64 bit. If R will not manage to install rJava, it won't install also another required package: glmulti. The easiest may be to go to 'control panel --> Program and Feature and check whether Java is installed. If you a 64 bit version of Java it will have a '64-bit' next to it in brackets.  
 
 ## General notes about vortexR's use and this manual
 
@@ -53,7 +54,10 @@ pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 ```
 
 Note that the data for Pacioni et al are just a subset of the original (only three runs for 120 years, and only for a subset of scenarios), so your results may not match the ones reported in the original publication. 
-**INCLUDE THIS???Campbell et al ... evaluated starling (Sturnus vulgaris) demographic projections under different management scenarios....**
+
+
+Campbell et al (in press) investigated the cost-benefit ratios of different control levels (scenarios 'control\_09, control\_11, control_D09), with or without the inclution of new technology (scenarios ending with the suffix 'Tech')  for the starling (Sturnus vulgaris) in Western Australia. They also evaluated whether the variation of the geographical extent of the application of control measures would alter the benefit cost ratio of the control program (scenarios ending with the suffix 'Border' and 'SC'). Lastly,  they evaluated whether the cyclical application of intense control ('Major Reduction'), would be more cost-effective than sustaining a constant level of investment. The latter component was modelled with a ST module in Vortex, while the previous were developed using the standard Vortex interface.
+
 
 ## Licence and Citation
 ```vortexR``` and its manual are distributed free of charge under the GPL-3 licence. We only ask you to please cite the following paper if you use ```vortexR``` for your work. If you customise a ```vortexR``` script to suit your specific needs, we would appreciate if you can still cite ```vortexR```'s main reference stating something like: "we used a customised version of the script vortexR-*script-name* (Pacioni and Mayer, in prep)".
@@ -73,7 +77,7 @@ Feel free to email  us directly if you need assistance, though we cannot guarant
 
 
 # *vortexR* components and workflow 
-Vortex v10 is an incredibly versatile tool that is used by ecologists and geneticists to explore a large number of ecological and genetic questions. It is very difficult to predict what analytical approach Vortex users may want to undertake as it will be highly influenced by how the simulations were set up and the questions been tackled. With the release of Vortex v10, the users can easily develop a large number of scenarios to explore the effects of the factors being studied as well as their interactions. This is particularly true when the user takes advantage of the new Sensitivity Test module (ST), which can automatise the creations and executions of hundreds of scenarios. Therefore, an equivalent automatization of the post-simulation analytical steps is also required as it may become quickly unfeasible to manually access and analyse such a large number of files and data. We developed a set of functions that execute operations on various Vortex outputs. We believed that these tasks will be of common utility for Vortex users' community; however it is the user's responsibility to evaluate their suitability. A possible workflow is described in Figure 1 (C:/Users/30373314/Documents/VortexR/Paper/Flow chart.pdf). **I WANT TO PUT A FIGURE AND FIGURE CAPTION HERE, STILL HAVE TO FIGURE OUT HOW~** Once the user has run the simulations in Vortex, there will be a collection of output files in a "VOutput" folder. A first step may be to collate the data files that are of interest into one database, so that data can be easily accessed by R or other statistical or graphic software. Different data types will require different ```vortexR``` functions. For example, with the function ```collate_dat``` the user can collate together all the .dat or .stdat files from a specific project (and scenario in case of the .stdat files). Additional Vortex output files that can be collated together are the .yr and the .run files from a ST run (using ```collate_yr``` and ```collate_run``` respectively). Secondly, the user may want to generate a number of plots to visualise general trends in the simulations and inspect whether the models behaved as expected. If everything looks OK the user may move on to the analysis of the data. ```pairwise``` will conduct pairwise comparisons (details on the statistical aspects are provided below) between all the scenarios imported into ```vortexR``` against a baseline scenario that will be automatically identified for a ST run (using the suffix appended by Vortex, 'Base') or specified by the user for a normal (non-ST) collection of scenarios. Complementarily, the user may want to fit a regression model to evaluate interaction effects in addition to the main effects of the variable being investigated (```fit_regression```). Once the user has an idea of the important aspects of the analysis, he or she may select some of the previously generated plots and modify them to adapt them to the formatting style required for publication or use in other documents.
+Vortex v10 is an incredibly versatile tool that is used by ecologists and geneticists to explore a large number of ecological and genetic questions. It is very difficult to predict what analytical approach Vortex users may want to undertake as it will be highly influenced by how the simulations were set up and the questions been tackled. With the release of Vortex v10, the users can easily develop a large number of scenarios to explore the effects of the factors being studied as well as their interactions. This is particularly true when the user takes advantage of the new Sensitivity Test module (ST), which can automatise the creations and executions of hundreds of scenarios. Therefore, an equivalent automatization of the post-simulation analytical steps is also required as it may become quickly unfeasible to manually access and analyse such a large number of files and data. We developed a set of functions that execute operations on various Vortex outputs. We believed that these tasks will be of common utility for Vortex users' community; however it is the user's responsibility to evaluate their suitability. We describe here a possible workflow, and below present a worked examples of an anlysis roughly following this workflow. Once the user has run the simulations in Vortex, there will be a collection of output files in a "VOutput" folder. A first step may be to collate the data files that are of interest into one database, so that data can be easily accessed by R or other statistical or graphic software. Different data types will require different ```vortexR``` functions. For example, with the function ```collate_dat``` the user can collate together all the .dat or .stdat files from a specific project (and scenario in case of the .stdat files). Additional Vortex output files that can be collated together are the .yr and the .run files from a ST run (using ```collate_yr``` and ```collate_run``` respectively). Secondly, the user may want to generate a number of plots to visualise general trends in the simulations and inspect whether the models behaved as expected. If everything looks OK the user may move on to the analysis of the data. ```pairwise``` will conduct pairwise comparisons (details on the statistical aspects are provided below) between all the scenarios imported into ```vortexR``` against a baseline scenario that will be automatically identified for a ST run (using the suffix appended by Vortex, 'Base') or specified by the user for a normal (non-ST) collection of scenarios. Complementarily, the user may want to fit a regression model to evaluate interaction effects in addition to the main effects of the variable being investigated (```fit_regression```). Once the user has an idea of the important aspects of the analysis, he or she may select some of the previously generated plots and modify them to adapt them to the formatting style required for publication or use in other documents.
 
 Collaterally, there are a number of functions to conduct minor calculations (e.g. calculation of effective population size) or further data handling that are described in more details below. 
 
@@ -83,7 +87,7 @@ OK, you have set up your Vortex project and have been staring at the screen what
 
 We will walk you through this exact process using the example data described above.
 
-First, we load ```vortexR``` and load Vortex outputs in R. Running the following code will read the data from all .stdat files of the Vortex project and consolidate them in one data.frame. Because a Sensitivity Test module (ST) was used to generate the outputs, also the name of the ST scenario needs to be indicated. The consolidated dataset is stored in the object ```woylie.st.classic``` and the first five rows and fist five columns are printed so you can have an idea of what heppened. Note that default behaviour from ```vortexR``` is to save the results to disk in two formats, as a text file and as a R object (.RData) -- plots are saved in .RData and PDF format -- however, we disable this faeture with ```save2Disk=FALSE```.
+First, we load ```vortexR``` and load Vortex outputs in R. Running the following code will read the data from all .stdat files of the Vortex project and consolidate them in one data.frame. Because a Sensitivity Test module (ST) was used to generate the outputs, also the name of the ST scenario needs to be indicated. The consolidated dataset is stored in the object ```woylie.st.classic``` and the first five rows and fist five columns are printed so you can have an idea of what heppened. Note that default behaviour from ```vortexR``` is to save the results to disk in two formats, as a text file and as a R object (.RData) -- plots are saved in .RData and PDF format -- however, we disabled this faeture with ```save2Disk=FALSE```.
 ```{r}
 library(vortexR)
 pac.dir <- system.file("extdata", "pacioni", package="vortexR")
@@ -153,6 +157,9 @@ grid.table(lkup.st.classic, digits=1, gpar.corefill=gpar(fill="white", col="whit
            gpar.rowfill=gpar(fill="white", col="white"))
 ```
 
+
+Where K: carrying capacity, Ad.Mor: adult mortality, Juv.Mor: juvenile mortality, PY.Mor: pouch young mortality, SD.Mor: standard deviation of mortality rates, Mate.man: mate manipolation, Init.N: initial population size.  
+
 Now that you have everything under control, you can try to guess why in the Scenario 12 the population goes extinct. Also, you may want to see whether there is a substantial difference in the population size ('Nall') between the simulations generated by the ST module and the base scenario. Because, genetics is an area of interest of ours, we want to throw in also heterozygosity ('Het')... To do these comparisons, you run the following:
 ```{r}
 pairw<-pairwise(data=woylie.st.classic, project="Pacioni_et_al", scenario="ST_Classic",
@@ -181,9 +188,9 @@ It is evident that the changes in K have a significant effect because both scena
 pairw[[11]]
 ```
 
-Interestingly, the effects of these parameters, in terms of changes in the demography and heterozygosity of the population, are inconsistent. For example, note how the Adult Mortality (SV2) has a substantial effect on the final heterozygosity of the population, but not on the demography. This inconsistency is also confirmed by the non-significant Kendall's test.
+Interestingly, the effects of these parameters, in terms of changes in the demography and heterozygosity of the population, are inconsistent. For example, note how the Adult Mortality (SV2) has a substantial effect on the final heterozygosity of the population, but not on the demography. This inconsistency is also confirmed by the non-significant Kendall's test (again, to keep it short, we only print out an extract for the test using SSMD).
 ```{r}
-pairw[[12]]
+pairw[[12]][[2]][c(1:2, 21:22, 24:25)]
 ```
 
 Once you have done all this, you decide that you want ot move to some more advanced statistics and evaluate the main and interaction effects of some of the parameters used in the simulations. After all, we have run a Latin hypercube sampling exactly to be able to do this!  
@@ -223,7 +230,7 @@ scatter.plot
 ```
 
 If we are happy with how the simulations were carried out, we can go ahead and carry out the analysis. In this example, ```fit_regression``` will fit a GLM. Just before the beginning of the search for the best model(s), a summary of the dependent variable is printed on the screen so that the user can check whether there is any problem or error. For the same reason, the distribution of the dependent variable is plotted.
-```{r, fig.align='center'}
+```{r, fig.align='center', fig.width=4}
 reg <- fit_regression(data=lrun.ST_LHS.no.base, lookup=lkup.ST_LHS, census=F,
                   project="Pacioni_et_al", scenario="ST_LHS", popn=1,
                   param="N", vs=c("SV1", "SV2", "SV3"), l=2,  ncand=30, 
@@ -233,7 +240,7 @@ reg <- fit_regression(data=lrun.ST_LHS.no.base, lookup=lkup.ST_LHS, census=F,
 Once the search is concluded, there are several information that can be retrieved. Detailed explanations and examples are in the documentations of the R package ```glmulti``` and we only report below a few examples. 
  
 It is possible to inspect the plot of the information criterion of the evaluated models. This is saved to disk if ```save2disk=TRUE```, otherwise it can be called from the ```glmulti``` object:
-```{r, fig.width=5, fig.align='center'}
+```{r, fig.width=4, fig.align='center'}
 plot(reg, type="p")
 ````
 
@@ -276,7 +283,7 @@ In this case though, all terms have a model-averaged importance of 1.
 
 # Detailed description
 
-```vortexR``` will return the results of the functions to R and these can be used for subsequent ```vortexR``` functions or further data analysis and manipulations in R. By default, ```vortexR``` also write the results to disk in two formats, a .RData file (which offer the advantage of retaining all R information about the data and can be read back in R if you need to) and text files. Text files,  following Vortex philosophy, use semicolumns (";") as separators. The text files can be imported in other statistical packages or software as required. Plot functions save the output in PDF as secondary file format rather than text file. The user can prevent ```vortexR``` to write the results to disk using ```save2disk=FALSE```. The only exception is ```fit_regression``` that will write two small files when using the genetic algorythm. This is because this function use the R package ```glmulti``` and these files are output by default.  thae If no output path is passed (using the argument ```dir_out```), ```vortexR``` will store the results in one of the following folders: *ProcessedData*, *DataAnalysis*, *Plots*, depending on the function used. Results from ```pairwise``` and ```fit_regression``` are further separated into the folders *DataAnalysis/Pairwise* and *DataAnalysis/FitRefression*. These folders will be created in the working directory. If you don't know which one is your working directory, you can find that out with ```getwd()```. If you want to set your working directory you can do so with ```setwd()```. For example, if you want to set the working directory to *VOutput* within the folder *Users* on Windows, you can use:
+```vortexR``` will return the results of the functions to R and these can be used for subsequent ```vortexR``` functions or further data analysis and manipulations in R. By default, ```vortexR``` also write the results to disk in two formats, a .RData file (which offer the advantage of retaining all R information about the data and can be read back in R if you need to) and text files. Text files,  following Vortex philosophy, use semicolumns (";") as separators. The text files can be imported in other statistical packages or software as required. Plot functions save the output in PDF as secondary file format rather than text file. The user can prevent ```vortexR``` to write the results to disk using ```save2disk=FALSE```. The only exception is ```fit_regression``` that will write two small files when using the genetic algorythm for the search of the best regression model(s). This is because this function use the R package ```glmulti``` and these files are output by default.  thae If no output path is passed (using the argument ```dir_out```), ```vortexR``` will store the results in one of the following folders: *ProcessedData*, *DataAnalysis*, *Plots*, depending on the function used. Results from ```pairwise``` and ```fit_regression``` are further separated into the folders *DataAnalysis/Pairwise* and *DataAnalysis/FitRefression*. These folders will be created in the working directory. If you don't know which one is your working directory, you can find that out with ```getwd()```. If you want to set your working directory you can do so with ```setwd()```. For example, if you want to set the working directory to *VOutput* within the folder *Users* on Windows, you can use:
 ```{r eval=FALSE}
 setwd("C:/Users/VOutput")
 ```
@@ -478,64 +485,68 @@ In addition to the already mentioned glmulti object (which contains the results 
 Examples for this function are above in the **A quick run down** section, or in the help file (which you can access with ```?fit_regression```), so we won't repeat them here.
 
 
+### *Nadults*
+This function calculates the harmonic mean of the number of adults between two points in time using the 'census\_means' output obtained from ```collate_yr```(the second element of the list) as input (unisg ```data```). The total number of populations contained in the input file is passed with ```npops_noMeta```. Remember that the 'census\_means' does not contain data for the metapopulation, even if there are more than one population in the simulations. However, data for the metapopulation can be generated by using  ```appendMeta=TRUE``` (as it was for `conv_l_yr```).  
+
+This function was primarily written to allow the calculations of *Ne:N* ratios (where *Ne* is the effective population size) in conjunctions with ```Ne``` (see below). To this end, there are a few aspects that need to be considered. First, it is important that the census size used is relevant to the *Ne* being used. Different approaches calculate slightly different *Ne* (see Wapple 2005 for a review). Generally, the *Ne* calculated with the temporal approach is influenced by the breeding pool of the previous generation, therefore it is important that the two terms (*Ne* and *N*) represent the same temporal window (though this may be influenced by the biology of your organism. Again, check Wapples 2005 if unsure). Secondly, as we just mentioned and are reminded by Palstra and Fraser (2012), if *Ne* refers to the breeding pool, it would be incorrect to compare it to the total population size (i.e. including sexually immature individuals), but should it should really being compared to the number of adults (i.e. sexually mature individuals). Lastly, when *Ne* refers to several generations (as it does when using the temporal approach), then it should be compared to the harmonic mean of the relevant *N*, not the arithmetic mean (Kalinowski and Waples 2002).
+
+```Nadults``` tries to facilitate all these considerations. With the arguments ```yr0``` and ```yrt```, you can pass the two points in time that delimit the time window you want to consider (the first and the last year, respectively). Following Wapple's (2005) recommendations, the function adjusts the ```yrt``` value by subtracting the number of years of the generation time that you have passed with the argument ```gen``` (rounded to the nearest integer. Note that vortex calculates the generation time of the organism being modelled as part of the deterministic calculations). This is because the *Ne* calculated with the temporal approach will be influenced by the breeding pool of the previous generation, therefore this adjustment makes sure that the temporal window of ```Nadults``` and ```Ne```, when using the same parameters, is the same and direct calculations of the ratio is meaningful (see the example below). We implemented the function in this way because we believe that this would suit the user' needs, but ultimately it is the user responsibility to evaluate an appropriate approach for the specific organism being modelled. In case you would like the function not to adjust the ```yrt``` value (e.g. for organisms with discrete generations), it is possible to set ```gen=0``` to either (or both) the functions.  
+
+By default, all scenarios included in the input data are considered. However there is the possibility to limit the scenarios considered by passing a character vector that lists the scenarios that you want to be included with the argument ```scenario``` (e.g. ```scenario=c("scen1", "scen2")```). 
+
+Note that if the population size of a population is zero, the result of ```Nadults``` is also '0'.
 
 
-
-### *Nadults
-This function calculates the effective number of  The 'CensusMeans' output obtained from the function CollateYr can be passed as input to Nb. The total number of populations contained in the input file is passed with numPopsNoMeta. Remember that the 'CensusMeans' does not contain data for the metapopulation, even if there are more than one population in the simulations. However, data for the metapopulation can be generated by setting to TRUE the argument appendMeta (as it was for ComvLYr).
-This function is used to calculate the harmonic mean of the total number of adults between two points in time, which are indicated with the argument yr0 and yrt: the first and the last year, respectively, that should be used by the function for the calculations. Because this function was written to primarily allow the calculation of the Ne:N ratio (where Ne is the effective population size), the user has to be careful that the census size (number of breeders, technically) calculated with this function is relevant for the Ne being used.  Following Wapple's (2005) recommendations, the function adjusts the yrt value by subtracting the number of years of the generation time that the user has passed with the argument gen (rounded to the nearest integer. Note that vortex calculates the generation time of the organism being modelled as part of the deterministic calculations). This is because the Ne calculated with the temporal approach will be influenced by the breeding pool of the previous generation, therefore this adjustment makes sure that the temporal windows of the two functions (Nb and Ne) when using the same parameters is the same and direct calculation of the ratio is meaningful (see 'A worked example' section for the function Ne to see how this can be done). We implemented the function in this way because we believe that, more often than not, this would suit the user' needs, but ultimately it is the user responsibility to evaluate an appropriate approach for the specific organism being modelled. In case the user would like the function not to adjust the yrt value (e.g. for organisms with discrete generations), it is possible to set gen=0 to either (or both) the functions. 
-By default, all scenarios included in the input data are considered. However there is the possibility to limit  the scenarios considered by passing a character vector that lists the scenarios that the user wants to be included with the argument scenarios (e.g. scenarios=c("scen1", "scen2")). 
-A worked example:
-# Run CollateYr on all .yr of the project 'Pacioni_et_al' and 
-# the ST scenario 'ST_Classic' in the selected folder and 
-# store the result in ' yr.st.classic '
-yr.st.classic <- CollateYr(project="Pacioni_et_al", scenario="ST_Classic",
-                           numPopsNoMeta=1)
-
-# Calculate effective pop size using demographic data
-NbAll <- Nb(data=yr.st.classic[[2]], scenarios="all", numPopsNoMeta=1, 			gen=2.54, yr0=50, yrt=120)
-
-### *Ne*
-```Ne``` is a function that calculates the effective population size (*Ne*) based on the loss of genetic diversity (expected heterozygosity) using the temporal approach. It takes the data.frame generated with ```collate_dat``` (which is passed with the argument ```data```). The user can indicate the scenario(s) for which the calculations should be carried out by passing a character vector to the argument ```scenario``` otherwise, by default, all scenarios are considered. With the arguments ```yr0```, ```yrt``` and ```gen``` the user indicates the time window to be considered (first and last year respectively) and the generation time (note that vortex calculates the generation time of the organism being modelled as part of the deterministic calculations). In ```Ne```, ```yr0``` is adjusted by adding the number of years of the generation time (rounded to the nearest integer).  In this way the user can provide the same ```yr0```, ```yrt``` and ```gen``` to ```Nadults``` and ```Ne``` and these values are adjusted internally so that it is possible to directly **divide the results to correctly calculate the ratio.** The user should be careful when using this function because if a population goes extinct, the result of the calculations is 0.5. On the other hand, if the population size of a population is zero, the result of ```Nadults``` calculations is 0. These behaviours may change in future version of ```vortexR```, but in the meantime, the users should make sure they do not get spurious results because of an unsuitable input. 
-
-```{r}
-# Using Pacioni et al. example data. See ?pac.clas for more details.
-data(pac.clas)
-# Calculate Ne for all scenarios in the data. Note the odd value for scenario
-# 12, consequent to the population going extinct.
-NeAll <- Ne(data=pac.clas, scenarios="all", gen=2.54, yr0=50, yrt=120,
-         save2disk=FALSE)
-# With only one population in your simulations, the following
-# will calculate Ne:N for all scenarios.
+For an examples, consider the code below:
+```{r, message=FALSE}
+data(pac.yr)
+NadultAll <- Nadults(data=pac.yr[[2]], scenario="all", gen=2.54, yr0=50, yrt=120,
+             save2disk=FALSE)
+NadultAll
 ```
 
+### *Ne*
+```Ne``` is a function that calculates the effective population size (*Ne*) based on the loss of genetic diversity (expected heterozygosity) using the temporal approach. It takes the data.frame generated with ```collate_dat``` (which is passed with the argument ```data```). The user can indicate the scenario(s) for which the calculations should be carried out by passing a character vector to the argument ```scenario``` otherwise, by default, all scenarios are considered.  
+
+With the arguments ```yr0```, ```yrt``` and ```gen``` the user indicates the time window to be considered (first and last year respectively) and the generation time (note that vortex calculates the generation time of the organism being modelled as part of the deterministic calculations). In ```Ne```, ```yr0``` is adjusted by adding the number of years of the generation time (rounded to the nearest integer).  In this way, the user can provide the same ```yr0```, ```yrt``` and ```gen``` to ```Nadults``` and ```Ne``` and these values are adjusted internally so that it is possible to directly and correctly calculate the *Ne:N* ratios (see details on ```Nadults``` to know why this is important).  
+
+The user should be careful when using this function because if a population goes extinct, the result of the calculations is 0.5. On the other hand, if the population size of a population is zero, the result of ```Nadults``` calculations is 0. These behaviours may change in future versions of ```vortexR```, but in the meantime, the users should make sure they do not get spurious results because of an unsuitable input. 
+
+```{r}
+data(pac.clas)
+
+NeAll <- Ne(data=pac.clas, scenarios="all", gen=2.54, yr0=50, yrt=120,
+         save2disk=FALSE)
+NeAll
+```
+
+
+Note the odd value for scenario 12, consequent to the population going extinct.
+
+Once we are here, we will calculate the Ne:N ratios using the results from ```Nadults``` above.
+
+```{r}
 # load required package
 require(data.table)
 
-# set the key in NbAll (from Nb example) to extract the pop you want 
-# to calculate Ne for
-setkey(NbAll, Population)
+# set the key in NadultAll to extract the pop you want to calculate Ne for
+setkey(NadultAll, Population)
 
 # Calculate the ratios
-NeNRatio <- data.table(NeAll[ , "Population 1", with=F]/NbAll["pop1", Nb],
+NeNRatio <- data.table(NeAll[ , "Population 1", with=F]/NadultAll["pop1", Nad],
                        Scenario=NeAll[ , Scenario])
+```
 
-# Write the results in a csv file
+If you want to write the results in a csv file, or you have more populations and you want to calculate *Ne:N* for all of them at once, the following should do...:
+```{r, eval=FALSE}
+# write results to disk
 write.csv(NeNRatio, file="./DataAnalysis/NeNRatio.csv", row.names=F)
 
-
-
-
-
-
-# If you have more populations and you want to calculate Ne:N for all of
-# them at once, the following should do...
-
-# load required packages
+# load required packages to calculate Ne:N ratios for several packages
 require(reshape2)
 require(data.table)
 
-# This stack data based on Scenario' names
+# This stacks data based on the scenario's names
 NeStacked <- melt(NeAll, id="Scenario")
 
 # set the key and name coloumns
@@ -545,7 +556,17 @@ setnames(NeStacked, c("variable", "value"), c("Population", "Ne"))
 # Calculate the ratios
 NeNRatio <- data.table(Scenario = NeStacked[ , Scenario], 
             Population = NeStacked[ , Population], 
-            NeNRatio = NeStacked[, Ne]/NbAll[, Nb])
+            NeNRatio = NeStacked[, Ne]/NadultsAll[, Nad])
+```
+
+
+<br>
+
+<br>
+
+This is all for now, we hope this user's guide helped you to get an idea of what you can do with ```vortexR``` and that you find this package useful. We would welcome feedback, but please, don't get offended if we don't manage to reply individually.
+
+
 
 # Acknowledgements
 We are deeply indebted to Dr Robert Lacy, who has continuously helped to clarify functions and details about Vortex during the development of ```vortexR```. Moreover, he has been always opened to exchange opinions and ideas, generating many interesting conversations.  
@@ -559,14 +580,22 @@ Some of the codes included in ```vortexR``` were initially developed by CP as pa
 # References
 Calcagno, V., and C. de Mazancourt. 2010. glmulti: an R package for easy automated model selection with (generalized) linear models. Journal of Statistical Software 34:1-29.  
 
+Campbell, S., Roberts, E.J., Craemer, R., Pacioni, C., Rollins, L., and Woolnough, A.P. (2015) Assessing the economic benefits of starling detection and control to Western Australia. Australasian Journal of Environmental Management. in press. 
+
 Conroy, S. D. S., and B. W. Brook. 2003. Demographic sensitivity and persistence of the threatened white- and orange-bellied frogs of Western Australia. Population Ecology 45:105-114.  
 
 Cribari-Neto, F., and A. Zeileis. 2010. Beta regression in R.
-Drechsler, M., M. A. Burgman, and P. W. Menkhorst. 1998. Uncertainty in population dynamics and its consequences for the management of the orange-bellied parrot Neophema chrysogaster. Biological Conservation 84:269-281.  
+Drechsler, M., M. A. Burgman, and P. W. Menkhorst. 1998. Uncertainty in population dynamics and its consequences for the management of the orange-bellied parrot Neophema chrysogaster. Biological Conservation 84:269-281. 
+
+Kalinowski, S.T., and Waples, R.S. (2002) Relationship of Effective to Census Size in Fluctuating Populations. Conservation Biology 16(1), 129-136.  
 
 Lacy, R. C., and J. P. Pollak. 2013. VORTEX: a stochastic simulation of the extinction process. Version 10. Chicago Zoological Society, Brookfield.  
 
 M Dowle, T Short, S Lianoglou, and A. S. w. c. f. R. S. a. E. Antonyan. 2014. data.table: Extension of data.frame. R package version 1.9.2. http://CRAN.R-project.org/package=data.table.  
+
+Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in review) Predators and genetic fitness: key threatening factors for the conservation of bettong species. Pacific Concervation Biology. 
+
+Palstra, F.P., and Fraser, D.J. (2012) Effective/census population size ratio estimation: a compendium and appraisal. Ecology and evolution 2(9), 2357-2365.  
 
 Waples, R. S. 2005. Genetic estimates of contemporary effective population size: to what time periods do the estimates apply? Molecular Ecology 14:3335-3352.  
 
