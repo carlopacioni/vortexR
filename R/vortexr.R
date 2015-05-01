@@ -1382,9 +1382,7 @@ Ne <-  function(data=NULL,
 
   message(paste("Effective population size based on loss of gene diversity from year",
                 round(yr0 + gen), "to year", yrt))
-  message("NOTE: The first year used in the calculations is adjusted using
-the generation time provided (yr0 + gen) so that Ne:N ratio can be directly
-calculated when passing the same argument values to the Ne and Nadults functions.
+  message("NOTE: The first year used in the calculations is adjusted using the generation time provided (yr0 + gen).
 See documentation for more information")
   return(r.Ne)
 }
@@ -1479,12 +1477,9 @@ Nadults <- function (data=NULL,
 
   # Calculate harmonic means
   message(paste("Calculating the harmonic means of total number of individuals",
-                "and number of breeders (sum of adults) from year", yr0,
-                "to year", round(yrt-gen)))
-  message("NOTE: The last year used in the calculations is adjusted using
-the generation time provided (yrt - gen) so that Ne:N ratio can be directly
-calculated when passing the same argument values to the Ne and Nadults functions.
-See documentation for more information")
+                "and number of adults from year", yr0, "to year", round(yrt-gen)))
+  message("NOTE: The last year used in the calculations is adjusted using the generation time provided (yrt - gen).
+          See documentation for more information")
 
   if (scenario == "all")
     scenario <- data[ , unique(Scenario)]
@@ -1494,10 +1489,10 @@ See documentation for more information")
   setkey(slcensusMeans, Year)
   slcensusMeans <- slcensusMeans[.(yr0:round(yrt - gen)), ]
 
-  slcensusMeans[ , Nb := sum(.SD), .SDcols=c("AM", "AF"),
+  slcensusMeans[ , Nad := sum(.SD), .SDcols=c("AM", "AF"),
                 by=list(Scenario,Population,Year)]
 
-  harm.means <- slcensusMeans[ , lapply(.SD, HarmMean), .SDcols=c("Nb", "N"),
+  harm.means <- slcensusMeans[ , lapply(.SD, HarmMean), .SDcols=c("Nad", "N"),
                               by=list(Scenario,Population)]
   message("Done!")
 
