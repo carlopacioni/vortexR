@@ -159,6 +159,53 @@ NULL
 #'  of bettong species. Pacific Conservation Biology.
 NULL
 
+#' @name pac.clas.Nadults
+#' @title Harmonic mean of adults and population sizes
+#' @description Data from Pacioni et al. (in prep) - sensitivity test scenario
+#' "ST_Classic" - were used to calculate the harmonic mean of adults and population
+#' sizes using \code{Nadults}.
+#' @usage data(pac.clas.Nadults)
+#' @format A \code{data.frame} with 24 observations of 4 variables.
+#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#'  Predators and genetic fitness: key threatening factors for the conservation
+#'  of bettong species. Pacific Conservation Biology.
+NULL
+
+#' @name pac.clas.Ne
+#' @title Effective population size
+#' @description Data from Pacioni et al. (in prep) - sensitivity test scenario
+#' "ST_Classic" - were used to calculate the effective population size
+#' sizes using \code{Ne}.
+#' @usage data(pac.clas.Ne)
+#' @format A \code{data.frame} with 24 observations of 2 variables.
+#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#'  Predators and genetic fitness: key threatening factors for the conservation
+#'  of bettong species. Pacific Conservation Biology.
+NULL
+
+#' @name pac.clas.lookup
+#' @title Look-up table
+#' @description Data from Pacioni et al. (in prep) - sensitivity test scenario
+#' "ST_Classic" - were used to generate a look-up table
+#' sizes using \code{lookup_table}.
+#' @usage data(pac.clas.lookup)
+#' @format A \code{data.frame} with 24 observations of 8 variables.
+#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#'  Predators and genetic fitness: key threatening factors for the conservation
+#'  of bettong species. Pacific Conservation Biology.
+NULL
+
+#' @name pac.clas.pairw
+#' @title Results of pairwise comparisons of simulation scenarios
+#' @description Results of pairwise comparisons of simulation scenarios included
+#' in the sensitivity test scenario "ST_Classic" using \code{pairwise}.
+#' @usage data(pac.clas.pairw)
+#' @format A named list of 12 \code{element}s. See documentation for details.
+#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#'  Predators and genetic fitness: key threatening factors for the conservation
+#'  of bettong species. Pacific Conservation Biology.
+NULL
+
 #------------------------------------------------------------------------------#
 # Data - Raw Vortex outputs
 #------------------------------------------------------------------------------#
@@ -168,7 +215,7 @@ NULL
 #'  to run examples and Vortex project file. NOTE: these simulations are shorter
 #'  than those presented in the paper (only 3 runs for 120 'Vortex-years'.
 #' @usage # To retrieve the path to the files use:
-#'  pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+#'  system.file("extdata", "pacioni", package="vortexR")
 #' @format One .xml file and several .run and .stdat files.
 #' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
@@ -179,7 +226,7 @@ NULL
 #' @title Raw Vortex outputs from Campbell et al (in press)
 #' @description A folder with Vortex outputs from Campbell et al (in press).
 #' @usage # To retrieve the path to the files use:
-#'  pac.dir <- system.file("extdata", "campbell", package="vortexR")
+#'  system.file("extdata", "campbell", package="vortexR")
 #' @format Several .dat and .stdat files.
 #' @source Campbell et al. In press. Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of
@@ -266,8 +313,6 @@ se2sd <- function(se, no) {se * sqrt(no)}
 #' @param chars A string of characters (popvalue)
 #' @param times The number of repetitions (ncolpop), default: 1
 #' @param prefix A text prefix, default: ""
-#' @examples
-#' PrefixAndRepeat(c("a","b","c"), 3, "pop_")
 PrefixAndRepeat <- function(chars, times=1, prefix="") {
   rep(paste0(prefix, chars), times)
 }
@@ -318,7 +363,8 @@ CompileIter <- function (iter, filename, n_rows, iter_ln, lines, header) {
 #' @examples
 #' # Pacioni et al. example files. See ?pacioni for more details.
 #' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
-#' one.st.classic <- collate_one_dat("Pacioni_et_al_ST_Classic(Base).stdat", 3)
+#' f <- paste0(pac.dir, "/", "Pacioni_et_al_ST_Classic(Base).stdat")
+#' one.st.classic <- collate_one_dat(f, 3)
 collate_one_dat <- function(filename, runs, verbose=FALSE){
 
   if (verbose) {message(cat("INFO vortexR::collate_one_dat parsing", filename))}
@@ -900,7 +946,6 @@ lookup_table <-  function(data=NULL,
 #' @param data A df from \code{collate_dat}
 #' @param project Vortex project name (used to name the output)
 #' @param scenario Vortex scenario name (used to name the output)
-#' @param save2disk Whether to save the output to disk, default: TRUE
 #' @param params Vortex parameters to be plotted,
 #' default: c("PExtinct", "Nextant", "Het", "Nalleles")
 #' @param plotpops The populations to be included in the plot, default: 'all'
@@ -1323,7 +1368,7 @@ m_scatter <- function (data=NULL,
 #' are spurious (they are 0.5). This may change in future versions.
 #'
 #' @param data The output from \code{collate_dat}
-#' @param scenario A vector of scenario names for which Ne need to be calculated,
+#' @param scenarios A vector of scenario names for which Ne needs to be calculated,
 #' default: "all"
 #' @param gen The generation time express in years
 #' @param yr0,yrt The time window to be considered (first and last year respectively)
@@ -1413,10 +1458,10 @@ See documentation for more information")
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.yr for more details.
 #' data(pac.yr)
-#' NadultAll <- Nadults(data=pac.yr[[2]], scenario="all", gen=2.54, yr0=50, yrt=120,
+#' NadultAll <- Nadults(data=pac.yr[[2]], scenarios="all", gen=2.54, yr0=50, yrt=120,
 #'              save2disk=FALSE)
 Nadults <- function (data=NULL,
-                scenario="all",
+                scenarios="all",
                 npops_noMeta=1,
                 appendMeta=FALSE,
                 gen=1,
@@ -1481,11 +1526,11 @@ Nadults <- function (data=NULL,
   message("NOTE: The last year used in the calculations is adjusted using the generation time provided (yrt - gen).
           See documentation for more information")
 
-  if (scenario == "all")
-    scenario <- data[ , unique(Scenario)]
+  if (scenarios == "all")
+    scenarios <- data[ , unique(Scenario)]
 
   setkey(lcensusMeans, Scenario)
-  slcensusMeans <- lcensusMeans[J(scenario), ]
+  slcensusMeans <- lcensusMeans[J(scenarios), ]
   setkey(slcensusMeans, Year)
   slcensusMeans <- slcensusMeans[.(yr0:round(yrt - gen)), ]
 
@@ -1588,7 +1633,7 @@ Nadults <- function (data=NULL,
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
 #' data(pac.clas)
 #' pairw<-pairwise(data=pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
-#'                params=c("Nall", "Het"), yrs=c(60,120), ST=T,
+#'                params=c("Nall", "Het"), yrs=c(60,120), ST=TRUE,
 #'                type="Single-Factor",
 #'                SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
 #'                save2disk=FALSE)

@@ -7,7 +7,7 @@ test_that("test Ne", {
   pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 
   # load data
-  data(pac.clas.Ne)
+  data(pac.clas.Ne, pac.clas)
   suppressMessages(NeAll <- Ne(data=pac.clas, scenarios="all", gen=2.54, yr0=50, yrt=120,
                    save2disk=FALSE))
 
@@ -19,8 +19,8 @@ test_that("test Nadults", {
   pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 
   # load data
-  data(pac.clas.Nadults)
-  suppressMessages(NadultAll <- Nadults(data=pac.yr[[2]], scenario="all", gen=2.54, yr0=50, yrt=120,
+  data(pac.clas.Nadults, pac.yr)
+  suppressMessages(NadultAll <- Nadults(data=pac.yr[[2]], scenarios="all", gen=2.54, yr0=50, yrt=120,
                        save2disk=FALSE))
 
   expect_equal(pac.clas.Nadults, NadultAll)

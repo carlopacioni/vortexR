@@ -3,3 +3,5 @@
 .RData
 man/*.Rd
 carlopacioni-vortexR.Rproj
+.modgen.back
+.mods.back

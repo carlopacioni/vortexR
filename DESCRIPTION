@@ -26,8 +26,8 @@ Imports:
     GGally,
     irr,
     plyr,
-    quantmod,
-    R.utils
+    R.utils,
+    stringr
 Suggests:
     knitr,
     rmarkdown,

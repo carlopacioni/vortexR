@@ -458,7 +458,7 @@ In case data from census files are used, the users have also to indicate, with t
 
 With the argument ```popn```, the users indicates what population(s) has(have) to be analysed. The population(s) is(are) identified with a numeric value that reflects the position in which it(they) is(are) listed in Vortex's project. For example, in a two population project, ```popn=1``` would indicate the first population, ```popn=2```, the second and ```popn=3``` the Metapopulation.  
 
-```fit_regression``` fits a different type of regression model depending on the dependent variable, which is passed with the argument ```param```. When this is a count (e.g. N or the number of alleles) the function will fit a Generalized Linear Model. The first fit is attempted with a Poisson error distribution and if c^ (dispersion parameter, calculated as $\frac{residual deviance}{df}) is larger than (the somewhat arbitrary cut off of) 1.5, the model will be refitted with a quasipoisson error distribution (a message is displayed if this happens). If the users generated their own dependent variable (e.g. through a PS), this has to be listed in the ```count_data``` argument to indicate to ```fit_regression``` that it is analysing count data. Default values for ```count_data``` are all the count-data variables that are automatically generated in Vortex outputs:
+```fit_regression``` fits a different type of regression model depending on the dependent variable, which is passed with the argument ```param```. When this is a count (e.g. N or the number of alleles) the function will fit a Generalized Linear Model. The first fit is attempted with a Poisson error distribution and if the dispersion parameter (calculated as $\frac{residual deviance}{df}$) is larger than (the somewhat arbitrary cut off of) 1.5, the model will be refitted with a quasipoisson error distribution (a message is displayed if this happens). If the users generated their own dependent variable (e.g. through a PS), this has to be listed in the ```count_data``` argument to indicate to ```fit_regression``` that it is analysing count data. Default values for ```count_data``` are all the count-data variables that are automatically generated in Vortex outputs:
 ```{r eval=FALSE}
 count_data=c("Nextant", "Nall", "Nalleles", "N", "AM", "AF", "Subadults",
 		"Juv", "nDams", "nBroods", "nProgeny", "nImmigrants",
@@ -496,7 +496,7 @@ This function was primarily written to allow the calculations of *Ne:N* ratios (
 
 ```Nadults``` tries to facilitate all these considerations. With the arguments ```yr0``` and ```yrt```, you can pass the two points in time that delimit the time window you want to consider (the first and the last year, respectively). Following Waples' (2005) recommendations, the function adjusts the ```yrt``` value by subtracting the number of years of the generation time that you have passed with the argument ```gen``` (rounded to the nearest integer. Note that vortex calculates the generation time of the organism being modelled as part of the deterministic calculations). This is because the *Ne* calculated with the temporal approach will be influenced by the breeding pool of the previous generation, therefore this adjustment makes sure that the temporal window of ```Nadults``` and ```Ne```, when using the same parameters, is the same and direct calculations of the ratio is meaningful (see the example below). We implemented the function in this way because we believe that this approach would suit the user' needs, but ultimately it is the user responsibility to evaluate an appropriate approach for the specific organism being modelled. In case you would like the function not to adjust the ```yrt``` value (e.g. for organisms with discrete generations), it is possible to set ```gen=0``` to either (or both) the functions.  
 
-By default, all scenarios included in the input data are considered. However there is the possibility to limit the scenarios considered by passing a character vector that lists the scenarios that you want to be included with the argument ```scenario``` (e.g. ```scenario=c("scen1", "scen2")```). 
+By default, all scenarios included in the input data are considered. However there is the possibility to limit the scenarios considered by passing a character vector that lists the scenarios that you want to be included with the argument ```scenarios``` (e.g. ```scenarios=c("scen1", "scen2")```). 
 
 Note that if the population size of a population is zero, the result of ```Nadults``` is also '0'.
 
@@ -504,7 +504,7 @@ Note that if the population size of a population is zero, the result of ```Nadul
 For an example, consider the code below:
 ```{r, message=FALSE}
 data(pac.yr)
-NadultAll <- Nadults(data=pac.yr[[2]], scenario="all", gen=2.54, yr0=50, yrt=120,
+NadultAll <- Nadults(data=pac.yr[[2]], scenarios="all", gen=2.54, yr0=50, yrt=120,
              save2disk=FALSE)
 NadultAll
 ```
