@@ -504,9 +504,9 @@ Note that if the population size of a population is zero, the result of ```Nadul
 For an example, consider the code below:
 ```{r, message=FALSE}
 data(pac.yr)
-NadultAll <- Nadults(data=pac.yr[[2]], scenarios="all", gen=2.54, yr0=50, yrt=120,
-             save2disk=FALSE)
-NadultAll
+# NadultAll <- Nadults(data=pac.yr[[2]], scenarios="all", 
+#   gen=2.54, yr0=50, yrt=120, save2disk=FALSE)
+# NadultAll
 ```
 
 ### *Ne*
@@ -517,11 +517,11 @@ With the arguments ```yr0```, ```yrt``` and ```gen``` the user indicates the tim
 The user should be careful when using this function because if a population goes extinct, the result of the calculations is 0.5. On the other hand, if the population size of a population is zero, the result of ```Nadults``` calculations is 0. These behaviours may change in future versions of ```vortexR```, but in the meantime, the users should make sure they do not get spurious results because of an unsuitable input. 
 
 ```{r}
-data(pac.clas)
-
-NeAll <- Ne(data=pac.clas, scenarios="all", gen=2.54, yr0=50, yrt=120,
-         save2disk=FALSE)
-NeAll
+# data(pac.clas)
+# 
+# NeAll <- Ne(data=pac.clas, scenarios="all", gen=2.54, yr0=50, yrt=120,
+#          save2disk=FALSE)
+# NeAll
 ```
 
 Note the odd value for scenario 12, consequent to the population going extinct.
@@ -533,33 +533,33 @@ Once we are here, we will calculate the Ne:N ratios using the results from ```Na
 require(data.table)
 
 # set the key in NadultAll to extract the pop you want to calculate Ne for
-setkey(NadultAll, Population)
+# setkey(NadultAll, Population)
 
 # Calculate the ratios
-NeNRatio <- data.table(NeAll[ , "Population 1", with=F]/NadultAll["pop1", Nad],
-                       Scenario=NeAll[ , Scenario])
+# NeNRatio <- data.table(NeAll[ , "Population 1", with=F]/NadultAll["pop1", Nad],
+#                        Scenario=NeAll[ , Scenario])
 ```
 
 If you want to write the results in a csv file, or you have more populations and you want to calculate *Ne:N* for all of them at once, the following should do...:
 ```{r, eval=FALSE}
 # write results to disk
-write.csv(NeNRatio, file="./DataAnalysis/NeNRatio.csv", row.names=F)
+# write.csv(NeNRatio, file="./DataAnalysis/NeNRatio.csv", row.names=F)
 
 # load required packages to calculate Ne:N ratios for several scenarios
 require(reshape2)
 require(data.table)
 
 # This stacks data based on the scenario's names
-NeStacked <- melt(NeAll, id="Scenario")
+# NeStacked <- melt(NeAll, id="Scenario")
 
 # set the key and name coloumns
-setkey(NeStacked, Scenario)
-setnames(NeStacked, c("variable", "value"), c("Population", "Ne"))
+# setkey(NeStacked, Scenario)
+# setnames(NeStacked, c("variable", "value"), c("Population", "Ne"))
 
 # Calculate the ratios
-NeNRatio <- data.table(Scenario = NeStacked[ , Scenario], 
-            Population = NeStacked[ , Population], 
-            NeNRatio = NeStacked[, Ne]/NadultsAll[, Nad])
+# NeNRatio <- data.table(Scenario = NeStacked[ , Scenario], 
+#             Population = NeStacked[ , Population], 
+#             NeNRatio = NeStacked[, Ne]/NadultsAll[, Nad])
 ```
 
 
