@@ -2002,8 +2002,8 @@ pairwise <-  function(data=NULL,
 #' \code{fit_regression} fits a different type of regression model depending on the
 #' dependent variable. When this is a count (e.g. N or the number of alleles),
 #' the function will fit a Generalized Linear Model. The first fit is attempted
-#' with a Poisson error distribution and if \eqn{c^} (dispersion parameter,
-#' calculated as \eqn{residual deviance / df} is larger than (the somewhat
+#' with a Poisson error distribution and if the dispersion parameter (calculated
+#' as \eqn{residual deviance / df} is larger than (the somewhat
 #' arbitrary cut off of) 1.5, the model will be refitted with a quasipoisson
 #' error distribution (a message is displayed if this happens).
 #'
