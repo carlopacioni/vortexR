@@ -1,6 +1,6 @@
 Package: vortexR
 Type: Package
-Title: an R package forPost Vortex Simulation Analysis
+Title: Post Vortex Simulation Analysis
 Description: vortexR facilitates Post Vortex Simulation Analysis by offering
     tools to collate multiple Vortex (v10) output files into one R object, and
     analyse the collated output statistically.
