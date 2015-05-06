@@ -22,7 +22,6 @@ Imports:
     glmulti,
     gtools,
     grid,
-    gridExtra,
     GGally,
     irr,
     plyr,
@@ -33,5 +32,6 @@ Suggests:
     rmarkdown,
     devtools,
     roxygen2,
+    gridExtra,
     testthat
 VignetteBuilder: knitr
