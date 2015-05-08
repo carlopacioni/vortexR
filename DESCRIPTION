@@ -20,7 +20,7 @@ Imports:
     data.table,
     ggplot2,
     glmulti,
-    gtools,
+    gtools>=3.4.2,
     grid,
     GGally,
     irr,
