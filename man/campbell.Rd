@@ -11,7 +11,7 @@ Campbell et al. In press. Assessing the economic benefits of starling
 }
 \usage{
 # To retrieve the path to the files use:
- system.file("extdata", "campbell", package="vortexR")
+# system.file("extdata", "campbell", package="vortexR")
 }
 \description{
 A folder with Vortex outputs from Campbell et al (in press).

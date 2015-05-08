@@ -11,11 +11,11 @@ Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
 }
 \usage{
 # To retrieve the path to the files use:
- system.file("extdata", "pacioni", package="vortexR")
+# system.file("extdata", "pacioni", package="vortexR")
 }
 \description{
 A folder with Vortex outputs from Pacioni et al. (in prep) used
  to run examples and Vortex project file. NOTE: these simulations are shorter
- than those presented in the paper (only 3 runs for 120 'Vortex-years'.
+ than those presented in the paper (only 3 runs for 120 'Vortex-years').
 }
 

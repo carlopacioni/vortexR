@@ -10,12 +10,12 @@
 #' to investigate the main and the interaction effects of the variables of
 #' interest.
 #'
-#' \code{vortexR} has a number of functions that are useful during the development
-#' of a Vortex project and for its analysis after completion. \code{vortexR}
-#' makes it easy to automatise the creation of plots and computation of
-#' basic statistics to inspect the effect of changes carried out in the Vortex
-#' project. Once the project development is completed, the same framework used
-#' in \code{vortexR} during the development of the project can be
+#' \code{vortexR} has a number of functions that are useful during the
+#' development of a Vortex project and for its analysis after completion.
+#' \code{vortexR} makes it easy to automatise the creation of plots and
+#' computation of basic statistics to inspect the effect of changes carried out
+#' in the Vortex project. Once the project development is completed, the same
+#' framework used in \code{vortexR} during the development of the project can be
 #' refined and extended to include more advanced statistical analyses or can be
 #' easily included in Markdown documents for the creation of reports (by
 #' converting them into pdf) or update web-pages.
@@ -24,14 +24,14 @@
 #' approaches in population viability analysis.
 #'
 #' @section Documentations:
-#' Use \code{help(package = "vortexR")} for a list of \code{vortexR} functions and their
-#' specific documentations.
+#' Use \code{help(package = "vortexR")} for a list of \code{vortexR} functions
+#' and their specific documentations.
 #'
 #' A more detailed description of the package and functions can be opened with:
 #' \code{vignette(package="vortexR", topic="User-guide")}.
 #'
-#' More vignettes may be come available in the future. Use \code{vignette(package="vortexR")}
-#' to see all the available vignettes.
+#' More vignettes may be come available in the future. Use
+#' \code{vignette(package="vortexR")} to see all the available vignettes.
 #'
 #' @section Citation:
 #' If you use \code{vortexR}, please cite:
@@ -39,8 +39,8 @@
 #' simulation analysis.
 #'
 #' @section Get in touch:
-#' Please, use \url{https://github.org/carlopacioni/vortexR/issues} to report any
-#' issue/bug with vortexR. If unsure, or for feedback, contact me at:
+#' Please, use \url{https://github.org/carlopacioni/vortexR/issues} to report
+#' any issues with vortexR. If unsure, or for feedback, contact me at:
 #' carlo.pacioni 'at' gmail.com.
 #'
 #' @section Publications:
@@ -213,9 +213,10 @@ NULL
 #' @title Raw Vortex outputs from Pacioni et al. (in prep)
 #' @description A folder with Vortex outputs from Pacioni et al. (in prep) used
 #'  to run examples and Vortex project file. NOTE: these simulations are shorter
-#'  than those presented in the paper (only 3 runs for 120 'Vortex-years'.
-#' @usage # To retrieve the path to the files use:
-#'  system.file("extdata", "pacioni", package="vortexR")
+#'  than those presented in the paper (only 3 runs for 120 'Vortex-years').
+#' @usage
+#' # To retrieve the path to the files use:
+#' # system.file("extdata", "pacioni", package="vortexR")
 #' @format One .xml file and several .run and .stdat files.
 #' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
@@ -225,8 +226,9 @@ NULL
 #' @name campbell
 #' @title Raw Vortex outputs from Campbell et al (in press)
 #' @description A folder with Vortex outputs from Campbell et al (in press).
-#' @usage # To retrieve the path to the files use:
-#'  system.file("extdata", "campbell", package="vortexR")
+#' @usage
+#' # To retrieve the path to the files use:
+#' # system.file("extdata", "campbell", package="vortexR")
 #' @format Several .dat and .stdat files.
 #' @source Campbell et al. In press. Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of

@@ -14,12 +14,12 @@ to investigate the main and the interaction effects of the variables of
 interest.
 }
 \details{
-\code{vortexR} has a number of functions that are useful during the development
-of a Vortex project and for its analysis after completion. \code{vortexR}
-makes it easy to automatise the creation of plots and computation of
-basic statistics to inspect the effect of changes carried out in the Vortex
-project. Once the project development is completed, the same framework used
-in \code{vortexR} during the development of the project can be
+\code{vortexR} has a number of functions that are useful during the
+development of a Vortex project and for its analysis after completion.
+\code{vortexR} makes it easy to automatise the creation of plots and
+computation of basic statistics to inspect the effect of changes carried out
+in the Vortex project. Once the project development is completed, the same
+framework used in \code{vortexR} during the development of the project can be
 refined and extended to include more advanced statistical analyses or can be
 easily included in Markdown documents for the creation of reports (by
 converting them into pdf) or update web-pages.
@@ -29,14 +29,14 @@ approaches in population viability analysis.
 }
 \section{Documentations}{
 
-Use \code{help(package = "vortexR")} for a list of \code{vortexR} functions and their
-specific documentations.
+Use \code{help(package = "vortexR")} for a list of \code{vortexR} functions
+and their specific documentations.
 
 A more detailed description of the package and functions can be opened with:
 \code{vignette(package="vortexR", topic="User-guide")}.
 
-More vignettes may be come available in the future. Use \code{vignette(package="vortexR")}
-to see all the available vignettes.
+More vignettes may be come available in the future. Use
+\code{vignette(package="vortexR")} to see all the available vignettes.
 }
 
 \section{Citation}{
@@ -48,8 +48,8 @@ simulation analysis.
 
 \section{Get in touch}{
 
-Please, use \url{https://github.org/carlopacioni/vortexR/issues} to report any
-issue/bug with vortexR. If unsure, or for feedback, contact me at:
+Please, use \url{https://github.org/carlopacioni/vortexR/issues} to report
+any issues with vortexR. If unsure, or for feedback, contact me at:
 carlo.pacioni 'at' gmail.com.
 }
 
