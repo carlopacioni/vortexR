@@ -13,7 +13,7 @@ vignette: >
 
 
 # Introduction
-```VortexR``` is an R package that automatises common post-Vortex simulation tasks, including collating Vortex output files, generating plots and conducting basic analysis (e.g. pairwise comparisons of scenarios) and more advanced statistics such as fitting a regression Model to investigate the main and the interaction effects of the variables of interest. The user enters minimal information using arguments in R functions. In some instances, ```vortexR``` will behave differently depending on the data that are fed in. Function-specific details are provided in the following sections of the manual.
+```VortexR``` is an R package that automatises common tasks carried out on outputs of population viability analysis (PVA) that were generated with the software Vortex (Lacy & Pollak 2013), including collating Vortex output files, generating plots and conducting basic analysis (e.g. pairwise comparisons of scenarios) and more advanced statistics such as fitting a regression model to investigate the main and the interaction effects of the variables of interest. We call this process post-Vortex simulation analysis (PVSA). The user enters minimal information using arguments in R functions. In some instances, ```vortexR``` will behave differently depending on the data that are fed in. Function-specific details are provided in the following sections of the manual.
 
 ## Installation
 ```VortexR``` has been developed on R v3.1.3 and, while it may work on previous R versions, this has not been tested and the user is strongly recommended to use v3.1.3 or greater. If you are using windows and need to check or update your version of R (and installed packages), you can easily do that following the instructions in this [webpage](http://www.r-statistics.com/2013/03/updating-r-from-r-on-windows-using-the-installr-package/). Similarly, ```VortexR``` was developed to be compatible with Vortex v10 (Lacy & Pollak 2013). Formatting of the outputs is slightly different in Vortex v10 compared to previous versions, which may cause issues. Some functions may process adequately outputs from previous versions, but it is responsibility of the user to make sure the correctness of the results. 
@@ -21,10 +21,12 @@ vignette: >
 If you are at your first experiences with R, and have not installed it yet, go on [www.r-project.org](www.r-project.org) and download the latest version compatible with your operative system. While there is no strict requirement to do so, we find that using R with RStudio ([www.rstudio.com](www.rstudio.com)) is very handy, and it is also free! It will be very easy to keep clean and then capture your sequence of commands, including possible data manipulations, so that you can return to it later. From within R (or RStudio),  ```VortexR``` can be installed from the github repository with the command:
 ```{r eval=FALSE} 
 library(devtools)
-install_github("carlopacioni/vortexR")
+install_github("carlopacioni/vortexR", build_vignette=TRUE)
 ```
 
 which requires the R package ```devtools``` to be also installed: ```install.packages("devtools")```. If you are on Windows, you have to install [Rtools](http://cran.r-project.org/bin/windows/Rtools/) (unless you have done so already), before you can use ```devtools```. Download the .exe file  and run it before you use ```library(devtools)```. If you are in trouble, see [this link](http://cran.r-project.org/web/packages/devtools/README.html) for details on its installation. 
+
+if you have problem with the option ```build_vignette=TRUE```, you can just use ```install_github("carlopacioni/vortexR")```, but be aware, if you did not use ```build_vignette=TRUE``` help documents may not be available from within R. In these cases, download the PDF of the package manual (you must have got the user's guide already if you are reading this!). On some platforms, `??vortexR` may not work even if you used ```build_vignette=TRUE```.
 
 ```VortexR``` makes heavy use of several R packages. Typically, these packages are installed when you install ```vortexR```.
  
