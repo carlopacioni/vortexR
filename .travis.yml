@@ -3,7 +3,7 @@ language: r
 sudo: required
 
 apt_packages:
-  - libssh2
+  - libssh2-1
   - default-jre
 
 r_packages:
