@@ -6,25 +6,6 @@ apt_packages:
   - libssh2-1
   - default-jre
 
-r_packages:
-  - betareg
-  - data.table
-  - ggplot2
-  - glmulti
-  - gtools
-  - grid
-  - GGally
-  - irr
-  - plyr
-  - R.utils
-  - stringr
-  - knitr
-  - rmarkdown
-  - devtools
-  - roxygen2
-  - gridExtra
-  - testthat
-
 r_github_packages:
   - jimhester/robustr
   - jimhester/covr

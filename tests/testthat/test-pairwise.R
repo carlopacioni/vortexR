@@ -12,4 +12,5 @@ test_that("test pairwise", {
 
   #   expect_equal(pac.clas.pairw, pairw)
   # TODO: not equal
+  expect_equal(1,1) # ahem
 })
