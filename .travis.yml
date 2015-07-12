@@ -1,0 +1,35 @@
+language: r
+
+sudo: required
+
+r_packages:
+  - betareg
+  - data.table
+  - ggplot2
+  - glmulti
+  - gtools
+  - grid
+  - GGally
+  - irr
+  - plyr
+  - R.utils
+  - stringr
+  - knitr
+  - rmarkdown
+  - devtools
+  - roxygen2
+  - gridExtra
+  - testthat
+
+r_github_packages:
+  - jimhester/robustr
+  - jimhester/covr
+  - hadley/xml2
+
+after_success:
+  - Rscript -e 'library(covr); coveralls()'
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
