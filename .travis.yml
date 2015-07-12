@@ -1,0 +1,20 @@
+language: r
+
+sudo: required
+
+apt_packages:
+  - libssh2-1
+  - default-jre
+
+r_github_packages:
+  - jimhester/robustr
+  - jimhester/covr
+  - hadley/xml2
+
+after_success:
+  - Rscript -e 'library(covr); coveralls()'
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
