@@ -261,7 +261,7 @@ NULL
 #' @export
 df2disk <- function(df, dirpath, fname, postfix=""){
 
-  dir.create(dirpath, showWarnings=FALSE)
+  dir.create(dirpath, showWarnings=FALSE, recursive=TRUE)
 
   save(df, file=paste0(dirpath, "/", fname, postfix, ".rda"), compress="xz")
 
@@ -1005,7 +1005,7 @@ line_plot_year <- function(data=NULL,
   r.line_plot_year <- list()
   i <- 0
   if (save2disk == T) {
-    dir.create(dir_out, showWarnings=FALSE)
+    dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
     pdf(paste(dir_out, "/", fname_root, "_", "YearVsParams.pdf", sep=""))
   }
 
@@ -1101,7 +1101,7 @@ line_plot_year_mid <-  function(data=NULL,
   r.line_plot_year_mid <- list()
   i <- 0
   if (save2disk == T) {
-    dir.create(dir_out, showWarnings=FALSE)
+    dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
     pdf(paste0(dir_out, "/", fname_root, "_", "YearMidVsParams.pdf"))
   }
 
@@ -1210,7 +1210,7 @@ dot_plot <- function(data=NULL,
 
   r.dot_plot <- list()
   if (save2disk == T) {
-    dir.create(dir_out, showWarnings=FALSE)
+    dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
     pdf(paste(dir_out, "/", fname_root, "_", "dot_plots.pdf", sep=""))
   }
 
@@ -1342,7 +1342,7 @@ m_scatter <- function (data=NULL,
                                    params=c(method="loess", colour="red")))
 
   if (save2disk == T) {
-    dir.create(dir_out, showWarnings=FALSE)
+    dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
     pdf(file=paste0(dir_out, "/", fname, "m_scatter_plots.pdf"))
     print(corrMtrx)
     dev.off()
@@ -2213,7 +2213,7 @@ fit_regression <-  function(data=NULL,
   paramvalues <- data[[param]]
   name <- paste(project, scenario, param, sep="_")
   if (save2disk == T) {
-    dir.create(dir_out, showWarnings=FALSE)
+    dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
     pdf(paste0(dir_out, "/", paste(name, "histogram.pdf", sep="_")))
   }
 
