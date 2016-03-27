@@ -153,11 +153,11 @@ head(lkup.st.classic)
 The names of the variables are from Vortex outputs. These may have little meaning to people not familiar with the project. We will replace the headings so we don't keep you in the dark anymore. This can also be useful if this data need to be used, for example, to generate a summary table in a report. 
 ```{r, fig.height=7.5, fig.width=7}
 library(data.table, quietly=TRUE)
+library(grid, quietly=TRUE)
 library(gridExtra, quietly=TRUE)
 setnames(lkup.st.classic, c("Scenario", "K", "Ad.Mor", "Juv.Mor", 
                           "PY.Mor", "SD.Mor", "Mate.mon", "Init.N"))
-grid.table(lkup.st.classic, digits=1, gpar.corefill=gpar(fill="white", col="white"),
-           gpar.rowfill=gpar(fill="white", col="white"))
+grid.table(lkup.st.classic, rows=NULL, theme=ttheme_default(core=list(bg_params=list(fill="white"))))
 ```
 
 
