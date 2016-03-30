@@ -1336,10 +1336,10 @@ m_scatter <- function (data=NULL,
   suppressWarnings(if (!is.na(lookup)) {
     data <- plyr::join(data, lookup, by='Scenario', type="left")
   } )
-  corrMtrx <- GGally::ggpairs(data[ , c(vs, param), with=FALSE], alpha=0.2,
+  corrMtrx <- GGally::ggpairs(data[ , c(vs, param), with=FALSE],
                       axisLabels='internal',
-                      lower = list(continuous="smooth",
-                                   params=c(method="loess", colour="red")))
+                      lower = list(continuous="smooth"),
+                      mapping = aes(colour="red", alpha=0.2))
 
   if (save2disk == T) {
     dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
