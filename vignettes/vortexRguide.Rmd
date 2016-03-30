@@ -20,7 +20,7 @@ vignette: >
 
 If you are at your first experiences with R, and have not installed it yet, go on [www.r-project.org](www.r-project.org) and download the latest version compatible with your operative system. While there is no strict requirement to do so, we find that using R with RStudio ([www.rstudio.com](www.rstudio.com)) is very handy, and it is also free! It will be very easy to keep clean and then capture your sequence of commands, including possible data manipulations, so that you can return to it later. From within R (or RStudio),  ```VortexR``` can be installed from the github repository with the command:
 ```{r eval=FALSE} 
-library(devtools)
+library(devtools, quietly=TRUE)
 install_github("carlopacioni/vortexR", build_vignette=TRUE)
 ```
 
@@ -329,7 +329,7 @@ The two elements of the list are written separately to disk (when ```save2disk=T
 
 An example, using Pacioni et al. (in prep) example files (see ```?pacioni``` or above for more details) is :
 ```{r}
-library(data.table)
+library(data.table, quietly=TRUE)
 pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 
 # Run collate_yr on all .yr of the project 'Pacioni_et_al' and the ST scenario
