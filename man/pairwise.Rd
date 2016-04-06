@@ -39,7 +39,24 @@ scenarios, default: NA}
 \item{dir_out}{The local path to store the output. Default: DataAnalysis/Pairwise}
 }
 \value{
-Several output. See vignette for details.
+A list of six elements:
+\itemize{
+  \item A data.frame with SC values for all scenarios
+  \item A data.frame with SSMD values
+  \item A data.frame with p-values for SSMD values
+  \item A data.frame with the scenario ranks based on SC and one based on SSMD
+  \item The output of the Kendall's test
+}
+If \code{group_mean=T} there will be six additional elements:
+\itemize{
+  \item A data.frame with the mean SC values for each parameter
+  \item A data.frame with the mean SSMD values
+  \item A data.frame with p-values calculated for the mean SSMD values
+  \item A data.frame with the parameter ranks based on the mean SC and one
+        based on the mean SSMD
+  \item The output of the Kendall's test performed on the ranking of the
+        parameters
+}
 }
 \description{
 \code{pairwise} conducts pairwise comparisons against a baseline scenario

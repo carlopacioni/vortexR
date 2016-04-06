@@ -1617,7 +1617,24 @@ Nadults <- function (data=NULL,
 #' scenarios, default: NA
 #' @param save2disk Whether to save the output to disk, default: TRUE
 #' @param dir_out The local path to store the output. Default: DataAnalysis/Pairwise
-#' @return Several output. See vignette for details.
+#' @return A list of six elements:
+#' \itemize{
+#'   \item A data.frame with SC values for all scenarios
+#'   \item A data.frame with SSMD values
+#'   \item A data.frame with p-values for SSMD values
+#'   \item A data.frame with the scenario ranks based on SC and one based on SSMD
+#'   \item The output of the Kendall's test
+#' }
+#' If \code{group_mean=T} there will be six additional elements:
+#' \itemize{
+#'   \item A data.frame with the mean SC values for each parameter
+#'   \item A data.frame with the mean SSMD values
+#'   \item A data.frame with p-values calculated for the mean SSMD values
+#'   \item A data.frame with the parameter ranks based on the mean SC and one
+#'         based on the mean SSMD
+#'   \item The output of the Kendall's test performed on the ranking of the
+#'         parameters
+#' }
 #' @references Conroy, S. D. S., and B. W. Brook. 2003. Demographic sensitivity and
 #' persistence of the threatened white- and orange-bellied frogs of Western
 #' Australia. Population Ecology 45:105-114.
