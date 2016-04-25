@@ -10,7 +10,5 @@ test_that("test pairwise", {
                   SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
                   save2disk=FALSE)
 
-  #   expect_equal(pac.clas.pairw, pairw)
-  # TODO: not equal
-  expect_equal(1,1) # ahem
+  expect_equal(pac.clas.pairw, pairw)
 })
