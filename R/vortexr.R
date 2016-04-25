@@ -1676,6 +1676,10 @@ pairwise <-  function(data=NULL,
   naming.ssmd <- function(naming.ssmd)
                       paste("SSMD", "_", naming.ssmd, yr, sep="")
   pval <- function(x) pnorm(abs(x), lower.tail=FALSE)
+  kend <- function(tab.ranks) {
+      k <- irr::kendall(tab.ranks[, - c(1:2), with=FALSE], TRUE)
+      return(k)
+  }
 
   # Flag (false) columns where all entries are NA
   FColsAllNA <- function(lranks)
@@ -1868,10 +1872,10 @@ pairwise <-  function(data=NULL,
   # NOTE : kendall function handles na listwise
   kendall.out$SC <- capture.output(
                       cat("Rank comparison of sensitivity coefficients", "\n"),
-                      lapply(ranks.sc.fin, irr::kendall, TRUE))
+                      lapply(ranks.sc.fin, kend))
   kendall.out$SSMD <- capture.output(
                       cat("Rank comparison of SSMD", "\n"),
-                      lapply(ranks.ssmd.fin, irr::kendall, TRUE))
+                      lapply(ranks.ssmd.fin, kend))
   if (save2disk == T) {
     # write results
     df2disk(table.coef, dir_out, fname, ".coef.table")
@@ -1985,10 +1989,10 @@ pairwise <-  function(data=NULL,
     kendall.mean.out <- list(SC=NULL, SSMD=NULL)
     kendall.mean.out$SC <- capture.output(
                       print("Rank comparison of mean sensitivity coefficients"),
-                      lapply(ranks.msc.fin, irr::kendall, TRUE))
+                      lapply(ranks.msc.fin, kend))
     kendall.mean.out$SSMD <- capture.output(
                       print("Rank comparison of mean SSMD"),
-                      lapply(ranks.mssmd.fin, irr::kendall, TRUE))
+                      lapply(ranks.mssmd.fin, kend))
 
     if (save2disk == T) {
       df2disk(mean.coef.table, dir_out, fname, ".mean.coef.table")
