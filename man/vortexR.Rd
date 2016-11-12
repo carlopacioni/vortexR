@@ -57,9 +57,9 @@ carlo.pacioni 'at' gmail.com.
 
 \emph{Below there are listed a few publications that used \code{vortexR}.}
 
-Campbell et al. (in press). Assessing the economic benefits of starling
+Campbell et al. (2016). Assessing the economic benefits of starling
  detection and control to Western Australia. Australasian Journal of
- Environmental Management.
+ Environmental Management, 23, 81-99.
 
 Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
  Predators and genetic fitness: key threatening factors for the conservation

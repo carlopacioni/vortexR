@@ -2,19 +2,19 @@
 % Please edit documentation in R/vortexr.R
 \name{sta.main}
 \alias{sta.main}
-\title{Collated results from Vortex scenarios - Campbell et al (in press)}
+\title{Collated results from Vortex scenarios - Campbell et al (2016)}
 \format{a \code{data.frame} with 1632 observations of 44 variables.}
 \source{
-Campbell et al. In press. Assessing the economic benefits of starling
+Campbell et al. (2016). Assessing the economic benefits of starling
  detection and control to Western Australia. Australasian Journal of
- Environmental Management
+ Environmental Management, 23, 81-99
 }
 \usage{
 data(sta.main)
 }
 \description{
 A dataset with the results from the main Vortex scenarios used
- in Campbell et al (in press). Vortex outputs, from the project named
+ in Campbell et al (2016). Vortex outputs, from the project named
  "Starlingv3PopBased" (.dat files), were collated with \code{collate_dat}.
 }
 

@@ -46,9 +46,9 @@
 #' @section Publications:
 #' \emph{Below there are listed a few publications that used \code{vortexR}.}
 #'
-#' Campbell et al. (in press). Assessing the economic benefits of starling
+#' Campbell et al. (2016). Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of
-#'  Environmental Management.
+#'  Environmental Management, 23, 81-99.
 #'
 #' Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
@@ -66,33 +66,33 @@ NULL
 #------------------------------------------------------------------------------#
 
 #' @name sta.main
-#' @title Collated results from Vortex scenarios - Campbell et al (in press)
+#' @title Collated results from Vortex scenarios - Campbell et al (2016)
 #' @description A dataset with the results from the main Vortex scenarios used
-#'  in Campbell et al (in press). Vortex outputs, from the project named
+#'  in Campbell et al (2016). Vortex outputs, from the project named
 #'  "Starlingv3PopBased" (.dat files), were collated with \code{collate_dat}.
 #' @usage data(sta.main)
 #' @format a \code{data.frame} with 1632 observations of 44 variables.
-#' @source Campbell et al. In press. Assessing the economic benefits of starling
+#' @source Campbell et al. (2016). Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of
-#'  Environmental Management
+#'  Environmental Management, 23, 81-99
 NULL
 
 #' @name sta.evy5
-#' @title Collated results from Vortex scenarios - Campbell et al (in press)
+#' @title Collated results from Vortex scenarios - Campbell et al (2016)
 #' @description A dataset with the results from Vortex scenarios used in
-#'  Campbell et al (in press) to simulate major application of control measures
+#'  Campbell et al (2016) to simulate major application of control measures
 #'  in every 5 year cycle. Vortex outputs, from the project named
 #'  "Starlingv3PopBased" and the sensitivity test scenario "MReductEvy5"
 #'  (.stdat files), were collated with \code{collate_dat}.
 #' @usage data(sta.evy5)
 #' @format a \code{data.frame} with 1020 observations of 47 variables.
-#' @source Campbell et al. In press. Assessing the economic benefits of starling
+#' @source Campbell et al. (2016). Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of
-#'  Environmental Management
+#'  Environmental Management, 23, 81-99
 NULL
 
 #' @name sta.evy5.b11
-#' @title Collated results from Vortex scenarios - Campbell et al (in press)
+#' @title Collated results from Vortex scenarios - Campbell et al (2016)
 #' @description A dataset with the results from Vortex scenarios used in Campbell
 #'  et al (in press) to simulate major application of control measures in every
 #'  5 year cycle, maintaining 2011 levels of investment. Vortex outputs, from
@@ -100,22 +100,23 @@ NULL
 #'  "MReduction_B11_09Evy5" (.stdat files), were collated with \code{collate_dat}.
 #' @usage data(sta.evy5.b11)
 #' @format a \code{data.frame} with 1020 observations of 47 variables.
-#' @source Campbell et al. In press. Assessing the economic benefits of starling
+#' @source Campbell et al. (2016). Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of
-#'  Environmental Management
+#'  Environmental Management, 23, 81-99
 NULL
 
 #' @name pac.clas
 #' @title Collated results from Vortex scenarios - Pacioni et al. (in prep)
-#' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
-#'  analysis on demographic parameters. Vortex outputs, from the project named
-#'  "Pacioni_et_al" and (Single-Factor) sensitivity test scenario "ST_Classic"
-#'  (.stdat files), were collated with \code{collate_dat}.
+#' @description Subset (only 3 runs) of data from Pacioni et al. (in prep) used
+#'   to conduct a sensitivity analysis on demographic parameters. Vortex
+#'   outputs, from the project named "Pacioni_et_al" and (Single-Factor)
+#'   sensitivity test scenario "ST_Classic" (.stdat files), were collated with
+#'   \code{collate_dat}.
 #' @usage data(pac.clas)
 #' @format a \code{data.frame} of 2904 observations of 68 variables.
 #' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
-#'  Predators and genetic fitness: key threatening factors for the conservation
-#'  of bettong species. Pacific Conservation Biology.
+#'   Predators and genetic fitness: key threatening factors for the conservation
+#'   of bettong species. Pacific Conservation Biology.
 NULL
 
 #' @name pac.lhs
@@ -224,15 +225,15 @@ NULL
 NULL
 
 #' @name campbell
-#' @title Raw Vortex outputs from Campbell et al (in press)
-#' @description A folder with Vortex outputs from Campbell et al (in press).
+#' @title Raw Vortex outputs from Campbell et al (2016)
+#' @description A folder with Vortex outputs from Campbell et al (2016).
 #' @usage
 #' # To retrieve the path to the files use:
 #' # system.file("extdata", "campbell", package="vortexR")
 #' @format Several .dat and .stdat files.
-#' @source Campbell et al. In press. Assessing the economic benefits of starling
+#' @source Campbell et al. (2016). Assessing the economic benefits of starling
 #'  detection and control to Western Australia. Australasian Journal of
-#'  Environmental Management
+#'  Environmental Management, 23, 81-99
 NULL
 
 #------------------------------------------------------------------------------#
