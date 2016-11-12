@@ -64,7 +64,7 @@ Pacioni et al. (in prep) developed a baseline PVA model for the woylie (*Bettong
 pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 ```
 
-Note that the data for Pacioni et al. (in prep) are just a subset of the original (only three runs for 120 years, and only for a subset of scenarios), so your results may not match the ones reported in the original publication. 
+Note that the data for Pacioni et al. (in prep) are just a subset of the original (only three runs for 120 years, and only for a subset of scenarios), so your results do not match the ones reported in the original publication. 
 
 
 Campbell et al (2015) investigated the cost-benefit ratios of different control levels (scenarios 'control\_09', 'control\_11', 'control_D09'), with or without the inclusion of new technology (scenarios ending with the suffix 'Tech')  for the starling (*Sturnus vulgaris*) in Western Australia. They also evaluated whether the variation of the geographical extent of the application of control measures would alter the cost-benefit ratio of the control program (scenarios ending with the suffix 'Border' and 'SC'). Lastly,  they evaluated whether the cyclical application of intense control ('Major Reduction'), would be more cost-effective than sustaining a constant level of investment. The latter component was modelled with a ST module in Vortex, while the previous were developed using the standard Vortex interface.
@@ -129,7 +129,7 @@ lineplot.st.classic <- line_plot_year(data=woylie.st.classic, project="Pacioni_e
 Here you go, changes of population size through time are now plotted. Clearly this plot is a mess as it is not very legible with so many scenarios. However, note that this can still be useful to give an overview and that getting this from within Vortex would have required lots of clicking (especially if you have many populations and you want to plot each of them separately rather than the metapopulation. That being said, you are not happy yet, and decide to focus on the first 50 years of the simulation and 
 include in a second plot only scenarios where the adult mortality is different from the baseline scenario (of course you don't know which variables in this Vortex project control the mortality rates, but it is safe to assume that you'd know this in your own project, so for now just trust us on this).
 
-Likely, it is very easy to subset a data.frame based on parameter values or specific scenarios. To demonstrate this point, we include in the second plot only scenarios where the adult mortality (which is codified in the VOrtex project as state variable "SV2") is different from the baseline scenarios. Note how the call limits the year to be plotted to 50 with the argument ```yrmid``` .
+Likely, it is very easy to subset a data.frame based on parameter values or specific scenarios. To demonstrate this point, we include in the second plot only scenarios where the adult mortality (which is codified in the Vortex project as state variable "SV2") is different from the baseline scenarios. Note how the call limits the year to be plotted to 50 with the argument ```yrmid``` .
 ```{r, fig.height=4, fig.width=7}
 lineMidPlot.st.classic <- line_plot_year_mid(woylie.st.classic[woylie.st.classic$SV2 > 1, ], 
                                              project="Pacioni_et_al", scenario="ST_Classic", 
@@ -152,7 +152,15 @@ The second element of the list includes the same data, but these are averaged ac
 yr.st.classic[[2]][1:5, 1:7, with=FALSE]
 ```
 
-Lastly, the following creates a summary of the parameter' values used in the ST module that was collated before (e.g. SV1, SV2...) and user-made population variables (e.g. PS1, PS2...) requested with the argument ```SVs```.
+Pacioni et al (in prep) defined the recovery rate as the mean growth rate over a period of five years (20 Vortex time-units) and used this as indication of the capacity of the population to recover from low density. You can calculate this parameter with the function ```rRec``` starting from the data generated with the function ```collate_dat```. The output is a table of the mean recovery rate calculated between yr0 and yrt. This function also conducts statistical pairwise comparisons with a baseline scenario (the 'Base' scenario if the simulations were run with a ST module, or the scenarion indicated in the argument ```scenario```) using the Strictly Standardised Mean Differece --- SSMD (if you want to have more details on this statistic, just scroll down to the detailed description of ```pairwise``` where we explain it). In case, this may be useful for you, here is a demonstration of how it works:  
+
+```{r}
+rec_rate <- rRec(data=woylie.st.classic, project="Pacioni_et_al", scenario="ST_Classic",
+                  ST=TRUE, runs=3, yr0=1, yrt=20, save2disk=FALSE)
+rec_rate[, c(2:4, 7:8), with=FALSE]
+```
+
+To facilitate to give all these analyses some sense, the following creates a summary of the parameter' values used in the ST module that was collated before (e.g. SV1, SV2...) and user-made population variables (e.g. PS1, PS2...) requested with the argument ```SVs```.
 ```{r}
 lkup.st.classic <- lookup_table(data=woylie.st.classic, project="Pacioni_et_al",
                    scenario="ST_Classic", pop="Population 1",
@@ -197,9 +205,9 @@ pairw[[3]]
 
 and to make it easier, we round the p-values to the fourth decimal digit.
 ```{r}
-pval<-pairw[[3]]
-pval$SSMD_Nall120<-round(pval$SSMD_Nall120, 4)
-pval$SSMD_Het120<-round(pval$SSMD_Het120, 4)
+pval <- pairw[[3]]
+pval$SSMD_Nall120 <- round(pval$SSMD_Nall120, 4)
+pval$SSMD_Het120 <- round(pval$SSMD_Het120, 4)
 pval
 ```
 
@@ -214,6 +222,7 @@ Interestingly, the effects of these parameters, in terms of changes in the demog
 ```{r}
 pairw[[12]][[2]][c(1:2, 21:22, 24:25)]
 ```
+
 
 Once you have done all this, you decide that you want to move to more advanced statistics and evaluate the main and interaction effects of some of the parameters used in the simulations. After all, we have run a Latin hypercube sampling exactly to be able to do this!  
 
@@ -249,7 +258,8 @@ scatter.plot <- m_scatter(data=stdat.ST_LHS.no.base[1:33], data_type="dat",
 scatter.plot
 ```
 
-If we are happy with how the simulations were carried out, we can go ahead and carry out the analysis. In this example, ```fit_regression``` will fit a GLM. Just before the beginning of the search for the best model(s), a summary of the dependent variable is printed on the screen so that the user can check whether there is any problem or error. For the same reason, the distribution of the dependent variable is plotted.
+If we are happy with how the simulations were carried out, we can go ahead and carry out the analysis. In this example, ```fit_regression``` will fit a GLM. Just before the beginning of the search for the best model(s), a summary of the dependent variable is printed on the screen so that the user can check whether there is any problem or error. For the same reason, the distribution of the dependent variable is plotted. In this example, it is clear that there are lots of zeros and this is an example where you would stop the calculations and move to a different approach. Indeed, in the paper, we did use a zero-inflated model, but because here we are simply demonstrating the use of ```fit_regression```, we will ignore this and go ahead.  
+
 ```{r, fig.align='center', fig.width=4}
 reg <- fit_regression(data=lrun.ST_LHS.no.base, lookup=lkup.ST_LHS, census=F,
                   project="Pacioni_et_al", scenario="ST_LHS", popn=1,
@@ -296,7 +306,18 @@ The plot of model averaged importance of terms:
 plot(reg, type="s")
 ```
 
-In this case though, all terms have a model-averaged importance of 1.
+In this case though, all terms have a model-averaged importance of 1.  
+
+
+Another parameter that it is generally of interest is the probability of extinction. Vortex reports this probability on a per-year basis, however, you may be interested in the cumulative probability of extinction. That is, the probability that your population may go extinct in any moment during the simulations. ```vortexR``` can calculate this with the function ```Pextinction```. This function takes as input the long format of the run data and returns a list where the first element is a summary table with the mean probability of extinction and a statistical comparison with the base. The second element of the list is a table with each iteration where extinction is coded as one (and zero for no extinction). For brevity, here we only print out the first element.
+
+```{r}
+Pext <- Pextinct(data=run[[2]], project="Pacioni_et_al",
+               scenario="ST_LHS", ST=TRUE, save2disk=FALSE)
+Pext[[1]]
+```
+
+Note that in this example, SSMD has little meaning because the base scenario in the LHS simulations was set in a way that it would go extinct in all simulations (we were not interested in pairwise comparisons with this data) and given the limited number of replicates, most scenarios either go extinct or not with 100% probability so that SSMD is either NaN or Inf. Hopefully, though this helped you to have an idea of how this function works.
 
 ***
 
@@ -309,7 +330,7 @@ In this case though, all terms have a model-averaged importance of 1.
 setwd("C:/Users/VOutput")
 ```
 
-You can access the help file for all functions typing ```?function_name```, where *function_name* is, of course, the name of the function. Here, you can also find all arguments that a function can take. We describe below arguments that affect the functonalities and leave for granted the others (e.g. ```dir_in```, ```dir_out```, ```verbose```, ```save2disk```). 
+You can access the help file for all functions typing ```?function_name```, where *function_name* is, of course, the name of the function. Here, you can also find all arguments that a function can take. We describe below arguments that affect the functionalities and leave for granted the others (e.g. ```dir_in```, ```dir_out```, ```verbose```, ```save2disk```). 
 
 
 ## Data handling
@@ -613,7 +634,7 @@ Lacy, R. C., and J. P. Pollak. 2013. VORTEX: a stochastic simulation of the exti
 
 M Dowle, T Short, S Lianoglou, and A. S. w. c. f. R. S. a. E. Antonyan. 2014. data.table: Extension of data.frame. R package version 1.9.2. http://CRAN.R-project.org/package=data.table.  
 
-Pacioni, C., Williams, M., Lacy, R.C., Spencer, P.B.S., and Wayne, A.F. (in review) Predators and genetic fitness: key threatening factors for the conservation of bettong species. Pacific Concervation Biology. 
+Pacioni, C., Williams, M., Lacy, R.C., Spencer, P.B.S., and Wayne, A.F. (in review) Predators and genetic fitness: key threatening factors for the conservation of bettong species. Pacific Conservation Biology. 
 
 Palstra, F.P., and Fraser, D.J. (2012) Effective/census population size ratio estimation: a compendium and appraisal. Ecology and evolution 2(9), 2357-2365.  
 
