@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 style_memo.txt
 ^.*\.back
+^\.travis\.yml$
