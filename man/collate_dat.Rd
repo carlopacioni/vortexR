@@ -52,13 +52,17 @@ on screen.
 }
 \examples{
 # Using Campbell et al. and Pacioni et al. example files.
-# See ?pacioni and ?campbell for more details on example files.
 camp.dir <- system.file("extdata", "campbell", package="vortexR")
-pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 
 # Campbell example, project "Starlingv3PopBased" (.dat)
 starling <- collate_dat("Starlingv3PopBased", 10000,
             dir_in=camp.dir, save2disk=FALSE)
+
+# Pacioni et al. example files. See ?pacioni.zip for more details.
+# Copy and unzip files in a temp directory
+example_file <- system.file("extdata", "pacioni.zip", package="vortexR")
+pac.dir <- tempdir()
+unzip(example_file, exdir = pac.dir)
 
 # Read data from all .stdat of the project 'Pacioni_et_al' and the ST scenario
 #   'ST_Classic' and store the output in the object 'woylie.st.classic'
@@ -78,5 +82,8 @@ woylie.lhs <- collate_dat("Pacioni_et_al", 3, scenario = "ST_LHS",
 woylie.lhs <- collate_dat("Pacioni_et_al", 3, scenario = "ST_LHS",
            dir_in = pac.dir)
 }
+
+# Clean up
+unlink(pac.dir, recursive = TRUE)
 }
 

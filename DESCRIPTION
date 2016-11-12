@@ -4,7 +4,7 @@ Title: Post Vortex Simulation Analysis
 Description: vortexR facilitates Post Vortex Simulation Analysis by offering
     tools to collate multiple Vortex (v10) output files into one R object, and
     analyse the collated output statistically.
-Version: 0.1.0.9000
+Version: 0.2.0.9000
 Date: 12-11-2016
 Authors@R: as.person(c(
     "Carlo Pacioni <C.Pacioni@Murdoch.edu.au> [aut, cre]",

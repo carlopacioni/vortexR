@@ -22,9 +22,14 @@ A data.frame with data from one .dat or .stdat file and
 data within as one data.frame.
 }
 \examples{
-# Pacioni et al. example files. See ?pacioni for more details.
-pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+# Pacioni et al. example files. See ?pacioni.zip for more details.
+# Copy and unzip files in a temp directory
+example_file <- system.file("extdata", "pacioni.zip", package="vortexR")
+pac.dir <- tempdir()
+unzip(example_file, exdir = pac.dir)
 f <- paste0(pac.dir, "/", "Pacioni_et_al_ST_Classic(Base).stdat")
 one.st.classic <- collate_one_dat(f, 3)
+# Clean up
+unlink(pac.dir, recursive = TRUE)
 }
 
