@@ -59,8 +59,8 @@ The main section of this manual (i.e. after you have finished reading this intro
 ## A brief description of the example data
 When you install ```vortexR``` a few files are also copied that can be used to run the example presented here and in the package documentation.  
 
-Pacioni et al. (in prep) developed a baseline PVA model for the woylie (*Bettongia penicillata*). Then they conducted a sensitivity analysis by varying the carrying capacity, the mortality rates for each age class (by multiplying them by a factor from 2 to 6), the standard deviation of these rates (expressed as a proportion of the mean, range 0.1-0.3), the mate monopolization and the initial population size. Then they looked at the individual impact of each of these parameters (in what we called a classic approach where each parameter is modified, one at the time) as well as at their interaction. For the latter, they needed to vary these parameters concurrently, and they used the ST module in Vortex with a Latin Hypercube Sampling. When ```vortexR```  is installed, a zipped folder (named  *pacioni.zip*) is created where several Vortex outputs from the project described above are copied. The project file that was used to generate them is also contained in the folder. Running the following line will locate the path where these files are contained.
-```{r eval=FALSE}
+Pacioni et al. (in prep) developed a baseline PVA model for the woylie (*Bettongia penicillata*). Then they conducted a sensitivity analysis by varying the carrying capacity, the mortality rates for each age class (by multiplying them by a factor from 2 to 6), the standard deviation of these rates (expressed as a proportion of the mean, range 0.1-0.3), the mate monopolization and the initial population size. Then they looked at the individual impact of each of these parameters (in what we called a classic approach where each parameter is modified, one at the time) as well as at their interaction. For the latter, they needed to vary these parameters concurrently, and they used the ST module in Vortex with a Latin Hypercube Sampling. When ```vortexR```  is installed, a folder (named  *pacioni*) is created where several Vortex outputs from the project described above are copied. The project file that was used to generate them is also contained in the folder. Running the following line will locate the path where these files are contained.
+```{r}
 pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 ```
 
@@ -101,17 +101,10 @@ OK, you have set up your Vortex project and have been staring at the screen watc
 
 We will walk you through this exact process using the example data described above.
 
-First, we load ```vortexR``` and unzip the files in a temporary folder  
+First, we load ```vortexR```. Then, running the following code will read the data from all .stdat files of the Vortex project and consolidate them in one data.frame. Because a Sensitivity Test module (ST) was used to generate the outputs, also the name of the ST scenario needs to be indicated. The consolidated dataset is stored in the object ```woylie.st.classic``` and the first five rows and fist five columns are printed so you can have an idea of what happened. Note that default behaviour from ```vortexR``` is to save the results to disk in two formats, as a text file and as a R object (.RData) -- plots are saved in .RData and PDF format -- however, we disabled this feature with ```save2Disk=FALSE```.
+ 
 ```{r}
 library(vortexR)
-example_file <- system.file("extdata", "pacioni.zip", package="vortexR")
-pac.dir <- tempdir()
-unzip(example_file, exdir = pac.dir)
-
-```
-
-Then, running the following code will read the data from all .stdat files of the Vortex project and consolidate them in one data.frame. Because a Sensitivity Test module (ST) was used to generate the outputs, also the name of the ST scenario needs to be indicated. The consolidated dataset is stored in the object ```woylie.st.classic``` and the first five rows and fist five columns are printed so you can have an idea of what happened. Note that default behaviour from ```vortexR``` is to save the results to disk in two formats, as a text file and as a R object (.RData) -- plots are saved in .RData and PDF format -- however, we disabled this feature with ```save2Disk=FALSE```.
-```{r}
 woylie.st.classic <- collate_dat("Pacioni_et_al", 3, scenario = "ST_Classic",
                             dir_in = pac.dir, save2disk=FALSE, verbose=FALSE)
 woylie.st.classic[1:5, 1:5]
@@ -234,14 +227,12 @@ run <- collate_run(project="Pacioni_et_al", scenario="ST_LHS", 1, dir_in=pac.dir
 lrun.ST_LHS.no.base <- run[[2]][!run[[2]]$Scenario == "ST_LHS(Base)", ]
 ```
 
-We also need to prepare a data.frame to match the scenarios with the parameter values used to set the simulations. We do that with ```lookup_table``` (we have to do this because we are using data collected in the .run Vortex outputs --- N --- and these do not contained the 'SV' variables used to run the simulations. To obtain the latter, we use the .stdat files):
+We also need to prepare a data.frame to match the scenarios with the parameter values used to set the simulations. We do that with ```lookup_table``` (we have to do this because we are using data collected in the .run Vortex outputs --- N --- and these do not contained the 'SV' variables used to run the simulations. To obtain the latter, we use the .stdat files). To save space, ```vortexR``` comes with the collated .stdat files in order to reduce the size of the package, so there is no need to run ```collate_dat``` for the LHS simulations, but we can directly load the data.
 ```{r}
-# Collate all .stdat 
-stdat.ST.LHS <- collate_dat("Pacioni_et_al", 3, scenario = "ST_LHS",
-                            dir_in = pac.dir, save2disk=FALSE, verbose=FALSE)
-
+# Load the already collated .stdat data
+data(pac.lhs)
 # Remove base scenario
-stdat.ST_LHS.no.base <- stdat.ST.LHS[!stdat.ST.LHS$scen.name == "ST_LHS(Base)", ]
+stdat.ST_LHS.no.base <- pac.lhs[!pac.lhs$scen.name == "ST_LHS(Base)", ]
 
 # Create the lookup table
 lkup.ST_LHS <- lookup_table(data=stdat.ST_LHS.no.base, project="Pacioni_et_al",
@@ -357,6 +348,7 @@ The two elements of the list are written separately to disk (when ```save2disk=T
 An example, using Pacioni et al. (in prep) example files (see ```?pacioni``` or above for more details) is :
 ```{r}
 library(data.table, quietly=TRUE)
+pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 
 # Run collate_yr on all .yr of the project 'Pacioni_et_al' and the ST scenario
 # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'
@@ -590,10 +582,6 @@ NeNRatio <- data.table(Scenario = NeStacked[ , Scenario],
          NeNRatio = NeStacked[, Ne]/NadultAll[, Nad])
 ```
 
-Lastly, we clean up the files in the temporary folder:  
-```{r}
-unlink(pac.dir, recursive = TRUE)
-```
 <br>
 
 <br>
@@ -612,7 +600,7 @@ Some of the codes included in ```vortexR``` were initially developed by CP as pa
 # References
 Calcagno, V., and C. de Mazancourt. 2010. glmulti: an R package for easy automated model selection with (generalized) linear models. Journal of Statistical Software 34:1-29.  
 
-Campbell, S., Roberts, E.J., Craemer, R., Pacioni, C., Rollins, L., and Woolnough, A.P. (2016) Assessing the economic benefits of starling detection and control to Western Australia. Australasian Journal of Environmental Management. in press. 
+Campbell, S., Roberts, E.J., Craemer, R., Pacioni, C., Rollins, L., and Woolnough, A.P. (2016) Assessing the economic benefits of starling detection and control to Western Australia. Australasian Journal of Environmental Management. 23, 81-99. 
 
 Conroy, S. D. S., and B. W. Brook. 2003. Demographic sensitivity and persistence of the threatened white- and orange-bellied frogs of Western Australia. Population Ecology 45:105-114.  
 

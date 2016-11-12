@@ -5,9 +5,7 @@ context("test collate")
 test_that("test collate_dat", {
   # dir
   camp.dir <- system.file("extdata", "campbell", package="vortexR")
-  example_file <- system.file("extdata", "pacioni.zip", package="vortexR")
-  pac.dir <- tempdir()
-  unzip(example_file, exdir = pac.dir)
+  pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 
 
   # load data
@@ -22,16 +20,11 @@ test_that("test collate_dat", {
 
   expect_equal(starling , sta.main)
   expect_equal(woylie.st.classic, pac.clas)
-  unlink(pac.dir, recursive = TRUE)
-
 })
 
 test_that("test collate_run", {
   # dir
-  example_file <- system.file("extdata", "pacioni.zip", package="vortexR")
-  pac.dir <- tempdir()
-  unzip(example_file, exdir = pac.dir)
-
+    pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 
   # load data
   data(pac.run.lhs)
@@ -39,15 +32,11 @@ test_that("test collate_run", {
                                dir_in = pac.dir, save2disk=FALSE, verbose=FALSE)
 
   expect_equal(woylie.st.run, pac.run.lhs)
-  unlink(pac.dir, recursive = TRUE)
-
 })
 
 test_that("test collate_yr", {
   # dir
-    example_file <- system.file("extdata", "pacioni.zip", package="vortexR")
-    pac.dir <- tempdir()
-    unzip(example_file, exdir = pac.dir)
+    pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 
   # load data
   data(pac.yr)
@@ -55,6 +44,4 @@ test_that("test collate_yr", {
                                dir_in = pac.dir, save2disk=FALSE, verbose=FALSE)
 
   expect_equal(woylie.yr, pac.yr)
-  unlink(pac.dir, recursive = TRUE)
-
 })

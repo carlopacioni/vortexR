@@ -210,9 +210,9 @@ NULL
 #------------------------------------------------------------------------------#
 # Data - Raw Vortex outputs
 #------------------------------------------------------------------------------#
-#' @name pacioni.zip
+#' @name pacioni
 #' @title Raw Vortex outputs from Pacioni et al. (in prep)
-#' @description A zipped folder with Vortex outputs from Pacioni et al. (in prep) used
+#' @description A folder with Vortex outputs from Pacioni et al. (in prep) used
 #'  to run examples and Vortex project file. NOTE: these simulations are shorter
 #'  than those presented in the paper (only 3 runs for 120 'Vortex-years').
 #' @usage
@@ -365,15 +365,10 @@ CompileIter <- function (iter, filename, n_rows, iter_ln, lines, header) {
 #'  population/scenario names as factors
 #' @export
 #' @examples
-#' # Pacioni et al. example files. See ?pacioni.zip for more details.
-#' # Copy and unzip files in a temp directory
-#' example_file <- system.file("extdata", "pacioni.zip", package="vortexR")
-#' pac.dir <- tempdir()
-#' unzip(example_file, exdir = pac.dir)
+#' # Pacioni et al. example files. See ?pacioni for more details.
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 #' f <- paste0(pac.dir, "/", "Pacioni_et_al_ST_Classic(Base).stdat")
 #' one.st.classic <- collate_one_dat(f, 3)
-#' # Clean up
-#' unlink(pac.dir, recursive = TRUE)
 collate_one_dat <- function(filename, runs, verbose=FALSE){
 
   if (verbose) {message(cat("INFO vortexR::collate_one_dat parsing", filename))}
@@ -475,39 +470,27 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #' @export
 #' @examples
 #' # Using Campbell et al. and Pacioni et al. example files.
+#' # See ?pacioni and ?campbell for more details on example files.
 #' camp.dir <- system.file("extdata", "campbell", package="vortexR")
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 #'
 #' # Campbell example, project "Starlingv3PopBased" (.dat)
 #' starling <- collate_dat("Starlingv3PopBased", 10000,
 #'             dir_in=camp.dir, save2disk=FALSE)
-#'
-#' # Pacioni et al. example files. See ?pacioni.zip for more details.
-#' # Copy and unzip files in a temp directory
-#' example_file <- system.file("extdata", "pacioni.zip", package="vortexR")
-#' pac.dir <- tempdir()
-#' unzip(example_file, exdir = pac.dir)
 #'
 #' # Read data from all .stdat of the project 'Pacioni_et_al' and the ST scenario
 #' #   'ST_Classic' and store the output in the object 'woylie.st.classic'
 #' woylie.st.classic <- collate_dat("Pacioni_et_al", 3, scenario = "ST_Classic",
 #'                      dir_in = pac.dir, save2disk=FALSE)
 #'
-#' # Read data from all .stdat of the project 'Pacioni_et_al' and the ST scenario
-#' #   'ST_LHS' and store the output in the object 'woylie.lhs'
-#' woylie.lhs <- collate_dat("Pacioni_et_al", 3, scenario = "ST_LHS",
-#'            dir_in = pac.dir, save2disk=FALSE)
-#'
 #' # Save collated data as .Rda and .txt
 #' \dontrun{
 #' # Read data from all .stdat of the project 'Pacioni_et_al' and the ST scenario
-#' #   'ST_LHS' and store the output in the object 'woylie.lhs' and save output
-#' # to disk
-#' woylie.lhs <- collate_dat("Pacioni_et_al", 3, scenario = "ST_LHS",
-#'            dir_in = pac.dir)
+#' #   'ST_Classic'. Store the output in the object 'woylie.st.classic' and save
+#' #   to disk
+#' woylie.st.classic <- collate_dat("Pacioni_et_al", 3, scenario = "ST_Classic",
+#'                      dir_in = pac.dir, save2disk=TRUE)
 #' }
-#'
-#' # Clean up
-#' unlink(pac.dir, recursive = TRUE)
 
 collate_dat <- function(project=NULL, runs,
                         scenario=NULL,
@@ -568,20 +551,13 @@ collate_dat <- function(project=NULL, runs,
 #'   Vortex files and lrun, where the same data are re-arranged in long format
 #' @export
 #' @examples
-#' # Pacioni et al. example files. See ?pacioni.zip for more details.
-#' # Copy and unzip files in a temp directory
-#' example_file <- system.file("extdata", "pacioni.zip", package="vortexR")
-#' pac.dir <- tempdir()
-#' unzip(example_file, exdir = pac.dir)
-#'
+#' # Using Pacioni et al. example files. See ?pacioni for more details.
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+
 #' # Run collate_run on all .run of the project 'Pacioni_et_al' and
 #  # the ST scenario 'ST_LHS' in the selected folder and tore the result in 'run'
 #' run <- collate_run("Pacioni_et_al", "ST_LHS", 1, dir_in=pac.dir,
 #'                    save2disk=FALSE)
-#'
-#' # Clean up
-#' unlink(pac.dir, recursive = TRUE)
-
 collate_run <- function(project=NULL,
                         scenario=NULL,
                         npops=1,
@@ -680,19 +656,13 @@ collate_run <- function(project=NULL,
 #' @import data.table
 #' @export
 #' @examples
-#' # Pacioni et al. example files. See ?pacioni.zip for more details.
-#' # Copy and unzip files in a temp directory
-#' example_file <- system.file("extdata", "pacioni.zip", package="vortexR")
-#' pac.dir <- tempdir()
-#' unzip(example_file, exdir = pac.dir)
+#' # Using Pacioni et al. example files. See ?pacioni for more details.
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 #'
 #' # Run collate_yr on all .yr of the project 'Pacioni_et_al' and the ST scenario
 #' # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'
 #' yr.st.classic <- collate_yr(project="Pacioni_et_al", scenario="ST_Classic",
 #'                             dir_in = pac.dir, save2disk=FALSE)
-#'
-#' # Clean up
-#' unlink(pac.dir, recursive = TRUE)
 collate_yr <-  function(project=NULL,
                         scenario=NULL,
                         npops_noMeta=1,

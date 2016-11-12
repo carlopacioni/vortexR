@@ -46,17 +46,10 @@ When \code{verbose=TRUE} the progress (i.e. the file being read) is reported
 on screen.
 }
 \examples{
-# Pacioni et al. example files. See ?pacioni.zip for more details.
-# Copy and unzip files in a temp directory
-example_file <- system.file("extdata", "pacioni.zip", package="vortexR")
-pac.dir <- tempdir()
-unzip(example_file, exdir = pac.dir)
-
+# Using Pacioni et al. example files. See ?pacioni for more details.
+pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 # Run collate_run on all .run of the project 'Pacioni_et_al' and
 run <- collate_run("Pacioni_et_al", "ST_LHS", 1, dir_in=pac.dir,
                    save2disk=FALSE)
-
-# Clean up
-unlink(pac.dir, recursive = TRUE)
 }
 
