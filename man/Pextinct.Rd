@@ -2,9 +2,9 @@
 % Please edit documentation in R/Pext.R
 \name{Pextinct}
 \alias{Pextinct}
-\title{Cumulitive probability of extinction at the end of the simulation}
+\title{Cumulative probability of extinction at the end of the simulation}
 \usage{
-Pextinct(data, project, scenario, ST = TRUE, save2disk = TRUE,
+Pextinct(data, project, scenario, ST = FALSE, save2disk = TRUE,
   dir_out = "DataAnalysis/Pextinct")
 }
 \arguments{
@@ -25,13 +25,13 @@ or not (FALSE, default)}
 }
 \value{
 A list with two elements, a table (\code{data.table}) with the mean
-Pext and its SD, the SSMD and its associated p-value for each scenario and
-population, and a table (\code{data.table}) for each iteration where exctinction
-is coded as one (and zero for no extinction)
+  Probability of extinction and its SD, the SSMD and its associated p-value
+  for each scenario and population, and a table (\code{data.table}) with each
+  iteration where extinction is coded as one (and zero for no extinction)
 }
 \description{
-\code{Pextinct} calculates the cumulitive probability of extinction at the
-by calculating the proportion of runs in which a population goes extinct for
+\code{Pextinct} calculates the cumulative probability of extinction at the by
+calculating the proportion of runs in which a population goes extinct for
 each scenario.
 }
 \details{
@@ -46,7 +46,8 @@ Pext <- Pextinct(pac.run.lhs[[2]], project="Pacioni_et_al", scenario="ST_Classic
              ST=TRUE, save2disk=FALSE, dir_out="DataAnalysis/Pextinct")
 }
 \references{
-Zhang, X. D. 2007. A pair of new statistical parameters for quality control
-in RNA interference high-throughput screening assays. Genomics 89:552-561.
+Zhang, X. D. 2007. A pair of new statistical parameters for
+  quality control in RNA interference high-throughput screening assays.
+  Genomics 89:552-561.
 }
 

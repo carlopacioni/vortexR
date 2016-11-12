@@ -2,10 +2,10 @@
 % Please edit documentation in R/rRec.R
 \name{rRec}
 \alias{rRec}
-\title{Calculate the mean recovery rate (Pacioni et al in pres) and compare
+\title{Calculate the mean recovery rate (Pacioni et al in prep) and compare
 scenarios}
 \usage{
-rRec(data, project, scenario, ST = TRUE, runs, yr0 = 1, yrt,
+rRec(data, project, scenario, ST = FALSE, runs, yr0 = 1, yrt,
   save2disk = TRUE, dir_out = "DataAnalysis/rRec")
 }
 \arguments{
@@ -37,7 +37,7 @@ and its associated p-value for each scenario and population
 \code{rRec} calculates the mean and standard deviation growth rate between
 the time \code{yr0} and \code{yrt}, which was defined as 'recovery rate' by
 Pacioni et al (in press). The function then calculates the strictly
-sandardised mean difference (SSMD, Zhang 2007) for each scenario, and each population
+standardised mean difference (SSMD, Zhang 2007) for each scenario, and each population
 contained in the data. \code{rRec} uses this statistic to compare each scenario
 (providing associated p-values) with a baseline scenario.
 }
