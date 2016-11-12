@@ -61,7 +61,7 @@ Campbell et al. (2016). Assessing the economic benefits of starling
  detection and control to Western Australia. Australasian Journal of
  Environmental Management, 23, 81-99.
 
-Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
  Predators and genetic fitness: key threatening factors for the conservation
  of bettong species. Pacific Conservation Biology.
 }

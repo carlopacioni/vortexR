@@ -50,7 +50,7 @@
 #'  detection and control to Western Australia. Australasian Journal of
 #'  Environmental Management, 23, 81-99.
 #'
-#' Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#' Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 #'
@@ -114,7 +114,7 @@ NULL
 #'   \code{collate_dat}.
 #' @usage data(pac.clas)
 #' @format a \code{data.frame} of 2904 observations of 68 variables.
-#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 #'   Predators and genetic fitness: key threatening factors for the conservation
 #'   of bettong species. Pacific Conservation Biology.
 NULL
@@ -127,7 +127,7 @@ NULL
 #'  "ST_LHS" (.stdat files), were collated with \code{collate_dat}.
 #' @usage data(pac.lhs)
 #' @format A \code{data.frame} of 6171 observations of 68 variables.
-#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
@@ -141,7 +141,7 @@ NULL
 #' @usage data(pac.run.lhs)
 #' @format A named list of two \code{data.frame}s:
 #'   run (153 obs, 7 var), lrun (153 obs, 8 var).
-#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
@@ -155,7 +155,7 @@ NULL
 #' @usage data(pac.yr)
 #' @format A named list of two \code{element}s:
 #'   all (8712 obs, 26 var), means (2904 obs, 25 var).
-#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
@@ -167,7 +167,7 @@ NULL
 #' sizes using \code{Nadults}.
 #' @usage data(pac.clas.Nadults)
 #' @format A \code{data.frame} with 24 observations of 4 variables.
-#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
@@ -179,7 +179,7 @@ NULL
 #' sizes using \code{Ne}.
 #' @usage data(pac.clas.Ne)
 #' @format A \code{data.frame} with 24 observations of 2 variables.
-#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
@@ -191,7 +191,7 @@ NULL
 #' sizes using \code{lookup_table}.
 #' @usage data(pac.clas.lookup)
 #' @format A \code{data.frame} with 24 observations of 8 variables.
-#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
@@ -202,7 +202,7 @@ NULL
 #' in the sensitivity test scenario "ST_Classic" using \code{pairwise}.
 #' @usage data(pac.clas.pairw)
 #' @format A named list of 12 \code{element}s. See documentation for details.
-#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
@@ -219,7 +219,7 @@ NULL
 #' # To retrieve the path to the files use:
 #' # system.file("extdata", "pacioni", package="vortexR")
 #' @format One .xml file and several .run and .stdat files.
-#' @source Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL

@@ -5,7 +5,7 @@
 \title{Collated results from Vortex scenarios - Pacioni et al. (in prep)}
 \format{A \code{data.frame} of 6171 observations of 68 variables.}
 \source{
-Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
  Predators and genetic fitness: key threatening factors for the conservation
  of bettong species. Pacific Conservation Biology.
 }

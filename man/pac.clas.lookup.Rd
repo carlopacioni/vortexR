@@ -5,7 +5,7 @@
 \title{Look-up table}
 \format{A \code{data.frame} with 24 observations of 8 variables.}
 \source{
-Pacioni, C., Spencer, P.B.S., Lacy, R.C., and Wayne, A.F. (in prep)
+Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
  Predators and genetic fitness: key threatening factors for the conservation
  of bettong species. Pacific Conservation Biology.
 }
