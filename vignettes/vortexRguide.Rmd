@@ -1,7 +1,7 @@
 ---
 title: "vortexR: user's guide"
 author: "Carlo Pacioni and Florian Mayer"
-date: "12 November 2016"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{vortexR: user's guide}
