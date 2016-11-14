@@ -152,7 +152,7 @@ The second element of the list includes the same data, but these are averaged ac
 yr.st.classic[[2]][1:5, 1:7, with=FALSE]
 ```
 
-Pacioni et al (in prep) defined the recovery rate as the mean growth rate over a period of five years (20 Vortex time-units) and used this as indication of the capacity of the population to recover from low density. You can calculate this parameter with the function ```rRec``` starting from the data generated with the function ```collate_dat```. The output is a table of the mean recovery rate calculated between yr0 and yrt. This function also conducts statistical pairwise comparisons with a baseline scenario (the 'Base' scenario if the simulations were run with a ST module, or the scenarion indicated in the argument ```scenario```) using the Strictly Standardised Mean Differece --- SSMD (if you want to have more details on this statistic, just scroll down to the detailed description of ```pairwise``` where we explain it). In case, this may be useful for you, here is a demonstration of how it works:  
+Pacioni et al (in prep) defined the recovery rate as the mean growth rate over a period of five years (20 Vortex time-units) and used this as indication of the capacity of the population to recover from low density. You can calculate this parameter with the function ```rRec``` starting from the data generated with the function ```collate_dat```. The output is a table of the mean recovery rate calculated between ```yr0``` and ```yrt```. This function also conducts statistical pairwise comparisons with a baseline scenario (the 'Base' scenario if the simulations were run with a ST module, or the scenario indicated in the argument ```scenario```) using the Strictly Standardised Mean Differece --- SSMD (if you want to have more details on this statistic, just scroll down to the detailed description of ```pairwise``` where we explain it). In case this may be useful for you, here is a demonstration of how it works:  
 
 ```{r}
 rec_rate <- rRec(data=woylie.st.classic, project="Pacioni_et_al", scenario="ST_Classic",
@@ -160,7 +160,7 @@ rec_rate <- rRec(data=woylie.st.classic, project="Pacioni_et_al", scenario="ST_C
 rec_rate[, c(2:4, 7:8), with=FALSE]
 ```
 
-To facilitate to give all these analyses some sense, the following creates a summary of the parameter' values used in the ST module that was collated before (e.g. SV1, SV2...) and user-made population variables (e.g. PS1, PS2...) requested with the argument ```SVs```.
+To give all these analyses some sense, the following creates a summary of the parameter' values used in the ST module that was collated before (e.g. SV1, SV2...) and user-made population variables (e.g. PS1, PS2...) requested with the argument ```SVs```.
 ```{r}
 lkup.st.classic <- lookup_table(data=woylie.st.classic, project="Pacioni_et_al",
                    scenario="ST_Classic", pop="Population 1",
@@ -309,15 +309,15 @@ plot(reg, type="s")
 In this case though, all terms have a model-averaged importance of 1.  
 
 
-Another parameter that it is generally of interest is the probability of extinction. Vortex reports this probability on a per-year basis, however, you may be interested in the cumulative probability of extinction. That is, the probability that your population may go extinct in any moment during the simulations. ```vortexR``` can calculate this with the function ```Pextinction```. This function takes as input the long format of the run data and returns a list where the first element is a summary table with the mean probability of extinction and a statistical comparison with the base. The second element of the list is a table with each iteration where extinction is coded as one (and zero for no extinction). For brevity, here we only print out the first element.
+Another parameter that it is generally of interest is the probability of extinction. Vortex reports this probability on a per-year basis, however, you may be interested in the cumulative probability of extinction. That is, the probability that your population may go extinct in any moment during the simulations. ```vortexR``` can calculate this with the function ```Pextinction```. This function takes as input the long format of the run data and returns a list where the first element is a summary table with the mean probability of extinction and a statistical comparison with a baseline scenario (the 'Base' scenario if the simulations were run with a ST module, or the scenario indicated in the argument ```scenario```). The second element of the list is a table with each iteration where extinction is coded as one (and zero for no extinction). For brevity, here we only print out the first element.
 
 ```{r}
 Pext <- Pextinct(data=run[[2]], project="Pacioni_et_al",
                scenario="ST_LHS", ST=TRUE, save2disk=FALSE)
-Pext[[1]]
+head(Pext[[1]][, c(2:4, 7:8)])
 ```
 
-Note that in this example, SSMD has little meaning because the base scenario in the LHS simulations was set in a way that it would go extinct in all simulations (we were not interested in pairwise comparisons with this data) and given the limited number of replicates, most scenarios either go extinct or not with 100% probability so that SSMD is either NaN or Inf. Hopefully, though this helped you to have an idea of how this function works.
+Note that in this example, SSMD has little meaning because the base scenario in the LHS simulations was set in a way that it would go extinct in all simulations (we were not interested in pairwise comparisons with this data) and given the limited number of replicates in the example data, most scenarios either go extinct or not with 100% probability so that SSMD is either NaN or Inf. Hopefully, though this helped you to have an idea of how this function works.
 
 ***
 
@@ -602,6 +602,9 @@ NeNRatio <- data.table(Scenario = NeStacked[ , Scenario],
          Population = NeStacked[ , Population], 
          NeNRatio = NeStacked[, Ne]/NadultAll[, Nad])
 ```
+
+### rRec & Pextinct 
+Examples for these functions are above in the **A quick run down** section, and because their use is quite straight foward, we won't repeat them here. You can type ```?rRec``` or ```Pextinct``` if you want to access these functions' help files.  
 
 <br>
 
