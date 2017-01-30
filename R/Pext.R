@@ -49,7 +49,7 @@ Pextinct <- function(data, project, scenario, ST=FALSE, save2disk=TRUE,
     setnames(Base, c("Pext", "SD"), c("base", "SDbase"))
     extTable <- merge(extTable, Base, by="Population")
     extTable[, SSMD := (base - Pext) / sqrt(SD^2 + SDbase^2)]
-    extTable[, pvalues := vortexR:::pval(SSMD)]
+    extTable[, pvalues := vortexR::pval(SSMD)]
 
     if (save2disk == T) {
         # write results

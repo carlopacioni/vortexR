@@ -1673,7 +1673,6 @@ pairwise <-  function(data=NULL,
   naming.coef <- function(naming) paste("SC", "_", naming, yr, sep="")
   naming.ssmd <- function(naming.ssmd)
                       paste("SSMD", "_", naming.ssmd, yr, sep="")
-  pval <- function(x) pnorm(abs(x), lower.tail=FALSE)
   kend <- function(tab.ranks) {
       k <- irr::kendall(tab.ranks[, - c(1:2), with=FALSE], TRUE)
       return(k)

@@ -66,7 +66,7 @@ rRec <- function(data, project, scenario, ST=FALSE, runs, yr0=1, yrt,
   setnames(Base, c("rRec", "SD"), c("base", "SDbase"))
   rTable <- merge(rTable, Base, by="Population")
   rTable[, SSMD := (rRec - base) / sqrt(SD^2 + SDbase^2)]
-  rTable[, pvalues := vortexR:::pval(SSMD)]
+  rTable[, pvalues := vortexR::pval(SSMD)]
 
   if (save2disk == T) {
     # write results
