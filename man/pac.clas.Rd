@@ -19,4 +19,3 @@ Subset (only 3 runs) of data from Pacioni et al. (in prep) used
   sensitivity test scenario "ST_Classic" (.stdat files), were collated with
   \code{collate_dat}.
 }
-

@@ -19,4 +19,3 @@ Data from Pacioni et al. (in prep) used to conduct a sensitivity
  "Pacioni_et_al" and (Single-Factor) sensitivity test scenario "ST_Classic"
  (.yr files), were collated with \code{collate_yr}.
 }
-

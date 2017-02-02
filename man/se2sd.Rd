@@ -17,4 +17,3 @@ The standard deviation of the values
 \description{
 Standard Error from a vector
 }
-

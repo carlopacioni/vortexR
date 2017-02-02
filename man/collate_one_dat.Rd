@@ -27,4 +27,3 @@ pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 f <- paste0(pac.dir, "/", "Pacioni_et_al_ST_Classic(Base).stdat")
 one.st.classic <- collate_one_dat(f, 3)
 }
-

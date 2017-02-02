@@ -21,4 +21,3 @@ A character vector of fully qualified file paths
 \description{
 File names are sorted using gtools::mixedsort().
 }
-

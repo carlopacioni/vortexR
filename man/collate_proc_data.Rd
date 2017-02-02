@@ -38,4 +38,3 @@ data(sta.main, sta.evy5, sta.evy5.b11)
 dfs <- list(sta.main, sta.evy5, sta.evy5.b11)
 combined <- collate_proc_data(dfs, save2disk=FALSE)
 }
-

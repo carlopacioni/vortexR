@@ -17,4 +17,3 @@ Data from Pacioni et al. (in prep) - sensitivity test scenario
 "ST_Classic" - were used to calculate the effective population size
 sizes using \code{Ne}.
 }
-

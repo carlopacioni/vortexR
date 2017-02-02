@@ -16,4 +16,3 @@ Campbell et al. (2016). Assessing the economic benefits of starling
 \description{
 A folder with Vortex outputs from Campbell et al (2016).
 }
-

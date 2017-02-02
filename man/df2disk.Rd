@@ -30,4 +30,3 @@ my.folder <- paste0(getwd(), "/test")
 df2disk(df=my.df, dirpath=getwd(), fname="testname")
 df2disk(df=my.df, dirpath=my.folder, fname="testname", postfix="_testpostfix")
 }
-

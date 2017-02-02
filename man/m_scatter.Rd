@@ -64,4 +64,3 @@ scatter.plot <- m_scatter(data=pac.lhs.no.base[1:33], data_type="dat",
                           vs=c("SV1", "SV2", "SV3"),
                           save2disk=FALSE)
 }
-

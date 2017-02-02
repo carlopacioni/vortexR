@@ -18,4 +18,3 @@ A folder with Vortex outputs from Pacioni et al. (in prep) used
  to run examples and Vortex project file. NOTE: these simulations are shorter
  than those presented in the paper (only 3 runs for 120 'Vortex-years').
 }
-

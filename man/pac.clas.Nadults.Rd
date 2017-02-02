@@ -17,4 +17,3 @@ Data from Pacioni et al. (in prep) - sensitivity test scenario
 "ST_Classic" - were used to calculate the harmonic mean of adults and population
 sizes using \code{Nadults}.
 }
-

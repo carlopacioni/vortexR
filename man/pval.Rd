@@ -20,4 +20,3 @@ A numeric vector of length equal to length(x)
  z <- c(1.645, 1.96, 3.09)
  pval(z)
 }
-

@@ -50,4 +50,3 @@ data(pac.clas)
 NeAll <- Ne(data=pac.clas, scenarios="all", gen=2.54, yr0=50, yrt=120,
          save2disk=FALSE)
 }
-

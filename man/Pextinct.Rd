@@ -50,4 +50,3 @@ Zhang, X. D. 2007. A pair of new statistical parameters for
   quality control in RNA interference high-throughput screening assays.
   Genomics 89:552-561.
 }
-

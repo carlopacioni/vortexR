@@ -26,4 +26,3 @@ A data.frame
 Compile iterations from one .yr file and add a column with scenario names and
 one with iteration number
 }
-

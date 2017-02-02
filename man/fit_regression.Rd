@@ -177,4 +177,3 @@ of Statistical Software 34:1-29.
 Cribari-Neto, F., and Zeileis, A. (2010) Beta regression in R. Journal of
 Statistical Software 34(2).
 }
-

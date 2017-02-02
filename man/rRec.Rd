@@ -70,4 +70,3 @@ in RNA interference high-throughput screening assays. Genomics 89:552-561.
 Pacioni, C., and Mayer, F. (in prep). vortexR: an R package for post Vortex
 simulation analysis.
 }
-

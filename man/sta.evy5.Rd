@@ -19,4 +19,3 @@ A dataset with the results from Vortex scenarios used in
  "Starlingv3PopBased" and the sensitivity test scenario "MReductEvy5"
  (.stdat files), were collated with \code{collate_dat}.
 }
-

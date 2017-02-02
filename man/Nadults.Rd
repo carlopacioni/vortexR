@@ -54,4 +54,3 @@ data(pac.yr)
 NadultAll <- Nadults(data=pac.yr[[2]], scenarios="all", gen=2.54, yr0=50, yrt=120,
              save2disk=FALSE)
 }
-

@@ -74,4 +74,3 @@ woylie.st.classic <- collate_dat("Pacioni_et_al", 3, scenario = "ST_Classic",
                      dir_in = pac.dir, save2disk=TRUE)
 }
 }
-

@@ -43,4 +43,3 @@ lineplot.st.classic <- line_plot_year(data=pac.clas, project="Pacioni_et_al",
                        params=c("PExtinct", "Nextant", "Het", "Nalleles"),
                        save2disk=FALSE)
 }
-

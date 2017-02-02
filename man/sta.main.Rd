@@ -17,4 +17,3 @@ A dataset with the results from the main Vortex scenarios used
  in Campbell et al (2016). Vortex outputs, from the project named
  "Starlingv3PopBased" (.dat files), were collated with \code{collate_dat}.
 }
-

@@ -56,4 +56,3 @@ lkup.st.classic <- lookup_table(data=pac.clas, project="Pacioni_et_al",
                    SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
                    save2disk=FALSE)
 }
-

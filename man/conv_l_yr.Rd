@@ -51,4 +51,3 @@ provided.
 data(pac.yr)
 lyr.classic <- conv_l_yr(pac.yr[[1]] , yrs=c(60, 120), save2disk=FALSE)
 }
-

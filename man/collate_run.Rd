@@ -52,4 +52,3 @@ pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 run <- collate_run("Pacioni_et_al", "ST_LHS", 1, dir_in=pac.dir,
                    save2disk=FALSE)
 }
-

@@ -16,4 +16,3 @@ PrefixAndRepeat(chars, times = 1, prefix = "")
 \description{
 Return a prefixed and repeated string of character
 }
-

@@ -49,4 +49,3 @@ lineMidPlot.st.classic <- line_plot_year_mid(data=pac.clas,
                           params=c("PExtinct", "Nextant", "Het", "Nalleles"),
                           save2disk=FALSE)
 }
-

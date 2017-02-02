@@ -17,4 +17,3 @@ Data from Pacioni et al. (in prep) - sensitivity test scenario
 "ST_Classic" - were used to generate a look-up table
 sizes using \code{lookup_table}.
 }
-

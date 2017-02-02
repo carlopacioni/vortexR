@@ -57,4 +57,3 @@ dot <- dot_plot(data=pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
                params=c("PExtinct", "Nextant", "Het", "Nalleles"),
                save2disk=FALSE)
 }
-

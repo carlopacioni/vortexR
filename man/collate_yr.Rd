@@ -56,4 +56,3 @@ pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 yr.st.classic <- collate_yr(project="Pacioni_et_al", scenario="ST_Classic",
                             dir_in = pac.dir, save2disk=FALSE)
 }
-
