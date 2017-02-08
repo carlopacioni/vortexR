@@ -142,7 +142,7 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #'                      dir_in = pac.dir, save2disk=TRUE)
 #' }
 
-collate_dat <- function(project=NULL, runs,
+collate_dat <- function(project, runs,
                         scenario=NULL,
                         dir_in=NULL,
                         save2disk=TRUE,
@@ -208,8 +208,8 @@ collate_dat <- function(project=NULL, runs,
 #  # the ST scenario 'ST_LHS' in the selected folder and tore the result in 'run'
 #' run <- collate_run("Pacioni_et_al", "ST_LHS", 1, dir_in=pac.dir,
 #'                    save2disk=FALSE)
-collate_run <- function(project=NULL,
-                        scenario=NULL,
+collate_run <- function(project,
+                        scenario,
                         npops=1,
                         dir_in=NULL,
                         save2disk=TRUE,
@@ -313,8 +313,8 @@ collate_run <- function(project=NULL,
 #' # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'
 #' yr.st.classic <- collate_yr(project="Pacioni_et_al", scenario="ST_Classic",
 #'                             dir_in = pac.dir, save2disk=FALSE)
-collate_yr <-  function(project=NULL,
-                        scenario=NULL,
+collate_yr <-  function(project,
+                        scenario,
                         npops_noMeta=1,
                         dir_in=NULL,
                         save2disk=TRUE,
@@ -415,7 +415,7 @@ collate_yr <-  function(project=NULL,
 #' dfs <- list(sta.main, sta.evy5, sta.evy5.b11)
 #' combined <- collate_proc_data(dfs, save2disk=FALSE)
 
-collate_proc_data <- function(data=NULL,
+collate_proc_data <- function(data,
                               save2disk=TRUE,
                               dir_out="ProcessedData"){
 
@@ -457,11 +457,11 @@ collate_proc_data <- function(data=NULL,
 #' # Using Pacioni et al. example data. See ?pac.yr for more details.
 #' data(pac.yr)
 #' lyr.classic <- conv_l_yr(pac.yr[[1]] , yrs=c(60, 120), save2disk=FALSE)
-conv_l_yr <- function(data=NULL,
+conv_l_yr <- function(data,
                       npops_noMeta=1,
                       appendMeta=FALSE,
-                      project=NULL,
-                      scenario=NULL,
+                      project,
+                      scenario,
                       yrs=c(1, 2),
                       save2disk=TRUE,
                       dir_out="ProcessedData") {
@@ -557,9 +557,9 @@ conv_l_yr <- function(data=NULL,
 #'                    scenario="ST_Classic", pop="Population 1",
 #'                    SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
 #'                    save2disk=FALSE)
-lookup_table <-  function(data=NULL,
-                          project=NULL,
-                          scenario=NULL,
+lookup_table <-  function(data,
+                          project,
+                          scenario,
                           pop="Population 1",
                           SVs=c("SV1"),
                           save2disk=TRUE,

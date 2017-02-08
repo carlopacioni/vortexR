@@ -4,8 +4,8 @@
 \alias{m_scatter}
 \title{Generates a matrix of scatter plots}
 \usage{
-m_scatter(data = NULL, data_type = "dat", lookup = NA, yr = 1,
-  popn = 1, param = "N", vs = NA, save2disk = TRUE, fname = NULL,
+m_scatter(data, data_type = "dat", lookup = NA, yr = 1, popn = 1,
+  param = "N", vs = NA, save2disk = TRUE, fname = NULL,
   dir_out = "Plots")
 }
 \arguments{

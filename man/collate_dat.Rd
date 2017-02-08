@@ -4,7 +4,7 @@
 \alias{collate_dat}
 \title{Collate Vortex .dat or .stdat output files into one data.frame}
 \usage{
-collate_dat(project = NULL, runs, scenario = NULL, dir_in = NULL,
+collate_dat(project, runs, scenario = NULL, dir_in = NULL,
   save2disk = TRUE, dir_out = "ProcessedData", verbose = TRUE)
 }
 \arguments{
