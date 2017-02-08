@@ -21,7 +21,6 @@
 #' @param dir_out The local path to store the output. Default: Plots
 #' @return Line plot(s)
 #' @import ggplot2
-#' @import grid
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
@@ -114,7 +113,6 @@ line_plot_year <- function(data=NULL,
 #' @inheritParams line_plot_year
 #' @return Line plot(s)
 #' @import ggplot2
-#' @import grid
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
@@ -219,7 +217,6 @@ line_plot_year_mid <-  function(data=NULL,
 #' @inheritParams line_plot_year
 #' @return Dot plots of mean parameter values with standard deviation
 #' @import ggplot2
-#' @import grid
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
@@ -342,6 +339,7 @@ dot_plot <- function(data=NULL,
 #' @inheritParams line_plot_year
 #' @return A matrix of scatter plots
 #' @import data.table
+#' @importFrom GGally ggpairs
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.lhs for more details.

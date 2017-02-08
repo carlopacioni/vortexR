@@ -295,6 +295,7 @@ Nadults <- function (data=NULL,
 #' in RNA interference high-throughput screening assays. Genomics 89:552-561.
 #'
 #' @import data.table
+#' @importFrom irr kendall
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
@@ -744,7 +745,9 @@ pairwise <-  function(data=NULL,
 #'
 #' Cribari-Neto, F., and Zeileis, A. (2010) Beta regression in R. Journal of
 #' Statistical Software 34(2).
-#' @import glmulti data.table betareg
+#' @import data.table
+#' @importFrom betareg betareg.fit
+#' @importFrom glmulti glmulti
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.run.lhs and ?pac.lhs for more

@@ -58,7 +58,7 @@ pval <- function(x) pnorm(abs(x), lower.tail=FALSE)
 #' @param pattern A pattern to match file names
 #' @param fn_name The vortexR function name for verbose messages
 #' @param verbose Progress messages, default: FALSE
-#' @import gtools
+#' @importFrom gtools mixedsort
 #' @return A character vector of fully qualified file paths
 get_file_paths <- function(path, pattern, fn_name, verbose=FALSE){
     files <- gtools::mixedsort(list.files(path=path,
