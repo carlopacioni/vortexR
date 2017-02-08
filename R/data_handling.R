@@ -192,8 +192,7 @@ collate_dat <- function(project, runs,
 #' When \code{verbose=TRUE} the progress (i.e. the file being read) is reported
 #' on screen.
 #'
-#' @param project The Vortex project name to be imported
-#' @param scenario The scenario name, default: NULL
+#' @param scenario The scenario name
 #' @param npops The total number of simulated populations including the
 #'   metapopulation
 #' @inheritParams collate_dat
@@ -295,7 +294,6 @@ collate_run <- function(project,
 #' When \code{verbose=TRUE} the progress (i.e. the file being read) is reported
 #' on screen.
 #'
-#' @param project The Vortex project name to be imported
 #' @param scenario The scenario name, default: NULL
 #' @param npops_noMeta The total number of populations excluding the metapopulation,
 #' default: 1

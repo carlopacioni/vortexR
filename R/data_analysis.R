@@ -721,7 +721,6 @@ pairwise <-  function(data,
 #' together with the (missing) variables needed to fit the regression models
 #' @param census Whether the input is census data
 #' @param yr The year that has to be used in the analysis if census=TRUE
-#' @param project Vortex project name
 #' @param scenario Vortex scenario name
 #' @param popn The sequential number of the population (in integer)
 #' @param param The dependent variable
@@ -735,9 +734,9 @@ pairwise <-  function(data,
 #' @param set_size Value to be used in confsetsize (from \code{\link[glmulti]{glmulti}}
 #'  The number of models to be looked for, i.e. the size of the returned confidence
 #' set.)
-#' @param save2disk Whether to save the output to disk, default: TRUE
 #' @param dir_out The local path to store the output.
 #'  Default: DataAnalysis/FitRegression
+#' @inheritParams pairwise
 #' @return A \code{glmulti} object with the best models found.
 #' @references Calcagno, V., and C. de Mazancourt. 2010. glmulti: an R package
 #' for easy automated model selection with (generalized) linear models. Journal

@@ -22,7 +22,7 @@ together with the (missing) variables needed to fit the regression models}
 
 \item{yr}{The year that has to be used in the analysis if census=TRUE}
 
-\item{project}{Vortex project name}
+\item{project}{The Vortex project name}
 
 \item{scenario}{Vortex scenario name}
 

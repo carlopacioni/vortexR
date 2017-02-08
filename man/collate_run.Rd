@@ -10,7 +10,7 @@ collate_run(project, scenario, npops = 1, dir_in = NULL, save2disk = TRUE,
 \arguments{
 \item{project}{The Vortex project name to be imported}
 
-\item{scenario}{The scenario name, default: NULL}
+\item{scenario}{The scenario name}
 
 \item{npops}{The total number of simulated populations including the
 metapopulation}
