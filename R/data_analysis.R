@@ -336,7 +336,7 @@ pairwise <-  function(data,
   suppressWarnings(if (!yrs == "max" & !is.numeric(yrs))
     stop("invalid value(s) for 'yrs' "))
 
-  fname <- if (ST == TRUE) {
+  fname <- if (ST) {
     paste(project, "_", scenario, sep="")
   } else {
     project
@@ -346,7 +346,7 @@ pairwise <-  function(data,
   suppressWarnings(if (yrs == "max") {yrs <- max(data$Year)})
 
   # set group.mean if needed
-  if (ST == TRUE & type == "Single-Factor" & length(SVs) > 1) {group.mean <- T}
+  if (ST & type == "Single-Factor" & length(SVs) > 1) {group.mean <- T}
 
   # Set up headings for params and SE and SD
   params <- make.names(params)
@@ -357,7 +357,7 @@ pairwise <-  function(data,
   if ("r.stoch" %in% params) {SD["r.stoch"] <- "SD.r."}
 
   # Create a dataframe for the base scenario.
-  if (ST == TRUE ) {
+  if (ST) {
     select.base <- data$scen.name == (paste(scenario, "(Base)", sep=""))
     stbase <- subset(data, select.base)
     scen.name.base <- paste(scenario, "(Base)", sep="")
@@ -541,7 +541,7 @@ pairwise <-  function(data,
                  ranks.SSMD=ranks.ssmd,
                  Kendall=kendall.out)
   # if group.mean == TRUE calculate the mean for each SV and rank SVs
-  if (group.mean == TRUE) {
+  if (group.mean) {
 
     # Calculate mean sensitivity coefficients and mean ssdm
     subpopsstdat <- subset(data, (Year == 0 & !scen.name == scen.name.base))
