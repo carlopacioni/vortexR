@@ -170,7 +170,7 @@ collate_dat <- function(project=NULL, runs,
         if (verbose){message(filename, "\r")}
         d <- rbind(d, collate_one_dat(filename, runs))
     }
-    if (save2disk == T) {df2disk(d, dir_out, fname, "_data")}
+    if (save2disk) {df2disk(d, dir_out, fname, "_data")}
     return(d)
 }
 
@@ -268,7 +268,7 @@ collate_run <- function(project=NULL,
     h <- c("Scenario", h)
     names(run) <- h # replace heading in run
 
-    if (save2disk == T) {
+    if (save2disk) {
         df2disk(run, dir_out, fname, "_run")
         df2disk(lrun, dir_out, fname, "_lrun")
     }
@@ -380,7 +380,7 @@ collate_yr <-  function(project=NULL,
     censusMeansDT <- censusAll[ , lapply(.SD, mean), by="Scenario,Year"]
     censusMeansDT <- censusMeansDT[ , Iteration := NULL]
 
-    if (save2disk == TRUE) {
+    if (save2disk) {
         df2disk(censusAll, dir_out, fname, "_census")
         df2disk(censusMeansDT, dir_out, fname, "_census_means")
     }
@@ -422,7 +422,7 @@ collate_proc_data <- function(data=NULL,
     # TODO use data.table::rbindlist
     dfs <- plyr::rbind.fill(data)
 
-    if (save2disk == T) {df2disk(dfs, dir_out, "CombinedDB")}
+    if (save2disk) {df2disk(dfs, dir_out, "CombinedDB")}
 
     return(dfs)
 }
@@ -491,7 +491,7 @@ conv_l_yr <- function(data=NULL,
     lcensus <- rbindlist(tldata)
 
     # If more than one pop, do Metapopulation calculations and rbind
-    if (npops_noMeta > 1 & appendMeta == T) {
+    if (npops_noMeta > 1 & appendMeta) {
         message("Doing calculations for Metapopulation...")
         message("Please wait...")
 
@@ -512,7 +512,7 @@ conv_l_yr <- function(data=NULL,
         message("Done!")
     }
 
-    if (save2disk == T) {
+    if (save2disk) {
         df2disk(lcensus, dir_out, paste0(project, "_", scenario), "_lcensus")
     }
     return(lcensus)
@@ -576,7 +576,7 @@ lookup_table <-  function(data=NULL,
     LookUpT <- LookUpT[J(pop, 0), c("scen.name", SVs), with=FALSE]
     setnames(LookUpT, "scen.name", "Scenario")
 
-    if(save2disk == T) {
+    if(save2disk) {
         df2disk(LookUpT, dir_out, fname, "_LookUpT")
     }
     return(LookUpT)

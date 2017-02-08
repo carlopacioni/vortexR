@@ -53,8 +53,8 @@ Ne <-  function(data=NULL,
           # From yr0+gen
           t0 <- round(yr0 + gen)
           tf <- yrt
-          Gt0 <- stdatDT[J(scenario, t0), "Het", with=F]
-          Gtf <- stdatDT[J(scenario, tf), "Het", with=F]
+          Gt0 <- stdatDT[J(scenario, t0), "Het", with=FALSE]
+          Gtf <- stdatDT[J(scenario, tf), "Het", with=FALSE]
           t <- (tf - t0) / gen
           sq <- (Gtf[ , Het] / Gt0[ , Het] )^(1 / t)
           den <- sq - 1
@@ -71,7 +71,7 @@ Ne <-  function(data=NULL,
   r.Ne <- rbindlist(r.Ne)
   r.Ne <- r.Ne[ , Scenario := scenarios]
 
-  if (save2disk == T) {
+  if (save2disk) {
     df2disk(r.Ne, dir_out, fname)
   }
 
@@ -150,7 +150,7 @@ Nadults <- function (data=NULL,
   lcensusMeans <- rbindlist(tldata)
 
   # If more than one pop, do Metapopulation calculations and rbind
-  if (npops_noMeta > 1 & appendMeta == T) {
+  if (npops_noMeta > 1 & appendMeta) {
     message("Doing calculations for Metapopulation...")
     message("Please wait...")
 
@@ -191,7 +191,7 @@ Nadults <- function (data=NULL,
                               by=list(Scenario,Population)]
   message("Done!")
 
-  if (save2disk == T) {df2disk(harm.means, dir_out, fname)}
+  if (save2disk) {df2disk(harm.means, dir_out, fname)}
   return(harm.means)
 }
 
@@ -522,14 +522,14 @@ pairwise <-  function(data=NULL,
   kendall.out$SSMD <- capture.output(
                       cat("Rank comparison of SSMD", "\n"),
                       lapply(ranks.ssmd.fin, kend))
-  if (save2disk == T) {
+  if (save2disk) {
     # write results
     df2disk(table.coef, dir_out, fname, ".coef.table")
     df2disk(ssmd.table, dir_out, fname, ".SSMD.table")
     df2disk(ssmd.table.pvalues, dir_out, fname, ".SSMD.table.pvalues")
     df2disk(ranks.sc, dir_out, fname, ".ranks.sc")
     df2disk(ranks.ssmd, dir_out, fname, ".ranks.SSMD")
-    capture.output(print(kendall.out, quote=F),
+    capture.output(print(kendall.out, quote=FALSE),
                    file=paste0(dir_out, "/", fname,".kendall.txt"))
   }
   # Collate results in a list
@@ -640,13 +640,13 @@ pairwise <-  function(data=NULL,
                       print("Rank comparison of mean SSMD"),
                       lapply(ranks.mssmd.fin, kend))
 
-    if (save2disk == T) {
+    if (save2disk) {
       df2disk(mean.coef.table, dir_out, fname, ".mean.coef.table")
       df2disk(mean.ssmd.table, dir_out, fname, ".mean.SSMD.table")
       df2disk(mean.ssmd.table.pvalues, dir_out, fname, ".mean.SSMD.table.pvalues")
       df2disk(ranks.msc, dir_out, fname, ".ranks.mSC")
       df2disk(ranks.mssmd, dir_out, fname, ".ranks.mSSMD")
-      capture.output(print(kendall.mean.out, quote=F),
+      capture.output(print(kendall.mean.out, quote=FALSE),
                      file=paste0(dir_out, "/", fname, ".Kendall.means.txt"))
     }
 
@@ -852,7 +852,7 @@ fit_regression <-  function(data=NULL,
   data <- data.table(data)
 
   # select yr if census and create pop vector
-  if (census == T) {
+  if (census) {
     # Select the yr
     setkey(data, Year)
     data <- data[J(yr), ]
@@ -879,13 +879,13 @@ fit_regression <-  function(data=NULL,
   # rather than a vector (as it does with GeneDiv)
   paramvalues <- data[[param]]
   name <- paste(project, scenario, param, sep="_")
-  if (save2disk == T) {
+  if (save2disk) {
     dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
     pdf(paste0(dir_out, "/", paste(name, "histogram.pdf", sep="_")))
   }
 
   hist(paramvalues,  main=paste("Histogram of", param), xlab=param)
-  if (save2disk == T) {dev.off()}
+  if (save2disk) {dev.off()}
 
   message(paste("summary of", param))
   print(summary(paramvalues))
@@ -930,7 +930,7 @@ fit_regression <-  function(data=NULL,
     tnp <- system.time(best.mod <- do.call("glmulti",
                                            list(glm1, family=fam, crit=ic,
                                                method=m, confsetsize=set_size,
-                                               plotty=F, report=F, level=l,
+                                               plotty=FALSE, report=FALSE, level=l,
                                                name=name, na.action=na.omit)))
   } else {
     message("Fitting a beta regression...")
@@ -968,7 +968,7 @@ fit_regression <-  function(data=NULL,
     tnp <- system.time(best.mod <- do.call("glmulti",
                                            list(formula, data=data,  crit=ic,
                                                 method=m, confsetsize=set_size,
-                                                plotty=F, report=F, level=l,
+                                                plotty=FALSE, report=FALSE, level=l,
                                                 name=name, fitfunc=betareg,
                                                 link=links[linkpos],
                                                 na.action=na.omit)))
@@ -976,7 +976,7 @@ fit_regression <-  function(data=NULL,
   message("Done! Elapsed time:")
   print (tnp)
 
-  if (save2disk == T) {
+  if (save2disk) {
     message("Best models saved to disk in the file ...best.mod.rda")
     save(best.mod, file=paste0(dir_out, "/", name, "_best.mod.rda"))
     pdf(paste0(dir_out, "/", name, "_IC_plot.pdf"))

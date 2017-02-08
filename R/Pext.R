@@ -29,14 +29,14 @@
 
 Pextinct <- function(data, project, scenario, ST=FALSE, save2disk=TRUE,
                      dir_out="DataAnalysis/Pextinct") {
-    fname <- if (ST == TRUE) {
+    fname <- if (ST) {
         paste(project, "_", scenario, sep="")
     } else {
         project
     }
     data <- data.table(data)
 
-    if (ST == TRUE ) {
+    if (ST ) {
         scenario <- grep("(Base)", data[, unique(Scenario)], value=TRUE)
     }
 
@@ -51,7 +51,7 @@ Pextinct <- function(data, project, scenario, ST=FALSE, save2disk=TRUE,
     extTable[, SSMD := (base - Pext) / sqrt(SD^2 + SDbase^2)]
     extTable[, pvalues := vortexR::pval(SSMD)]
 
-    if (save2disk == T) {
+    if (save2disk) {
         # write results
         df2disk(extTable, dir_out, fname, ".PextTable")
         df2disk(data, dir_out, fname, ".withExt")

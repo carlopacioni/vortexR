@@ -45,13 +45,13 @@
 rRec <- function(data, project, scenario, ST=FALSE, runs, yr0=1, yrt,
                  save2disk=TRUE, dir_out="DataAnalysis/rRec") {
 
-  fname <- if (ST == TRUE) {
+  fname <- if (ST) {
     paste(project, "_", scenario, sep="")
   } else {
     project
   }
   data <- data.table(data)
-  if (ST == TRUE ) {
+  if (ST ) {
     scenario <- grep("(Base)", data[, unique(scen.name)], value=TRUE)
   }
   setkey(data, Year)
@@ -68,7 +68,7 @@ rRec <- function(data, project, scenario, ST=FALSE, runs, yr0=1, yrt,
   rTable[, SSMD := (rRec - base) / sqrt(SD^2 + SDbase^2)]
   rTable[, pvalues := vortexR::pval(SSMD)]
 
-  if (save2disk == T) {
+  if (save2disk) {
     # write results
     df2disk(rTable, dir_out, fname, ".rTable")
   }

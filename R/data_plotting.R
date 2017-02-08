@@ -69,7 +69,7 @@ line_plot_year <- function(data=NULL,
 
     r.line_plot_year <- list()
     i <- 0
-    if (save2disk == T) {
+    if (save2disk) {
         dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
         pdf(paste(dir_out, "/", fname_root, "_", "YearVsParams.pdf", sep=""))
     }
@@ -89,7 +89,7 @@ line_plot_year <- function(data=NULL,
         assign(paste(root, "_", "plot", sep=""), g)
     }
 
-    if (save2disk == T) {
+    if (save2disk) {
         dev.off()
         save(list=(ls(pattern=paste(fname_root, "_", ".*", "_", "plot", sep=""))),
              file=paste(dir_out, "/", fname_root, "_", "YearVsParams.rda", sep=""))
@@ -165,7 +165,7 @@ line_plot_year_mid <-  function(data=NULL,
 
     r.line_plot_year_mid <- list()
     i <- 0
-    if (save2disk == T) {
+    if (save2disk) {
         dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
         pdf(paste0(dir_out, "/", fname_root, "_", "YearMidVsParams.pdf"))
     }
@@ -186,7 +186,7 @@ line_plot_year_mid <-  function(data=NULL,
         assign(paste(root, "_", "Mid", "plot", sep=""), g)
     }
     pat <- paste0(fname_root, "_", ".*", "_", "Mid", "plot")
-    if (save2disk == T) {
+    if (save2disk) {
         dev.off()
         save(list=(ls(pattern=pat)),
              file=paste0(dir_out, "/", fname_root, "_", "YearMidVsParams.rda"))
@@ -274,7 +274,7 @@ dot_plot <- function(data=NULL,
     popstdat <- subset(data, pop.name %in% plotpops)
 
     r.dot_plot <- list()
-    if (save2disk == TRUE) {
+    if (save2disk) {
         dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
         pdf(paste(dir_out, "/", fname_root, "_", "dot_plots.pdf", sep=""))
     }
@@ -307,7 +307,7 @@ dot_plot <- function(data=NULL,
         r.dot_plot[[i]] <- d
     }
     pat <- paste0(fname_root, "_", ".*", "_", "dot_plot")
-    if (save2disk == T) {
+    if (save2disk) {
         dev.off()
         save(list=(ls(pattern=pat)),
              file=paste0(dir_out, "/", fname_root, "_", "dot_plots.rda"))
@@ -406,7 +406,7 @@ m_scatter <- function (data=NULL,
                                 lower = list(continuous="smooth"),
                                 mapping = aes(colour="red", alpha=0.2))
 
-    if (save2disk == T) {
+    if (save2disk) {
         dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
         pdf(file=paste0(dir_out, "/", fname, "m_scatter_plots.pdf"))
         print(corrMtrx)
