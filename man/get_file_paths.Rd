@@ -13,6 +13,8 @@ get_file_paths(path, pattern, fn_name, fname, verbose = FALSE)
 
 \item{fn_name}{The vortexR function name for verbose messages}
 
+\item{fname}{Name of file name root}
+
 \item{verbose}{Progress messages, default: FALSE}
 }
 \value{
