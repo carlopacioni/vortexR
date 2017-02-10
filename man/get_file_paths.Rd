@@ -4,7 +4,7 @@
 \alias{get_file_paths}
 \title{Return file paths of files matching a pattern in a directory}
 \usage{
-get_file_paths(path, pattern, fn_name, verbose = FALSE)
+get_file_paths(path, pattern, fn_name, fname, verbose = FALSE)
 }
 \arguments{
 \item{path}{The directory to search in}
