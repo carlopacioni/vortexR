@@ -3,3 +3,4 @@
 style_memo.txt
 ^.*\.back
 ^\.travis\.yml$
+Rplots\.pdf$
