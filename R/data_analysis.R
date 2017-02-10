@@ -44,6 +44,12 @@ Ne <-  function(data=NULL,
                 save2disk=TRUE,
                 fname="Ne",
                 dir_out="DataAnalysis") {
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    Het <- NULL
+    pop.name <- NULL
+    ###########################################################################
 
   # Function definitions
   NeOne <- function(scenario) {
@@ -120,6 +126,14 @@ Nadults <- function (data,
                 save2disk=TRUE,
                 fname="Nadults",
                 dir_out="DataAnalysis") {
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    Nad  <- NULL
+    Scenario <- NULL
+    Year <- NULL
+    Population <- NULL
+    ###########################################################################
 
   # Function definitions
   HarmMean <- function(x) 1/mean(1/(x))
@@ -305,7 +319,7 @@ Nadults <- function (data,
 #'                type="Single-Factor",
 #'                SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
 #'                save2disk=FALSE)
-pairwise <-  function(data,
+    pairwise <-  function(data,
                       project,
                       scenario,
                       params=c("PExtinct", "Nextant", "Het", "Nalleles"),
@@ -316,6 +330,18 @@ pairwise <-  function(data,
                       SVs=NA,
                       save2disk=TRUE,
                       dir_out="DataAnalysis/Pairwise") {
+
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    Year <- NULL
+    pop.name <- NULL
+    scen.name <- NULL
+    Population <- NULL
+    Scenario <- NULL
+    scen.4.SV <- NULL
+    ############################################################################
+
 
   # Function definitions
   SEname <- function(par) paste("SE.", par, ".", sep="")
@@ -832,6 +858,14 @@ fit_regression <-  function(data,
                             set_size=NA,
                             save2disk=TRUE,
                             dir_out="DataAnalysis/FitRegression") {
+
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    Year <- NULL
+    Population <- NULL
+    ###########################################################################
+
   # Function definitions
 
   # Selecet method for glmulti search
@@ -943,7 +977,7 @@ fit_regression <-  function(data,
     message("Searching for the best link function...")
 
     # Preliminary fit of betw regression
-    breg <- betareg(formula, data=data, na.action=na.omit)
+    breg <- betareg::betareg(formula, data=data, na.action=na.omit)
 
     # Generate vector with AIC values for the available link functions
     linkAIC <- sapply(links, LinkTest)
@@ -954,7 +988,7 @@ fit_regression <-  function(data,
 
     # Check number of candidate models.
     cand <- do.call("glmulti", list(formula, data=data, method="d", level=l,
-                                    fitfunc=betareg, link=links[linkpos],
+                                    fitfunc=betareg::betareg, link=links[linkpos],
                                     na.action=na.omit))
 
     # This is repeated but it can't go later because I want this to be displayed
@@ -974,8 +1008,9 @@ fit_regression <-  function(data,
     tnp <- system.time(best.mod <- do.call("glmulti",
                                            list(formula, data=data,  crit=ic,
                                                 method=m, confsetsize=set_size,
-                                                plotty=FALSE, report=FALSE, level=l,
-                                                name=name, fitfunc=betareg,
+                                                plotty=FALSE, report=FALSE,
+                                                level=l, name=name,
+                                                fitfunc=betareg::betareg,
                                                 link=links[linkpos],
                                                 na.action=na.omit)))
   }

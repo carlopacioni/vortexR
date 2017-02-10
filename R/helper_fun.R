@@ -60,7 +60,7 @@ pval <- function(x) pnorm(abs(x), lower.tail=FALSE)
 #' @param verbose Progress messages, default: FALSE
 #' @importFrom gtools mixedsort
 #' @return A character vector of fully qualified file paths
-get_file_paths <- function(path, pattern, fn_name, verbose=FALSE){
+get_file_paths <- function(path, pattern, fn_name, fname, verbose=FALSE){
     files <- gtools::mixedsort(list.files(path=path,
                                           pattern=pattern,
                                           full.names=TRUE))

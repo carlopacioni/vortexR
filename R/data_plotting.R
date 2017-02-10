@@ -37,7 +37,12 @@ line_plot_year <- function(data,
                            plotpops=c("all"),
                            save2disk=TRUE,
                            dir_out="Plots") {
-
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    scen.name <- NULL
+    pop.name <- NULL
+    ###########################################################################
     if (plotpops == "all")
         plotpops <- unique(data$pop.name)
 
@@ -132,7 +137,13 @@ line_plot_year_mid <-  function(data,
                                 plotpops=c("all"),
                                 save2disk=TRUE,
                                 dir_out="Plots") {
-
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    Year <- NULL
+    pop.name <- NULL
+    scen.name <- NULL
+    ###########################################################################
     if (plotpops == "all")
         plotpops <- unique(data$pop.name)
 
@@ -235,6 +246,12 @@ dot_plot <- function(data,
                      plotpops=c("all"),
                      save2disk=TRUE,
                      dir_out="Plots") {
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    Year <- NULL
+    pop.name <- NULL
+    ###########################################################################
 
     if (plotpops == "all")
         plotpops <- unique(data$pop.name)
@@ -369,6 +386,12 @@ m_scatter <- function (data,
                        save2disk=TRUE,
                        fname=NULL,
                        dir_out="Plots") {
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    Year <- NULL
+    Population <- NULL
+    ###########################################################################
 
     # Set up headings for param
     param <- make.names(param)

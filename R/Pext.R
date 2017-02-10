@@ -29,6 +29,22 @@
 
 Pextinct <- function(data, project, scenario, ST=FALSE, save2disk=TRUE,
                      dir_out="DataAnalysis/Pextinct") {
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    YrExt <- NULL
+    Ext  <- NULL
+    Pext <- NULL
+    SD  <- NULL
+    SSMD  <- NULL
+    base  <- NULL
+    SDbase  <- NULL
+    pvalues <- NULL
+    Scenario <- NULL
+    Iteration <- NULL
+    Population <- NULL
+    ###########################################################################
+
     fname <- if (ST) {
         paste(project, "_", scenario, sep="")
     } else {

@@ -162,6 +162,7 @@ collate_dat <- function(project, runs,
     files <- get_file_paths(path=dir_in,
                             pattern=pat,
                             fn_name="collate_dat",
+                            fname=fname,
                             verbose=verbose)
 
     d <- data.frame()
@@ -224,6 +225,7 @@ collate_run <- function(project,
     files <- get_file_paths(path=dir_in,
                             pattern=paste0("^", fname,".*\\.run$"),
                             fn_name="collate_run",
+                            fname=fname,
                             verbose=verbose)
 
     if (verbose){message("vortexR::collate_run is parsing:")}
@@ -318,6 +320,13 @@ collate_yr <-  function(project,
                         save2disk=TRUE,
                         dir_out="ProcessedData",
                         verbose=TRUE) {
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    Year <- NULL
+    Scenario <- NULL
+    Iteration <- NULL
+    ###########################################################################
 
     if (is.null(dir_in)) {dir_in <- getwd()}
     fname <- paste0(project, "_", scenario)
@@ -325,6 +334,7 @@ collate_yr <-  function(project,
     files <- get_file_paths(path=dir_in,
                             pattern=paste0("^", fname, ".*\\.yr$"),
                             fn_name="collate_yr",
+                            fname=fname,
                             verbose=verbose)
 
     censusData <- vector(mode="list", length=length(files))
@@ -463,6 +473,14 @@ conv_l_yr <- function(data,
                       yrs=c(1, 2),
                       save2disk=TRUE,
                       dir_out="ProcessedData") {
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    Year <- NULL
+    Scenario <- NULL
+    Iteration <- NULL
+    Population <- NULL
+    ###########################################################################
 
     LongFormat <- function(numPop) {
         k <- numPop - 1
@@ -562,7 +580,12 @@ lookup_table <-  function(data,
                           SVs=c("SV1"),
                           save2disk=TRUE,
                           dir_out="ProcessedData") {
-
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    Year <- NULL
+    pop.name <- NULL
+    ###########################################################################
     fname <- if (is.null(scenario)) {
         project
     } else {

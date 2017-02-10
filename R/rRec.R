@@ -44,6 +44,23 @@
 
 rRec <- function(data, project, scenario, ST=FALSE, runs, yr0=1, yrt,
                  save2disk=TRUE, dir_out="DataAnalysis/rRec") {
+    ############################################################################
+    # Dealing with no visible global variables
+    ############################################################################
+    scen.name <-NULL
+    Year <- NULL
+    r.stoch <- NULL
+    SD.r. <- NULL
+    rruns <- NULL
+    SDruns <- NULL
+    Scenario <- NULL
+    SD <- NULL
+    Population <- NULL
+    SSMD <- NULL
+    base <- NULL
+    SDbase <- NULL
+    pvalues <- NULL
+    ###########################################################################
 
   fname <- if (ST) {
     paste(project, "_", scenario, sep="")
