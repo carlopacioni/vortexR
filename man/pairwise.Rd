@@ -46,7 +46,7 @@ A list of six elements:
   \item A data.frame with the scenario ranks based on SC and one based on SSMD
   \item The output of the Kendall's test
 }
-If \code{group_mean=T} there will be six additional elements:
+If \code{group_mean=TRUE} there will be six additional elements:
 \itemize{
   \item A data.frame with the mean SC values for each parameter
   \item A data.frame with the mean SSMD values

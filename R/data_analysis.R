@@ -272,7 +272,7 @@ Nadults <- function (data,
 #'   \item A data.frame with the scenario ranks based on SC and one based on SSMD
 #'   \item The output of the Kendall's test
 #' }
-#' If \code{group_mean=T} there will be six additional elements:
+#' If \code{group_mean=TRUE} there will be six additional elements:
 #' \itemize{
 #'   \item A data.frame with the mean SC values for each parameter
 #'   \item A data.frame with the mean SSMD values
@@ -346,7 +346,7 @@ pairwise <-  function(data,
   suppressWarnings(if (yrs == "max") {yrs <- max(data$Year)})
 
   # set group.mean if needed
-  if (ST & type == "Single-Factor" & length(SVs) > 1) {group.mean <- T}
+  if (ST & type == "Single-Factor" & length(SVs) > 1) {group.mean <- TRUE}
 
   # Set up headings for params and SE and SD
   params <- make.names(params)
