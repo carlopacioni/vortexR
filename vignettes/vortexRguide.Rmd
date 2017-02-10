@@ -59,21 +59,21 @@ The main section of this manual (i.e. after you have finished reading this intro
 ## A brief description of the example data
 When you install ```vortexR``` a few files are also copied that can be used to run the example presented here and in the package documentation.  
 
-Pacioni et al. (in prep) developed a baseline PVA model for the woylie (*Bettongia penicillata*). Then they conducted a sensitivity analysis by varying the carrying capacity, the mortality rates for each age class (by multiplying them by a factor from 2 to 6), the standard deviation of these rates (expressed as a proportion of the mean, range 0.1-0.3), the mate monopolization and the initial population size. Then they looked at the individual impact of each of these parameters (in what we called a classic approach where each parameter is modified, one at the time) as well as at their interaction. For the latter, they needed to vary these parameters concurrently, and they used the ST module in Vortex with a Latin Hypercube Sampling. When ```vortexR```  is installed, a folder (named  *pacioni*) is created where several Vortex outputs from the project described above are copied. The project file that was used to generate them is also contained in the folder. Running the following line will locate the path where these files are contained.
+Pacioni et al. (2017) developed a baseline PVA model for the woylie (*Bettongia penicillata*). Then they conducted a sensitivity analysis by varying the carrying capacity, the mortality rates for each age class (by multiplying them by a factor from 2 to 6), the standard deviation of these rates (expressed as a proportion of the mean, range 0.1-0.3), the mate monopolization and the initial population size. Then they looked at the individual impact of each of these parameters (in what we called a classic approach where each parameter is modified, one at the time) as well as at their interaction. For the latter, they needed to vary these parameters concurrently, and they used the ST module in Vortex with a Latin Hypercube Sampling. When ```vortexR```  is installed, a folder (named  *pacioni*) is created where several Vortex outputs from the project described above are copied. The project file that was used to generate them is also contained in the folder. Running the following line will locate the path where these files are contained.
 ```{r}
 pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 ```
 
-Note that the data for Pacioni et al. (in prep) are just a subset of the original (only three runs for 120 years, and only for a subset of scenarios), so your results do not match the ones reported in the original publication. 
+Note that the data for Pacioni et al. (2017) are just a subset of the original (only three runs for 120 years, and only for a subset of scenarios), so your results do not match the ones reported in the original publication. 
 
 
 Campbell et al (2015) investigated the cost-benefit ratios of different control levels (scenarios 'control\_09', 'control\_11', 'control_D09'), with or without the inclusion of new technology (scenarios ending with the suffix 'Tech')  for the starling (*Sturnus vulgaris*) in Western Australia. They also evaluated whether the variation of the geographical extent of the application of control measures would alter the cost-benefit ratio of the control program (scenarios ending with the suffix 'Border' and 'SC'). Lastly,  they evaluated whether the cyclical application of intense control ('Major Reduction'), would be more cost-effective than sustaining a constant level of investment. The latter component was modelled with a ST module in Vortex, while the previous were developed using the standard Vortex interface.
 
 
 ## Licence and Citation
-```vortexR``` and its manual are distributed free of charge under the GPL-3 licence. We only ask you to please cite the following paper if you use ```vortexR``` for your work. If you customise a ```vortexR``` script to suit your specific needs, we would appreciate if you can still cite ```vortexR```'s main reference stating something like: "we used a customised version of the script vortexR-*script-name* (Pacioni and Mayer, in prep)".
+```vortexR``` and its manual are distributed free of charge under the GPL-3 licence. We only ask you to please cite the following paper if you use ```vortexR``` for your work. If you customise a ```vortexR``` script to suit your specific needs, we would appreciate if you can still cite ```vortexR```'s main reference stating something like: "we used a customised version of the script vortexR-*script-name* (Pacioni and Mayer, 2017)".
 
-**_Pacioni C, and Mayer F. in prep. VortexR: an R package for post Vortex simulation analysis._**  
+**_Pacioni C, and Mayer F. 2017. VortexR: an R package for post Vortex simulation analysis._**  
 
 Please note that no commercial use of any part of ```vortexR``` is allowed.
 
@@ -93,7 +93,7 @@ Vortex v10 is an incredibly versatile tool that is used by ecologists and geneti
 
 We describe here a possible workflow, and present below a worked example of an analysis roughly following this workflow. Once the user has run the simulations in Vortex, there will be a collection of output files in a "VOutput" folder. A first step may be to collate the data files that are of interest into one database, so that data can be easily accessed by R or other statistical or graphic software. Different data types will require different ```vortexR``` functions. For example, with the function ```collate_dat``` the user can collate together all the .dat or .stdat files (which contain the mean parameter values across iterations) from a specific project (and scenario in case of the .stdat files). Additional Vortex output files that can be collated together are the .yr and the .run files from a ST run (using ```collate_yr``` and ```collate_run``` respectively). Secondly, the user may want to generate a number of plots to visualise general trends in the simulations and inspect whether the models behaved as expected. If everything looks OK the user may move onto the analysis of the data. ```pairwise``` will conduct pairwise comparisons (details on the statistical aspects are provided below) between all the scenarios imported into ```vortexR``` against a baseline scenario that will be automatically identified for a ST run (using the suffix appended by Vortex, 'Base') or specified by the user for a normal (non-ST) collection of scenarios. Complementary, the user may want to fit a regression model to evaluate interaction effects in addition to the main effects of the variable being investigated (```fit_regression```). Once the user has an idea of the important aspects of the analysis, he or she may select some of the previously generated plots and modify them to comply with the formatting style required for publication or use them in other documents.
 
-Collaterally, there are a number of functions to conduct calculations (e.g. calculation of effective population size), calculate the probability of extinction, the recovery rate (Pacioni et al in prep)  or further data handling that are described in more detail below. 
+Collaterally, there are a number of functions to conduct calculations (e.g. calculation of effective population size), calculate the probability of extinction, the recovery rate (Pacioni et al 2017)  or further data handling that are described in more detail below. 
 
 
 ## A quick run down
@@ -152,7 +152,7 @@ The second element of the list includes the same data, but these are averaged ac
 yr.st.classic[[2]][1:5, 1:7, with=FALSE]
 ```
 
-Pacioni et al (in prep) defined the recovery rate as the mean growth rate over a period of five years (20 Vortex time-units) and used this as indication of the capacity of the population to recover from low density. You can calculate this parameter with the function ```rRec``` starting from the data generated with the function ```collate_dat```. The output is a table of the mean recovery rate calculated between ```yr0``` and ```yrt```. This function also conducts statistical pairwise comparisons with a baseline scenario (the 'Base' scenario if the simulations were run with a ST module, or the scenario indicated in the argument ```scenario```) using the Strictly Standardised Mean Differece --- SSMD (if you want to have more details on this statistic, just scroll down to the detailed description of ```pairwise``` where we explain it). In case this may be useful for you, here is a demonstration of how it works:  
+Pacioni et al (2017) defined the recovery rate as the mean growth rate over a period of five years (20 Vortex time-units) and used this as indication of the capacity of the population to recover from low density. You can calculate this parameter with the function ```rRec``` starting from the data generated with the function ```collate_dat```. The output is a table of the mean recovery rate calculated between ```yr0``` and ```yrt```. This function also conducts statistical pairwise comparisons with a baseline scenario (the 'Base' scenario if the simulations were run with a ST module, or the scenario indicated in the argument ```scenario```) using the Strictly Standardised Mean Differece --- SSMD (if you want to have more details on this statistic, just scroll down to the detailed description of ```pairwise``` where we explain it). In case this may be useful for you, here is a demonstration of how it works:  
 
 ```{r}
 rec_rate <- rRec(data=woylie.st.classic, project="Pacioni_et_al", scenario="ST_Classic",
@@ -366,7 +366,7 @@ The second element (census\_means) has the same layout but reports the mean of e
 
 The two elements of the list are written separately to disk (when ```save2disk=TRUE```), in the folder "ProcessedData", with the suffix "\_Census" and "\_CensusMeans" respectively.
 
-An example, using Pacioni et al. (in prep) example files (see ```?pacioni``` or above for more details) is :
+An example, using Pacioni et al. (2017) example files (see ```?pacioni``` or above for more details) is :
 ```{r}
 library(data.table, quietly=TRUE)
 pac.dir <- system.file("extdata", "pacioni", package="vortexR")
