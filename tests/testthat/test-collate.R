@@ -45,3 +45,20 @@ test_that("test collate_yr", {
 
   expect_equal(woylie.yr, pac.yr)
 })
+
+test_that("test collate_proc_data", {
+    data(sta.main, sta.evy5, sta.evy5.b11)
+    dfs <- list(sta.main, sta.evy5, sta.evy5.b11)
+    combined <- collate_proc_data(dfs, save2disk=FALSE)
+
+    expect_is(combined, "data.frame")
+    expect_equal(dim(combined), c(3672, 47))
+})
+
+test_that("test con_l_yr", {
+    data(pac.yr)
+    lyr.classic <- conv_l_yr(pac.yr[[1]] , yrs=c(60, 120), save2disk=FALSE)
+
+    expect_is(lyr.classic, "data.frame")
+    expect_equal(dim(lyr.classic), c(144, 27))
+})
