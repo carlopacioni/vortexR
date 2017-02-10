@@ -8,8 +8,8 @@ test_that("test Ne", {
 
   # load data
   data(pac.clas.Ne, pac.clas)
-  suppressMessages(NeAll <- Ne(data=pac.clas, scenarios="all", gen=2.54, yr0=50, yrt=120,
-                   save2disk=FALSE))
+  suppressMessages(NeAll <- Ne(data=pac.clas, scenarios="all", gen=2.54, yr0=50,
+                               yrt=120, save2disk=FALSE))
 
 expect_equal(pac.clas.Ne , NeAll)
 })
@@ -20,8 +20,9 @@ test_that("test Nadults", {
 
   # load data
   data(pac.clas.Nadults, pac.yr)
-  suppressMessages(NadultAll <- Nadults(data=pac.yr[[2]], scenarios="all", gen=2.54, yr0=50, yrt=120,
-                       save2disk=FALSE))
+  suppressMessages(NadultAll <- Nadults(data=pac.yr[[2]], scenarios="all",
+                                        gen=2.54, yr0=50, yrt=120,
+                                        save2disk=FALSE))
 
   expect_equal(pac.clas.Nadults, NadultAll)
 })
