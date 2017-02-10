@@ -1,4 +1,4 @@
-#' Calculate the mean recovery rate (Pacioni et al in prep) and compare
+#' Calculate the mean recovery rate (Pacioni et al 2017) and compare
 #' scenarios
 #'
 #' \code{rRec} calculates the mean and standard deviation growth rate between
@@ -30,7 +30,7 @@
 #' @references Zhang, X. D. 2007. A pair of new statistical parameters for quality control
 #' in RNA interference high-throughput screening assays. Genomics 89:552-561.
 #'
-#' Pacioni, C., and Mayer, F. (in prep). vortexR: an R package for post Vortex
+#' Pacioni, C., and Mayer, F. (2017). vortexR: an R package for post Vortex
 #' simulation analysis.
 #' @import data.table
 #' @export

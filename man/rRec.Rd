@@ -2,7 +2,7 @@
 % Please edit documentation in R/rRec.R
 \name{rRec}
 \alias{rRec}
-\title{Calculate the mean recovery rate (Pacioni et al in prep) and compare
+\title{Calculate the mean recovery rate (Pacioni et al 2017) and compare
 scenarios}
 \usage{
 rRec(data, project, scenario, ST = FALSE, runs, yr0 = 1, yrt,
@@ -67,6 +67,6 @@ recov <- rRec(pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
 Zhang, X. D. 2007. A pair of new statistical parameters for quality control
 in RNA interference high-throughput screening assays. Genomics 89:552-561.
 
-Pacioni, C., and Mayer, F. (in prep). vortexR: an R package for post Vortex
+Pacioni, C., and Mayer, F. (2017). vortexR: an R package for post Vortex
 simulation analysis.
 }

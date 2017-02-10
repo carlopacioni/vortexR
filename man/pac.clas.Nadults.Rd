@@ -5,7 +5,7 @@
 \title{Harmonic mean of adults and population sizes}
 \format{A \code{data.frame} with 24 observations of 4 variables.}
 \source{
-Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
  Predators and genetic fitness: key threatening factors for the conservation
  of bettong species. Pacific Conservation Biology.
 }
@@ -13,7 +13,7 @@ Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 data(pac.clas.Nadults)
 }
 \description{
-Data from Pacioni et al. (in prep) - sensitivity test scenario
+Data from Pacioni et al. (2017) - sensitivity test scenario
 "ST_Classic" - were used to calculate the harmonic mean of adults and population
 sizes using \code{Nadults}.
 }

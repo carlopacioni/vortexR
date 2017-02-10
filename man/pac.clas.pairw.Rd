@@ -5,7 +5,7 @@
 \title{Results of pairwise comparisons of simulation scenarios}
 \format{A named list of 12 \code{element}s. See documentation for details.}
 \source{
-Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
  Predators and genetic fitness: key threatening factors for the conservation
  of bettong species. Pacific Conservation Biology.
 }

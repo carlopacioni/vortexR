@@ -2,10 +2,10 @@
 % Please edit documentation in R/vortexR_pkg_data.R
 \name{pac.clas}
 \alias{pac.clas}
-\title{Collated results from Vortex scenarios - Pacioni et al. (in prep)}
+\title{Collated results from Vortex scenarios - Pacioni et al. (2017)}
 \format{a \code{data.frame} of 2904 observations of 68 variables.}
 \source{
-Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
   Predators and genetic fitness: key threatening factors for the conservation
   of bettong species. Pacific Conservation Biology.
 }
@@ -13,7 +13,7 @@ Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 data(pac.clas)
 }
 \description{
-Subset (only 3 runs) of data from Pacioni et al. (in prep) used
+Subset (only 3 runs) of data from Pacioni et al. (2017) used
   to conduct a sensitivity analysis on demographic parameters. Vortex
   outputs, from the project named "Pacioni_et_al" and (Single-Factor)
   sensitivity test scenario "ST_Classic" (.stdat files), were collated with

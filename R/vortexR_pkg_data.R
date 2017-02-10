@@ -35,7 +35,7 @@
 #'
 #' @section Citation:
 #' If you use \code{vortexR}, please cite:
-#' Pacioni, C., and Mayer, F. (in prep). vortexR: an R package for post Vortex
+#' Pacioni, C., and Mayer, F. (2017). vortexR: an R package for post Vortex
 #' simulation analysis.
 #'
 #' @section Get in touch:
@@ -50,7 +50,7 @@
 #'  detection and control to Western Australia. Australasian Journal of
 #'  Environmental Management, 23, 81-99.
 #'
-#' Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+#' Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 #'
@@ -106,92 +106,92 @@ NULL
 NULL
 
 #' @name pac.clas
-#' @title Collated results from Vortex scenarios - Pacioni et al. (in prep)
-#' @description Subset (only 3 runs) of data from Pacioni et al. (in prep) used
+#' @title Collated results from Vortex scenarios - Pacioni et al. (2017)
+#' @description Subset (only 3 runs) of data from Pacioni et al. (2017) used
 #'   to conduct a sensitivity analysis on demographic parameters. Vortex
 #'   outputs, from the project named "Pacioni_et_al" and (Single-Factor)
 #'   sensitivity test scenario "ST_Classic" (.stdat files), were collated with
 #'   \code{collate_dat}.
 #' @usage data(pac.clas)
 #' @format a \code{data.frame} of 2904 observations of 68 variables.
-#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
 #'   Predators and genetic fitness: key threatening factors for the conservation
 #'   of bettong species. Pacific Conservation Biology.
 NULL
 
 #' @name pac.lhs
-#' @title Collated results from Vortex scenarios - Pacioni et al. (in prep)
-#' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
+#' @title Collated results from Vortex scenarios - Pacioni et al. (2017)
+#' @description Data from Pacioni et al. (2017) used to conduct a sensitivity
 #'  analysis on demographic parameters. Vortex outputs, from the project named
 #'  "Pacioni_et_al" and (Latin Hypercube Sampling) sensitivity test scenario
 #'  "ST_LHS" (.stdat files), were collated with \code{collate_dat}.
 #' @usage data(pac.lhs)
 #' @format A \code{data.frame} of 6171 observations of 68 variables.
-#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
 
 #' @name pac.run.lhs
-#' @title Collated results from Vortex scenarios - Pacioni et al. (in prep)
-#' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
+#' @title Collated results from Vortex scenarios - Pacioni et al. (2017)
+#' @description Data from Pacioni et al. (2017) used to conduct a sensitivity
 #'  analysis on demographic parameters. Vortex outputs, from the project named
 #'  "Pacioni_et_al" and (Latin Hypercube Sampling) sensitivity test scenario
 #'  "ST_LHS" (.run files), were collated with \code{collate_run}.
 #' @usage data(pac.run.lhs)
 #' @format A named list of two \code{data.frame}s:
 #'   run (153 obs, 7 var), lrun (153 obs, 8 var).
-#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
 
 #' @name pac.yr
-#' @title Collated results from Vortex scenarios - Pacioni et al. (in prep)
-#' @description Data from Pacioni et al. (in prep) used to conduct a sensitivity
+#' @title Collated results from Vortex scenarios - Pacioni et al. (2017)
+#' @description Data from Pacioni et al. (2017) used to conduct a sensitivity
 #'  analysis on demographic parameters. Vortex outputs, from the project named
 #'  "Pacioni_et_al" and (Single-Factor) sensitivity test scenario "ST_Classic"
 #'  (.yr files), were collated with \code{collate_yr}.
 #' @usage data(pac.yr)
 #' @format A named list of two \code{element}s:
 #'   all (8712 obs, 26 var), means (2904 obs, 25 var).
-#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
 
 #' @name pac.clas.Nadults
 #' @title Harmonic mean of adults and population sizes
-#' @description Data from Pacioni et al. (in prep) - sensitivity test scenario
+#' @description Data from Pacioni et al. (2017) - sensitivity test scenario
 #' "ST_Classic" - were used to calculate the harmonic mean of adults and population
 #' sizes using \code{Nadults}.
 #' @usage data(pac.clas.Nadults)
 #' @format A \code{data.frame} with 24 observations of 4 variables.
-#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
 
 #' @name pac.clas.Ne
 #' @title Effective population size
-#' @description Data from Pacioni et al. (in prep) - sensitivity test scenario
+#' @description Data from Pacioni et al. (2017) - sensitivity test scenario
 #' "ST_Classic" - were used to calculate the effective population size
 #' sizes using \code{Ne}.
 #' @usage data(pac.clas.Ne)
 #' @format A \code{data.frame} with 24 observations of 2 variables.
-#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
 
 #' @name pac.clas.lookup
 #' @title Look-up table
-#' @description Data from Pacioni et al. (in prep) - sensitivity test scenario
+#' @description Data from Pacioni et al. (2017) - sensitivity test scenario
 #' "ST_Classic" - were used to generate a look-up table
 #' sizes using \code{lookup_table}.
 #' @usage data(pac.clas.lookup)
 #' @format A \code{data.frame} with 24 observations of 8 variables.
-#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
@@ -202,7 +202,7 @@ NULL
 #' in the sensitivity test scenario "ST_Classic" using \code{pairwise}.
 #' @usage data(pac.clas.pairw)
 #' @format A named list of 12 \code{element}s. See documentation for details.
-#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL
@@ -211,15 +211,15 @@ NULL
 # Data - Raw Vortex outputs
 #------------------------------------------------------------------------------#
 #' @name pacioni
-#' @title Raw Vortex outputs from Pacioni et al. (in prep)
-#' @description A folder with Vortex outputs from Pacioni et al. (in prep) used
+#' @title Raw Vortex outputs from Pacioni et al. (2017)
+#' @description A folder with Vortex outputs from Pacioni et al. (2017) used
 #'  to run examples and Vortex project file. NOTE: these simulations are shorter
 #'  than those presented in the paper (only 3 runs for 120 'Vortex-years').
 #' @usage
 #' # To retrieve the path to the files use:
 #' # system.file("extdata", "pacioni", package="vortexR")
 #' @format One .xml file and several .run and .stdat files.
-#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+#' @source Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
 #'  Predators and genetic fitness: key threatening factors for the conservation
 #'  of bettong species. Pacific Conservation Biology.
 NULL

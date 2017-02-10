@@ -42,7 +42,7 @@ More vignettes may be come available in the future. Use
 \section{Citation}{
 
 If you use \code{vortexR}, please cite:
-Pacioni, C., and Mayer, F. (in prep). vortexR: an R package for post Vortex
+Pacioni, C., and Mayer, F. (2017). vortexR: an R package for post Vortex
 simulation analysis.
 }
 
@@ -61,7 +61,7 @@ Campbell et al. (2016). Assessing the economic benefits of starling
  detection and control to Western Australia. Australasian Journal of
  Environmental Management, 23, 81-99.
 
-Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
  Predators and genetic fitness: key threatening factors for the conservation
  of bettong species. Pacific Conservation Biology.
 }

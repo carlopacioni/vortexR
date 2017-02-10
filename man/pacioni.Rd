@@ -2,10 +2,10 @@
 % Please edit documentation in R/vortexR_pkg_data.R
 \name{pacioni}
 \alias{pacioni}
-\title{Raw Vortex outputs from Pacioni et al. (in prep)}
+\title{Raw Vortex outputs from Pacioni et al. (2017)}
 \format{One .xml file and several .run and .stdat files.}
 \source{
-Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
+Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
  Predators and genetic fitness: key threatening factors for the conservation
  of bettong species. Pacific Conservation Biology.
 }
@@ -14,7 +14,7 @@ Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (in prep)
 # system.file("extdata", "pacioni", package="vortexR")
 }
 \description{
-A folder with Vortex outputs from Pacioni et al. (in prep) used
+A folder with Vortex outputs from Pacioni et al. (2017) used
  to run examples and Vortex project file. NOTE: these simulations are shorter
  than those presented in the paper (only 3 runs for 120 'Vortex-years').
 }
