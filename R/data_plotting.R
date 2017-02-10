@@ -21,6 +21,7 @@
 #' @param dir_out The local path to store the output. Default: Plots
 #' @return Line plot(s)
 #' @import ggplot2
+#' @importFrom grDevices dev.off pdf
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.

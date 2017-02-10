@@ -747,6 +747,10 @@ pairwise <-  function(data,
 #' @import data.table
 #' @importFrom betareg betareg.fit
 #' @importFrom glmulti glmulti
+#' @importFrom graphics hist plot
+#' @importFrom stats as.formula deviance df.residual glm logLik na.omit
+#' @importFrom stats pnorm sd update
+#' @importFrom utils capture.output read.table write.table
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.run.lhs and ?pac.lhs for more
