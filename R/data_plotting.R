@@ -79,7 +79,7 @@ line_plot_year <- function(data,
         g <- ggplot(popstdat, aes_string(x="Year", y=param)) +
             geom_line(aes(color=scen.name)) +
             facet_grid(pop.name~.)
-        plot <- g + theme(panel.margin=unit(0.2, "inches"),
+        plot <- g + theme(panel.spacing=unit(0.2, "inches"),
                           legend.text=element_text(size=legTxtSize),
                           legend.key.size=unit(legKeySize, "mm")) +
             scale_colour_discrete(name="Scenarios")
@@ -175,7 +175,7 @@ line_plot_year_mid <-  function(data,
             geom_line(aes(color=scen.name)) +
             facet_grid(pop.name~.)
         plot <- g +
-            theme(panel.margin=unit(0.2, "inches"),
+            theme(panel.spacing=unit(0.2, "inches"),
                   legend.text=element_text(size=legTxtSize),
                   legend.key.size=unit(legKeySize, "mm")) +
             scale_colour_discrete(name="Scenarios")
@@ -292,7 +292,7 @@ dot_plot <- function(data,
             xlab("Scenario") +
             facet_grid(pop.name~Year) +
             geom_errorbar(limits, width=0.15) +
-            theme(panel.margin=unit(0.2, "inches")) +
+            theme(panel.spacing=unit(0.2, "inches")) +
             if (setcolour == "scen.name") {
                 theme(legend.position="none") } else {
                     theme(legend.position="right",
