@@ -5,3 +5,5 @@ carlopacioni-vortexR.Rproj
 .modgen.back
 .mods.back
 tests/testthat/Rplots\.pdf
+tests/testthat/*.mods.back
+tests/testthat/*.modgen.back
