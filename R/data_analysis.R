@@ -49,6 +49,8 @@ Ne <-  function(data=NULL,
     ############################################################################
     Het <- NULL
     pop.name <- NULL
+    J <- NULL
+    Scenario <- NULL
     ###########################################################################
 
   # Function definitions
@@ -133,6 +135,8 @@ Nadults <- function (data,
     Scenario <- NULL
     Year <- NULL
     Population <- NULL
+    J <- NULL
+    . <- NULL
     ###########################################################################
 
   # Function definitions
@@ -340,6 +344,7 @@ Nadults <- function (data,
     Population <- NULL
     Scenario <- NULL
     scen.4.SV <- NULL
+    J <- NULL
     ############################################################################
 
 
@@ -864,6 +869,7 @@ fit_regression <-  function(data,
     ############################################################################
     Year <- NULL
     Population <- NULL
+    J <- NULL
     ###########################################################################
 
   # Function definitions

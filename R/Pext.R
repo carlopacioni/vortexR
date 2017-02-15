@@ -43,6 +43,7 @@ Pextinct <- function(data, project, scenario, ST=FALSE, save2disk=TRUE,
     Scenario <- NULL
     Iteration <- NULL
     Population <- NULL
+    . <- NULL
     ###########################################################################
 
     fname <- if (ST) {

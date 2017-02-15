@@ -480,6 +480,7 @@ conv_l_yr <- function(data,
     Scenario <- NULL
     Iteration <- NULL
     Population <- NULL
+    . <- NULL
     ###########################################################################
 
     LongFormat <- function(numPop) {
@@ -585,6 +586,7 @@ lookup_table <-  function(data,
     ############################################################################
     Year <- NULL
     pop.name <- NULL
+    J <- NULL
     ###########################################################################
     fname <- if (is.null(scenario)) {
         project

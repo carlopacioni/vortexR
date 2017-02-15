@@ -60,6 +60,8 @@ rRec <- function(data, project, scenario, ST=FALSE, runs, yr0=1, yrt,
     base <- NULL
     SDbase <- NULL
     pvalues <- NULL
+    J <- NULL
+    . <- NULL
     ###########################################################################
 
   fname <- if (ST) {
