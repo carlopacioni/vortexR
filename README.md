@@ -27,4 +27,4 @@ Use `help(package = "vortexR")` to see the documentations available. Read the vi
 
 ## Citation
 If you use `vortexR`, please cite:
-Pacioni, C., and Mayer, F. (in prep). vortexR: an R package for post Vortex simulation analysis.
+Pacioni, C., and Mayer, F. (2017). vortexR: an R package for post Vortex simulation analysis.
