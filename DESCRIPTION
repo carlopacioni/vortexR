@@ -20,7 +20,7 @@ Imports:
     ggplot2,
     glmulti,
     gtools (>= 3.4.2),
-    GGally,
+    GGally (>= 1.3.0),
     irr,
     plyr,
     R.utils,
