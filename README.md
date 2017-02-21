@@ -48,6 +48,8 @@ A typical installation under Windows could follow:
 * On the Command Prompt, run `R CMD javareconf`
 * In R, install `rJava` and `glmulti`
 
+If you have still problem installing and loading ```glmulti``` package and/or ```rJava```. This is most likely because you do not have Java installed or are not using the same version as R. Make sure that if you are using a 64-bit version of R, you also have installed a 64 bit version of Java (most automatic installation via web browser will install a 32-bit version). 
+
 Your mileage may vary depending on your operating system and your versions of Java and R. 
 Stack Overflow's [R community](http://stackoverflow.com/questions/tagged/r) is a great source for troubleshooting.
 
