@@ -94,7 +94,7 @@ NULL
 #' @name sta.evy5.b11
 #' @title Collated results from Vortex scenarios - Campbell et al (2016)
 #' @description A dataset with the results from Vortex scenarios used in Campbell
-#'  et al (in press) to simulate major application of control measures in every
+#'  et al (2016) to simulate major application of control measures in every
 #'  5 year cycle, maintaining 2011 levels of investment. Vortex outputs, from
 #'  the project named "Starlingv3PopBased" and the sensitivity test scenario
 #'  "MReduction_B11_09Evy5" (.stdat files), were collated with \code{collate_dat}.
