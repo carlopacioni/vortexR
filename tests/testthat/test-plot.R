@@ -4,7 +4,9 @@ context("test plots")
 
 test_that("test dot_plot", {
     data(pac.clas)
-    dot <- dot_plot(data=pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
+    dot <- dot_plot(data=pac.clas,
+                    project="Pacioni_et_al",
+                    scenario="ST_Classic",
                     yrs=c(80, 120),
                     params=c("PExtinct", "Nextant", "Het", "Nalleles"),
                     save2disk=FALSE)
@@ -16,7 +18,8 @@ test_that("test dot_plot", {
 
 test_that("test line_plot", {
     data(pac.clas)
-    lineplot.st.classic <- line_plot_year(data=pac.clas, project="Pacioni_et_al",
+    lineplot.st.classic <- line_plot_year(data=pac.clas,
+                                          project="Pacioni_et_al",
                                           scenario="ST_Classic",
                                           params=c("Nextant"),
                                           save2disk=FALSE)
@@ -45,10 +48,12 @@ test_that("test m_scatter", {
     pac.lhs.no.base <- pac.lhs[!pac.lhs$scen.name == "ST_LHS(Base)", ]
 
     # Use function lookup_table to obtain correct parameter values at year 0
-    lkup.ST_LHS <- lookup_table(data=pac.lhs.no.base, project="Pacioni_et_al",
+    lkup.ST_LHS <- lookup_table(data=pac.lhs.no.base,
+                                project="Pacioni_et_al",
                                 scenario="ST_LHS",
                                 pop="Population 1",
-                                SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+                                SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6",
+                                      "SV7"),
                                 save2disk=FALSE)
 
     scatter.plot <- m_scatter(data=pac.lhs.no.base[1:33], data_type="dat",

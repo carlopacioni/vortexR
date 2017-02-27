@@ -96,12 +96,17 @@ line_plot_year <- function(data,
 
     if (save2disk) {
         dev.off()
-        save(list=(ls(pattern=paste(fname_root, "_", ".*", "_", "plot", sep=""))),
-             file=paste(dir_out, "/", fname_root, "_", "YearVsParams.rda", sep=""))
+        save(list=(
+                ls(pattern=paste(fname_root, "_", ".*", "_", "plot", sep=""))
+             ),
+             file=paste(
+                 dir_out, "/", fname_root, "_", "YearVsParams.rda", sep="")
+            )
     }
 
-    names(r.line_plot_year) <- ls(pattern=paste(fname_root, "_", ".*", "_",
-                                                "plot", sep=""))
+    names(r.line_plot_year) <- ls(pattern=paste(
+        fname_root, "_", ".*", "_", "plot", sep="")
+        )
     return(r.line_plot_year)
 }
 
@@ -133,7 +138,8 @@ line_plot_year_mid <-  function(data,
                                 project,
                                 scenario,
                                 yrmid=1,
-                                params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+                                params=c("PExtinct", "Nextant", "Het",
+                                         "Nalleles"),
                                 plotpops=c("all"),
                                 save2disk=TRUE,
                                 dir_out="Plots") {
@@ -225,7 +231,8 @@ line_plot_year_mid <-  function(data,
 #' continuous variable is desired, it has to be converted into a factor.
 #'
 #' @param yrs The years to be included in the plot
-#' @param setcolour Variable to be used to set colours of data, default: scen.name
+#' @param setcolour Variable to be used to set colours of data,
+#'   default: scen.name
 #' @inheritParams line_plot_year
 #' @return Dot plots of mean parameter values with standard deviation
 #' @import ggplot2
@@ -369,7 +376,8 @@ dot_plot <- function(data,
 #' lkup.ST_LHS <- lookup_table(data=pac.lhs.no.base, project="Pacioni_et_al",
 #'                             scenario="ST_LHS",
 #'                             pop="Population 1",
-#'                             SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+#'                             SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6",
+#'                                   "SV7"),
 #'                             save2disk=FALSE)
 #'
 #' scatter.plot <- m_scatter(data=pac.lhs.no.base[1:33], data_type="dat",
@@ -377,7 +385,7 @@ dot_plot <- function(data,
 #'                           vs=c("SV1", "SV2", "SV3"),
 #'                           save2disk=FALSE)
 m_scatter <- function (data,
-                       data_type="dat", # possible options are "dat", "yr" or "run"
+                       data_type="dat", # options: "dat", "yr" or "run"
                        lookup=NA,
                        yr=1,
                        popn=1,

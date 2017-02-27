@@ -14,11 +14,14 @@ test_that("fit-regressin", {
     lkup.ST_LHS <- lookup_table(data=pac.lhs.no.base, project="Pacioni_et_al",
                                 scenario="ST_LHS",
                                 pop="Population 1",
-                                SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+                                SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6",
+                                      "SV7"),
                                 save2disk=FALSE)
 
     # Remove base scenario from .run output in long format
-    lrun.ST_LHS.no.base <- pac.run.lhs[[2]][!pac.run.lhs[[2]]$Scenario == "ST_LHS(Base)", ]
+    lrun.ST_LHS.no.base <- pac.run.lhs[[2]][
+        !pac.run.lhs[[2]]$Scenario == "ST_LHS(Base)",
+        ]
 
     reg <- fit_regression(data=lrun.ST_LHS.no.base, lookup=lkup.ST_LHS,
                           census=FALSE,
