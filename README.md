@@ -1,4 +1,5 @@
-[![Coverage Status](https://coveralls.io/repos/github/carlopacioni/vortexR/badge.svg?branch=review_CRAN_CP)](https://coveralls.io/github/carlopacioni/vortexR?branch=review_CRAN_CP)
+[![Build Status](https://travis-ci.org/carlopacioni/vortexR.svg?branch=master)](https://travis-ci.org/carlopacioni/vortexR)
+[![Coverage Status](https://coveralls.io/repos/github/carlopacioni/vortexR/badge.svg?branch=master)](https://coveralls.io/github/carlopacioni/vortexR?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/vortexr/badge/?version=latest)](https://readthedocs.org/projects/vortexr/?badge=latest)
 
 # vortexR

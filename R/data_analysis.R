@@ -83,10 +83,11 @@ Ne <-  function(data=NULL,
     df2disk(r.Ne, dir_out, fname)
   }
 
-  message(paste("Effective population size based on loss of gene diversity from year",
-                round(yr0 + gen), "to year", yrt))
-  message("NOTE: The first year used in the calculations is adjusted using the generation time provided (yr0 + gen).
-See documentation for more information")
+  message(paste("Effective population size based on loss of gene diversity",
+                 "from year", round(yr0 + gen), "to year", yrt))
+  message(paste("NOTE: The first year used in the calculations is adjusted ",
+                 "using the generation time provided (yr0 + gen). ",
+                 "See documentation for more information."))
   return(r.Ne)
 }
 
@@ -190,9 +191,11 @@ Nadults <- function (data,
 
   # Calculate harmonic means
   message(paste("Calculating the harmonic means of total number of individuals",
-                "and number of adults from year", yr0, "to year", round(yrt-gen)))
-  message("NOTE: The last year used in the calculations is adjusted using the generation time provided (yrt - gen).
-          See documentation for more information")
+                "and number of adults from year", yr0, "to year", round(yrt-gen)
+                ))
+  message(paste("NOTE: The last year used in the calculations is adjusted",
+                "using the generation time provided (yrt - gen).",
+                "See documentation for more information."))
 
   if (scenarios == "all")
     scenarios <- data[ , unique(Scenario)]
@@ -675,7 +678,8 @@ Nadults <- function (data,
     if (save2disk) {
       df2disk(mean.coef.table, dir_out, fname, ".mean.coef.table")
       df2disk(mean.ssmd.table, dir_out, fname, ".mean.SSMD.table")
-      df2disk(mean.ssmd.table.pvalues, dir_out, fname, ".mean.SSMD.table.pvalues")
+      df2disk(mean.ssmd.table.pvalues, dir_out, fname,
+              ".mean.SSMD.table.pvalues")
       df2disk(ranks.msc, dir_out, fname, ".ranks.mSC")
       df2disk(ranks.mssmd, dir_out, fname, ".ranks.mSSMD")
       capture.output(print(kendall.mean.out, quote=FALSE),
@@ -854,9 +858,12 @@ fit_regression <-  function(data,
                             popn,
                             param="N" ,
                             vs=c("GS1"),
-                            count_data=c("Nextant", "Nall", "Nalleles", "N", "AM", "AF", "Subadults",
-                                         "Juv", "nDams", "nBroods", "nProgeny", "nImmigrants",
-                                         "nEmigrants", "nHarvested", "nSupplemented", "YrExt", "Alleles"),
+                            count_data=c("Nextant", "Nall", "Nalleles", "N",
+                                         "AM", "AF", "Subadults", "Juv",
+                                         "nDams", "nBroods", "nProgeny",
+                                         "nImmigrants", "nEmigrants",
+                                         "nHarvested", "nSupplemented",
+                                         "YrExt", "Alleles"),
                             ic="aic",
                             l=1,
                             ncand=30,
@@ -953,7 +960,7 @@ fit_regression <-  function(data,
     # if the ratio (chat) is >1.5 then set the overdispersion parameter
     if (chat > 1.5) {
       message("Overdispersion was detected in the data.")
-      # Fit the GLM with quasi- error distribution to get the dispersion parameter
+      # Fit GLM with quasi-error distribution to get dispersion parameter
       glm2 <- glm(data=data, formula, family="quasipoisson", na.action=na.omit)
 
       # Changed the c value for qaic search with glmulti
@@ -976,8 +983,9 @@ fit_regression <-  function(data,
     tnp <- system.time(best.mod <- do.call("glmulti",
                                            list(glm1, family=fam, crit=ic,
                                                method=m, confsetsize=set_size,
-                                               plotty=FALSE, report=FALSE, level=l,
-                                               name=name, na.action=na.omit)))
+                                               plotty=FALSE, report=FALSE,
+                                               level=l, name=name,
+                                               na.action=na.omit)))
   } else {
     message("Fitting a beta regression...")
     message("Searching for the best link function...")
@@ -994,7 +1002,8 @@ fit_regression <-  function(data,
 
     # Check number of candidate models.
     cand <- do.call("glmulti", list(formula, data=data, method="d", level=l,
-                                    fitfunc=betareg::betareg, link=links[linkpos],
+                                    fitfunc=betareg::betareg,
+                                    link=links[linkpos],
                                     na.action=na.omit))
 
     # This is repeated but it can't go later because I want this to be displayed

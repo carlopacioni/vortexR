@@ -21,11 +21,12 @@
 #' one.st.classic <- collate_one_dat(f, 3)
 collate_one_dat <- function(filename, runs, verbose=FALSE){
 
-    if (verbose) {message(cat("INFO vortexR::collate_one_dat parsing", filename))}
+    if (verbose) {message(cat("INFO vortexR::collate_one_dat parsing",
+                              filename))}
     lines <- readLines(filename)
 
     # Blocks of population data start with "Population"
-    # If there are more than one population, a last block "Metapopulation" exists
+    # With than one population, a last block "Metapopulation" exists
     popLn <- grep(pattern="^Population", lines)
     popN <- length(popLn)
 
@@ -77,7 +78,7 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
         SD.PExtant. <- sapply(tmp$SE.PExtant., se2sd, no=runs)
         SD.PExtinct. <- sapply(tmp$SE.PExtinct., se2sd, no=runs)
 
-        # Add scenario name, popname, and probability SDs as columns to data.frame
+        # Add scenario name, popname, and probability SDs as data.frame columns
         tmp <- cbind(scen.name, pop.name, tmp, SD.PExtant., SD.PExtinct.)
         if (pop == 1) {x <- tmp} else {x <- rbind(x, tmp)}
     }
@@ -232,7 +233,8 @@ collate_run <- function(project,
     for (filename in files) {
         if (verbose) {message(filename, "\r")}
         h <- gsub(" ", "", read.table(filename, header=FALSE, sep=";",
-                                      nrows=1, skip=2, colClasses="character", comment.char=""))
+                                      nrows=1, skip=2, colClasses="character",
+                                      comment.char=""))
 
         trun <- read.table(filename, header=FALSE, sep=";", skip=3,
                            colClasses="numeric", comment.char="")
@@ -281,9 +283,9 @@ collate_run <- function(project,
 
 #' Collate Vortex .yr output files
 #'
-#' \code{collate_yr} collates all the .yr output from Vortex matching the project
-#' and scenario name into one R object and calculates the mean for each simulated
-#' year across all iterations.
+#' \code{collate_yr} collates all the .yr output from Vortex matching the
+#' project and scenario name into one R object and calculates the mean for each
+#' simulated year across all iterations.
 #'
 #' \code{dir_in} may contain other files; only files matching the project and
 #' the scenario name will be read.
@@ -297,8 +299,8 @@ collate_run <- function(project,
 #' on screen.
 #'
 #' @param scenario The scenario name, default: NULL
-#' @param npops_noMeta The total number of populations excluding the metapopulation,
-#' default: 1
+#' @param npops_noMeta The total number of populations excluding the
+#' metapopulation, default: 1
 #' @inheritParams collate_dat
 #' @return a list with two elements: "census", a data.frame with data from all
 #' Vortex files and "census_means", a data.table with the mean of each parameter
@@ -309,7 +311,7 @@ collate_run <- function(project,
 #' # Using Pacioni et al. example files. See ?pacioni for more details.
 #' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 #'
-#' # Run collate_yr on all .yr of the project 'Pacioni_et_al' and the ST scenario
+#' # Run collate_yr on all .yr of project 'Pacioni_et_al' and the ST scenario
 #' # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'
 #' yr.st.classic <- collate_yr(project="Pacioni_et_al", scenario="ST_Classic",
 #'                             dir_in = pac.dir, save2disk=FALSE)
@@ -326,7 +328,7 @@ collate_yr <-  function(project,
     Year <- NULL
     Scenario <- NULL
     Iteration <- NULL
-    ###########################################################################
+    ############################################################################
 
     if (is.null(dir_in)) {dir_in <- getwd()}
     fname <- paste0(project, "_", scenario)
@@ -365,23 +367,23 @@ collate_yr <-  function(project,
     }
     censusAll <- rbindlist(censusData)
 
-    #   # Functional implementation without for-loop ------------------------------#
-    #   # ll is a list of lists (one per file) of strings (one per line)
-    #   ll = lapply(files, function(x) readLines(x))
-    #
-    #   # Assuming the third line contains all columns names
-    #   header <- as.vector(sapply(strsplit(ll[[1]][[3]], ";"), stringr::str_trim))
-    #   no_col <- length(header)
-    #
-    #   # Wafflestomp the list of lists of character vectors into one data.frame
-    #   d <- plyr::ldply(ll, function(x){stringr::str_split_fixed(x, ";", no_col)})
-    #
-    #   setnames(d, header) # set variable names
-    #   # TODO downfill scenario name and iteration number, see
-    #   # http://stackoverflow.com/questions/10554741/r-fill-in-data-frame-with-values-from-rows-above
-    #   # TODO remove non-data lines (scen, pop, header, iter)
-    #   # hand over as censusAll
-    #   # end functional ----------------------------------------------------------#
+    ## Functional implementation without for-loop -----------------------------#
+    ## ll is a list of lists (one per file) of strings (one per line)
+    # ll = lapply(files, function(x) readLines(x))
+
+    ## Assuming the third line contains all columns names
+    # header <- as.vector(sapply(strsplit(ll[[1]][[3]], ";"), str_trim))
+    # no_col <- length(header)
+
+    ## Wafflestomp the list of lists of character vectors into one data.frame
+    # d <- plyr::ldply(ll, function(x){str_split_fixed(x, ";", no_col)})
+
+    # setnames(d, header) # set variable names
+    ## TODO downfill scenario name and iteration number, see
+    ## http://stackoverflow.com/q/10554741
+    ## TODO remove non-data lines (scen, pop, header, iter)
+    ## hand over as censusAll
+    ## end functional ---------------------------------------------------------#
 
 
     setkey(censusAll, Scenario, Year)
@@ -520,7 +522,8 @@ conv_l_yr <- function(data,
         message("Appending Metapopulation data to Census data frame...")
         gs <- names(lcensus)[grep(pattern="^GS", names(lcensus))]
         meta[ , Population := rep(paste0("pop", npops_noMeta + 1), nrow(data))]
-        setcolorder(meta, c("Scenario", "Iteration", "Year", "Population", census))
+        setcolorder(meta,
+                    c("Scenario", "Iteration", "Year", "Population", census))
         meta[ , (gs) := tldata[[1]][ , gs, with=FALSE]]
 
         # with data.table v1.9.3 can use

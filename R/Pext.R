@@ -60,7 +60,8 @@ Pextinct <- function(data, project, scenario, ST=FALSE, save2disk=TRUE,
     setkey(data, YrExt)
     data[!.(NA), Ext  := 1]
     data[.(NA), Ext  := 0]
-    extTable <- data[, .(Pext=mean(Ext), SD=sd(Ext)), by=.(Scenario, Population)]
+    extTable <- data[, .(Pext=mean(Ext), SD=sd(Ext)),
+                     by=.(Scenario, Population)]
     setkey(extTable, Scenario)
     Base <- extTable[scenario, .(Pext, SD), by=Population]
     setnames(Base, c("Pext", "SD"), c("base", "SDbase"))
