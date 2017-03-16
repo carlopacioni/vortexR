@@ -31,9 +31,9 @@ A typical installation path for Java-based packages like `glmulti` in a Linux-ba
 * On the terminal, install Java: `sudo apt-get install openjdk-8-jdk` and verify with `java -version`
 * Set default Java installation: `sudo update-alternatives --config java`
 * Set default Java compiler: `sudo update-alternatives --config javac`
-* Set the environment variable `JAVA_HOME` to your preferred Java installation 
-  (here we use /usr/lib/jvm/java-8-openjdk-amd64/jre) by 
-  appending the line `JAVA_PATH=/path/to/your/Java/binary` to `/etc/environment`:
+* Set the environment variable `JAVA_HOME` to your preferred Java installation: 
+  (here we use /usr/lib/jvm/java-8-openjdk-amd64/jre) by appending the line 
+  `JAVA_PATH=/path/to/your/Java/binary` to `/etc/environment`:
   `sudo echo "JAVA_PATH=\"/usr/lib/jvm/java-8-openjdk-amd64/jre\"" >> /etc/environment`, 
   `source /etc/environment` to instantly export the new environment variable `JAVA_HOME`,
   verify with `echo $JAVA_HOME` which should print the `/path/to/your/Java/binary`.
@@ -41,7 +41,7 @@ A typical installation path for Java-based packages like `glmulti` in a Linux-ba
 * In R, install `rJava` with `install.packages("rJava")`
 * Install `glmulti` with `install.packages("glmulti")`
 
-Independently of vortexR, a `sudo R CMD javareconf` and possibly installation of `rJava` and Java-usiing packages like `glmulti` will be required after each update of R and / or your Java installation.
+Independently of vortexR, a `sudo R CMD javareconf` (and possibly the installation of `rJava` and Java-using packages like `glmulti`) will be required after each update of R and / or your Java installation.
 
 A typical installation under Windows could follow:
 
