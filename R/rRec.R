@@ -64,15 +64,9 @@ rRec <- function(data, project, scenario, ST=FALSE, runs, yr0=1, yrt,
     . <- NULL
     ###########################################################################
 
-  fname <- if (ST) {
-    paste(project, "_", scenario, sep="")
-  } else {
-    project
-  }
+  fname <- if (ST) {paste(project, "_", scenario, sep="")} else {project}
   data <- data.table(data)
-  if (ST ) {
-    scenario <- grep("(Base)", data[, unique(scen.name)], value=TRUE)
-  }
+  if (ST ) scenario <- grep("(Base)", data[, unique(scen.name)], value=TRUE)
   setkey(data, Year)
   rTable <- data[J(yr0:yrt), .(rruns=r.stoch * runs, SDruns=SD.r. * runs),
                 by=c("scen.name", "pop.name")]
@@ -86,10 +80,6 @@ rRec <- function(data, project, scenario, ST=FALSE, runs, yr0=1, yrt,
   rTable <- merge(rTable, Base, by="Population")
   rTable[, SSMD := (rRec - base) / sqrt(SD^2 + SDbase^2)]
   rTable[, pvalues := vortexR::pval(SSMD)]
-
-  if (save2disk) {
-    # write results
-    df2disk(rTable, dir_out, fname, ".rTable")
-  }
+  if (save2disk) df2disk(rTable, dir_out, fname, ".rTable")
   return(rTable)
 }
