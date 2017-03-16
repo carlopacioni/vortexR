@@ -7,7 +7,12 @@ An R package for Post Vortex Simulation Analysis.
 Using this package, data of population viability analysis (PVA) generated with the software Vortex (Lacy & Pollak 2013) can be collated, plotted and analysed using basic (e.g. pairwise comparisons of scenarios) or more advanced statistics (e.g. fitting regression models).
 
 ## Quickstart
-Install the package from version control from within R:
+To install the latest stable release from CRAN:
+```
+install.packages("vortexR")
+```
+
+To install the dev version of the package from version control from within R:
 ```
 install.packages("devtools")
 library(devtools)

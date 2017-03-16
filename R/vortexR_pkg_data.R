@@ -36,7 +36,7 @@
 #' @section Citation:
 #' If you use \code{vortexR}, please cite:
 #' Pacioni, C., and Mayer, F. (2017). vortexR: an R package for post Vortex
-#' simulation analysis.
+#' simulation analysis. Methods in Ecology and Evolution.
 #'
 #' @section Get in touch:
 #' Please, use \url{https://github.org/carlopacioni/vortexR/issues} to report

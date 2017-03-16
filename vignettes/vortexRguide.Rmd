@@ -20,7 +20,13 @@ vignette: >
 
 If you are at your first experiences with R, and have not installed it yet, go on [www.r-project.org](www.r-project.org) and download the latest version compatible with your operating system. While there is no strict requirement to do so, we find that using R with RStudio ([www.rstudio.com](www.rstudio.com)) is very handy, and it is also free! It will be very easy to keep clean and then capture your sequence of commands, including possible data manipulations, so that you can return to it later. 
 
-`vortexR` requires the R package `devtools` to  also be installed: `install.packages("devtools")`.  
+You can install the latest stable release from CRAN using:
+```
+install.packages("vortexR")
+```
+
+To install the dev version of the package from version control you need to have 
+installed the R package `devtools`: `install.packages("devtools")`.  
 If you are on Windows, you have to install [Rtools](http://cran.r-project.org/bin/windows/Rtools/) (unless you have done so already), before you can use `devtools`. Download the .exe file and run it before you use `library(devtools)`. If you are in trouble, see this [this link](http://cran.r-project.org/web/packages/devtools/README.html) for details on its installation.
 
 
@@ -73,7 +79,7 @@ Campbell et al (2015) investigated the cost-benefit ratios of different control 
 ## Licence and Citation
 ```vortexR``` and its manual are distributed free of charge under the GPL-3 licence. We only ask you to please cite the following paper if you use ```vortexR``` for your work. If you customise a ```vortexR``` script to suit your specific needs, we would appreciate if you can still cite ```vortexR```'s main reference stating something like: "we used a customised version of the script vortexR-*script-name* (Pacioni and Mayer, 2017)".
 
-**_Pacioni C, and Mayer F. 2017. VortexR: an R package for post Vortex simulation analysis._**  
+**_Pacioni C, and Mayer F. 2017. VortexR: an R package for post Vortex simulation analysis. Methods in Ecology and Evolution._**  
 
 Please note that no commercial use of any part of ```vortexR``` is allowed.
 
