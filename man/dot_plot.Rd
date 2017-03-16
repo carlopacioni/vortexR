@@ -20,7 +20,8 @@ dot_plot(data, project, scenario, yrs = c(1, 2), params = c("PExtinct",
 \item{params}{Vortex parameters to be plotted,
 default: c("PExtinct", "Nextant", "Het", "Nalleles")}
 
-\item{setcolour}{Variable to be used to set colours of data, default: scen.name}
+\item{setcolour}{Variable to be used to set colours of data,
+default: scen.name}
 
 \item{plotpops}{The populations to be included in the plot, default: 'all'}
 

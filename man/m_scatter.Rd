@@ -56,7 +56,8 @@ pac.lhs.no.base <- pac.lhs[!pac.lhs$scen.name == "ST_LHS(Base)", ]
 lkup.ST_LHS <- lookup_table(data=pac.lhs.no.base, project="Pacioni_et_al",
                             scenario="ST_LHS",
                             pop="Population 1",
-                            SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+                            SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6",
+                                  "SV7"),
                             save2disk=FALSE)
 
 scatter.plot <- m_scatter(data=pac.lhs.no.base[1:33], data_type="dat",

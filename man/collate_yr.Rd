@@ -12,8 +12,8 @@ collate_yr(project, scenario, npops_noMeta = 1, dir_in = NULL,
 
 \item{scenario}{The scenario name, default: NULL}
 
-\item{npops_noMeta}{The total number of populations excluding the metapopulation,
-default: 1}
+\item{npops_noMeta}{The total number of populations excluding the
+metapopulation, default: 1}
 
 \item{dir_in}{The local folder containing Vortex files, default: NULL. If
 not specified, will fall back to use current working directory.}
@@ -30,9 +30,9 @@ Vortex files and "census_means", a data.table with the mean of each parameter
 across all iterations for each simulated year
 }
 \description{
-\code{collate_yr} collates all the .yr output from Vortex matching the project
-and scenario name into one R object and calculates the mean for each simulated
-year across all iterations.
+\code{collate_yr} collates all the .yr output from Vortex matching the
+project and scenario name into one R object and calculates the mean for each
+simulated year across all iterations.
 }
 \details{
 \code{dir_in} may contain other files; only files matching the project and
@@ -50,7 +50,7 @@ on screen.
 # Using Pacioni et al. example files. See ?pacioni for more details.
 pac.dir <- system.file("extdata", "pacioni", package="vortexR")
 
-# Run collate_yr on all .yr of the project 'Pacioni_et_al' and the ST scenario
+# Run collate_yr on all .yr of project 'Pacioni_et_al' and the ST scenario
 # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'
 yr.st.classic <- collate_yr(project="Pacioni_et_al", scenario="ST_Classic",
                             dir_in = pac.dir, save2disk=FALSE)

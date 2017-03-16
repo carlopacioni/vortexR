@@ -10,8 +10,8 @@ conv_l_yr(data, npops_noMeta = 1, appendMeta = FALSE, project, scenario,
 \arguments{
 \item{data}{The df 'census' from \code{collate_yr}}
 
-\item{npops_noMeta}{The total number of populations excluding the metapopulation,
-default: 1}
+\item{npops_noMeta}{The total number of populations excluding the
+metapopulation, default: 1}
 
 \item{appendMeta}{Whether to calculate data for the metapopulation,
 default: FALSE}
