@@ -1,7 +1,7 @@
 Package: vortexR
 Type: Package
 Title: Post Vortex Simulation Analysis
-Description: vortexR facilitates Post Vortex Simulation Analysis by offering
+Description: Facilitate Post Vortex Simulation Analysis by offering
     tools to collate multiple Vortex (v10) output files into one R object, and
     analyse the collated output statistically.
 Version: 1.0.0
@@ -10,7 +10,7 @@ Authors@R: as.person(c(
     "Florian Mayer <Florian.Mayer@dpaw.wa.gov.au> [aut]"
     ))
 License: GPL-3
-URL: https://github.org/carlopacioni/vortexR/
+URL: https://cran.r-project.org/vortexR/
 BugReports: https://github.com/carlopacioni/vortexR/issues
 Depends:
     R (>= 3.1.0)
