@@ -1,5 +1,5 @@
 ---
-title: "vortexR: user's guide"
+title: "vortexR: user guide"
 author: "Carlo Pacioni and Florian Mayer"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: rmarkdown::html_vignette
@@ -32,8 +32,9 @@ install.packages("vortexR")
 ```
 
 To install the dev version of the package from version control you need to have 
-installed the R package `devtools`: `install.packages("devtools")`.  
-If you are on Windows, you have to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/) (unless you have done so already), before you can use `devtools`. Download the .exe file and run it before you use `library(devtools)`. 
+installed the R package `devtools` with `install.packages("devtools")`.  
+Installations on Windows require [Rtools](https://cran.r-project.org/bin/windows/Rtools/) 
+to use `devtools`.
 
 From within R (or RStudio),  vortexR can be installed from the github repository with the command:
 
@@ -76,13 +77,15 @@ If you are reading this document because you are trying to figure out whether it
 
 The **Detailed description** describes each of the functions and their arguments. 
 It is organised in three sub-sections (**Data handling**, **Data visualisation**, and **Data analysis**), grouping vortexR functions by their functionalities. 
-These sections are quite detailed (and possibly boring) but they are also (we believe) important if you want to have a better understanding of function operations and caveats. 
-If you have already read the supplementary material of our paper presenting vortexR and you are reading this user guide because you want to clarify some aspects of these functions, then you can jump directly there.
+
+If you have already read the supplementary material of our paper presenting vortexR, you can read these sections to gain a deeper understanding of vortexR's inner workings.
 
 ## A brief description of the example data
 When you install vortexR a few files are also copied that can be used to run the example presented here and in the package documentation.  
 
-Pacioni et al. (2017) developed a baseline PVA model for the woylie (*Bettongia penicillata*). Then they conducted a sensitivity analysis by varying the carrying capacity, the mortality rates for each age class (by multiplying them by a factor from 2 to 6), the standard deviation of these rates (expressed as a proportion of the mean, range 0.1-0.3), the mate monopolization and the initial population size. Then they looked at the individual impact of each of these parameters (in what we called a classic approach where each parameter is modified, one at the time) as well as at their interaction. For the latter, they needed to vary these parameters concurrently, and they used the ST module in Vortex with a Latin Hypercube Sampling. When vortexR  is installed, a folder (named  *pacioni*) is created where several Vortex outputs from the project described above are copied. The project file that was used to generate them is also contained in the folder. Running the following line will locate the path where these files are contained.
+Pacioni et al. (2017) developed a baseline PVA model for the woylie (*Bettongia penicillata*). Then they conducted a sensitivity analysis by varying the carrying capacity, the mortality rates for each age class (by multiplying them by a factor from 2 to 6), the standard deviation of these rates (expressed as a proportion of the mean, range 0.1-0.3), the mate monopolization and the initial population size. Then they looked at the individual impact of each of these parameters (in what we called a classic approach where each parameter is modified, one at the time) as well as at their interaction. For the latter, they needed to vary these parameters concurrently, and they used the ST module in Vortex with a Latin Hypercube Sampling. 
+
+When vortexR  is installed, a folder (named  *pacioni*) is created where several Vortex outputs from the project described above are copied. The project file that was used to generate them is also contained in the folder. Running the following line will locate the path where these files are contained.
 
 ```{r}
 pac.dir <- system.file("extdata", "pacioni", package="vortexR")
