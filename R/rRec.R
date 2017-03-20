@@ -66,7 +66,7 @@ rRec <- function(data, project, scenario, ST=FALSE, runs, yr0=1, yrt,
 
   fname <- if (ST) {paste(project, "_", scenario, sep="")} else {project}
   data <- data.table(data)
-  if (ST ) scenario <- grep("(Base)", data[, unique(scen.name)], value=TRUE)
+  if (ST) {scenario <- grep("(Base)", data[, unique(scen.name)], value=TRUE)}
   setkey(data, Year)
   rTable <- data[J(yr0:yrt), .(rruns=r.stoch * runs, SDruns=SD.r. * runs),
                 by=c("scen.name", "pop.name")]
