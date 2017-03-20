@@ -1,6 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-style_memo.txt
+cran-comments.md
 ^.*\.back
 ^\.travis\.yml$
 Rplots\.pdf$
