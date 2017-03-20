@@ -62,8 +62,15 @@ A typical installation under Windows could follow:
   ([Windows 10 tutorial](https://javatutorial.net/set-java-home-windows-10), 
   [Windows 7 tutorial](http://www.robertsindall.co.uk/blog/setting-java-home-variable-in-windows/)),
   verify on Command Prompt (Win + r, "cmd", Enter): `echo %JAVA_HOME%`
-* Follow [this tutorial](https://support.microsoft.com/en-au/help/3103813/qa-when-i-try-to-load-the-rjava-package-using-the-library-command,-i-get-an-error) to set `CLASSPATH`, `PATH`, `RPATH` and `RHOME` correctly.
-* On the Command Prompt, run `R CMD javareconf`
+* Make sure that the environment variable 'JAVA_HOME' is set properly and points to a 64-bit version jof Java(JDK or SE
+  Runtime). For 64-bit Revolution R you need to make sure that you have a 64-bit version of Java installed.
+* Make sure that the Java 'CLASSPATH' variable is set properly.
+  For the 64-bit version of the JDK, this could be e.g. `C:\Program Files\Java\jdk1.7.0_02\jre\lib\ext`
+* Check your system PATH settings. On Windows, goto `Control Panel ---> System --> Advanced Settings ---> Environment Variables`.
+  Your path should include the directories:   `C:\Program Files\Java\jre6\bin\server` 
+  and the R installation directory, e.g. `C:\Revolution\R-Enterprise-7.3\R-3.1.1\bin\x64`.
+* Make sure that the environment variables `RPATH` and `RHOME` are BOTH set and point to the R installation directory, e.g.
+  `C:\Revolution\R-Enterprise-7.3\R-3.1.1\bin\x64`
 * In R, install `rJava` and `glmulti`
 
 If you have still problem installing and loading ```glmulti``` package and/or 
