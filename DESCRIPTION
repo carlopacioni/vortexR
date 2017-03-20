@@ -5,10 +5,11 @@ Description: Facilitate Post Vortex Simulation Analysis by offering
     tools to collate multiple Vortex (v10) output files into one R object, and
     analyse the collated output statistically.
 Version: 1.0.0
-Authors@R: as.person(c(
-    "Carlo Pacioni <C.Pacioni@Murdoch.edu.au> [aut, cre]",
-    "Florian Mayer <Florian.Mayer@dpaw.wa.gov.au> [aut]"
-    ))
+Authors@R: c(
+    person("Carlo", "Pacioni", email="C.Pacioni@Murdoch.edu.au", 
+           comment="Business logic", role=c("aut", "cre")),
+    person("Florian", "Mayer", email="Florian.Mayer@dpaw.wa.gov.au", 
+            comment = "R packaging", role="aut"))
 License: GPL-3
 URL: https://cran.r-project.org/vortexR/
 BugReports: https://github.com/carlopacioni/vortexR/issues
