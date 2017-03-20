@@ -48,7 +48,7 @@ simulation analysis. Methods in Ecology and Evolution.
 
 \section{Get in touch}{
 
-Please, use \url{https://github.org/carlopacioni/vortexR/issues} to report
+Please, use \url{https://github.com/carlopacioni/vortexR/issues} to report
 any issues with vortexR. If unsure, or for feedback, contact me at:
 carlo.pacioni 'at' gmail.com.
 }
