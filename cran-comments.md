@@ -1,6 +1,10 @@
 ## Test environments
-* GNU/Linux (kernel 4.4.0-53-generic, Ubuntu 14.04.5 LTS), R version 3.3.2 (RStudio Server)
-* GNU/Linux (kernel 3.13.0-103-generic, Ubuntu 12.04.5 LTS), R version 3.3.2 (TravisCI)
+* GNU/Linux (kernel 4.4.0-59-generic, arch x86_64, Ubuntu 16.04.2 LTS), 
+  R version 3.3.3 (RStudio Desktop)
+* GNU/Linux (kernel 4.4.0-53-generic, arch x86_64, Ubuntu 14.04.5 LTS), 
+  R version 3.3.2 (RStudio Server)
+* GNU/Linux (kernel 3.13.0-103-generic, arch x86_64, Ubuntu 12.04.5 LTS), 
+  R version 3.3.2 (TravisCI)
 * win-builder (devel and release) TODO run this
 * MS Windows (TODO Carlo: insert windows and R version)
 
