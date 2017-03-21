@@ -1,7 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-cran-comments.md
+^cran-comments\.md$
 ^.*\.back
 ^\.travis\.yml$
 Rplots\.pdf$
-^revdep$
