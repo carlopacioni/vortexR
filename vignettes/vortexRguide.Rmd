@@ -114,7 +114,7 @@ unintentional errors or problems that may be encountered by vortexR users.
 ## Technical support and feedback
 Please report possible bugs, unexpected behaviour, suggestions and feature requests 
 [here](https://github.com/carlopacioni/vortexR/issues). 
-Constructive feedback can be sent to  [carlopacioni@gmail.com]().
+Constructive feedback can be sent to  carlopacioni at gmail dot com.
 
 # *vortexR* components and workflow 
 Vortex v10 is an incredibly versatile tool that is used by ecologists and geneticists to explore a large number of ecological and genetic questions. It is very difficult to predict what analytical approach Vortex users may want to undertake as it will be highly influenced by how the simulations were set up and the questions been tackled. With the release of Vortex v10, users can easily develop a large number of scenarios to explore the effects of the factors being studied as well as their interactions. This is particularly true when the user takes advantage of the new Sensitivity Test module (ST), which can automate the creation and executions of hundreds of scenarios. Therefore, an equivalent automation of the post-simulation analytical steps is also required as it may become quickly unfeasible to manually access and analyse such a large number of files and data. We developed a set of functions that execute operations on various Vortex outputs. We believe that these tasks will be of common utility for Vortex users' community; however it is the user's responsibility to evaluate their suitability.  
