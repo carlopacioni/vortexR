@@ -53,8 +53,8 @@ on screen.
 \examples{
 # Using Campbell et al. and Pacioni et al. example files.
 # See ?pacioni and ?campbell for more details on example files.
-camp.dir <- system.file("extdata", "campbell", package="vortexR")
-pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+camp.dir <- system.file("extdata", "campbell", package="vortexRdata")
+pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 
 # Campbell example, project "Starlingv3PopBased" (.dat)
 starling <- collate_dat("Starlingv3PopBased", 10000,

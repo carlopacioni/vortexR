@@ -18,10 +18,10 @@ vortexR is an R package that automates common tasks carried out on outputs of po
 vortexR requires R v3.1.3 (or later versions) and, while it may work on previous R versions, this has not been tested and the user is strongly recommended to use v3.1.3 or greater. If you are using Windows and need to check or update your version of R (and installed packages), you can easily do that following the instructions in this [webpage](http://www.r-statistics.com/2013/03/updating-r-from-r-on-windows-using-the-installr-package/). Similarly, vortexR was developed to be compatible with Vortex v10 (Lacy & Pollak 2013). Formatting of the outputs is slightly different in Vortex v10 compared to previous versions, which may cause issues. Some functions may adequately process outputs from previous versions, but it is the responsibility of the user to make sure the correctness of the results. 
 
 If you are at your first experiences with R, and have not installed it yet, 
-download the latest version from [www.r-project.org](www.r-project.org) for your 
+download the latest version from [r-project.org](www.r-project.org) for your 
 operating system. 
 While there is no strict requirement to do so, we find the free RStudio IDE 
-([www.rstudio.com](https://www.rstudio.com/)) very handy. 
+([rstudio.com](https://www.rstudio.com/)) very handy. 
 It will be very easy to keep clean and then capture your sequence of commands, 
 including possible data manipulations, so that you can return to it later.
 
@@ -40,11 +40,12 @@ From within R (or RStudio),  vortexR can be installed from the github repository
 
 ```{r eval=FALSE} 
 library(devtools, quietly=TRUE)
+install_github("carlopacioni/vortexRdata")
 install_github("carlopacioni/vortexR")
 ```
 If you want to be able to access the vignette, you have to use:
 
-```{r eval=FALSE} 
+```{r eval=FALSE}
 install_github("carlopacioni/vortexR", build_vignette=TRUE)
 ```
 
@@ -88,7 +89,8 @@ Pacioni et al. (2017) developed a baseline PVA model for the woylie (*Bettongia 
 When vortexR  is installed, a folder (named  *pacioni*) is created where several Vortex outputs from the project described above are copied. The project file that was used to generate them is also contained in the folder. Running the following line will locate the path where these files are contained.
 
 ```{r}
-pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+library(vortexRdata)
+pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 ```
 
 Note that the data for Pacioni et al. (2017) are just a subset of the original (only three runs for 120 years, and only for a subset of scenarios), so your results do not match the ones reported in the original publication. 
@@ -347,10 +349,6 @@ head(Pext[[1]][, c(2:4, 7:8)])
 
 Note that in this example, SSMD has little meaning because the base scenario in the LHS simulations was set in a way that it would go extinct in all simulations (we were not interested in pairwise comparisons with this data) and given the limited number of replicates in the example data, most scenarios either go extinct or not with 100% probability so that SSMD is either NaN or Inf. Hopefully, though this helped you to have an idea of how this function works.
 
-***
-
-
-
 # Detailed description
 
 vortexR returns the results of the functions to R and these can be used for subsequent vortexR functions or further data analysis and manipulations in R. By default, vortexR also writes the results to disk in two formats, a .RData file (which offer the advantage of retaining all R information about the data and can be read back in R if you need to) and text files. Text files,  following Vortex philosophy, use semicolumns (";") as separators. The text files can be imported in other statistical packages or software as required. Plot functions save the output in PDF as secondary file format rather than text file. The user can prevent vortexR to write the results to disk using ```save2disk=FALSE```. The only exception is ```fit_regression``` that will write two small files when using the genetic algorithm for the search of the best regression model(s). This is because this function use the R package ```glmulti``` and these files are output by default. If no output path is passed (using the argument ```dir_out```), vortexR will, depending on the function used, store the results in one of the following folders: *ProcessedData*, *DataAnalysis*, or *Plots*, within the working directory. Results from ```pairwise``` and ```fit_regression``` are further separated into the folders *DataAnalysis/Pairwise* and *DataAnalysis/FitRefression*. If you don't know which one is your working directory, you can find that out with ```getwd()```. If you want to set your working directory you can do so with ```setwd()```. For example, if you want to set the working directory to *VOutput* within the folder *Users* on Windows, you can use:
@@ -397,7 +395,8 @@ The two elements of the list are written separately to disk (when ```save2disk=T
 An example, using Pacioni et al. (2017) example files (see ```?pacioni``` or above for more details) is :
 ```{r}
 library(data.table, quietly=TRUE)
-pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+library(vortexRdata)
+pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 
 # Run collate_yr on all .yr of the project 'Pacioni_et_al' and the ST scenario
 # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'
@@ -435,11 +434,6 @@ combined <- collate_proc_data(dfs, save2disk=FALSE) # combine
 This is a small function that simply takes the output from ```collate_dat``` (with the argument ```data```) and trims it down to one entry per scenario. The user has to indicate the name of the population to use as reference with the argument ```pop``` and indicate the parameters to be retained in the final table using ```SVs```. The scope of this function is to create a table that summarises simulation parameters. It was initially thought for ST runs where the user may want to have a table that reports the values of the SVs for each scenario (hence the name of the argument SVs!), but because SVs takes a character vector, the user can request any parameter included in the output of ```collate_dat```. This function reports the values of SVs at year zero. This is done because these parameters may take value 'zero' if some populations go extinct. However, there are cases where Vortex may not evaluate these parameters even at year 0. This may happen, for example, when a population is empty at initialization (i.e. the initial population size is zero), or when K is set to zero at the beginning of the simulation. The user should check the values reported and check the Vortex input files if these do not look correct. 
 
 Examples for this function are above in the **A quick run down** section, or in the help file (which you can access with ```?lookup_table```), so we won't repeat them here.
-
-
-***
-
-
 
 ## Data visualisation
 Vortex v10 offers a fantastic new graphic interface, and the user may not need to generate additional plots. The main advantage of the plot functions implemented in vortexR is that it can automatise the production of plots. If you want, for example, the same plot for different years in the simulation, or only for a subset of populations, vortexR will make this an easier process, avoiding the manual selection of options that may be required in Vortex. It should be noted that Vortex V10 offers a very large number of plot types and vortexR is not intended to be a replacement. While the main purpose of the plots generated by this function is exploratory, each plot is saved as an R object and can be subsequentially manipulated by the user. In fact, all the plots saved in .RData (see below) by this group of functions are ggplot outputs and these can be further modified by the user (after having loaded the ggplot2 package with ```library(ggplot2)```). 
@@ -485,9 +479,6 @@ The ```pairwise``` function ranks, for each population, the scenarios (and SVs i
 
 When ```ST=FALSE```, vortexR uses the argument ```scenario``` to identify the scenario that should be used as baseline scenario. When ```ST=TRUE```, then vortexR automatically uses the scenario generated by Vortex with the Base values (whose name is ending with '(Base)') as baseline scenario. There may be situations where you used a range of values for a few parameters in the simulations and want to evaluate the mean effect of each of these parameters on their outcome variables of interest (i.e. ranking the parameters, rather than scenarios). For example, let's say you have set up the simulations with five different carrying capacity (K) values and three different mortality rates for the adults of the organism being modelled, and you are interested in evaluating the effects of these two parameters on the genetic diversity after *x* number of years. While comparing the single scenarios with the different values of K and adult mortality against the baseline scenario may be informative, ```pairwise``` offers also the possibility to evaluate the overall 'mean' effect of varying K and adult mortality on genetic diversity. This is automatically done when the analysis is conducted on data generated when ```ST=TRUE, type ="Single-Factor"``` with more then one SV passed with the argument ```SVs```. Otherwise, it is achievable with a combined use of the argument ```group_mean``` and ```SVs```. The first argument tells vortexR to calculate the mean for each group, and ```SVs``` provides the names of the parameters that have to be used to group scenarios (by passing a character vector). For example, let's assume that the user has a ST run, with three SVs (SV1, SV2, and SV3) and 'Nall' and 'Het' are the outcome variables of interest. In this case by setting ```group_mean=T``` and passing ```SVs=c("SV1", "SV2", "SV3")```, vortexR will first compare all the scenarios against the baseline scenario and then, following Conroy and Brook (2003), calculate the mean SC and SSMD for each group of scenarios that have different values from the base scenario of SV1, SV2, and SV3 (one at the time) and provide the ranks accordingly. The same would be achieved using ```ST=TRUE, type ="Single-Factor", SVs=c("SV1", "SV2", "SV3")```, but ```group_mean``` and ```SVs``` are there in case you didn't use this type of ST and have 'custom-made' scenario combinations. The values for the parameters passed with ```SVs``` are evaluated by  vortexR at year=0. This is done because, as mentioned above, these parameters may take value 'zero' if some populations go extinct, which may cause problem when vortexR is trying to work out which parameters are different from the baseline. However, there are cases where Vortex may not evaluate these parameters even at year 0. This may happen, for example, when a population is empty at initialization (i.e. the initial population size is zero), or when K is set to zero at the beginning of the simulation. The user has to make sure that the values for the parameters passed are correct, so that vortexR can group together scenarios appropriately. Note that it makes sense to rank the parameter in a ST run only when the Single-Factor option is used in Vortex. This is because with Single-Factor, the parameters are modified one at the time. If, for example, the ST run used 'Factorial', all parameter combinations are used and therefore the ranking of parameter will also take into account the interaction of parameters and not only the single effects. In these cases, some manual manipulation of the data will be needed to remove the scenarios that are not needed. If the simulation parameters are not varied using a ST module, the users need to either set up adequate state variables in Vortex, so that relevant values of the simulation parameters are recorded, or add them manually to the output of the function ```collate_dat```. Let's suppose that, in the example above where K and Adult mortality were varied, the user set up the simulations as 'normal' vortex scenarios (i.e. not with a ST module), but had created two population state variables, PS1 and PS2, where K and the adult mortality were respectively recorded. Because population state variables are automatically included in Vortex .dat or .stdat outputs, the user can easily obtain the mean SC and SSMD by passing ```group.mean=T, SVs=c("PS1", "PS2")```.  
 
-<br>
-
-<br>
 
 The sensitivity coefficients are calculated as (Drechsler et al. 1998):
 
@@ -608,7 +599,8 @@ NeNRatio <- data.table(NeAll[ , "Population 1", with=F]/NadultAll["pop1", Nad],
                         Scenario=NeAll[ , Scenario])
 ```
 
-If you want to write the results in a csv file, or you have more populations and you want to calculate *Ne:N* for all of them at once, the following should do...:
+If you want to write the results in a csv file, or you have more populations and you want to calculate *Ne:N* for all of them at once, run:
+
 ```{r, eval=FALSE}
 # write results to disk
 write.csv(NeNRatio, file="./DataAnalysis/NeNRatio.csv", row.names=F)

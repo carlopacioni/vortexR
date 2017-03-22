@@ -48,7 +48,7 @@ on screen.
 }
 \examples{
 # Using Pacioni et al. example files. See ?pacioni for more details.
-pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 
 # Run collate_yr on all .yr of project 'Pacioni_et_al' and the ST scenario
 # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'

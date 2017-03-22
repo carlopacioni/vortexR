@@ -1,11 +1,12 @@
 library(vortexR)
+library(vortexRdata)
 context("test collate")
 
 
 test_that("test collate_dat", {
   # dir
-  camp.dir <- system.file("extdata", "campbell", package="vortexR")
-  pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+  camp.dir <- system.file("extdata", "campbell", package="vortexRdata")
+  pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 
 
   # load data
@@ -24,7 +25,7 @@ test_that("test collate_dat", {
 
 test_that("test collate_run", {
   # dir
-    pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+    pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 
   # load data
   data(pac.run.lhs)
@@ -36,7 +37,7 @@ test_that("test collate_run", {
 
 test_that("test collate_yr", {
   # dir
-    pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+    pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 
   # load data
   data(pac.yr)

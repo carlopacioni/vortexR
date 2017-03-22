@@ -1,4 +1,5 @@
 library(vortexR)
+library(vortexRdata)
 context("test plots")
 
 

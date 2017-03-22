@@ -1,10 +1,11 @@
 library(vortexR)
+library(vortexRdata)
 context("test Ne_Nadults")
 
 
 test_that("test Ne", {
   # dir
-  pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+  pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 
   # load data
   data(pac.clas.Ne, pac.clas)
@@ -16,7 +17,7 @@ expect_equal(pac.clas.Ne , NeAll)
 
 test_that("test Nadults", {
   # dir
-  pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+  pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 
   # load data
   data(pac.clas.Nadults, pac.yr)

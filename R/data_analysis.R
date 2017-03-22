@@ -113,6 +113,7 @@ Ne <-  function(data=NULL,
 #' @return A \code{data.table} (\code{data.frame} if \code{\link[data.table]{data.table}} is not
 #'  loaded) with Nb values
 #' @import data.table
+#' @importFrom vortexRdata pac.yr
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.yr for more details.

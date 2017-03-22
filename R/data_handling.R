@@ -13,11 +13,12 @@
 #' @param verbose Progress messages, default: FALSE
 #' @return A data.frame with data from one .dat or .stdat file and
 #'  population/scenario names as factors
+#' @import vortexRdata
 #' @export
 #' @examples
 #' # Pacioni et al. example files. See ?pacioni for more details.
-#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
-#' f <- paste0(pac.dir, "/", "Pacioni_et_al_ST_Classic(Base).stdat")
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
+#' f <- file.path(pac.dir, "Pacioni_et_al_ST_Classic(Base).stdat")
 #' one.st.classic <- collate_one_dat(f, 3)
 collate_one_dat <- function(filename, runs, verbose=FALSE){
 
@@ -118,12 +119,13 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #' @param dir_out The local path to store the output. Default: ProcessedData
 #' @param verbose Progress messages, default: TRUE
 #' @return a data.frame with data from all matching Vortex files or NULL
+#' @import vortexRdata
 #' @export
 #' @examples
 #' # Using Campbell et al. and Pacioni et al. example files.
 #' # See ?pacioni and ?campbell for more details on example files.
-#' camp.dir <- system.file("extdata", "campbell", package="vortexR")
-#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+#' camp.dir <- system.file("extdata", "campbell", package="vortexRdata")
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 #'
 #' # Campbell example, project "Starlingv3PopBased" (.dat)
 #' starling <- collate_dat("Starlingv3PopBased", 10000,
@@ -200,10 +202,11 @@ collate_dat <- function(project, runs,
 #' @inheritParams collate_dat
 #' @return a list with two elements: run, a data.frame with data from all
 #'   Vortex files and lrun, where the same data are re-arranged in long format
+#' @import vortexRdata
 #' @export
 #' @examples
 #' # Using Pacioni et al. example files. See ?pacioni for more details.
-#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 
 #' # Run collate_run on all .run of the project 'Pacioni_et_al' and
 #  # the ST scenario 'ST_LHS' in the selected folder and tore the result in 'run'
@@ -306,10 +309,11 @@ collate_run <- function(project,
 #' Vortex files and "census_means", a data.table with the mean of each parameter
 #' across all iterations for each simulated year
 #' @import data.table
+#' @import vortexRdata
 #' @export
 #' @examples
 #' # Using Pacioni et al. example files. See ?pacioni for more details.
-#' pac.dir <- system.file("extdata", "pacioni", package="vortexR")
+#' pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 #'
 #' # Run collate_yr on all .yr of project 'Pacioni_et_al' and the ST scenario
 #' # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'

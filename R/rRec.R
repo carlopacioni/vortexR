@@ -33,6 +33,7 @@
 #' Pacioni, C., and Mayer, F. (2017). vortexR: an R package for post Vortex
 #' simulation analysis.
 #' @import data.table
+#' @import vortexRdata
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
