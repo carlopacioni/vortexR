@@ -19,7 +19,6 @@
 #'   quality control in RNA interference high-throughput screening assays.
 #'   Genomics 89:552-561.
 #' @import data.table
-#' @import vortexRdata
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.run.lhs for more details.

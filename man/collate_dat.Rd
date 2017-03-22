@@ -53,6 +53,7 @@ on screen.
 \examples{
 # Using Campbell et al. and Pacioni et al. example files.
 # See ?pacioni and ?campbell for more details on example files.
+require(vortexRdata)
 camp.dir <- system.file("extdata", "campbell", package="vortexRdata")
 pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 

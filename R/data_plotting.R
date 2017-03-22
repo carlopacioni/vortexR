@@ -21,7 +21,6 @@
 #' @param dir_out The local path to store the output. Default: Plots
 #' @return Line plot(s)
 #' @import ggplot2
-#' @import vortexRdata
 #' @importFrom grDevices dev.off pdf
 #' @export
 #' @examples

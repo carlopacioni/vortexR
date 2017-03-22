@@ -17,6 +17,7 @@
 #' @export
 #' @examples
 #' # Pacioni et al. example files. See ?pacioni for more details.
+#' require(vortexRdata)
 #' pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 #' f <- file.path(pac.dir, "Pacioni_et_al_ST_Classic(Base).stdat")
 #' one.st.classic <- collate_one_dat(f, 3)
@@ -124,6 +125,7 @@ collate_one_dat <- function(filename, runs, verbose=FALSE){
 #' @examples
 #' # Using Campbell et al. and Pacioni et al. example files.
 #' # See ?pacioni and ?campbell for more details on example files.
+#' require(vortexRdata)
 #' camp.dir <- system.file("extdata", "campbell", package="vortexRdata")
 #' pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 #'

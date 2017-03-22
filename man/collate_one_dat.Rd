@@ -23,6 +23,7 @@ data within as one data.frame.
 }
 \examples{
 # Pacioni et al. example files. See ?pacioni for more details.
+require(vortexRdata)
 pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
 f <- file.path(pac.dir, "Pacioni_et_al_ST_Classic(Base).stdat")
 one.st.classic <- collate_one_dat(f, 3)
