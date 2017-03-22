@@ -25,9 +25,8 @@ Imports:
     irr,
     plyr,
     R.utils,
-    stringr
-Remotes:
-    carlopacioni/vortexRdata
+    stringr,
+    vortexRdata
 Suggests:
     knitr,
     rmarkdown,
