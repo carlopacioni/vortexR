@@ -6,7 +6,10 @@
 * GNU/Linux (kernel 3.13.0-103-generic, arch x86_64, Ubuntu 12.04.5 LTS), 
   R version 3.3.2 (TravisCI)
 * win-builder (devel and release) TODO run this
-* MS Windows (TODO Carlo: insert windows and R version)
+* MS Windows 7 Professional SP1
+  R version 3.3.3 (RStudio Desktop)
+* MS Windows 10 Home
+  R version 3.3.2 (RStudio Desktop)
 
 ## R CMD check results
 There were no ERRORs or WARNINGs. 
