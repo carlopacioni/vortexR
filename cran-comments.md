@@ -5,11 +5,12 @@
   R version 3.3.2 (RStudio Server)
 * GNU/Linux (kernel 3.13.0-103-generic, arch x86_64, Ubuntu 12.04.5 LTS), 
   R version 3.3.2 (TravisCI)
-* win-builder (devel and release) TODO run this
-* MS Windows (TODO Carlo: insert windows and R version)
+* win-builder (devel, release, oldrelease)
+* MS Windows (TODO Carlo: insert Windows version of "big laptop"), R version 3.3.3
+* MS Windows (TODO Carlo: insert Windows version of "small laptop"), R version 3.3.2
 
 ## R CMD check results
-R CMD check succeeded without errors, warnings, or notes.
+R CMD check succeeded in all test environments without errors, warnings, or notes.
 
 ## Downstream dependencies
 We have checked downstream dependencies of vortexR using devtools::revdep_check().
