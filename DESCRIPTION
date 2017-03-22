@@ -7,8 +7,8 @@ Description: Facilitate Post Vortex Simulation Analysis by offering
 Version: 1.0.0
 Authors@R: c(
     person("Carlo", "Pacioni", email="C.Pacioni@Murdoch.edu.au", role=c("aut", "cre")),
-    person("Florian", "Mayer", email="Florian.Mayer@dpaw.wa.gov.au", role="aut"))
-Author: Carlo Pacioni [aut, cre], Florian Mayer [aut]
+    person(c("Florian", "W."), "Mayer", email="Florian.Mayer@dpaw.wa.gov.au", role="aut"))
+Author: Carlo Pacioni [aut, cre], Florian W. Mayer [aut]
 Maintainer: Carlo Pacioni <C.Pacioni@Murdoch.edu.au>
 License: GPL-3
 URL: https://github.com/carlopacioni/vortexR/
