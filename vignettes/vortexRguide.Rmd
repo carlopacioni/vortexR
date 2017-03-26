@@ -40,8 +40,7 @@ From within R (or RStudio),  vortexR can be installed from the github repository
 
 ```{r eval=FALSE} 
 library(devtools, quietly=TRUE)
-install_github("carlopacioni/vortexRdata")
-install_github("carlopacioni/vortexR")
+8ioinstall_github("carlopacioni/vortexR")
 ```
 If you want to be able to access the vignette, you have to use:
 

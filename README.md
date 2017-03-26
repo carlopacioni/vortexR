@@ -16,7 +16,7 @@ To install the latest stable release from CRAN:
 install.packages("vortexR")
 ```
 
-To install vortexR from source:
+To install the latest development version from source:
 
 ```
 install.packages("devtools")
@@ -73,8 +73,8 @@ A typical installation under Windows could follow:
   `C:\Revolution\R-Enterprise-7.3\R-3.1.1\bin\x64`
 * In R, install `rJava` and `glmulti`
 
-If you have still problem installing and loading ```glmulti``` package and/or 
-```rJava```, you may not have Java installed or are not using the same Java version as R. 
+If you have still problem installing and loading `glmulti` package and/or 
+`rJava`, you may not have Java installed or are not using the same Java version as R. 
 Make sure that if you are using a 64-bit version of R, you also have installed 
 a 64 bit version of Java (most automatic installation via web browser will 
 install a 32-bit version). 
@@ -87,9 +87,9 @@ is a great source for troubleshooting.
 Use `help(vortexR)` `?vortexR` or `??vortexR` to see a broad description of the package.
 Use `help(package = "vortexR")` to see the documentations available. 
 Read the vignette for a more comprehensive description of the package. 
-Be aware, if you did not use ```build_vignette=TRUE``` this documentation may 
+Be aware, if you did not use `build_vignette=TRUE` this documentation may 
 not be available from within R. In these cases, download the PDF of these documents. 
-On some platforms, `??vortexR` may not work even if you used ```build_vignette=TRUE```.
+On some platforms, `??vortexR` may not work even if you used `build_vignette=TRUE`.
 
 ## Use
 If you use `vortexR`, please use the citation generated from `citation('vortexR')`.
@@ -101,10 +101,10 @@ Notes on vortexR's code style:
 
 * Most of the code is formatted following Google's R Style Guide. 
 * Some parts have been then re-formatted following Hadley's style suggestions from his book:
-  r-packages. The latter re-formatting mainly concerns functions and arguments' names.
+  r-packages. The latter re-formatting mainly concerns function and parameter names.
 * Exported functions and arguments should use only snake_case, avoid CamelCase and dot.case.
 * CamelCase and dot.case are OK in the code.
-* Keep a space around operators except with "=" for functions' arguments.
+* Keep a space around operators except with `=` for function parameters.
 * "if" statements only go in one line IF there is one command only (and with 
   curly brackets), otherwise split them over multiple lines.
 * No full stop in the title and arguments' descriptions within roxygen's comments.
