@@ -18,6 +18,19 @@ except
     ```
     
     We would like to confirm that this is a new submission.
+  
+* checking package dependencies ... ERROR
+    ```
+    Package required and available but unsuitable version: 'vortexRdata'
+    ```
+    
+    Occurs only on winbuilder "devel" 3.4.0, but not on winbuilder "devel" 3.3.4 
+    or any other test environments.
+    
+    The R manual section on [package dependencies](
+    https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-Dependencies)
+    advises that data packages should be a `Suggests`, however this causes an error
+    `Namespace dependency not required: vortexRdata`.
 
 ## Downstream dependencies
 We have checked downstream dependencies of vortexR using `devtools::revdep_check()`.
