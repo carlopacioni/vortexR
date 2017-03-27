@@ -27,6 +27,19 @@ except
     This ERROR only occurs on winbuilder "devel" 3.4.0, but not on winbuilder 
     "devel" 3.3.4 or any other test environments.
     
+## Reviewer notes
+### Version 1.0.3
+The package was submitted as v1.0.2 to CRAN. The reviewer suggested:
+* Description: Facilitate Post Vortex Simulation Analysis by offering tools 
+   to collate multiple Vortex (v10) output files into one R 
+   object, and analyse the collated output statistically. 
+
+  For non-experts, can you pls elaborate a bit more what 'Vortex' is about?            Perhaps add something like
+
+  See <http...> for more information about ...
+
+The field `Description` in `DESCRIPTION` has been modified accordingly.
+
 ## Downstream dependencies
 We have checked downstream dependencies of vortexR using `devtools::revdep_check()`.
 Results: No errors or warnings found.
