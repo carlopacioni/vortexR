@@ -1,4 +1,5 @@
 ## Test environments
+
 * GNU/Linux Ubuntu 16.04.2 LTS, 64 bit, R 3.3.3 (RStudio Desktop)
 * GNU/Linux Ubuntu 14.04.5 LTS, 64 bit, R 3.3.2 (RStudio Server)
 * MS Windows Server 2008, 64 bit, R "release", "devel", "oldrelease" (winbuilder)
