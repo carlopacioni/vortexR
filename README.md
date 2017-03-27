@@ -97,14 +97,6 @@ If you use `vortexR`, please use the citation generated from `citation('vortexR'
 ## Contribute
 We are happy to receive feedback and contributions through bug reports and pull requests.
 
-Notes on vortexR's code style:
-
-* Most of the code is formatted following Google's R Style Guide. 
-* Some parts have been then re-formatted following Hadley's style suggestions from his book:
-  r-packages. The latter re-formatting mainly concerns function and parameter names.
-* Exported functions and arguments should use only snake_case, avoid CamelCase and dot.case.
-* CamelCase and dot.case are OK in the code.
-* Keep a space around operators except with `=` for function parameters.
-* "if" statements only go in one line IF there is one command only (and with 
-  curly brackets), otherwise split them over multiple lines.
-* No full stop in the title and arguments' descriptions within roxygen's comments.
+We aim to follow the style suggestions by `formatR::tidy_dir("R", width.cutoff = 79)` 
+and `lintr::lint_package()`, and 
+`devtools::check(check_version = T, force_suggests = T, cran = T)`.
