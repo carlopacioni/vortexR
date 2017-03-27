@@ -42,8 +42,9 @@ with its associated p values. Raw data are also reported.
 \examples{
 # Using Pacioni et al. example data. See ?pac.run.lhs for more details.
 data(pac.run.lhs)
-Pext <- Pextinct(pac.run.lhs[[2]], project="Pacioni_et_al", scenario="ST_Classic",
-             ST=TRUE, save2disk=FALSE, dir_out="DataAnalysis/Pextinct")
+Pext <- Pextinct(pac.run.lhs[[2]], project='Pacioni_et_al',
+  scenario='ST_Classic', ST=TRUE, save2disk=FALSE,
+  dir_out='DataAnalysis/Pextinct')
 }
 \references{
 Zhang, X. D. 2007. A pair of new statistical parameters for

@@ -11,7 +11,7 @@ PrefixAndRepeat(chars, times = 1, prefix = "")
 
 \item{times}{The number of repetitions (ncolpop), default: 1}
 
-\item{prefix}{A text prefix, default: ""}
+\item{prefix}{A text prefix, default: ''}
 }
 \description{
 Return a prefixed and repeated string of character

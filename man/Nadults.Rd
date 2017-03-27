@@ -11,8 +11,8 @@ Nadults(data, scenarios = "all", npops_noMeta = 1, appendMeta = FALSE,
 \arguments{
 \item{data}{The second element (census_means) of the output from \code{collate_yr}}
 
-\item{scenarios}{A vector of scenario names for which Ne needs to be calculated,
-default: "all"}
+\item{scenarios}{A vector of scenario names for which Ne needs to be
+calculated, default: 'all'}
 
 \item{npops_noMeta}{The total number of populations excluding the metapopulation,
 default: 1}
@@ -22,13 +22,15 @@ default: FALSE}
 
 \item{gen}{The generation time express in years}
 
-\item{yr0}{The time window to be considered (first and last year respectively)}
+\item{yr0}{The time window to be considered (first and last year
+respectively)}
 
-\item{yrt}{The time window to be considered (first and last year respectively)}
+\item{yrt}{The time window to be considered (first and last year
+respectively)}
 
 \item{save2disk}{Whether to save the output to disk, default: TRUE}
 
-\item{fname}{The name of the files where to save the output, defult: "Nadults"}
+\item{fname}{The name of the files where to save the output, defult: 'Nadults'}
 
 \item{dir_out}{The local path to store the output. Default: DataAnalysis}
 }
@@ -51,6 +53,6 @@ relevant. If this behaviour is not desired, use \code{gen=0}.
 \examples{
 # Using Pacioni et al. example data. See ?pac.yr for more details.
 data(pac.yr)
-NadultAll <- Nadults(data=pac.yr[[2]], scenarios="all", gen=2.54, yr0=50, yrt=120,
+NadultAll <- Nadults(data=pac.yr[[2]], scenarios='all', gen=2.54, yr0=50, yrt=120,
              save2disk=FALSE)
 }

@@ -10,22 +10,23 @@ Ne(data = NULL, scenarios = "all", gen = 1, yr0 = 1, yrt = 2,
 \arguments{
 \item{data}{The output from \code{collate_dat}}
 
-\item{scenarios}{A vector of scenario names for which Ne needs to be calculated,
-default: "all"}
+\item{scenarios}{A vector of scenario names for which Ne needs to be
+calculated, default: 'all'}
 
 \item{gen}{The generation time express in years}
 
-\item{yr0, yrt}{The time window to be considered (first and last year respectively)}
+\item{yr0, yrt}{The time window to be considered (first and last year
+respectively)}
 
 \item{save2disk}{Whether to save the output to disk, default: TRUE}
 
-\item{fname}{The name of the files where to save the output, defult: "Ne"}
+\item{fname}{The name of the files where to save the output, defult: 'Ne'}
 
 \item{dir_out}{The local path to store the output. Default: DataAnalysis}
 }
 \value{
-A \code{data.table} (\code{data.frame} if \code{\link[data.table]{data.table}} is not
- loaded) with Ne values
+A \code{data.table} (\code{data.frame} if
+  \code{\link[data.table]{data.table}} is not loaded) with Ne values
 }
 \description{
 \code{Ne} calculates the effective population size (Ne) between \code{yr0}
@@ -35,18 +36,18 @@ and \code{yrt} for several scenarios based on the loss of genetic diversity
 \details{
 \code{yr0} is adjusted by adding the number of years of the generation time
 (rounded to the nearest integer).  In this way the user can provide the same
-\code{yr0,yrt} and \code{gen} to \code{Nadults} and \code{Ne} and these values
-are adjusted internally to correctly calculate the Ne/N ratios where relevant.
-If this behaviour is not desired, use \code{gen=0}.
+\code{yr0,yrt} and \code{gen} to \code{Nadults} and \code{Ne} and these
+values are adjusted internally to correctly calculate the Ne/N ratios where
+relevant. If this behaviour is not desired, use \code{gen=0}.
 
-\strong{NOTE:} When a population goes extinct, the results of the calculations
-are spurious (they are 0.5). This may change in future versions.
+\strong{NOTE:} When a population goes extinct, the results of the
+calculations are spurious (they are 0.5). This may change in future versions.
 }
 \examples{
 # Using Pacioni et al. example data. See ?pac.clas for more details.
 data(pac.clas)
 # Calculate Ne for all scenarios in the data. Note the odd value for scenario
 # 12, consequent to the population going extinct.
-NeAll <- Ne(data=pac.clas, scenarios="all", gen=2.54, yr0=50, yrt=120,
+NeAll <- Ne(data=pac.clas, scenarios='all', gen=2.54, yr0=50, yrt=120,
          save2disk=FALSE)
 }

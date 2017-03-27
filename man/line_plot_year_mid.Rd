@@ -18,7 +18,7 @@ line_plot_year_mid(data, project, scenario, yrmid = 1,
 \item{yrmid}{The last year to plot}
 
 \item{params}{Vortex parameters to be plotted,
-default: c("PExtinct", "Nextant", "Het", "Nalleles")}
+default: c('PExtinct', 'Nextant', 'Het', 'Nalleles')}
 
 \item{plotpops}{The populations to be included in the plot, default: 'all'}
 
@@ -43,9 +43,9 @@ and .pdf files
 # Using Pacioni et al. example data. See ?pac.clas for more details.
 data(pac.clas)
 lineMidPlot.st.classic <- line_plot_year_mid(data=pac.clas,
-                          project="Pacioni_et_al",
-                          scenario="ST_Classic",
+                          project='Pacioni_et_al',
+                          scenario='ST_Classic',
                           yrmid=50,
-                          params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+                          params=c('PExtinct', 'Nextant', 'Het', 'Nalleles'),
                           save2disk=FALSE)
 }

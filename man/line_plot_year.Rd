@@ -16,7 +16,7 @@ line_plot_year(data, project, scenario, params = c("PExtinct", "Nextant",
 \item{scenario}{Vortex scenario name (used to name the output)}
 
 \item{params}{Vortex parameters to be plotted,
-default: c("PExtinct", "Nextant", "Het", "Nalleles")}
+default: c('PExtinct', 'Nextant', 'Het', 'Nalleles')}
 
 \item{plotpops}{The populations to be included in the plot, default: 'all'}
 
@@ -38,8 +38,8 @@ and .pdf files
 \examples{
 # Using Pacioni et al. example data. See ?pac.clas for more details.
 data(pac.clas)
-lineplot.st.classic <- line_plot_year(data=pac.clas, project="Pacioni_et_al",
-                       scenario="ST_Classic",
-                       params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+lineplot.st.classic <- line_plot_year(data=pac.clas, project='Pacioni_et_al',
+                       scenario='ST_Classic',
+                       params=c('PExtinct', 'Nextant', 'Het', 'Nalleles'),
                        save2disk=FALSE)
 }

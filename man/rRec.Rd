@@ -21,9 +21,11 @@ or not (FALSE, default)}
 
 \item{runs}{The number of Vortex simulation runs}
 
-\item{yr0}{The time window to be considered (first and last year respectively)}
+\item{yr0}{The time window to be considered (first and last year
+respectively)}
 
-\item{yrt}{The time window to be considered (first and last year respectively)}
+\item{yrt}{The time window to be considered (first and last year
+respectively)}
 
 \item{save2disk}{Whether to save the output to disk, default: TRUE}
 
@@ -59,9 +61,9 @@ suffix '(Base)'.
 \examples{
 # Using Pacioni et al. example data. See ?pac.clas for more details.
 data(pac.clas)
-recov <- rRec(pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
+recov <- rRec(pac.clas, project='Pacioni_et_al', scenario='ST_Classic',
               ST=TRUE, runs=3, yr0=1, yrt=120, save2disk=FALSE,
-              dir_out="DataAnalysis/rRec")
+              dir_out='DataAnalysis/rRec')
 }
 \references{
 Zhang, X. D. 2007. A pair of new statistical parameters for quality control

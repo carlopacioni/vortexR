@@ -33,7 +33,7 @@ parameter requested with \code{SVs}.
 \details{
 If the name of the populations were changed, the user has to indicate a
 population to be used as reference, otherwise \code{lookup_table} will look
-for a population named "Population 1" (i.e. Vortex default name for the first
+for a population named 'Population 1' (i.e. Vortex default name for the first
 population).
 
 \code{lookup_table} reports the values of SVs at year zero. This is done
@@ -50,8 +50,8 @@ in Vortex.
 \examples{
 # Using Pacioni et al. example data. See ?pac.clas for more details.
 data(pac.clas)
-lkup.st.classic <- lookup_table(data=pac.clas, project="Pacioni_et_al",
-                   scenario="ST_Classic", pop="Population 1",
-                   SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+lkup.st.classic <- lookup_table(data=pac.clas, project='Pacioni_et_al',
+                   scenario='ST_Classic', pop='Population 1',
+                   SVs=c('SV1', 'SV2', 'SV3', 'SV4', 'SV5', 'SV6', 'SV7'),
                    save2disk=FALSE)
 }

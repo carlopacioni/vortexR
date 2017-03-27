@@ -36,7 +36,7 @@ The number of Vortex simulation runs has to be specified, as it cannot be
 inferred by vortexR.
 
 To read Vortex output files from Sensitivity Testing with the extension
-".stdat", specify the scenario name. If \code{scenario=NULL}, all files with
+'.stdat', specify the scenario name. If \code{scenario=NULL}, all files with
 extension .dat, matching the project name will be imported.
 
 \code{dir_in} may contain other files; only files matching the project (and,
@@ -54,16 +54,16 @@ on screen.
 # Using Campbell et al. and Pacioni et al. example files.
 # See ?pacioni and ?campbell for more details on example files.
 require(vortexRdata)
-camp.dir <- system.file("extdata", "campbell", package="vortexRdata")
-pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
+camp.dir <- system.file('extdata', 'campbell', package='vortexRdata')
+pac.dir <- system.file('extdata', 'pacioni', package='vortexRdata')
 
-# Campbell example, project "Starlingv3PopBased" (.dat)
-starling <- collate_dat("Starlingv3PopBased", 10000,
+# Campbell example, project 'Starlingv3PopBased' (.dat)
+starling <- collate_dat('Starlingv3PopBased', 10000,
             dir_in=camp.dir, save2disk=FALSE)
 
 # Read data from all .stdat of the project 'Pacioni_et_al' and the ST scenario
 #   'ST_Classic' and store the output in the object 'woylie.st.classic'
-woylie.st.classic <- collate_dat("Pacioni_et_al", 3, scenario = "ST_Classic",
+woylie.st.classic <- collate_dat('Pacioni_et_al', 3, scenario = 'ST_Classic',
                      dir_in = pac.dir, save2disk=FALSE)
 
 # Save collated data as .Rda and .txt
@@ -71,7 +71,7 @@ woylie.st.classic <- collate_dat("Pacioni_et_al", 3, scenario = "ST_Classic",
 # Read data from all .stdat of the project 'Pacioni_et_al' and the ST scenario
 #   'ST_Classic'. Store the output in the object 'woylie.st.classic' and save
 #   to disk
-woylie.st.classic <- collate_dat("Pacioni_et_al", 3, scenario = "ST_Classic",
+woylie.st.classic <- collate_dat('Pacioni_et_al', 3, scenario = 'ST_Classic',
                      dir_in = pac.dir, save2disk=TRUE)
 }
 }

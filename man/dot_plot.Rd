@@ -18,7 +18,7 @@ dot_plot(data, project, scenario, yrs = c(1, 2), params = c("PExtinct",
 \item{yrs}{The years to be included in the plot}
 
 \item{params}{Vortex parameters to be plotted,
-default: c("PExtinct", "Nextant", "Het", "Nalleles")}
+default: c('PExtinct', 'Nextant', 'Het', 'Nalleles')}
 
 \item{setcolour}{Variable to be used to set colours of data,
 default: scen.name}
@@ -52,8 +52,8 @@ continuous variable is desired, it has to be converted into a factor.
 \examples{
 # Using Pacioni et al. example data. See ?pac.clas for more details.
 data(pac.clas)
-dot <- dot_plot(data=pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
+dot <- dot_plot(data=pac.clas, project='Pacioni_et_al', scenario='ST_Classic',
                yrs=c(80, 120),
-               params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+               params=c('PExtinct', 'Nextant', 'Het', 'Nalleles'),
                save2disk=FALSE)
 }

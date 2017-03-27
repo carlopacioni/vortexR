@@ -40,12 +40,12 @@ From within R (or RStudio),  vortexR can be installed from the github repository
 
 ```{r eval=FALSE} 
 library(devtools, quietly=TRUE)
-8ioinstall_github("carlopacioni/vortexR")
+devtools::install_github("carlopacioni/vortexR")
 ```
 If you want to be able to access the vignette, you have to use:
 
 ```{r eval=FALSE}
-install_github("carlopacioni/vortexR", build_vignette=TRUE)
+devtools::install_github("carlopacioni/vortexR", build_vignette=TRUE)
 ```
 
 but this requires some setting up (e.g. installing Pandoc and MikTex on Windows).

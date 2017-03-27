@@ -25,8 +25,8 @@ not specified, will fall back to use current working directory.}
 \item{verbose}{Progress messages, default: TRUE}
 }
 \value{
-a list with two elements: "census", a data.frame with data from all
-Vortex files and "census_means", a data.table with the mean of each parameter
+a list with two elements: 'census', a data.frame with data from all
+Vortex files and 'census_means', a data.table with the mean of each parameter
 across all iterations for each simulated year
 }
 \description{
@@ -48,10 +48,10 @@ on screen.
 }
 \examples{
 # Using Pacioni et al. example files. See ?pacioni for more details.
-pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
+pac.dir <- system.file('extdata', 'pacioni', package='vortexRdata')
 
 # Run collate_yr on all .yr of project 'Pacioni_et_al' and the ST scenario
 # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'
-yr.st.classic <- collate_yr(project="Pacioni_et_al", scenario="ST_Classic",
+yr.st.classic <- collate_yr(project='Pacioni_et_al', scenario='ST_Classic',
                             dir_in = pac.dir, save2disk=FALSE)
 }

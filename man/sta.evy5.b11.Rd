@@ -7,15 +7,17 @@
 \source{
 Campbell et al. (2016). Assessing the economic benefits of starling
  detection and control to Western Australia. Australasian Journal of
- Environmental Management, 23, 81-99
-}
-\usage{
-data(sta.evy5.b11)
+ Environmental Management, 23, 81-99.
+ \href{https://dx.doi.org/10.1080/14486563.2015.1028486}{DOI:10.1080/14486563.2015.1028486}
 }
 \description{
 A dataset with the results from Vortex scenarios used in Campbell
  et al (2016) to simulate major application of control measures in every
  5 year cycle, maintaining 2011 levels of investment. Vortex outputs, from
- the project named "Starlingv3PopBased" and the sensitivity test scenario
- "MReduction_B11_09Evy5" (.stdat files), were collated with \code{collate_dat}.
+ the project named 'Starlingv3PopBased' and the sensitivity test scenario
+ 'MReduction_B11_09Evy5' (.stdat files), were collated with \code{collate_dat}.
+}
+\examples{
+data("sta.evy5.b11")
+head(sta.evy5.b11)
 }

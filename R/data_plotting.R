@@ -15,7 +15,7 @@
 #' @param project Vortex project name (used to name the output)
 #' @param scenario Vortex scenario name (used to name the output)
 #' @param params Vortex parameters to be plotted,
-#' default: c("PExtinct", "Nextant", "Het", "Nalleles")
+#' default: c('PExtinct', 'Nextant', 'Het', 'Nalleles')
 #' @param plotpops The populations to be included in the plot, default: 'all'
 #' @param save2disk Whether to save the output to disk, default: TRUE
 #' @param dir_out The local path to store the output. Default: Plots
@@ -26,32 +26,28 @@
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
 #' data(pac.clas)
-#' lineplot.st.classic <- line_plot_year(data=pac.clas, project="Pacioni_et_al",
-#'                        scenario="ST_Classic",
-#'                        params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+#' lineplot.st.classic <- line_plot_year(data=pac.clas, project='Pacioni_et_al',
+#'                        scenario='ST_Classic',
+#'                        params=c('PExtinct', 'Nextant', 'Het', 'Nalleles'),
 #'                        save2disk=FALSE)
 line_plot_year <- function(data,
                            project,
                            scenario,
-                           params=c("PExtinct", "Nextant", "Het", "Nalleles"),
-                           plotpops=c("all"),
-                           save2disk=TRUE,
-                           dir_out="Plots") {
-    ############################################################################
-    # Dealing with no visible global variables
-    ############################################################################
+                           params = c("PExtinct", "Nextant", "Het", "Nalleles"),
+                           plotpops = c("all"),
+                           save2disk = TRUE,
+                           dir_out = "Plots") {
+    ## Dealing with no visible global variables
     scen.name <- NULL
     pop.name <- NULL
-    ###########################################################################
-    if (plotpops == "all")
-        plotpops <- unique(data$pop.name)
+    if (plotpops == "all") plotpops <- unique(data$pop.name)
 
     # Set up headings for params
     params <- make.names(params)
 
     # set legend size
     nscen <- length(unique(data$scen.name))
-    if (nscen < 32){
+    if (nscen < 32) {
         legKeySize <- 7
         legTxtSize <- 7
     } else {
@@ -59,54 +55,42 @@ line_plot_year <- function(data,
             legKeySize <- 2.5
             legTxtSize <- 5
         } else {
-            legKeySize <- round(160 / nscen, digits=2)
+            legKeySize <- round(160/nscen, digits = 2)
             legTxtSize <- 5
         }
     }
 
-    fname_root <- if (is.null(scenario)) {
-        project
-    } else {
-        paste0(project, "_", scenario)
-    }
+    fname_root <- if (is.null(scenario)) project else paste(project, scenario, sep = "_")
 
     popstdat <- subset(data, pop.name %in% plotpops)
 
     r.line_plot_year <- list()
     i <- 0
     if (save2disk) {
-        dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
-        pdf(paste(dir_out, "/", fname_root, "_", "YearVsParams.pdf", sep=""))
+        dir.create(dir_out, showWarnings = FALSE, recursive = TRUE)
+        pdf(paste(dir_out, "/", fname_root, "_", "YearVsParams.pdf", sep = ""))
     }
 
     for (param in params) {
         i <- i + 1
         root <- paste0(fname_root, "_", param)
-        g <- ggplot(popstdat, aes_string(x="Year", y=param)) +
-            geom_line(aes(color=scen.name)) +
-            facet_grid(pop.name~.)
-        plot <- g + theme(panel.spacing=unit(0.2, "inches"),
-                          legend.text=element_text(size=legTxtSize),
-                          legend.key.size=unit(legKeySize, "mm")) +
-            scale_colour_discrete(name="Scenarios")
+        g <- ggplot(popstdat, aes_string(x = "Year", y = param)) + geom_line(aes(color = scen.name)) +
+            facet_grid(pop.name ~ .)
+        plot <- g + theme(panel.spacing = unit(0.2, "inches"), legend.text = element_text(size = legTxtSize),
+            legend.key.size = unit(legKeySize, "mm")) + scale_colour_discrete(name = "Scenarios")
         print(plot)
         r.line_plot_year[[i]] <- plot
-        assign(paste(root, "_", "plot", sep=""), g)
+        assign(paste(root, "_", "plot", sep = ""), g)
     }
 
     if (save2disk) {
         dev.off()
-        save(list=(
-                ls(pattern=paste(fname_root, "_", ".*", "_", "plot", sep=""))
-             ),
-             file=paste(
-                 dir_out, "/", fname_root, "_", "YearVsParams.rda", sep="")
-            )
+        save(list = (ls(pattern = paste(fname_root, "_", ".*", "_", "plot", sep = ""))),
+            file = paste(dir_out, "/", fname_root, "_", "YearVsParams.rda", sep = ""))
     }
 
-    names(r.line_plot_year) <- ls(pattern=paste(
-        fname_root, "_", ".*", "_", "plot", sep="")
-        )
+    names(r.line_plot_year) <- ls(
+        pattern = paste(fname_root, "_", ".*", "_", "plot", sep = ""))
     return(r.line_plot_year)
 }
 
@@ -130,36 +114,25 @@ line_plot_year <- function(data,
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
 #' data(pac.clas)
 #' lineMidPlot.st.classic <- line_plot_year_mid(data=pac.clas,
-#'                           project="Pacioni_et_al",
-#'                           scenario="ST_Classic",
+#'                           project='Pacioni_et_al',
+#'                           scenario='ST_Classic',
 #'                           yrmid=50,
-#'                           params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+#'                           params=c('PExtinct', 'Nextant', 'Het', 'Nalleles'),
 #'                           save2disk=FALSE)
-line_plot_year_mid <-  function(data,
-                                project,
-                                scenario,
-                                yrmid=1,
-                                params=c("PExtinct", "Nextant", "Het",
-                                         "Nalleles"),
-                                plotpops=c("all"),
-                                save2disk=TRUE,
-                                dir_out="Plots") {
-    ############################################################################
+line_plot_year_mid <- function(data, project, scenario, yrmid = 1, params = c("PExtinct",
+    "Nextant", "Het", "Nalleles"), plotpops = c("all"), save2disk = TRUE, dir_out = "Plots") {
     # Dealing with no visible global variables
-    ############################################################################
     Year <- NULL
     pop.name <- NULL
     scen.name <- NULL
-    ###########################################################################
-    if (plotpops == "all")
-        plotpops <- unique(data$pop.name)
+    if (plotpops == "all") plotpops <- unique(data$pop.name)
 
     # Set up headings for params
     params <- make.names(params)
 
     # set legend size
     nscen <- length(unique(data$scen.name))
-    if (nscen < 32){
+    if (nscen < 32) {
         legKeySize <- 5
         legTxtSize <- 7
     } else {
@@ -167,49 +140,41 @@ line_plot_year_mid <-  function(data,
             legKeySize <- 2.5
             legTxtSize <- 5
         } else {
-            legKeySize <- round(160 / nscen, digits=2)
+            legKeySize <- round(160/nscen, digits = 2)
             legTxtSize <- 5
         }
     }
 
-    fname_root <- if (is.null(scenario)) {
-        project
-    } else {
-        paste0(project, "_", scenario)
-    }
+    fname_root <- if (is.null(scenario)) project else paste0(project, "_", scenario)
 
     yrmidstdat <- subset(data, Year <= yrmid & pop.name %in% plotpops)
 
     r.line_plot_year_mid <- list()
     i <- 0
     if (save2disk) {
-        dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
+        dir.create(dir_out, showWarnings = FALSE, recursive = TRUE)
         pdf(paste0(dir_out, "/", fname_root, "_", "YearMidVsParams.pdf"))
     }
 
     for (param in params) {
         i <- i + 1
-        root <- paste(fname_root, param, sep="_")
-        g <- ggplot(yrmidstdat, aes_string(x="Year", y=param)) +
-            geom_line(aes(color=scen.name)) +
-            facet_grid(pop.name~.)
-        plot <- g +
-            theme(panel.spacing=unit(0.2, "inches"),
-                  legend.text=element_text(size=legTxtSize),
-                  legend.key.size=unit(legKeySize, "mm")) +
-            scale_colour_discrete(name="Scenarios")
+        root <- paste(fname_root, param, sep = "_")
+        g <- ggplot(yrmidstdat, aes_string(x = "Year", y = param)) + geom_line(aes(color = scen.name)) +
+            facet_grid(pop.name ~ .)
+        plot <- g + theme(panel.spacing = unit(0.2, "inches"), legend.text = element_text(size = legTxtSize),
+            legend.key.size = unit(legKeySize, "mm")) + scale_colour_discrete(name = "Scenarios")
         print(plot)
         r.line_plot_year_mid[[i]] <- plot
-        assign(paste(root, "_", "Mid", "plot", sep=""), g)
+        assign(paste(root, "_", "Mid", "plot", sep = ""), g)
     }
     pat <- paste0(fname_root, "_", ".*", "_", "Mid", "plot")
     if (save2disk) {
         dev.off()
-        save(list=(ls(pattern=pat)),
-             file=paste0(dir_out, "/", fname_root, "_", "YearMidVsParams.rda"))
+        save(list = (ls(pattern = pat)),
+             file = paste0(dir_out, "/", fname_root, "_", "YearMidVsParams.rda"))
     }
 
-    names(r.line_plot_year_mid) <- ls(pattern=pat)
+    names(r.line_plot_year_mid) <- ls(pattern = pat)
     return(r.line_plot_year_mid)
 }
 
@@ -242,40 +207,26 @@ line_plot_year_mid <-  function(data,
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
 #' data(pac.clas)
-#' dot <- dot_plot(data=pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
+#' dot <- dot_plot(data=pac.clas, project='Pacioni_et_al', scenario='ST_Classic',
 #'                yrs=c(80, 120),
-#'                params=c("PExtinct", "Nextant", "Het", "Nalleles"),
+#'                params=c('PExtinct', 'Nextant', 'Het', 'Nalleles'),
 #'                save2disk=FALSE)
-dot_plot <- function(data,
-                     project,
-                     scenario,
-                     yrs=c(1,2),
-                     params=c("PExtinct", "Nextant", "Het", "Nalleles"),
-                     setcolour="scen.name",
-                     plotpops=c("all"),
-                     save2disk=TRUE,
-                     dir_out="Plots") {
-    ############################################################################
+dot_plot <- function(data, project, scenario, yrs = c(1, 2), params = c("PExtinct",
+    "Nextant", "Het", "Nalleles"), setcolour = "scen.name", plotpops = c("all"),
+    save2disk = TRUE, dir_out = "Plots") {
     # Dealing with no visible global variables
-    ############################################################################
     Year <- NULL
     pop.name <- NULL
-    ###########################################################################
 
-    if (plotpops == "all")
-        plotpops <- unique(data$pop.name)
+    if (plotpops == "all") plotpops <- unique(data$pop.name)
 
     # Set up headings for params
     params <- make.names(params)
 
-    fname_root <- if (is.null(scenario)) {
-        project
-    } else {
-        paste0(project, "_", scenario)
-    }
+    fname_root <- if (is.null(scenario)) project else paste(project, scenario, sep = "_")
 
     # set legend size
-    nLegItems <- length(unique(data[ , setcolour]))
+    nLegItems <- length(unique(data[, setcolour]))
     if (nLegItems < 32) {
         legKeySize <- 5
         legTxtSize <- 7
@@ -284,60 +235,57 @@ dot_plot <- function(data,
             legKeySize <- 2.5
             legTxtSize <- 5
         } else {
-            legKeySize <- round(160 / nLegItems, digits=2)
+            legKeySize <- round(160/nLegItems, digits = 2)
             legTxtSize <- 5
         }
     }
 
     # Vector of SD names for params
-    SDname <- function(parSD) paste("SD.", parSD, ".", sep="")
+    SDname <- function(parSD) paste("SD.", parSD, ".", sep = "")
     SD <- sapply(params, SDname)
-    if ("r.stoch" %in% params) SD["r.stoch"] <- "SD.r."
+    if ("r.stoch" %in% params)
+        SD["r.stoch"] <- "SD.r."
 
     # dot plots by pops & yrs of mean params with (SD) bars
     popstdat <- subset(data, pop.name %in% plotpops)
 
     r.dot_plot <- list()
     if (save2disk) {
-        dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
-        pdf(paste(dir_out, "/", fname_root, "_", "dot_plots.pdf", sep=""))
+        dir.create(dir_out, showWarnings = FALSE, recursive = TRUE)
+        pdf(paste(dir_out, "/", fname_root, "_", "dot_plots.pdf", sep = ""))
     }
 
     for (i in 1:length(params)) {
         yrstdat <- subset(popstdat, Year %in% yrs)
-        root <- paste(fname_root, "_", params[i], sep="")
+        root <- paste(fname_root, "_", params[i], sep = "")
         min <- yrstdat[params[i]] - yrstdat[SD[i]]
         names(min) <- "min"
         max <- yrstdat[params[i]] + yrstdat[SD[i]]
         names(max) <- "max"
-        yrstdat <- cbind(yrstdat,min, max)
-        limits <- aes(ymax=max, ymin=min)
-        d <- ggplot(yrstdat,
-                    aes_string(color=setcolour, x="scen.name", y=params[i])) +
-            geom_point() +
-            theme(axis.text.x=element_text(angle=-90, size=5, vjust=1)) +
-            xlab("Scenario") +
-            facet_grid(pop.name~Year) +
-            geom_errorbar(limits, width=0.15) +
-            theme(panel.spacing=unit(0.2, "inches")) +
-            if (setcolour == "scen.name") {
-                theme(legend.position="none") } else {
-                    theme(legend.position="right",
-                          legend.text=element_text(size=legTxtSize),
-                          legend.key.size=unit(legKeySize, "mm"))
-                }
+        yrstdat <- cbind(yrstdat, min, max)
+        limits <- aes(ymax = max, ymin = min)
+        d <- ggplot(yrstdat, aes_string(color = setcolour, x = "scen.name", y = params[i])) +
+            geom_point() + theme(axis.text.x = element_text(angle = -90, size = 5,
+            vjust = 1)) + xlab("Scenario") + facet_grid(pop.name ~ Year) + geom_errorbar(limits,
+            width = 0.15) + theme(panel.spacing = unit(0.2, "inches")) + if (setcolour ==
+            "scen.name") {
+            theme(legend.position = "none")
+        } else {
+            theme(legend.position = "right", legend.text = element_text(size = legTxtSize),
+                legend.key.size = unit(legKeySize, "mm"))
+        }
         print(d)
-        assign(paste(root, "_", "dot_plot", sep=""), d)
+        assign(paste(root, "_", "dot_plot", sep = ""), d)
         r.dot_plot[[i]] <- d
     }
     pat <- paste0(fname_root, "_", ".*", "_", "dot_plot")
     if (save2disk) {
         dev.off()
-        save(list=(ls(pattern=pat)),
-             file=paste0(dir_out, "/", fname_root, "_", "dot_plots.rda"))
+        save(list = (ls(pattern = pat)), file = paste0(dir_out, "/", fname_root,
+            "_", "dot_plots.rda"))
     }
 
-    names(r.dot_plot) <- ls(pattern=pat)
+    names(r.dot_plot) <- ls(pattern = pat)
     return(r.dot_plot)
 }
 
@@ -355,7 +303,7 @@ dot_plot <- function(data,
 #'
 #' @param data  The output from \code{collate_dat}, the long format of the
 #' output from \code{collate_run} or the output from \code{con_l_yr}
-#' @param data_type The type of input data. Possible options are "dat", "yr" or "run"
+#' @param data_type The type of input data. Possible options are 'dat', 'yr' or 'run'
 #' @param lookup A table to add relevant variable matched using the scenarios
 #' names
 #' @param yr The year to be plotted
@@ -373,38 +321,40 @@ dot_plot <- function(data,
 #' # Using Pacioni et al. example data. See ?pac.lhs for more details.
 #' data(pac.lhs)
 #' # Remove base scenario
-#' pac.lhs.no.base <- pac.lhs[!pac.lhs$scen.name == "ST_LHS(Base)", ]
+#' pac.lhs.no.base <- pac.lhs[!pac.lhs$scen.name == 'ST_LHS(Base)', ]
 #'
-#' # Use function lookup_table to obtain correct parameter values at year 0
-#' lkup.ST_LHS <- lookup_table(data=pac.lhs.no.base, project="Pacioni_et_al",
-#'                             scenario="ST_LHS",
-#'                             pop="Population 1",
-#'                             SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6",
-#'                                   "SV7"),
-#'                             save2disk=FALSE)
+#' # Get correct parameter values at year 0
+#' lkup.ST_LHS <- lookup_table(
+#'     data=pac.lhs.no.base, project='Pacioni_et_al',
+#'     scenario='ST_LHS',
+#'     pop='Population 1',
+#'     SVs=c('SV1', 'SV2', 'SV3', 'SV4', 'SV5', 'SV6', 'SV7'),
+#'     save2disk=FALSE)
 #'
-#' scatter.plot <- m_scatter(data=pac.lhs.no.base[1:33], data_type="dat",
-#'                           lookup=lkup.ST_LHS, yr=120, popn=1, param="Nall",
-#'                           vs=c("SV1", "SV2", "SV3"),
-#'                           save2disk=FALSE)
-m_scatter <- function (data,
-                       data_type="dat", # options: "dat", "yr" or "run"
-                       lookup=NA,
-                       yr=1,
-                       popn=1,
-                       param="N",
-                       vs=NA,
-                       save2disk=TRUE,
-                       fname=NULL,
-                       dir_out="Plots") {
-    ############################################################################
+#' scatter.plot <- m_scatter(
+#'     data=pac.lhs.no.base[1:33],
+#'     data_type='dat',
+#'     lookup=lkup.ST_LHS,
+#'     yr=120,
+#'     popn=1,
+#'     param='Nall',
+#'     vs=c('SV1', 'SV2', 'SV3'),
+#'     save2disk=FALSE)
+m_scatter <- function(data,
+                      data_type = "dat",
+                      lookup = NA,
+                      yr = 1,
+                      popn = 1,
+                      param = "N",
+                      vs = NA,
+                      save2disk = TRUE,
+                      fname = NULL,
+                      dir_out = "Plots") {
     # Dealing with no visible global variables
-    ############################################################################
     Year <- NULL
     Population <- NULL
     J <- NULL
     . <- NULL
-    ###########################################################################
 
     # Set up headings for param
     param <- make.names(param)
@@ -419,35 +369,32 @@ m_scatter <- function (data,
         # Thin data to use less memory
         setkey(data, Year)
         data <- data[J(yr), ]
-        pop <- data[ , levels(Population)][popn]
+        pop <- data[, levels(Population)][popn]
     } else {
         if (data_type == "yr") {
             setkey(data, Year)
             data <- data[J(yr), ]
-            pop <- paste0("pop", popn) # The pop is selected with its number.
+            pop <- paste0("pop", popn)  # The pop is selected with its number.
         } else {
             data <- data.table(data)
-            pop <- data[ , levels(Population)][popn]
+            pop <- data[, levels(Population)][popn]
         }
     }
 
     setkey(data, Population)
-    data <- data[.(pop), ] # Select pop
+    data <- data[.(pop), ]  # Select pop
     suppressWarnings(if (!is.na(lookup)) {
-        data <- plyr::join(data, lookup, by='Scenario', type="left")
-    } )
-    corrMtrx <- GGally::ggpairs(data[ , c(vs, param), with=FALSE],
-                                axisLabels='internal',
-                                lower = list(continuous="smooth"),
-                                mapping = aes(colour="red", alpha=0.2))
+        data <- plyr::join(data, lookup, by = "Scenario", type = "left")
+    })
+    corrMtrx <- GGally::ggpairs(data[, c(vs, param), with = FALSE], axisLabels = "internal",
+        lower = list(continuous = "smooth"), mapping = aes(colour = "red", alpha = 0.2))
 
     if (save2disk) {
-        dir.create(dir_out, showWarnings=FALSE, recursive=TRUE)
-        pdf(file=paste0(dir_out, "/", fname, "m_scatter_plots.pdf"))
+        dir.create(dir_out, showWarnings = FALSE, recursive = TRUE)
+        pdf(file = paste0(dir_out, "/", fname, "m_scatter_plots.pdf"))
         print(corrMtrx)
         dev.off()
-        save(corrMtrx, file=paste0(dir_out, "/", fname, "m_scatter_plots.rda"))
+        save(corrMtrx, file = paste0(dir_out, "/", fname, "m_scatter_plots.rda"))
     }
     return(corrMtrx)
 }
-

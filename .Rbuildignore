@@ -4,3 +4,4 @@
 ^.*\.back
 ^\.travis\.yml$
 Rplots\.pdf$
+^man-roxygen/

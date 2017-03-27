@@ -17,15 +17,15 @@ pairwise(data, project, scenario, params = c("PExtinct", "Nextant", "Het",
 used as baseline if simulations were not conducted with the ST module}
 
 \item{params}{A character vector with the parameters to be compared,
-default: c("PExtinct", "Nextant", "Het", "Nalleles")}
+default: c('PExtinct', 'Nextant', 'Het', 'Nalleles')}
 
-\item{yrs}{The year(s) to be analysed, default: "max"}
+\item{yrs}{The year(s) to be analysed, default: 'max'}
 
 \item{ST}{Whether files are from sensitivity analysis (TRUE),
 or not (FALSE, default)}
 
-\item{type}{Type of ST. Possible options are: "Sampled",
-"Latin Hypercube Sampling", "Factorial" or "Single-Factor"}
+\item{type}{Type of ST. Possible options are: 'Sampled',
+'Latin Hypercube Sampling', 'Factorial' or 'Single-Factor'}
 
 \item{group.mean}{Whether calculate the mean of the statistics
 (SSMD and Sensitivity Coefficient) by group. See details}
@@ -63,7 +63,7 @@ using sensitivity coefficients and strictly standardised mean difference. It als
 ranks scenarios (and/or parameters when relevant) using these statistics.
 }
 \details{
-When \code{yrs="max"} (default), VortexR automatically sets  \code{yrs} to
+When \code{yrs='max'} (default), VortexR automatically sets  \code{yrs} to
 the last year of the simulation.
 
 Pairwise comparisons against a baseline scenario are conducted using
@@ -79,7 +79,7 @@ actual statistics need to be inspected to evaluate the direction of the change.
 The Kendall's coefficient of concordance is calculated to test whether the
 order of ranked scenarios (or SVs if relevant) is statistically consistent
 across the chosen points in time and parameters (or SVs). For example, if 100
-years were simulated, \code{yrs=c(50, 100)} and \code{params=c("Nall", "Het")},
+years were simulated, \code{yrs=c(50, 100)} and \code{params=c('Nall', 'Het')},
 the consistency of ranking will be tested across the four raters (i.e. Nall
 at year 50, and at year 100, Het at year 50 and at year 100). Kendall's test
 operates a listwise deletion of missing data. However, when data in a whole
@@ -89,7 +89,7 @@ the statistic is calculated (See vignette for more information).
 It is possible to evaluate the mean effect of a range of values for certain
 parameters on their outcome variables of interest (i.e. ranking the parameters,
 rather than scenarios). This is automatically done when the analysis is
-conducted on with \code{ST=TRUE,type="Single-Factor"} and there is more than
+conducted on with \code{ST=TRUE,type='Single-Factor'} and there is more than
 one SV passed with the argument \code{SVs}. Alternatively, it is achievable
 with a combined use of \code{group.mean=TRUE,SVs}. The first argument result
 in the calculations, following Conroy and Brook (2003), of the mean SC and
@@ -112,10 +112,10 @@ the parameters are modified one at the time (See vignette for more information).
 \examples{
 # Using Pacioni et al. example data. See ?pac.clas for more details.
 data(pac.clas)
-pairw<-pairwise(data=pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
-               params=c("Nall", "Het"), yrs=c(60,120), ST=TRUE,
-               type="Single-Factor",
-               SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+pairw<-pairwise(data=pac.clas, project='Pacioni_et_al', scenario='ST_Classic',
+               params=c('Nall', 'Het'), yrs=c(60,120), ST=TRUE,
+               type='Single-Factor',
+               SVs=c('SV1', 'SV2', 'SV3', 'SV4', 'SV5', 'SV6', 'SV7'),
                save2disk=FALSE)
 }
 \references{

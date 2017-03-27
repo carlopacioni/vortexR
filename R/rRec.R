@@ -37,17 +37,22 @@
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.clas for more details.
 #' data(pac.clas)
-#' recov <- rRec(pac.clas, project="Pacioni_et_al", scenario="ST_Classic",
+#' recov <- rRec(pac.clas, project='Pacioni_et_al', scenario='ST_Classic',
 #'               ST=TRUE, runs=3, yr0=1, yrt=120, save2disk=FALSE,
-#'               dir_out="DataAnalysis/rRec")
+#'               dir_out='DataAnalysis/rRec')
 
 
-rRec <- function(data, project, scenario, ST=FALSE, runs, yr0=1, yrt,
-                 save2disk=TRUE, dir_out="DataAnalysis/rRec") {
-    ############################################################################
-    # Dealing with no visible global variables
-    ############################################################################
-    scen.name <-NULL
+rRec <- function(data,
+                 project,
+                 scenario,
+                 ST = FALSE,
+                 runs,
+                 yr0 = 1,
+                 yrt,
+                 save2disk = TRUE,
+                 dir_out = "DataAnalysis/rRec") {
+    #  Dealing with no visible global variables
+    scen.name <- NULL
     Year <- NULL
     r.stoch <- NULL
     SD.r. <- NULL
@@ -62,24 +67,23 @@ rRec <- function(data, project, scenario, ST=FALSE, runs, yr0=1, yrt,
     pvalues <- NULL
     J <- NULL
     . <- NULL
-    ###########################################################################
 
-  fname <- if (ST) {paste(project, "_", scenario, sep="")} else {project}
-  data <- data.table(data)
-  if (ST) {scenario <- grep("(Base)", data[, unique(scen.name)], value=TRUE)}
-  setkey(data, Year)
-  rTable <- data[J(yr0:yrt), .(rruns=r.stoch * runs, SDruns=SD.r. * runs),
-                by=c("scen.name", "pop.name")]
-  rTable <- rTable[, .(rRec=sum(rruns) / (runs * length(yr0:yrt)),
-                     SD=sum(SDruns) / (runs * length(yr0:yrt))),
-                     by=c("scen.name", "pop.name")]
-  setnames(rTable, c("scen.name", "pop.name"), c("Scenario", "Population"))
-  setkey(rTable, Scenario)
-  Base <- rTable[scenario, .(rRec, SD), by=Population]
-  setnames(Base, c("rRec", "SD"), c("base", "SDbase"))
-  rTable <- merge(rTable, Base, by="Population")
-  rTable[, SSMD := (rRec - base) / sqrt(SD^2 + SDbase^2)]
-  rTable[, pvalues := vortexR::pval(SSMD)]
-  if (save2disk) df2disk(rTable, dir_out, fname, ".rTable")
-  return(rTable)
+    fname <- if (ST) paste(project, scenario, sep = "_") else project
+    data <- data.table(data)
+    if (ST) scenario <- grep("(Base)", data[, unique(scen.name)], value = TRUE)
+    setkey(data, Year)
+    rTable <- data[J(yr0:yrt), .(rruns = r.stoch * runs, SDruns = SD.r. * runs),
+        by = c("scen.name", "pop.name")]
+    rTable <- rTable[, .(rRec = sum(rruns)/(runs * length(yr0:yrt)),
+                         SD = sum(SDruns)/(runs * length(yr0:yrt))),
+                     by = c("scen.name", "pop.name")]
+    setnames(rTable, c("scen.name", "pop.name"), c("Scenario", "Population"))
+    setkey(rTable, Scenario)
+    Base <- rTable[scenario, .(rRec, SD), by = Population]
+    setnames(Base, c("rRec", "SD"), c("base", "SDbase"))
+    rTable <- merge(rTable, Base, by = "Population")
+    rTable[, `:=`(SSMD, (rRec - base)/sqrt(SD^2 + SDbase^2))]
+    rTable[, `:=`(pvalues, vortexR::pval(SSMD))]
+    if (save2disk) df2disk(rTable, dir_out, fname, ".rTable")
+    return(rTable)
 }
