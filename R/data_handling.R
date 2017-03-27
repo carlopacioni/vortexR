@@ -23,9 +23,7 @@
 #' one.st.classic <- collate_one_dat(f, 3)
 collate_one_dat <- function(filename, runs, verbose = FALSE) {
 
-    if (verbose) {
-        message(cat("INFO vortexR::collate_one_dat parsing", filename))
-    }
+    if (verbose) message(cat("INFO vortexR::collate_one_dat parsing", filename))
     lines <- readLines(filename)
 
     # Blocks of population data start with 'Population' With than one population, a
@@ -41,9 +39,7 @@ collate_one_dat <- function(filename, runs, verbose = FALSE) {
         readFor <- length(lines) - popLn[1]
     }
 
-    if (verbose) {
-        message(cat("INFO vortexR::collate_one_dat found", popN, "populations"))
-    }
+    if (verbose) message(cat("INFO vortexR::collate_one_dat found", popN, "populations"))
 
     # Column names
     h <- make.names(read.table(filename, header = FALSE, sep = ";", nrows = 1,
@@ -55,7 +51,6 @@ collate_one_dat <- function(filename, runs, verbose = FALSE) {
 
     # Loop over populations
     for (pop in 1:popN) {
-
         readAfter <- popLn[pop]
 
         # Read population data block
@@ -82,11 +77,7 @@ collate_one_dat <- function(filename, runs, verbose = FALSE) {
 
         # Add scenario name, popname, and probability SDs as data.frame columns
         tmp <- cbind(scen.name, pop.name, tmp, SD.PExtant., SD.PExtinct.)
-        if (pop == 1) {
-            x <- tmp
-        } else {
-            x <- rbind(x, tmp)
-        }
+        if (pop == 1) x <- tmp else x <- rbind(x, tmp)
     }
     return(x)
 }
@@ -162,26 +153,21 @@ collate_dat <- function(project, runs, scenario = NULL, dir_in = NULL, save2disk
         pat <- paste0("^", fname, ".*\\.stdat$")
     }
 
-    if (is.null(dir_in)) {
-        dir_in <- getwd()
-    }
+    if (is.null(dir_in)) dir_in <- getwd()
 
-    files <- get_file_paths(path = dir_in, pattern = pat, fn_name = "collate_dat",
-        fname = fname, verbose = verbose)
+    files <- get_file_paths(path = dir_in,
+                            pattern = pat,
+                            fn_name = "collate_dat",
+                            fname = fname,
+                            verbose = verbose)
 
     d <- data.frame()
-    if (verbose) {
-        message("vortexR::collate_dat is parsing:")
-    }
+    if (verbose) message("vortexR::collate_dat is parsing:")
     for (filename in files) {
-        if (verbose) {
-            message(filename, "\r")
-        }
+        if (verbose) message(filename, "\r")
         d <- rbind(d, collate_one_dat(filename, runs))
     }
-    if (save2disk) {
-        df2disk(d, dir_out, fname, "_data")
-    }
+    if (save2disk) df2disk(d, dir_out, fname, "_data")
     return(d)
 }
 
@@ -219,36 +205,50 @@ collate_dat <- function(project, runs, scenario = NULL, dir_in = NULL, save2disk
 # # the ST scenario 'ST_LHS' in the selected folder and tore the result in 'run'
 #' run <- collate_run('Pacioni_et_al', 'ST_LHS', 1, dir_in=pac.dir,
 #'                    save2disk=FALSE)
-collate_run <- function(project, scenario, npops = 1, dir_in = NULL, save2disk = TRUE,
-    dir_out = "ProcessedData", verbose = TRUE) {
-
+collate_run <- function(project,
+                        scenario,
+                        npops = 1,
+                        dir_in = NULL,
+                        save2disk = TRUE,
+                        dir_out = "ProcessedData",
+                        verbose = TRUE) {
     run <- data.frame()
     lrun <- data.frame()
-
-    if (is.null(dir_in)) {
-        dir_in <- getwd()
-    }
+    if (is.null(dir_in)) dir_in <- getwd()
     fname <- paste(project, scenario, sep = "_")
 
-    files <- get_file_paths(path = dir_in, pattern = paste0("^", fname, ".*\\.run$"),
-        fn_name = "collate_run", fname = fname, verbose = verbose)
+    files <- get_file_paths(path = dir_in,
+                            pattern = paste0("^", fname, ".*\\.run$"),
+                            fn_name = "collate_run",
+                            fname = fname,
+                            verbose = verbose)
 
-    if (verbose) {
-        message("vortexR::collate_run is parsing:")
-    }
+    if (verbose) message("vortexR::collate_run is parsing:")
     for (filename in files) {
-        if (verbose) {
-            message(filename, "\r")
-        }
-        h <- gsub(" ", "", read.table(filename, header = FALSE, sep = ";", nrows = 1,
-            skip = 2, colClasses = "character", comment.char = ""))
+        if (verbose) message(filename, "\r")
+        h <- gsub(" ", "", read.table(filename,
+                                      header = FALSE,
+                                      sep = ";",
+                                      nrows = 1,
+                                      skip = 2,
+                                      colClasses = "character",
+                                      comment.char = ""))
 
-        trun <- read.table(filename, header = FALSE, sep = ";", skip = 3, colClasses = "numeric",
-            comment.char = "")
+        trun <- read.table(filename,
+                           header = FALSE,
+                           sep = ";",
+                           skip = 3,
+                           colClasses = "numeric",
+                           comment.char = "")
         colnames(trun) <- h
 
-        Scenario <- read.table(filename, header = FALSE, sep = ":", nrows = 1, skip = 0,
-            colClasses = "character", comment.char = "")
+        Scenario <- read.table(filename,
+                               header = FALSE,
+                               sep = ":",
+                               nrows = 1,
+                               skip = 0,
+                               colClasses = "character",
+                               comment.char = "")
         Scenario <- gsub(" ", "", Scenario)[2]
 
         Scenario <- rep(Scenario, length = length(trun$Iteration))
@@ -258,8 +258,13 @@ collate_run <- function(project, scenario, npops = 1, dir_in = NULL, save2disk =
 
     # Number of cols for each pop except the intial, fixed cols
     ncolpop <- (length(h) - 1)/npops
-    popnames <- read.table(filename, header = FALSE, sep = ";", nrows = 1, skip = 1,
-        colClasses = "character", comment.char = "")
+    popnames <- read.table(filename,
+                           header = FALSE,
+                           sep = ";",
+                           nrows = 1,
+                           skip = 1,
+                           colClasses = "character",
+                           comment.char = "")
     popnames <- gsub(" ", "", popnames)
     pop <- unique(popnames[2:length(popnames)])
 
@@ -323,37 +328,41 @@ collate_run <- function(project, scenario, npops = 1, dir_in = NULL, save2disk =
 #' # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'
 #' yr.st.classic <- collate_yr(project='Pacioni_et_al', scenario='ST_Classic',
 #'                             dir_in = pac.dir, save2disk=FALSE)
-collate_yr <- function(project, scenario, npops_noMeta = 1, dir_in = NULL, save2disk = TRUE,
-    dir_out = "ProcessedData", verbose = TRUE) {
+collate_yr <- function(project,
+                       scenario,
+                       npops_noMeta = 1,
+                       dir_in = NULL,
+                       save2disk = TRUE,
+                       dir_out = "ProcessedData",
+                       verbose = TRUE) {
     # Dealing with no visible global variables
     Year <- NULL
     Scenario <- NULL
     Iteration <- NULL
 
-    if (is.null(dir_in)) {
-        dir_in <- getwd()
-    }
+    if (is.null(dir_in)) dir_in <- getwd()
     fname <- paste0(project, "_", scenario)
 
-    files <- get_file_paths(path = dir_in, pattern = paste0("^", fname, ".*\\.yr$"),
-        fn_name = "collate_yr", fname = fname, verbose = verbose)
+    files <- get_file_paths(path = dir_in,
+                            pattern = paste0("^", fname, ".*\\.yr$"),
+                            fn_name = "collate_yr",
+                            fname = fname,
+                            verbose = verbose)
 
     censusData <- vector(mode = "list", length = length(files))
 
-    if (verbose) {
-        message("vortexR::collate_yr is parsing:")
-    }
+    if (verbose) message("vortexR::collate_yr is parsing:")
     for (i in 1:length(files)) {
         lines <- readLines(files[i])
-        if (verbose) {
-            message(files[i], "\r")
-        }
+        if (verbose) message(files[i], "\r")
 
         # Header
         header <- as.vector(sapply(strsplit(lines[3], ";"), stringr::str_trim))
         ncolpop <- (length(header) - 1)/npops_noMeta
-        hsuff <- as.vector(sapply(1:npops_noMeta, PrefixAndRepeat, times = ncolpop,
-            prefix = "pop"))
+        hsuff <- as.vector(sapply(1:npops_noMeta,
+                                  PrefixAndRepeat,
+                                  times = ncolpop,
+                                  prefix = "pop"))
         header <- c("Year", paste0(header[2:length(header)], hsuff))
 
         # Line numbers of 'Iteration' subheadings
@@ -364,8 +373,13 @@ collate_yr <- function(project, scenario, npops_noMeta = 1, dir_in = NULL, save2
             (iter_ln[2] - iter_ln[1] - 1) else -1
 
         # Extract data from each Iteration subheading in file
-        one_yr <- lapply(1:length(iter_ln), CompileIter, files[i], n_rows, iter_ln,
-            lines, header)
+        one_yr <- lapply(1:length(iter_ln),
+                         CompileIter,
+                         files[i],
+                         n_rows,
+                         iter_ln,
+                         lines,
+                         header)
 
         censusData[[i]] <- rbindlist(one_yr)
     }
@@ -381,14 +395,12 @@ collate_yr <- function(project, scenario, npops_noMeta = 1, dir_in = NULL, save2
 
     ## Wafflestomp the list of lists of character vectors into one data.frame
     ## d <- plyr::ldply(ll, function(x){str_split_fixed(x, ';', no_col)})
-
     # setnames(d, header) # set variable names
     # TODO downfill scenario name and iteration number
     # see http://stackoverflow.com/q/10554741
     # TODO remove non-data lines (scen, pop, header, iter) hand over as censusAll
     # end functional
     # ---------------------------------------------------------#
-
 
     setkey(censusAll, Scenario, Year)
     censusMeansDT <- censusAll[, lapply(.SD, mean), by = "Scenario,Year"]
@@ -468,8 +480,14 @@ collate_proc_data <- function(data,
 #' # Using Pacioni et al. example data. See ?pac.yr for more details.
 #' data(pac.yr)
 #' lyr.classic <- conv_l_yr(pac.yr[[1]] , yrs=c(60, 120), save2disk=FALSE)
-conv_l_yr <- function(data, npops_noMeta = 1, appendMeta = FALSE, project, scenario,
-    yrs = c(1, 2), save2disk = TRUE, dir_out = "ProcessedData") {
+conv_l_yr <- function(data,
+                      npops_noMeta = 1,
+                      appendMeta = FALSE,
+                      project,
+                      scenario,
+                      yrs = c(1, 2),
+                      save2disk = TRUE,
+                      dir_out = "ProcessedData") {
     # Dealing with no visible global variables
     Year <- NULL
     Scenario <- NULL
@@ -507,8 +525,9 @@ conv_l_yr <- function(data, npops_noMeta = 1, appendMeta = FALSE, project, scena
         message("Please wait...")
 
         census <- c("N", "AM", "AF", "Subadults", "Juv", "nDams", "nBroods", "nProgeny")
-        meta <- lcensus[, lapply(.SD, sum), by = list(Scenario, Iteration, Year),
-            .SDcols = census]
+        meta <- lcensus[, lapply(.SD, sum),
+                        by = list(Scenario, Iteration, Year),
+                        .SDcols = census]
         message("Done...")
         message("Appending Metapopulation data to Census data frame...")
         gs <- names(lcensus)[grep(pattern = "^GS", names(lcensus))]
@@ -522,9 +541,7 @@ conv_l_yr <- function(data, npops_noMeta = 1, appendMeta = FALSE, project, scena
         message("Done!")
     }
 
-    if (save2disk) {
-        df2disk(lcensus, dir_out, paste0(project, "_", scenario), "_lcensus")
-    }
+    if (save2disk) df2disk(lcensus, dir_out, paste0(project, "_", scenario), "_lcensus")
     return(lcensus)
 }
 
