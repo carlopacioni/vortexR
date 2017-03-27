@@ -16,5 +16,6 @@ Data from Pacioni et al. (2017) - sensitivity test scenario
 sizes using \code{Ne}.
 }
 \examples{
+data("pac.clas.Ne")
 head(pac.clas.Ne)
 }

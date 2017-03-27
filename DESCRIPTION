@@ -25,14 +25,14 @@ Imports:
     irr,
     plyr,
     R.utils,
-    stringr
+    stringr,
+    vortexRdata (>= 1.0.3)
 Suggests:
     devtools,
     gridExtra,
     knitr,
     rmarkdown,
     roxygen2,
-    testthat,
-    vortexRdata (>= 1.0.3)
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1

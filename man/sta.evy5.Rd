@@ -18,5 +18,6 @@ A dataset with the results from Vortex scenarios used in
  (.stdat files), were collated with \code{collate_dat}.
 }
 \examples{
+data("sta.evy5")
 head(sta.evy5)
 }
