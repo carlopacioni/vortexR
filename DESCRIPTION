@@ -4,7 +4,7 @@ Title: Post Vortex Simulation Analysis
 Description: Facilitate Post Vortex Simulation Analysis by offering
     tools to collate multiple Vortex (v10) output files into one R object, and
     analyse the collated output statistically.
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: c(
     person("Carlo", "Pacioni", email="C.Pacioni@Murdoch.edu.au", role=c("aut", "cre")),
     person(c("Florian", "W."), "Mayer", email="Florian.Mayer@dpaw.wa.gov.au", role="aut"))
