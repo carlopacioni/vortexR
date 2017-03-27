@@ -17,6 +17,5 @@ Data from Pacioni et al. (2017) used to conduct a sensitivity
  'ST_LHS' (.stdat files), were collated with \code{collate_dat}.
 }
 \examples{
-data("pac.lhs")
 head(pac.lhs)
 }

@@ -18,6 +18,5 @@ Data from Pacioni et al. (2017) used to conduct a sensitivity
  'ST_LHS' (.run files), were collated with \code{collate_run}.
 }
 \examples{
-data("pac.run.lhs")
 head(pac.run.lhs)
 }

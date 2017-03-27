@@ -16,6 +16,5 @@ A dataset with the results from the main Vortex scenarios used
  'Starlingv3PopBased' (.dat files), were collated with \code{collate_dat}.
 }
 \examples{
-data("sta.main")
 head(sta.main)
 }

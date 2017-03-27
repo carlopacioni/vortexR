@@ -18,6 +18,5 @@ Data from Pacioni et al. (2017) used to conduct a sensitivity
  (.yr files), were collated with \code{collate_yr}.
 }
 \examples{
-data("pac.yr")
 head(pac.yr)
 }
