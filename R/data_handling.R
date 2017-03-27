@@ -54,8 +54,13 @@ collate_one_dat <- function(filename, runs, verbose = FALSE) {
         readAfter <- popLn[pop]
 
         # Read population data block
-        tmp <- read.table(filename, header = FALSE, sep = ";", nrows = readFor,
-            skip = readAfter, colClasses = "numeric", comment.char = "")
+        tmp <- read.table(filename,
+                          header = FALSE,
+                          sep = ";",
+                          nrows = readFor,
+                          skip = readAfter,
+                          colClasses = "numeric",
+                          comment.char = "")
         colnames(tmp) <- h
 
         # Create vector with population name
@@ -142,8 +147,13 @@ collate_one_dat <- function(filename, runs, verbose = FALSE) {
 #'                      dir_in = pac.dir, save2disk=TRUE)
 #' }
 
-collate_dat <- function(project, runs, scenario = NULL, dir_in = NULL, save2disk = TRUE,
-    dir_out = "ProcessedData", verbose = TRUE) {
+collate_dat <- function(project,
+                        runs,
+                        scenario = NULL,
+                        dir_in = NULL,
+                        save2disk = TRUE,
+                        dir_out = "ProcessedData",
+                        verbose = TRUE) {
 
     if (is.null(scenario)) {
         fname <- project
@@ -584,8 +594,13 @@ conv_l_yr <- function(data,
 #'                    scenario='ST_Classic', pop='Population 1',
 #'                    SVs=c('SV1', 'SV2', 'SV3', 'SV4', 'SV5', 'SV6', 'SV7'),
 #'                    save2disk=FALSE)
-lookup_table <- function(data, project, scenario, pop = "Population 1", SVs = c("SV1"),
-    save2disk = TRUE, dir_out = "ProcessedData") {
+lookup_table <- function(data,
+                         project,
+                         scenario,
+                         pop = "Population 1",
+                         SVs = c("SV1"),
+                         save2disk = TRUE,
+                         dir_out = "ProcessedData") {
     #  Dealing with no visible global variables
     Year <- NULL
     pop.name <- NULL
