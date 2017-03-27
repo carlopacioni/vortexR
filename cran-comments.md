@@ -25,5 +25,4 @@ Results: No errors or warnings found.
 
 ## External data
 To reduce the installed package's size, we have split the raw data we use in
-data handling examples into a separate package `vortexRdata` which we will
-submit to CRAN in advance.
+data handling examples into a separate package `vortexRdata` which is now available from CRAN.
