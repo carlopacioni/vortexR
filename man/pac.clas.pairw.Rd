@@ -15,5 +15,6 @@ Results of pairwise comparisons of simulation scenarios included
 in the sensitivity test scenario 'ST_Classic' using \code{pairwise}.
 }
 \examples{
+data("pac.clas.pairw")
 head(pac.clas.pairw)
 }

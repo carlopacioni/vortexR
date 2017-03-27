@@ -16,5 +16,6 @@ Data from Pacioni et al. (2017) - sensitivity test scenario
 sizes using \code{Nadults}.
 }
 \examples{
+data("pac.clas.Nadults")
 head(pac.clas.Nadults)
 }
