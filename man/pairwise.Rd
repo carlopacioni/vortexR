@@ -59,13 +59,12 @@ If \code{group_mean=TRUE} there will be six additional elements:
 }
 \description{
 \code{pairwise} conducts pairwise comparisons against a baseline scenario
-using sensitivity coefficients and strictly standardised mean difference. It also
-ranks scenarios (and/or parameters when relevant) using these statistics.
-}
-\details{
+using sensitivity coefficients and strictly standardised mean difference.
+It also ranks scenarios (and/or parameters when relevant) using these statistics.
 When \code{yrs='max'} (default), VortexR automatically sets  \code{yrs} to
 the last year of the simulation.
-
+}
+\details{
 Pairwise comparisons against a baseline scenario are conducted using
 sensitivity coefficients (SC, Drechsler et al. 1998) and strictly
 standardised mean difference (SSDM, Zhang 2007).
