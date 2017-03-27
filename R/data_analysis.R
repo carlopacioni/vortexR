@@ -37,8 +37,14 @@
 #' # 12, consequent to the population going extinct.
 #' NeAll <- Ne(data=pac.clas, scenarios='all', gen=2.54, yr0=50, yrt=120,
 #'          save2disk=FALSE)
-Ne <- function(data = NULL, scenarios = "all", gen = 1, yr0 = 1, yrt = 2, save2disk = TRUE,
-    fname = "Ne", dir_out = "DataAnalysis") {
+Ne <- function(data = NULL,
+               scenarios = "all",
+               gen = 1,
+               yr0 = 1,
+               yrt = 2,
+               save2disk = TRUE,
+               fname = "Ne",
+               dir_out = "DataAnalysis") {
     # Dealing with no visible global variables
     Het <- NULL
     pop.name <- NULL
@@ -64,21 +70,19 @@ Ne <- function(data = NULL, scenarios = "all", gen = 1, yr0 = 1, yrt = 2, save2d
         names(effPopSize) <- stdatDT[J(scenario, t0), pop.name]
         return(effPopSize)
     }
-    if (scenarios == "all")
-        scenarios <- unique(data$scen.name)
+    if (scenarios == "all") scenarios <- unique(data$scen.name)
 
     r.Ne <- lapply(scenarios, NeOne)
     r.Ne <- rbindlist(r.Ne)
     r.Ne <- r.Ne[, `:=`(Scenario, scenarios)]
 
-    if (save2disk) {
-        df2disk(r.Ne, dir_out, fname)
-    }
+    if (save2disk) df2disk(r.Ne, dir_out, fname)
 
-    message(paste("Effective population size based on loss of gene diversity", "from year",
-        round(yr0 + gen), "to year", yrt))
+    message(paste("Effective population size based on loss of gene diversity",
+                  "from year", round(yr0 + gen), "to year", yrt))
     message(paste("NOTE: The first year used in the calculations is adjusted ",
-        "using the generation time provided (yr0 + gen). ", "See documentation for more information."))
+        "using the generation time provided (yr0 + gen). ",
+        "See documentation for more information."))
     return(r.Ne)
 }
 
@@ -110,16 +114,23 @@ Ne <- function(data = NULL, scenarios = "all", gen = 1, yr0 = 1, yrt = 2, save2d
 #' data(pac.yr)
 #' NadultAll <- Nadults(data=pac.yr[[2]], scenarios='all', gen=2.54, yr0=50, yrt=120,
 #'              save2disk=FALSE)
-Nadults <- function(data, scenarios = "all", npops_noMeta = 1, appendMeta = FALSE,
-    gen = 1, yr0 = 1, yrt = 2, save2disk = TRUE, fname = "Nadults", dir_out = "DataAnalysis") {
-    ############################################################################ Dealing with no visible global variables
+Nadults <- function(data,
+                    scenarios = "all",
+                    npops_noMeta = 1,
+                    appendMeta = FALSE,
+                    gen = 1,
+                    yr0 = 1,
+                    yrt = 2,
+                    save2disk = TRUE,
+                    fname = "Nadults",
+                    dir_out = "DataAnalysis") {
+    # Dealing with no visible global variables
     Nad <- NULL
     Scenario <- NULL
     Year <- NULL
     Population <- NULL
     J <- NULL
     . <- NULL
-    ###########################################################################
 
     # Function definitions
     HarmMean <- function(x) 1/mean(1/(x))
@@ -136,7 +147,6 @@ Nadults <- function(data, scenarios = "all", npops_noMeta = 1, appendMeta = FALS
     }
 
     # Convert in long format
-
     h <- names(data)
 
     # Number of cols for each pop except the first 2, which are fixed cols
@@ -163,15 +173,17 @@ Nadults <- function(data, scenarios = "all", npops_noMeta = 1, appendMeta = FALS
         setcolorder(meta, c("Scenario", "Year", "Population", census))
         meta[, `:=`((gs), tldata[[1]][, gs, with = FALSE])]
 
-        lcensusMeans <- rbindlist(list(lcensusMeans, meta), use.names = TRUE, fill = TRUE)
+        lcensusMeans <- rbindlist(list(lcensusMeans, meta),
+                                  use.names = TRUE, fill = TRUE)
         message("Done!")
     }
 
     # Calculate harmonic means
     message(paste("Calculating the harmonic means of total number of individuals",
         "and number of adults from year", yr0, "to year", round(yrt - gen)))
-    message(paste("NOTE: The last year used in the calculations is adjusted", "using the generation time provided (yrt - gen).",
-        "See documentation for more information."))
+    message(paste("NOTE: The last year used in the calculations is adjusted",
+                  "using the generation time provided (yrt - gen).",
+                  "See documentation for more information."))
 
     if (scenarios == "all")
         scenarios <- data[, unique(Scenario)]
@@ -181,16 +193,16 @@ Nadults <- function(data, scenarios = "all", npops_noMeta = 1, appendMeta = FALS
     setkey(slcensusMeans, Year)
     slcensusMeans <- slcensusMeans[.(yr0:round(yrt - gen)), ]
 
-    slcensusMeans[, `:=`(Nad, sum(.SD)), .SDcols = c("AM", "AF"), by = list(Scenario,
+    slcensusMeans[, `:=`(Nad, sum(.SD)), .SDcols = c("AM", "AF"),
+                  by = list(Scenario,
         Population, Year)]
 
-    harm.means <- slcensusMeans[, lapply(.SD, HarmMean), .SDcols = c("Nad", "N"),
-        by = list(Scenario, Population)]
+    harm.means <- slcensusMeans[, lapply(.SD, HarmMean),
+                                .SDcols = c("Nad", "N"),
+                                by = list(Scenario, Population)]
     message("Done!")
 
-    if (save2disk) {
-        df2disk(harm.means, dir_out, fname)
-    }
+    if (save2disk) df2disk(harm.means, dir_out, fname)
     return(harm.means)
 }
 
@@ -304,9 +316,17 @@ Nadults <- function(data, scenarios = "all", npops_noMeta = 1, appendMeta = FALS
 #'                type='Single-Factor',
 #'                SVs=c('SV1', 'SV2', 'SV3', 'SV4', 'SV5', 'SV6', 'SV7'),
 #'                save2disk=FALSE)
-pairwise <- function(data, project, scenario, params = c("PExtinct", "Nextant",
-    "Het", "Nalleles"), yrs = "max", ST = FALSE, type = NA, group.mean = FALSE,
-    SVs = NA, save2disk = TRUE, dir_out = "DataAnalysis/Pairwise") {
+pairwise <- function(data,
+                     project,
+                     scenario,
+                     params = c("PExtinct", "Nextant", "Het", "Nalleles"),
+                     yrs = "max",
+                     ST = FALSE,
+                     type = NA,
+                     group.mean = FALSE,
+                     SVs = NA,
+                     save2disk = TRUE,
+                     dir_out = "DataAnalysis/Pairwise") {
 
     # Dealing with no visible global variables
     Year <- NULL
@@ -333,33 +353,21 @@ pairwise <- function(data, project, scenario, params = c("PExtinct", "Nextant",
     suppressWarnings(if (!yrs == "max" & !is.numeric(yrs))
         stop("invalid value(s) for 'yrs' "))
 
-    fname <- if (ST) {
-        paste(project, "_", scenario, sep = "")
-    } else {
-        project
-    }
+    fname <- if (ST) paste(project, scenario, sep = "_") else project
 
     # set yrs to max
-    suppressWarnings(if (yrs == "max") {
-        yrs <- max(data$Year)
-    })
+    suppressWarnings(if (yrs == "max") yrs <- max(data$Year))
 
     # set group.mean if needed
-    if (ST & type == "Single-Factor" & length(SVs) > 1) {
-        group.mean <- TRUE
-    }
+    if (ST & type == "Single-Factor" & length(SVs) > 1) group.mean <- TRUE
 
     # Set up headings for params and SE and SD
     params <- make.names(params)
     SE <- sapply(params, SEname)
-    if ("r.stoch" %in% params) {
-        SE["r.stoch"] <- "SE.r."
-    }
+    if ("r.stoch" %in% params) SE["r.stoch"] <- "SE.r."
 
     SD <- sapply(params, SDname)
-    if ("r.stoch" %in% params) {
-        SD["r.stoch"] <- "SD.r."
-    }
+    if ("r.stoch" %in% params) SD["r.stoch"] <- "SD.r."
 
     # Create a dataframe for the base scenario.
     if (ST) {
@@ -486,19 +494,16 @@ pairwise <- function(data, project, scenario, params = c("PExtinct", "Nextant",
         # Lapply and remove if (exists())
         ranks.sc.fin[[i]] <- lranks.sc.pops[[i]][, lsel[[i]], with = FALSE]
         popName <- as.character(ranks.sc.fin[[i]][1, Population])
-        if (exists("popNames")) {
-            popNames <- c(popNames, popName)
-        } else {
-            popNames <- popName
-        }
+        if (exists("popNames")) popNames <- c(popNames, popName) else popNames <- popName
     }
     names(ranks.sc.fin) <- popNames
 
     # ssmd
     DT.ssmd <- data.table(ssmd.table)
     setkey(DT.ssmd, Population, Scenario)
-    ranks.ssmd <- DT.ssmd[, lapply(-abs(.SD), rank, na.last = "keep"), by = Population,
-        .SDcols = h.ssmd]  # Rank
+    ranks.ssmd <- DT.ssmd[, lapply(-abs(.SD), rank, na.last = "keep"),
+                          by = Population,
+                          .SDcols = h.ssmd]  # Rank
     ranks.ssmd[, `:=`(Scenario, DT.ssmd[, Scenario])]
     setcolorder(ranks.ssmd, c("Population", "Scenario", h.ssmd))
 
@@ -513,19 +518,17 @@ pairwise <- function(data, project, scenario, params = c("PExtinct", "Nextant",
         ranks.ssmd.fin[[i]] <- lranks.ssmd.pops[[i]][, lsel[[i]], with = FALSE]
         # TODO : Generate popName with Lapply and remove if (exists())
         popName <- as.character(ranks.ssmd.fin[[i]][1, Population])
-        if (exists("popNames")) {
-            popNames <- c(popNames, popName)
-        } else {
-            popNames <- popName
-        }
+        if (exists("popNames")) popNames <- c(popNames, popName) else popNames <- popName
     }
     names(ranks.ssmd.fin) <- popNames
     kendall.out <- list(SC = NULL, SSMD = NULL)
     # NOTE : kendall function handles na listwise
-    kendall.out$SC <- capture.output(cat("Rank comparison of sensitivity coefficients",
-        "\n"), lapply(ranks.sc.fin, kend))
-    kendall.out$SSMD <- capture.output(cat("Rank comparison of SSMD", "\n"), lapply(ranks.ssmd.fin,
-        kend))
+    kendall.out$SC <- capture.output(
+        cat("Rank comparison of sensitivity coefficients", "\n"),
+        lapply(ranks.sc.fin, kend))
+    kendall.out$SSMD <- capture.output(
+        cat("Rank comparison of SSMD", "\n"),
+        lapply(ranks.ssmd.fin, kend))
     if (save2disk) {
         # write results
         df2disk(table.coef, dir_out, fname, ".coef.table")
@@ -533,15 +536,18 @@ pairwise <- function(data, project, scenario, params = c("PExtinct", "Nextant",
         df2disk(ssmd.table.pvalues, dir_out, fname, ".SSMD.table.pvalues")
         df2disk(ranks.sc, dir_out, fname, ".ranks.sc")
         df2disk(ranks.ssmd, dir_out, fname, ".ranks.SSMD")
-        capture.output(print(kendall.out, quote = FALSE), file = paste0(dir_out,
-            "/", fname, ".kendall.txt"))
+        capture.output(print(kendall.out, quote = FALSE),
+                       file = paste0(dir_out, "/", fname, ".kendall.txt"))
     }
     # Collate results in a list
-    r.OneWay <- list(coef.table = table.coef, SSMD.table = ssmd.table, SSMD.table.pvalues = ssmd.table.pvalues,
-        ranks.SC = ranks.sc, ranks.SSMD = ranks.ssmd, Kendall = kendall.out)
+    r.OneWay <- list(coef.table = table.coef,
+                     SSMD.table = ssmd.table,
+                     SSMD.table.pvalues = ssmd.table.pvalues,
+                     ranks.SC = ranks.sc,
+                     ranks.SSMD = ranks.ssmd,
+                     Kendall = kendall.out)
     # if group.mean == TRUE calculate the mean for each SV and rank SVs
     if (group.mean) {
-
         # Calculate mean sensitivity coefficients and mean ssdm
         subpopsstdat <- subset(data, (Year == 0 & !scen.name == scen.name.base))
         # vector with colnames for params with prefix for coef
@@ -603,11 +609,7 @@ pairwise <- function(data, project, scenario, params = c("PExtinct", "Nextant",
         for (i in 1:length(lsel)) {
             ranks.msc.fin[[i]] <- lranks.msc.pops[[i]][, lsel[[i]], with = FALSE]
             popName <- as.character(ranks.msc.fin[[i]][1, Population])
-            if (exists("popNames")) {
-                popNames <- c(popNames, popName)
-            } else {
-                popNames <- popName
-            }
+            if (exists("popNames")) popNames <- c(popNames, popName) else popNames <- popName
         }
         names(ranks.msc.fin) <- popNames
 
@@ -622,17 +624,15 @@ pairwise <- function(data, project, scenario, params = c("PExtinct", "Nextant",
         for (i in 1:length(lsel)) {
             ranks.mssmd.fin[[i]] <- lranks.mssmd.pops[[i]][, lsel[[i]], with = FALSE]
             popName <- as.character(ranks.mssmd.fin[[i]][1, Population])
-            if (exists("popNames")) {
-                popNames <- c(popNames, popName)
-            } else {
-                popNames <- popName
-            }
+            if (exists("popNames")) popNames <- c(popNames, popName) else popNames <- popName
         }
         names(ranks.mssmd.fin) <- popNames
         kendall.mean.out <- list(SC = NULL, SSMD = NULL)
-        kendall.mean.out$SC <- capture.output(print("Rank comparison of mean sensitivity coefficients"),
+        kendall.mean.out$SC <- capture.output(
+            print("Rank comparison of mean sensitivity coefficients"),
             lapply(ranks.msc.fin, kend))
-        kendall.mean.out$SSMD <- capture.output(print("Rank comparison of mean SSMD"),
+        kendall.mean.out$SSMD <- capture.output(
+            print("Rank comparison of mean SSMD"),
             lapply(ranks.mssmd.fin, kend))
 
         if (save2disk) {
@@ -641,8 +641,8 @@ pairwise <- function(data, project, scenario, params = c("PExtinct", "Nextant",
             df2disk(mean.ssmd.table.pvalues, dir_out, fname, ".mean.SSMD.table.pvalues")
             df2disk(ranks.msc, dir_out, fname, ".ranks.mSC")
             df2disk(ranks.mssmd, dir_out, fname, ".ranks.mSSMD")
-            capture.output(print(kendall.mean.out, quote = FALSE), file = paste0(dir_out,
-                "/", fname, ".Kendall.means.txt"))
+            capture.output(print(kendall.mean.out, quote = FALSE),
+                           file = paste0(dir_out, "/", fname, ".Kendall.means.txt"))
         }
 
         # Collate results for means
@@ -808,11 +808,27 @@ pairwise <- function(data, project, scenario, params = c("PExtinct", "Nextant",
 #'
 #' # Plot of model averaged importance of terms
 #' plot(reg, type='s')
-fit_regression <- function(data, lookup = NA, census = TRUE, yr, project, scenario,
-    popn, param = "N", vs = c("GS1"), count_data = c("Nextant", "Nall", "Nalleles",
-        "N", "AM", "AF", "Subadults", "Juv", "nDams", "nBroods", "nProgeny", "nImmigrants",
-        "nEmigrants", "nHarvested", "nSupplemented", "YrExt", "Alleles"), ic = "aic",
-    l = 1, ncand = 30, set_size = NA, save2disk = TRUE, dir_out = "DataAnalysis/FitRegression") {
+fit_regression <- function(data,
+                           lookup = NA,
+                           census = TRUE,
+                           yr,
+                           project,
+                           scenario,
+                           popn,
+                           param = "N",
+                           vs = c("GS1"),
+                           count_data = c("Nextant", "Nall", "Nalleles", "N",
+                                          "AM", "AF", "Subadults", "Juv",
+                                          "nDams", "nBroods", "nProgeny",
+                                          "nImmigrants", "nEmigrants",
+                                          "nHarvested", "nSupplemented",
+                                          "YrExt", "Alleles"),
+                           ic = "aic",
+                           l = 1,
+                           ncand = 30,
+                           set_size = NA,
+                           save2disk = TRUE,
+                           dir_out = "DataAnalysis/FitRegression") {
 
     ## Dealing with no visible global variables
     Year <- NULL
@@ -821,11 +837,7 @@ fit_regression <- function(data, lookup = NA, census = TRUE, yr, project, scenar
 
     # Function definitions Selecet method for glmulti search
     select_method <- function(cand, ncand) {
-        if (cand > ncand) {
-            m <- "g"
-        } else {
-            m <- "h"
-        }
+        if (cand > ncand) m <- "g" else m <- "h"
         return(m)
     }
 

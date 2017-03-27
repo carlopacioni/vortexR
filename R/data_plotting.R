@@ -74,10 +74,14 @@ line_plot_year <- function(data,
     for (param in params) {
         i <- i + 1
         root <- paste0(fname_root, "_", param)
-        g <- ggplot(popstdat, aes_string(x = "Year", y = param)) + geom_line(aes(color = scen.name)) +
+        g <- ggplot(popstdat, aes_string(x = "Year", y = param)) +
+            geom_line(aes(color = scen.name)) +
             facet_grid(pop.name ~ .)
-        plot <- g + theme(panel.spacing = unit(0.2, "inches"), legend.text = element_text(size = legTxtSize),
-            legend.key.size = unit(legKeySize, "mm")) + scale_colour_discrete(name = "Scenarios")
+        plot <- g +
+            theme(panel.spacing = unit(0.2, "inches"),
+                  legend.text = element_text(size = legTxtSize),
+                  legend.key.size = unit(legKeySize, "mm")) +
+            scale_colour_discrete(name = "Scenarios")
         print(plot)
         r.line_plot_year[[i]] <- plot
         assign(paste(root, "_", "plot", sep = ""), g)
@@ -85,8 +89,8 @@ line_plot_year <- function(data,
 
     if (save2disk) {
         dev.off()
-        save(list = (ls(pattern = paste(fname_root, "_", ".*", "_", "plot", sep = ""))),
-            file = paste(dir_out, "/", fname_root, "_", "YearVsParams.rda", sep = ""))
+        save(list = (ls(pattern = paste0(fname_root, "_", ".*", "_", "plot"))),
+            file = paste0(dir_out, "/", fname_root, "_", "YearVsParams.rda"))
     }
 
     names(r.line_plot_year) <- ls(
@@ -119,8 +123,14 @@ line_plot_year <- function(data,
 #'                           yrmid=50,
 #'                           params=c('PExtinct', 'Nextant', 'Het', 'Nalleles'),
 #'                           save2disk=FALSE)
-line_plot_year_mid <- function(data, project, scenario, yrmid = 1, params = c("PExtinct",
-    "Nextant", "Het", "Nalleles"), plotpops = c("all"), save2disk = TRUE, dir_out = "Plots") {
+line_plot_year_mid <- function(data,
+                               project,
+                               scenario,
+                               yrmid = 1,
+                               params = c("PExtinct", "Nextant", "Het", "Nalleles"),
+                               plotpops = c("all"),
+                               save2disk = TRUE,
+                               dir_out = "Plots") {
     # Dealing with no visible global variables
     Year <- NULL
     pop.name <- NULL
@@ -159,10 +169,14 @@ line_plot_year_mid <- function(data, project, scenario, yrmid = 1, params = c("P
     for (param in params) {
         i <- i + 1
         root <- paste(fname_root, param, sep = "_")
-        g <- ggplot(yrmidstdat, aes_string(x = "Year", y = param)) + geom_line(aes(color = scen.name)) +
+        g <- ggplot(yrmidstdat, aes_string(x = "Year", y = param)) +
+            geom_line(aes(color = scen.name)) +
             facet_grid(pop.name ~ .)
-        plot <- g + theme(panel.spacing = unit(0.2, "inches"), legend.text = element_text(size = legTxtSize),
-            legend.key.size = unit(legKeySize, "mm")) + scale_colour_discrete(name = "Scenarios")
+        plot <- g +
+            theme(panel.spacing = unit(0.2, "inches"),
+                  legend.text = element_text(size = legTxtSize),
+                  legend.key.size = unit(legKeySize, "mm")) +
+            scale_colour_discrete(name = "Scenarios")
         print(plot)
         r.line_plot_year_mid[[i]] <- plot
         assign(paste(root, "_", "Mid", "plot", sep = ""), g)
@@ -211,9 +225,15 @@ line_plot_year_mid <- function(data, project, scenario, yrmid = 1, params = c("P
 #'                yrs=c(80, 120),
 #'                params=c('PExtinct', 'Nextant', 'Het', 'Nalleles'),
 #'                save2disk=FALSE)
-dot_plot <- function(data, project, scenario, yrs = c(1, 2), params = c("PExtinct",
-    "Nextant", "Het", "Nalleles"), setcolour = "scen.name", plotpops = c("all"),
-    save2disk = TRUE, dir_out = "Plots") {
+dot_plot <- function(data,
+                     project,
+                     scenario,
+                     yrs = c(1, 2),
+                     params = c("PExtinct", "Nextant", "Het", "Nalleles"),
+                     setcolour = "scen.name",
+                     plotpops = c("all"),
+                     save2disk = TRUE,
+                     dir_out = "Plots") {
     # Dealing with no visible global variables
     Year <- NULL
     pop.name <- NULL
@@ -243,8 +263,7 @@ dot_plot <- function(data, project, scenario, yrs = c(1, 2), params = c("PExtinc
     # Vector of SD names for params
     SDname <- function(parSD) paste("SD.", parSD, ".", sep = "")
     SD <- sapply(params, SDname)
-    if ("r.stoch" %in% params)
-        SD["r.stoch"] <- "SD.r."
+    if ("r.stoch" %in% params) SD["r.stoch"] <- "SD.r."
 
     # dot plots by pops & yrs of mean params with (SD) bars
     popstdat <- subset(data, pop.name %in% plotpops)
@@ -264,16 +283,21 @@ dot_plot <- function(data, project, scenario, yrs = c(1, 2), params = c("PExtinc
         names(max) <- "max"
         yrstdat <- cbind(yrstdat, min, max)
         limits <- aes(ymax = max, ymin = min)
-        d <- ggplot(yrstdat, aes_string(color = setcolour, x = "scen.name", y = params[i])) +
-            geom_point() + theme(axis.text.x = element_text(angle = -90, size = 5,
-            vjust = 1)) + xlab("Scenario") + facet_grid(pop.name ~ Year) + geom_errorbar(limits,
-            width = 0.15) + theme(panel.spacing = unit(0.2, "inches")) + if (setcolour ==
-            "scen.name") {
-            theme(legend.position = "none")
-        } else {
-            theme(legend.position = "right", legend.text = element_text(size = legTxtSize),
-                legend.key.size = unit(legKeySize, "mm"))
-        }
+        d <- ggplot(yrstdat,
+                    aes_string(color = setcolour, x = "scen.name", y = params[i])) +
+            geom_point() +
+            theme(axis.text.x = element_text(angle = -90, size = 5, vjust = 1)) +
+            xlab("Scenario") +
+            facet_grid(pop.name ~ Year) +
+            geom_errorbar(limits, width = 0.15) +
+            theme(panel.spacing = unit(0.2, "inches")) +
+            if (setcolour == "scen.name") {
+                theme(legend.position = "none")
+            } else {
+                theme(legend.position = "right",
+                      legend.text = element_text(size = legTxtSize),
+                      legend.key.size = unit(legKeySize, "mm"))
+            }
         print(d)
         assign(paste(root, "_", "dot_plot", sep = ""), d)
         r.dot_plot[[i]] <- d
@@ -281,8 +305,8 @@ dot_plot <- function(data, project, scenario, yrs = c(1, 2), params = c("PExtinc
     pat <- paste0(fname_root, "_", ".*", "_", "dot_plot")
     if (save2disk) {
         dev.off()
-        save(list = (ls(pattern = pat)), file = paste0(dir_out, "/", fname_root,
-            "_", "dot_plots.rda"))
+        save(list = (ls(pattern = pat)),
+             file = paste0(dir_out, "/", fname_root, "_", "dot_plots.rda"))
     }
 
     names(r.dot_plot) <- ls(pattern = pat)
@@ -386,8 +410,11 @@ m_scatter <- function(data,
     suppressWarnings(if (!is.na(lookup)) {
         data <- plyr::join(data, lookup, by = "Scenario", type = "left")
     })
-    corrMtrx <- GGally::ggpairs(data[, c(vs, param), with = FALSE], axisLabels = "internal",
-        lower = list(continuous = "smooth"), mapping = aes(colour = "red", alpha = 0.2))
+    corrMtrx <- GGally::ggpairs(
+        data[, c(vs, param), with = FALSE],
+        axisLabels = "internal",
+        lower = list(continuous = "smooth"),
+        mapping = aes(colour = "red", alpha = 0.2))
 
     if (save2disk) {
         dir.create(dir_out, showWarnings = FALSE, recursive = TRUE)
