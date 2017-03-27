@@ -20,7 +20,7 @@ except
     We would like to confirm that this is a new submission.
 
 ## Downstream dependencies
-We have checked downstream dependencies of vortexR using devtools::revdep_check().
+We have checked downstream dependencies of vortexR using `devtools::revdep_check()`.
 Results: No errors or warnings found.
 
 ## External data

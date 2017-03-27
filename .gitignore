@@ -8,3 +8,4 @@ tests/testthat/Rplots\.pdf
 tests/testthat/*.mods.back
 tests/testthat/*.modgen.back
 revdep/*.
+revdep

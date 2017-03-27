@@ -5,3 +5,4 @@
 ^\.travis\.yml$
 Rplots\.pdf$
 ^man-roxygen/
+^revdep/
