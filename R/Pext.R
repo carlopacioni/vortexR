@@ -18,63 +18,54 @@
 #' @references Zhang, X. D. 2007. A pair of new statistical parameters for
 #'   quality control in RNA interference high-throughput screening assays.
 #'   Genomics 89:552-561.
-#' @import data.table
+#' @importFrom data.table-package data.table
 #' @export
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.run.lhs for more details.
 #' data(pac.run.lhs)
-#' Pext <- Pextinct(pac.run.lhs[[2]], project="Pacioni_et_al", scenario="ST_Classic",
-#'              ST=TRUE, save2disk=FALSE, dir_out="DataAnalysis/Pextinct")
-
-
-Pextinct <- function(data, project, scenario, ST=FALSE, save2disk=TRUE,
-                     dir_out="DataAnalysis/Pextinct") {
-    ############################################################################
+#' Pext <- Pextinct(pac.run.lhs[[2]], project='Pacioni_et_al',
+#'   scenario='ST_Classic', ST=TRUE, save2disk=FALSE,
+#'   dir_out='DataAnalysis/Pextinct')
+Pextinct <- function(data,
+                     project,
+                     scenario,
+                     ST = FALSE,
+                     save2disk = TRUE,
+                     dir_out = "DataAnalysis/Pextinct") {
     # Dealing with no visible global variables
-    ############################################################################
     YrExt <- NULL
-    Ext  <- NULL
+    Ext <- NULL
     Pext <- NULL
-    SD  <- NULL
-    SSMD  <- NULL
-    base  <- NULL
-    SDbase  <- NULL
+    SD <- NULL
+    SSMD <- NULL
+    base <- NULL
+    SDbase <- NULL
     pvalues <- NULL
     Scenario <- NULL
     Iteration <- NULL
     Population <- NULL
     . <- NULL
-    ###########################################################################
 
-    fname <- if (ST) {
-        paste(project, "_", scenario, sep="")
-    } else {
-        project
-    }
+    fname <- if (ST) paste(project, "_", scenario, sep = "") else project
     data <- data.table(data)
 
-    if (ST ) {
-        scenario <- grep("(Base)", data[, unique(Scenario)], value=TRUE)
-    }
+    if (ST) scenario <- grep("(Base)", data[, unique(Scenario)], value = TRUE)
 
     setkey(data, YrExt)
-    data[!.(NA), Ext  := 1]
-    data[.(NA), Ext  := 0]
-    extTable <- data[, .(Pext=mean(Ext), SD=sd(Ext)),
-                     by=.(Scenario, Population)]
+    data[!.(NA), `:=`(Ext, 1)]
+    data[.(NA), `:=`(Ext, 0)]
+    extTable <- data[, .(Pext = mean(Ext), SD = sd(Ext)),
+                     by = .(Scenario, Population)]
     setkey(extTable, Scenario)
-    Base <- extTable[scenario, .(Pext, SD), by=Population]
+    Base <- extTable[scenario, .(Pext, SD), by = Population]
     setnames(Base, c("Pext", "SD"), c("base", "SDbase"))
-    extTable <- merge(extTable, Base, by="Population")
-    extTable[, SSMD := (base - Pext) / sqrt(SD^2 + SDbase^2)]
-    extTable[, pvalues := vortexR::pval(SSMD)]
+    extTable <- merge(extTable, Base, by = "Population")
+    extTable[, `:=`(SSMD, (base - Pext) / sqrt(SD ^ 2 + SDbase ^ 2))]
+    extTable[, `:=`(pvalues, vortexR::pval(SSMD))]
 
     if (save2disk) {
-        # write results
         df2disk(extTable, dir_out, fname, ".PextTable")
         df2disk(data, dir_out, fname, ".withExt")
     }
-    return(list(PextTable=extTable, datWithExt=data))
+    return(list(PextTable = extTable, datWithExt = data))
 }
-
-
