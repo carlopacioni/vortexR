@@ -14,8 +14,7 @@ License: GPL-3
 URL: https://github.com/carlopacioni/vortexR/
 BugReports: https://github.com/carlopacioni/vortexR/issues
 Depends:
-    R (>= 3.1.0),
-    vortexRdata (>= 1.0.3)
+    R (>= 3.1.0)
 Imports:
     betareg,
     data.table,
@@ -26,7 +25,8 @@ Imports:
     irr,
     plyr,
     R.utils,
-    stringr
+    stringr,
+    vortexRdata (>= 1.0.3)
 Suggests:
     devtools,
     gridExtra,
