@@ -112,8 +112,8 @@ Ne <- function(data = NULL,
 #' @examples
 #' # Using Pacioni et al. example data. See ?pac.yr for more details.
 #' data(pac.yr)
-#' NadultAll <- Nadults(data=pac.yr[[2]], scenarios='all', gen=2.54, yr0=50, yrt=120,
-#'              save2disk=FALSE)
+#' NadultAll <- Nadults(data=pac.yr[[2]], scenarios='all', gen=2.54, yr0=50,
+#'                      yrt=120, save2disk=FALSE)
 Nadults <- function(data,
                     scenarios = "all",
                     npops_noMeta = 1,
@@ -146,7 +146,7 @@ Nadults <- function(data,
         return(one.pop)
     }
 
-    # Convert in long format
+    # Convert into long format
     h <- names(data)
 
     # Number of cols for each pop except the first 2, which are fixed cols
@@ -161,18 +161,14 @@ Nadults <- function(data,
 
     # If more than one pop, do Metapopulation calculations and rbind
     if (npops_noMeta > 1 & appendMeta) {
-        message("Doing calculations for Metapopulation...")
-        message("Please wait...")
-
+        message("Doing calculations for Metapopulation, please wait...")
         census <- c("N", "AM", "AF", "Subadults", "Juv", "nDams", "nBroods", "nProgeny")
         meta <- lcensusMeans[, lapply(.SD, sum), by = list(Scenario, Year), .SDcols = census]
-        message("Done...")
-        message("Appending Metapopulation data to CensusMeans data frame...")
+        message("Done. Appending Metapopulation data to CensusMeans data frame...")
         gs <- names(lcensusMeans)[grep(pattern = "^GS", names(lcensusMeans))]
         meta[, `:=`(Population, rep(paste0("pop", npops_noMeta + 1), nrow(data)))]
         setcolorder(meta, c("Scenario", "Year", "Population", census))
         meta[, `:=`((gs), tldata[[1]][, gs, with = FALSE])]
-
         lcensusMeans <- rbindlist(list(lcensusMeans, meta),
                                   use.names = TRUE, fill = TRUE)
         message("Done!")
@@ -185,23 +181,18 @@ Nadults <- function(data,
                   "using the generation time provided (yrt - gen).",
                   "See documentation for more information."))
 
-    if (scenarios == "all")
-        scenarios <- data[, unique(Scenario)]
-
+    if (scenarios == "all") scenarios <- data[, unique(Scenario)]
     setkey(lcensusMeans, Scenario)
     slcensusMeans <- lcensusMeans[J(scenarios), ]
     setkey(slcensusMeans, Year)
     slcensusMeans <- slcensusMeans[.(yr0:round(yrt - gen)), ]
-
-    slcensusMeans[, `:=`(Nad, sum(.SD)), .SDcols = c("AM", "AF"),
-                  by = list(Scenario,
-        Population, Year)]
-
+    slcensusMeans[, `:=`(Nad, sum(.SD)),
+                  .SDcols = c("AM", "AF"),
+                  by = list(Scenario, Population, Year)]
     harm.means <- slcensusMeans[, lapply(.SD, HarmMean),
                                 .SDcols = c("Nad", "N"),
                                 by = list(Scenario, Population)]
     message("Done!")
-
     if (save2disk) df2disk(harm.means, dir_out, fname)
     return(harm.means)
 }
@@ -209,9 +200,8 @@ Nadults <- function(data,
 #' Pairwise comparisons and ranks of scenarios
 #'
 #' \code{pairwise} conducts pairwise comparisons against a baseline scenario
-#' using sensitivity coefficients and strictly standardised mean difference. It also
-#' ranks scenarios (and/or parameters when relevant) using these statistics.
-#'
+#' using sensitivity coefficients and strictly standardised mean difference.
+#' It also ranks scenarios (and/or parameters when relevant) using these statistics.
 #' When \code{yrs='max'} (default), VortexR automatically sets  \code{yrs} to
 #' the last year of the simulation.
 #'
@@ -327,8 +317,6 @@ pairwise <- function(data,
                      SVs = NA,
                      save2disk = TRUE,
                      dir_out = "DataAnalysis/Pairwise") {
-
-    # Dealing with no visible global variables
     Year <- NULL
     pop.name <- NULL
     scen.name <- NULL
@@ -341,10 +329,7 @@ pairwise <- function(data,
     SDname <- function(parSD) paste("SD.", parSD, ".", sep = "")
     naming.coef <- function(naming) paste("SC", "_", naming, yr, sep = "")
     naming.ssmd <- function(naming.ssmd) paste("SSMD", "_", naming.ssmd, yr, sep = "")
-    kend <- function(tab.ranks) {
-        k <- irr::kendall(tab.ranks[, -c(1:2), with = FALSE], TRUE)
-        return(k)
-    }
+    kend <- function(tab.ranks) irr::kendall(tab.ranks[, -c(1:2), with = FALSE], TRUE)
 
     # Flag (false) columns where all entries are NA
     FColsAllNA <- function(lranks) apply(lranks, 2, function(chk) !all(is.na(chk)))
@@ -365,7 +350,6 @@ pairwise <- function(data,
     params <- make.names(params)
     SE <- sapply(params, SEname)
     if ("r.stoch" %in% params) SE["r.stoch"] <- "SE.r."
-
     SD <- sapply(params, SDname)
     if ("r.stoch" %in% params) SD["r.stoch"] <- "SD.r."
 
@@ -389,7 +373,8 @@ pairwise <- function(data,
         base <- numeric(0)
         for (popName in pops.name) {
             substdat <- subset(
-                data, Year == yr & pop.name == popName & !scen.name == scen.name.base)
+                data,
+                Year == yr & pop.name == popName & !scen.name == scen.name.base)
             substbase <- subset(stbase, Year == yr & pop.name == popName)
             for (param in params) {
                 base <- substbase[, param]
@@ -403,22 +388,24 @@ pairwise <- function(data,
                 if (exists("tttable.coef")) {
                   tttable.coef <- cbind.data.frame(tttable.coef, coef)
                 } else {
-                  tttable.coef <- cbind.data.frame(scenario.name, substdat$pop.name,
-                    coef)
+                  tttable.coef <- cbind.data.frame(scenario.name,
+                                                   substdat$pop.name,
+                                                   coef)
                 }
                 ssmd.numerator <- if (param == "PExtinct" | param == "PExtant") {
                   (base - substdat[, param])
                 } else {
                   (substdat[, param] - base)
                 }
-                ssmd.denominator <- sqrt((substdat[, SD[match(param, params)]])^2 +
-                  (SDbase^2))
+                ssmd.denominator <- sqrt(
+                    (substdat[, SD[match(param, params)]])^2 + (SDbase^2))
                 ssmd <- ssmd.numerator/ssmd.denominator
                 if (exists("ttssmd.table")) {
                   ttssmd.table <- cbind.data.frame(ttssmd.table, ssmd)
                 } else {
-                  ttssmd.table <- cbind.data.frame(scenario.name, substdat$pop.name,
-                    ssmd)
+                  ttssmd.table <- cbind.data.frame(scenario.name,
+                                                   substdat$pop.name,
+                                                   ssmd)
                 }
             }
             if (exists("ttable.coef")) {
@@ -479,8 +466,9 @@ pairwise <- function(data,
     # and SSMD sensitivity coefficients
     DT.table.coef <- data.table(table.coef)
     setkey(DT.table.coef, Population, Scenario)
-    ranks.sc <- DT.table.coef[, lapply(-abs(.SD), rank, na.last = "keep"), by = Population,
-        .SDcols = h.coef]  # Rank
+    ranks.sc <- DT.table.coef[, lapply(-abs(.SD), rank, na.last = "keep"),
+                              by = Population,
+                              .SDcols = h.coef]  # Rank
     ranks.sc[, `:=`(Scenario, DT.table.coef[, Scenario])]
     setcolorder(ranks.sc, c("Population", "Scenario", h.coef))
 
@@ -490,11 +478,15 @@ pairwise <- function(data,
     lsel <- lapply(lranks.sc.pops, FColsAllNA)
     ranks.sc.fin <- list()
     for (i in 1:length(lsel)) {
-        # Remove flagged cols of NA from each element TODO : Generate popName with
-        # Lapply and remove if (exists())
+        # Remove flagged cols of NA from each element
+        # TODO : Generate popName with lapply and remove if (exists())
         ranks.sc.fin[[i]] <- lranks.sc.pops[[i]][, lsel[[i]], with = FALSE]
         popName <- as.character(ranks.sc.fin[[i]][1, Population])
-        if (exists("popNames")) popNames <- c(popNames, popName) else popNames <- popName
+        if (exists("popNames")) {
+            popNames <- c(popNames, popName)
+        } else {
+            popNames <- popName
+        }
     }
     names(ranks.sc.fin) <- popNames
 
@@ -518,7 +510,11 @@ pairwise <- function(data,
         ranks.ssmd.fin[[i]] <- lranks.ssmd.pops[[i]][, lsel[[i]], with = FALSE]
         # TODO : Generate popName with Lapply and remove if (exists())
         popName <- as.character(ranks.ssmd.fin[[i]][1, Population])
-        if (exists("popNames")) popNames <- c(popNames, popName) else popNames <- popName
+        if (exists("popNames")) {
+            popNames <- c(popNames, popName)
+        } else {
+            popNames <- popName
+        }
     }
     names(ranks.ssmd.fin) <- popNames
     kendall.out <- list(SC = NULL, SSMD = NULL)
@@ -613,8 +609,10 @@ pairwise <- function(data,
         }
         names(ranks.msc.fin) <- popNames
 
-        ranks.mssmd <- mean.ssmd.table[, lapply(-abs(.SD), rank, na.last = "keep"),
-            by = Population, .SDcols = h.ssmd]  # Rank
+        ranks.mssmd <- mean.ssmd.table[,
+                                       lapply(-abs(.SD), rank, na.last = "keep"),
+                                       by = Population,
+                                       .SDcols = h.ssmd]  # Rank
         ranks.mssmd[, `:=`(SV, SVs)]  #Add SV col
         setcolorder(ranks.mssmd, c("Population", "SV", h.ssmd))
         lranks.mssmd.pops <- split(ranks.mssmd, ranks.mssmd[, Population])
@@ -624,7 +622,11 @@ pairwise <- function(data,
         for (i in 1:length(lsel)) {
             ranks.mssmd.fin[[i]] <- lranks.mssmd.pops[[i]][, lsel[[i]], with = FALSE]
             popName <- as.character(ranks.mssmd.fin[[i]][1, Population])
-            if (exists("popNames")) popNames <- c(popNames, popName) else popNames <- popName
+            if (exists("popNames")) {
+                popNames <- c(popNames, popName)
+            } else {
+                popNames <- popName
+            }
         }
         names(ranks.mssmd.fin) <- popNames
         kendall.mean.out <- list(SC = NULL, SSMD = NULL)
@@ -641,8 +643,9 @@ pairwise <- function(data,
             df2disk(mean.ssmd.table.pvalues, dir_out, fname, ".mean.SSMD.table.pvalues")
             df2disk(ranks.msc, dir_out, fname, ".ranks.mSC")
             df2disk(ranks.mssmd, dir_out, fname, ".ranks.mSSMD")
-            capture.output(print(kendall.mean.out, quote = FALSE),
-                           file = paste0(dir_out, "/", fname, ".Kendall.means.txt"))
+            capture.output(
+                print(kendall.mean.out, quote = FALSE),
+                file = paste0(dir_out, "/", fname, ".Kendall.means.txt"))
         }
 
         # Collate results for means
@@ -902,8 +905,12 @@ fit_regression <- function(data,
         glm1 <- glm(data = data, formula, family = fam, na.action = na.omit)
 
         # Check number of candidate models.
-        cand <- do.call("glmulti", list(glm1, method = "d", family = fam, level = l,
-            na.action = na.omit))
+        cand <- do.call("glmulti",
+                        list(glm1,
+                             method = "d",
+                             family = fam,
+                             level = l,
+                             na.action = na.omit))
 
         # Calculates ratio Res deviance to df
         chat <- deviance(glm1)/df.residual(glm1)
@@ -912,11 +919,15 @@ fit_regression <- function(data,
         if (chat > 1.5) {
             message("Overdispersion was detected in the data.")
             # Fit GLM with quasi-error distribution to get dispersion parameter
-            glm2 <- glm(data = data, formula, family = "quasipoisson", na.action = na.omit)
+            glm2 <- glm(data = data,
+                        formula,
+                        family = "quasipoisson",
+                        na.action = na.omit)
 
             # Changed the c value for qaic search with glmulti
             R.utils::setOption("glmulti-cvalue", summary(glm2)$dispersion)
-            message(paste("Setting overdispersion parameter to:", getOption("glmulti-cvalue")))
+            message(paste("Setting overdispersion parameter to:",
+                          getOption("glmulti-cvalue")))
             message("NOTE: the Information Criterion for model search was changed to QAIC")
             ic <- "qaic"
         }
@@ -926,12 +937,23 @@ fit_regression <- function(data,
             message(paste("confsetsize set to", set_size))
         }
         message(paste("Search method set to", m))
-        message(paste("Search for best candidate models using level =", l, "started..."))
+        message(paste("Search for best candidate models using level =", l,
+                      "started..."))
 
         # Search for best model(s) with glmulti
-        tnp <- system.time(best.mod <- do.call("glmulti", list(glm1, family = fam,
-            crit = ic, method = m, confsetsize = set_size, plotty = FALSE, report = FALSE,
-            level = l, name = name, na.action = na.omit)))
+        tnp <- system.time(
+            best.mod <- do.call("glmulti",
+                                list(glm1,
+                                     family = fam,
+                                     crit = ic,
+                                     method = m,
+                                     confsetsize = set_size,
+                                     plotty = FALSE,
+                                     report = FALSE,
+                                     level = l,
+                                     name = name,
+                                     na.action = na.omit))
+            )
     } else {
         message("Fitting a beta regression...")
         message("Searching for the best link function...")
