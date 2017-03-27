@@ -18,6 +18,5 @@ A dataset with the results from Vortex scenarios used in Campbell
  'MReduction_B11_09Evy5' (.stdat files), were collated with \code{collate_dat}.
 }
 \examples{
-data("sta.evy5.b11")
 head(sta.evy5.b11)
 }

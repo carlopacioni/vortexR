@@ -18,6 +18,5 @@ Subset (only 3 runs) of data from Pacioni et al. (2017) used
   \code{collate_dat}.
 }
 \examples{
-data("pac.clas")
 head(pac.clas)
 }
