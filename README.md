@@ -10,18 +10,20 @@ using basic (e.g. pairwise comparisons of scenarios) or more advanced statistics
 (e.g. fitting regression models).
 
 ## Install
-To install the latest stable release from CRAN:
+The stable version of `vortexR` can be installed with:
 
-```
-install.packages("vortexR")
+```R
+install.packages("vortexR", dependencies = TRUE)
 ```
 
-To install the latest development version from source:
+The latest development versions of `vortexR` and its supplementary data package 
+`vortexRdata` can be installed with:
 
+```R
+# install.packages("devtools")
+devtools::install_github("carlopacioni/vortexRdata")
+devtools::install_github("carlopacioni/vortexR")
 ```
-install.packages("devtools")
-library(devtools)
-install_github("carlopacioni/vortexR", build_vignette=TRUE)
 ``` 
 Fresh Windows installations of R will require 
 [Rtools for Windows](https://cran.r-project.org/bin/windows/Rtools/).
@@ -84,7 +86,7 @@ Stack Overflow's [R community](http://stackoverflow.com/questions/tagged/r)
 is a great source for troubleshooting.
 
 ## Learn
-Use `help(vortexR)` `?vortexR` or `??vortexR` to see a broad description of the package.
+Use `??vortexR` to see a broad description of the package.
 Use `help(package = "vortexR")` to see the documentations available. 
 Read the vignette for a more comprehensive description of the package. 
 Be aware, if you did not use `build_vignette=TRUE` this documentation may 
@@ -97,6 +99,6 @@ If you use `vortexR`, please use the citation generated from `citation('vortexR'
 ## Contribute
 We are happy to receive feedback and contributions through bug reports and pull requests.
 
-We aim to follow the style suggestions by `formatR::tidy_dir("R", width.cutoff = 79)` 
-and `lintr::lint_package()`, and 
+We aim to follow the style suggestions by 
+`formatR::tidy_dir("R", width.cutoff = 79)`, `lintr::lint_package()`, and 
 `devtools::check(check_version = T, force_suggests = T, cran = T)`.
