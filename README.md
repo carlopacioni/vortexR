@@ -24,7 +24,7 @@ The latest development versions of `vortexR` and its supplementary data package
 devtools::install_github("carlopacioni/vortexRdata")
 devtools::install_github("carlopacioni/vortexR")
 ```
-``` 
+
 Fresh Windows installations of R will require 
 [Rtools for Windows](https://cran.r-project.org/bin/windows/Rtools/).
 
