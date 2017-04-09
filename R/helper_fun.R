@@ -16,6 +16,7 @@
 #'   necessary
 #' @param fname The file name
 #' @param postfix An optional name postfix
+#' @param row_names Whether to include row names inthe csv file
 #'
 #' @examples
 #' my.df <- data.frame(1, 1:10, sample(LETTERS[1:3], 10, replace = TRUE))
@@ -23,7 +24,7 @@
 #' df2disk(df=my.df, dirpath=getwd(), fname='testname')
 #' df2disk(df=my.df, dirpath=my.folder, fname='testname', postfix='_testpostfix')
 #' @export
-df2disk <- function(df, dirpath, fname, postfix = "") {
+df2disk <- function(df, dirpath, fname, postfix = "", row_names=FALSE) {
 
     dir.create(dirpath, showWarnings = FALSE, recursive = TRUE)
 
@@ -31,7 +32,7 @@ df2disk <- function(df, dirpath, fname, postfix = "") {
 
     write.table(df,
                 file = paste0(dirpath, "/", fname, postfix, ".txt"), sep = ";",
-                row.names = FALSE)
+                row.names = row_names)
 }
 
 #' Calculates p-values from z-values
