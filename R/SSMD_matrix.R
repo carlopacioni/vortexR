@@ -6,7 +6,7 @@
 #' When \code{yrs='max'} (default), VortexR automatically sets  \code{yrs} to
 #' the last year of the simulation .
 #'
-#'
+#' @param dir_out The local path to store the output. Default: DataAnalysis/SSMD_matrix
 #' @inheritParams pairwise
 #' @return A list where each element is a matrix of SSMD (belowe the diagonal)
 #'         and related p-values (above the diagonal) for each combination of 'yrs',
@@ -40,7 +40,7 @@ SSMD_matrix <- function(data,
                         yrs="max",
                         ST=FALSE,
                         save2disk=TRUE,
-                        dir_out="DataAnalysis/Pairwise") {
+                        dir_out="DataAnalysis/SSMD_matrix") {
     ############################################################################
     # Dealing with no visible global variables
     ############################################################################
