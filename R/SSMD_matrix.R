@@ -98,8 +98,8 @@ SSMD_matrix <- function(data,
                 pval_matrix <- vortexR::pval(triang_matrix)
                 triang_matrix[upper.tri(triang_matrix)] <-
                     pval_matrix[upper.tri(pval_matrix)]
-                colnames(triang_matrix) <- unique(data$scen.name)
-                rownames(triang_matrix) <- unique(data$scen.name)
+                colnames(triang_matrix) <- substdat$scen.name
+                rownames(triang_matrix) <- substdat$scen.name
 
                 results[[paste(popName, param, yr)]] <- triang_matrix
 
