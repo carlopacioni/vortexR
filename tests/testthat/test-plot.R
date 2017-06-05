@@ -62,7 +62,6 @@ test_that("test m_scatter", {
                               vs=c("SV1", "SV2", "SV3"),
                               save2disk=FALSE)
 
-    expect_length(scatter.plot , 18)
     expect_is(scatter.plot, c("gg", "ggmatrix"))
 
 })
