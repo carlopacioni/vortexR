@@ -6,7 +6,7 @@ Description: Facilitate Post Vortex Simulation Analysis by offering
     analyse the collated output statistically. Vortex is a software for
     the development of individual-based model for population dynamic simulation
     (see <http://www.vortex10.org/Vortex10.aspx>).
-Version: 1.0.3
+Version: 1.1.3
 Authors@R: c(
     person("Carlo", "Pacioni", email="C.Pacioni@Murdoch.edu.au", role=c("aut", "cre")),
     person(c("Florian", "W."), "Mayer", email="Florian.Mayer@dpaw.wa.gov.au", role="aut"))
