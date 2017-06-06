@@ -4,7 +4,7 @@
 \alias{df2disk}
 \title{Save a data.frame as both Rdata and CSV}
 \usage{
-df2disk(df, dirpath, fname, postfix = "")
+df2disk(df, dirpath, fname, postfix = "", row_names = FALSE)
 }
 \arguments{
 \item{df}{A data.frame}
@@ -15,6 +15,8 @@ necessary}
 \item{fname}{The file name}
 
 \item{postfix}{An optional name postfix}
+
+\item{row_names}{Whether to include row names inthe csv file}
 }
 \description{
 \code{df2disk} saves to disk a given data.frame as both Rdata and CSV with a

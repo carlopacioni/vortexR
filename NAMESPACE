@@ -3,6 +3,7 @@
 export(Nadults)
 export(Ne)
 export(Pextinct)
+export(SSMD_matrix)
 export(collate_dat)
 export(collate_one_dat)
 export(collate_proc_data)
