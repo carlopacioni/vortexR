@@ -102,3 +102,9 @@ We are happy to receive feedback and contributions through bug reports and pull 
 We aim to follow the style suggestions by 
 `formatR::tidy_dir("R", width.cutoff = 79)`, `lintr::lint_package()`, and 
 `devtools::check(check_version = T, force_suggests = T, cran = T)`.
+
+In a new environment, e.g. after an upgrade of R, running the tests could 
+require to install vortexR's dependencies with 
+`install.packages("vortexR", dependencies = T)`.
+
+Note on R 3.4.0: update lintr to solve bug [roxygen #627](https://github.com/klutometis/roxygen/issues/627).
