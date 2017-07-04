@@ -108,3 +108,13 @@ require to install vortexR's dependencies with
 `install.packages("vortexR", dependencies = T)`.
 
 Note on R 3.4.0: update lintr to solve bug [roxygen #627](https://github.com/klutometis/roxygen/issues/627).
+
+### Building the documentation
+The static HTML behind the GitHub pages is built with `pkgdown`. 
+
+```{r}
+devtools::install_github("hadley/pkgdown")
+pkgdown::build_site()
+```
+
+The documentation should be re-built before each submission.
