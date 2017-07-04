@@ -400,7 +400,7 @@ scatter.plot</code></pre></div>
 <pre><code>## Done! Elapsed time:</code></pre>
 <p><img src="vortexRguide_files/figure-html/unnamed-chunk-22-1.png" width="384" style="display: block; margin: auto;"></p>
 <pre><code>##    user  system elapsed 
-##   0.876   0.004   0.665</code></pre>
+##   0.848   0.016   0.653</code></pre>
 <p>Once the search is concluded, there are several pieces of information that can be retrieved. Detailed explanations and examples are in the documentations of the R package <code>glmulti</code> and we only report below a few examples.</p>
 <p>It is possible to inspect the plot of the information criterion of the evaluated models. This is saved to disk if <code>save2disk=TRUE</code>, otherwise it can be called from the <code>glmulti</code> object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(reg, <span class="dt">type=</span><span class="st">"p"</span>)</code></pre></div>
@@ -409,28 +409,28 @@ scatter.plot</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reg@formulas[<span class="dv">1</span>]</code></pre></div>
 <pre><code>## [[1]]
 ## N ~ 1 + SV1 + SV2 + SV3 + SV2:SV1 + SV3:SV1 + SV3:SV2
-## &lt;environment: 0x47397c0&gt;</code></pre>
+## &lt;environment: 0x55ac450&gt;</code></pre>
 <p>Possible additional information you may be interested into are, for example, the list of the best 5 models retained:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reg@formulas[<span class="dv">1</span>:<span class="dv">5</span>]</code></pre></div>
 <pre><code>## [[1]]
 ## N ~ 1 + SV1 + SV2 + SV3 + SV2:SV1 + SV3:SV1 + SV3:SV2
-## &lt;environment: 0x47397c0&gt;
+## &lt;environment: 0x55ac450&gt;
 ## 
 ## [[2]]
 ## N ~ 1 + SV1 + SV2 + SV2:SV1 + SV3:SV1 + SV3:SV2
-## &lt;environment: 0x47397c0&gt;
+## &lt;environment: 0x55ac450&gt;
 ## 
 ## [[3]]
 ## N ~ 1 + SV1 + SV3 + SV2:SV1 + SV3:SV1 + SV3:SV2
-## &lt;environment: 0x47397c0&gt;
+## &lt;environment: 0x55ac450&gt;
 ## 
 ## [[4]]
 ## N ~ 1 + SV1 + SV3 + SV3:SV1 + SV3:SV2
-## &lt;environment: 0x47397c0&gt;
+## &lt;environment: 0x55ac450&gt;
 ## 
 ## [[5]]
 ## N ~ 1 + SV1 + SV2:SV1 + SV3:SV1 + SV3:SV2
-## &lt;environment: 0x47397c0&gt;</code></pre>
+## &lt;environment: 0x55ac450&gt;</code></pre>
 <p>The information criterion values:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reg@crits</code></pre></div>
 <pre><code>##  [1] 179.1871 195.0635 196.1317 198.8619 199.0479 200.6671 202.1502

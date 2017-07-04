@@ -41,14 +41,10 @@ SSMD_matrix <- function(data,
                         ST=FALSE,
                         save2disk=TRUE,
                         dir_out="DataAnalysis/SSMD_matrix") {
-    ############################################################################
     # Dealing with no visible global variables
-    ############################################################################
     Year <- NULL
     scen.name <- NULL
     J <- NULL
-    ############################################################################
-
 
     data <- data.table(data)
 
@@ -59,11 +55,7 @@ SSMD_matrix <- function(data,
     suppressWarnings(if (!yrs == "max" & !is.numeric(yrs))
         stop("invalid value(s) for 'yrs' "))
 
-    fname <- if (ST) {
-        paste(project, "_", scenario, sep="")
-    } else {
-        project
-    }
+    fname <- if (ST) {paste(project, scenario, sep="_")} else {project}
 
     # set yrs to max
     suppressWarnings(if (yrs == "max") {yrs <- data[, max(Year)]})
@@ -77,8 +69,7 @@ SSMD_matrix <- function(data,
 
     pops.name <- unique(data$pop.name)
 
-    results <- vector("list", length(pops.name) * length(params) *
-                          length(yrs))
+    results <- vector("list", length(pops.name) * length(params) * length(yrs))
 
     df_nms <- expand.grid(pops.name, params, yrs)
     nms <- paste(df_nms[, 1], df_nms[, 2], df_nms[, 3])
@@ -104,9 +95,8 @@ SSMD_matrix <- function(data,
                 results[[paste(popName, param, yr)]] <- triang_matrix
 
                 if (save2disk) {
-                    # write results
                     df2disk(triang_matrix, dir_out, fname, row_names=TRUE,
-                            paste(popName, param, yr, sep="_"))
+                            postfix=paste(popName, param, yr, sep="_"))
                 }
             }
 
