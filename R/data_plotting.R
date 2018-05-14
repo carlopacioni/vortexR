@@ -366,7 +366,7 @@ dot_plot <- function(data,
 #'     save2disk=FALSE)
 m_scatter <- function(data,
                       data_type = "dat",
-                      lookup = NA,
+                      lookup = NULL,
                       yr = 1,
                       popn = 1,
                       param = "N",
@@ -407,9 +407,9 @@ m_scatter <- function(data,
 
     setkey(data, Population)
     data <- data[.(pop), ]  # Select pop
-    suppressWarnings(if (!is.na(lookup)) {
+    if(!is.null(lookup)) {
         data <- plyr::join(data, lookup, by = "Scenario", type = "left")
-    })
+    }
     corrMtrx <- GGally::ggpairs(
         data[, c(vs, param), with = FALSE],
         axisLabels = "internal",

@@ -4,7 +4,7 @@
 \alias{fit_regression}
 \title{Search for the best regression model(s)}
 \usage{
-fit_regression(data, lookup = NA, census = TRUE, yr, project, scenario,
+fit_regression(data, lookup = NULL, census = TRUE, yr, project, scenario,
   popn, param = "N", vs = c("GS1"), count_data = c("Nextant", "Nall",
   "Nalleles", "N", "AM", "AF", "Subadults", "Juv", "nDams", "nBroods",
   "nProgeny", "nImmigrants", "nEmigrants", "nHarvested", "nSupplemented",

@@ -52,13 +52,21 @@ SSMD_matrix <- function(data,
     SEname <- function(par) paste("SE.", par, ".", sep="")
     SDname <- function(parSD) paste("SD.", parSD, ".", sep="")
     # Error handling
-    suppressWarnings(if (!yrs == "max" & !is.numeric(yrs))
-        stop("invalid value(s) for 'yrs' "))
+    if(is.character(yrs)) {
+        if(length(yrs) == 1) {
+            if(yrs != "max") stop("invalid value(s) for 'yrs' ")
+        } else {
+            stop("invalid value(s) for 'yrs' ")
+        }
+    } else {
+        if(!is.numeric(yrs)) stop("invalid value(s) for 'yrs' ")
+    }
 
     fname <- if (ST) {paste(project, scenario, sep="_")} else {project}
 
     # set yrs to max
-    suppressWarnings(if (yrs == "max") {yrs <- data[, max(Year)]})
+    if(is.character(yrs))
+        {yrs <- data[, max(Year)]}
     # Set up headings for params and SE and SD
     params <- make.names(params)
     SE <- sapply(params, SEname)

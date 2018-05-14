@@ -335,13 +335,20 @@ pairwise <- function(data,
     FColsAllNA <- function(lranks) apply(lranks, 2, function(chk) !all(is.na(chk)))
 
     # Error handling
-    suppressWarnings(if (!yrs == "max" & !is.numeric(yrs))
-        stop("invalid value(s) for 'yrs' "))
+    if(is.character(yrs)) {
+        if(length(yrs) == 1) {
+            if(yrs != "max") stop("invalid value(s) for 'yrs' ")
+        } else {
+            stop("invalid value(s) for 'yrs' ")
+        }
+    } else {
+        if(!is.numeric(yrs)) stop("invalid value(s) for 'yrs' ")
+    }
 
     fname <- if (ST) paste(project, scenario, sep = "_") else project
 
     # set yrs to max
-    suppressWarnings(if (yrs == "max") yrs <- max(data$Year))
+    if(is.character(yrs)) yrs <- max(data$Year)
 
     # set group.mean if needed
     if (ST & type == "Single-Factor" & length(SVs) > 1) group.mean <- TRUE
@@ -812,7 +819,7 @@ pairwise <- function(data,
 #' # Plot of model averaged importance of terms
 #' plot(reg, type='s')
 fit_regression <- function(data,
-                           lookup = NA,
+                           lookup = NULL,
                            census = TRUE,
                            yr,
                            project,
@@ -850,9 +857,9 @@ fit_regression <- function(data,
     # vector with available link functions to be used with betareg
     links <- c("logit", "probit", "cloglog", "cauchit", "loglog")
 
-    suppressWarnings(if (!is.na(lookup)) {
+    if(!is.null(lookup)) {
         data <- plyr::join(data, lookup, by = "Scenario", type = "left")
-    })
+    }
 
     # convert data.table
     data <- data.table(data)
