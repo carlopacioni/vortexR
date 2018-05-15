@@ -1,3 +1,6 @@
+# vortexR 1.1.5
+Ensured copatibility with R 3.6.*
+
 # vortexR 1.1.4
 Implemented SSMD_matrix. Calculates a matrix of SSMD and associated pvalues
 
