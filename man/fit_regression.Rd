@@ -4,12 +4,13 @@
 \alias{fit_regression}
 \title{Search for the best regression model(s)}
 \usage{
-fit_regression(data, lookup = NULL, census = TRUE, yr, project, scenario,
-  popn, param = "N", vs = c("GS1"), count_data = c("Nextant", "Nall",
-  "Nalleles", "N", "AM", "AF", "Subadults", "Juv", "nDams", "nBroods",
-  "nProgeny", "nImmigrants", "nEmigrants", "nHarvested", "nSupplemented",
-  "YrExt", "Alleles"), ic = "aic", l = 1, ncand = 30, set_size = NA,
-  save2disk = TRUE, dir_out = "DataAnalysis/FitRegression")
+fit_regression(data, lookup = NULL, census = TRUE, yr, project,
+  scenario, popn, param = "N", vs = c("GS1"),
+  count_data = c("Nextant", "Nall", "Nalleles", "N", "AM", "AF",
+  "Subadults", "Juv", "nDams", "nBroods", "nProgeny", "nImmigrants",
+  "nEmigrants", "nHarvested", "nSupplemented", "YrExt", "Alleles"),
+  ic = "aic", l = 1, ncand = 30, set_size = NA, save2disk = TRUE,
+  dir_out = "DataAnalysis/FitRegression")
 }
 \arguments{
 \item{data}{The long format of census (from \code{conv_l_yr}) or run (lrun,

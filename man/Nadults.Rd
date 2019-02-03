@@ -4,9 +4,9 @@
 \alias{Nadults}
 \title{Calculate the harmonic mean of the total number of adults}
 \usage{
-Nadults(data, scenarios = "all", npops_noMeta = 1, appendMeta = FALSE,
-  gen = 1, yr0 = 1, yrt = 2, save2disk = TRUE, fname = "Nadults",
-  dir_out = "DataAnalysis")
+Nadults(data, scenarios = "all", npops_noMeta = 1,
+  appendMeta = FALSE, gen = 1, yr0 = 1, yrt = 2,
+  save2disk = TRUE, fname = "Nadults", dir_out = "DataAnalysis")
 }
 \arguments{
 \item{data}{The second element (census_means) of the output from \code{collate_yr}}

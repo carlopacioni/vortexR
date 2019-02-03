@@ -4,8 +4,8 @@
 \alias{collate_run}
 \title{Collate Vortex .run output files}
 \usage{
-collate_run(project, scenario, npops = 1, dir_in = NULL, save2disk = TRUE,
-  dir_out = "ProcessedData", verbose = TRUE)
+collate_run(project, scenario, npops = 1, dir_in = NULL,
+  save2disk = TRUE, dir_out = "ProcessedData", verbose = TRUE)
 }
 \arguments{
 \item{project}{The Vortex project name to be imported}

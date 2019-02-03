@@ -4,8 +4,8 @@
 \alias{SSMD_matrix}
 \title{Generate a SSMD matrix with all possible pairwise comparisons}
 \usage{
-SSMD_matrix(data, project, scenario, params = c("PExtinct", "Nextant", "Het",
-  "Nalleles"), yrs = "max", ST = FALSE, save2disk = TRUE,
+SSMD_matrix(data, project, scenario, params = c("PExtinct", "Nextant",
+  "Het", "Nalleles"), yrs = "max", ST = FALSE, save2disk = TRUE,
   dir_out = "DataAnalysis/SSMD_matrix")
 }
 \arguments{

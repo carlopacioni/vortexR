@@ -5,8 +5,8 @@
 \title{Line plots of Vortex parameters vs years}
 \usage{
 line_plot_year_mid(data, project, scenario, yrmid = 1,
-  params = c("PExtinct", "Nextant", "Het", "Nalleles"), plotpops = c("all"),
-  save2disk = TRUE, dir_out = "Plots")
+  params = c("PExtinct", "Nextant", "Het", "Nalleles"),
+  plotpops = c("all"), save2disk = TRUE, dir_out = "Plots")
 }
 \arguments{
 \item{data}{A df from \code{collate_dat}}
