@@ -1,3 +1,6 @@
+# vortexR 1.1.6
+Ensured copatibility with irr 0.84.1
+
 # vortexR 1.1.5
 Ensured copatibility with R 3.6.*
 
