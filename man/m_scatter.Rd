@@ -4,9 +4,18 @@
 \alias{m_scatter}
 \title{Generates a matrix of scatter plots}
 \usage{
-m_scatter(data, data_type = "dat", lookup = NULL, yr = 1, popn = 1,
-  param = "N", vs = NA, save2disk = TRUE, fname = NULL,
-  dir_out = "Plots")
+m_scatter(
+  data,
+  data_type = "dat",
+  lookup = NULL,
+  yr = 1,
+  popn = 1,
+  param = "N",
+  vs = NA,
+  save2disk = TRUE,
+  fname = NULL,
+  dir_out = "Plots"
+)
 }
 \arguments{
 \item{data}{The output from \code{collate_dat}, the long format of the

@@ -3,7 +3,9 @@
 \name{pac.clas.lookup}
 \alias{pac.clas.lookup}
 \title{Look-up table}
-\format{A \code{data.frame} with 24 observations of 8 variables.}
+\format{
+A \code{data.frame} with 24 observations of 8 variables.
+}
 \source{
 Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
  Predators and genetic fitness: key threatening factors for the conservation

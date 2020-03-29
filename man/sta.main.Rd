@@ -3,7 +3,9 @@
 \name{sta.main}
 \alias{sta.main}
 \title{Collated results from Vortex scenarios - Campbell et al (2016)}
-\format{a \code{data.frame} with 1632 observations of 44 variables.}
+\format{
+a \code{data.frame} with 1632 observations of 44 variables.
+}
 \source{
 Campbell et al. (2016). Assessing the economic benefits of starling
  detection and control to Western Australia. Australasian Journal of

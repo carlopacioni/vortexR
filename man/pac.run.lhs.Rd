@@ -3,8 +3,10 @@
 \name{pac.run.lhs}
 \alias{pac.run.lhs}
 \title{Collated results from Vortex scenarios - Pacioni et al. (2017)}
-\format{A named list of two \code{data.frame}s:
-  run (153 obs, 7 var), lrun (153 obs, 8 var).}
+\format{
+A named list of two \code{data.frame}s:
+  run (153 obs, 7 var), lrun (153 obs, 8 var).
+}
 \source{
 Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
  Predators and genetic fitness: key threatening factors for the conservation

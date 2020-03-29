@@ -4,8 +4,15 @@
 \alias{collate_yr}
 \title{Collate Vortex .yr output files}
 \usage{
-collate_yr(project, scenario, npops_noMeta = 1, dir_in = NULL,
-  save2disk = TRUE, dir_out = "ProcessedData", verbose = TRUE)
+collate_yr(
+  project,
+  scenario,
+  npops_noMeta = 1,
+  dir_in = NULL,
+  save2disk = TRUE,
+  dir_out = "ProcessedData",
+  verbose = TRUE
+)
 }
 \arguments{
 \item{project}{The Vortex project name to be imported}

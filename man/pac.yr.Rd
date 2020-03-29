@@ -3,8 +3,10 @@
 \name{pac.yr}
 \alias{pac.yr}
 \title{Collated results from Vortex scenarios - Pacioni et al. (2017)}
-\format{A named list of two \code{element}s:
-  all (8712 obs, 26 var), means (2904 obs, 25 var).}
+\format{
+A named list of two \code{element}s:
+  all (8712 obs, 26 var), means (2904 obs, 25 var).
+}
 \source{
 Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
  Predators and genetic fitness: key threatening factors for the conservation

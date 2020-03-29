@@ -4,8 +4,16 @@
 \alias{Ne}
 \title{Calculate the effective population size (Ne)}
 \usage{
-Ne(data = NULL, scenarios = "all", gen = 1, yr0 = 1, yrt = 2,
-  save2disk = TRUE, fname = "Ne", dir_out = "DataAnalysis")
+Ne(
+  data = NULL,
+  scenarios = "all",
+  gen = 1,
+  yr0 = 1,
+  yrt = 2,
+  save2disk = TRUE,
+  fname = "Ne",
+  dir_out = "DataAnalysis"
+)
 }
 \arguments{
 \item{data}{The output from \code{collate_dat}}

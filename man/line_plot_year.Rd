@@ -4,9 +4,15 @@
 \alias{line_plot_year}
 \title{Line plots of Vortex parameters vs years}
 \usage{
-line_plot_year(data, project, scenario, params = c("PExtinct", "Nextant",
-  "Het", "Nalleles"), plotpops = c("all"), save2disk = TRUE,
-  dir_out = "Plots")
+line_plot_year(
+  data,
+  project,
+  scenario,
+  params = c("PExtinct", "Nextant", "Het", "Nalleles"),
+  plotpops = c("all"),
+  save2disk = TRUE,
+  dir_out = "Plots"
+)
 }
 \arguments{
 \item{data}{A df from \code{collate_dat}}

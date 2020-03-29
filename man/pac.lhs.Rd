@@ -3,7 +3,9 @@
 \name{pac.lhs}
 \alias{pac.lhs}
 \title{Collated results from Vortex scenarios - Pacioni et al. (2017)}
-\format{A \code{data.frame} of 6171 observations of 68 variables.}
+\format{
+A \code{data.frame} of 6171 observations of 68 variables.
+}
 \source{
 Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
  Predators and genetic fitness: key threatening factors for the conservation

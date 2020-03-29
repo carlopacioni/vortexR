@@ -4,9 +4,16 @@
 \alias{conv_l_yr}
 \title{Convert 'census' data into long format}
 \usage{
-conv_l_yr(data, npops_noMeta = 1, appendMeta = FALSE, project,
-  scenario, yrs = c(1, 2), save2disk = TRUE,
-  dir_out = "ProcessedData")
+conv_l_yr(
+  data,
+  npops_noMeta = 1,
+  appendMeta = FALSE,
+  project,
+  scenario,
+  yrs = c(1, 2),
+  save2disk = TRUE,
+  dir_out = "ProcessedData"
+)
 }
 \arguments{
 \item{data}{The df 'census' from \code{collate_yr}}

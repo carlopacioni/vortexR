@@ -4,9 +4,17 @@
 \alias{dot_plot}
 \title{Dot plots of mean Vortex parameters}
 \usage{
-dot_plot(data, project, scenario, yrs = c(1, 2), params = c("PExtinct",
-  "Nextant", "Het", "Nalleles"), setcolour = "scen.name",
-  plotpops = c("all"), save2disk = TRUE, dir_out = "Plots")
+dot_plot(
+  data,
+  project,
+  scenario,
+  yrs = c(1, 2),
+  params = c("PExtinct", "Nextant", "Het", "Nalleles"),
+  setcolour = "scen.name",
+  plotpops = c("all"),
+  save2disk = TRUE,
+  dir_out = "Plots"
+)
 }
 \arguments{
 \item{data}{A df from \code{collate_dat}}

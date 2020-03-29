@@ -3,7 +3,9 @@
 \name{pac.clas.Ne}
 \alias{pac.clas.Ne}
 \title{Effective population size}
-\format{A \code{data.frame} with 24 observations of 2 variables.}
+\format{
+A \code{data.frame} with 24 observations of 2 variables.
+}
 \source{
 Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
  Predators and genetic fitness: key threatening factors for the conservation

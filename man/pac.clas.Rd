@@ -3,7 +3,9 @@
 \name{pac.clas}
 \alias{pac.clas}
 \title{Collated results from Vortex scenarios - Pacioni et al. (2017)}
-\format{a \code{data.frame} of 2904 observations of 68 variables.}
+\format{
+a \code{data.frame} of 2904 observations of 68 variables.
+}
 \source{
 Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
  Predators and genetic fitness: key threatening factors for the conservation

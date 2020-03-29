@@ -4,8 +4,14 @@
 \alias{Pextinct}
 \title{Cumulative probability of extinction at the end of the simulation}
 \usage{
-Pextinct(data, project, scenario, ST = FALSE, save2disk = TRUE,
-  dir_out = "DataAnalysis/Pextinct")
+Pextinct(
+  data,
+  project,
+  scenario,
+  ST = FALSE,
+  save2disk = TRUE,
+  dir_out = "DataAnalysis/Pextinct"
+)
 }
 \arguments{
 \item{data}{The long format of run (lrun, the second element) of the output

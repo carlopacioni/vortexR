@@ -3,7 +3,6 @@
 \docType{package}
 \name{vortexR}
 \alias{vortexR}
-\alias{vortexR-package}
 \title{vortexR: an R package for Post Vortex Simulation Analysis}
 \description{
 \code{vortexR} facilitates Post Vortex Simulation Analysis (PVSA) by offering

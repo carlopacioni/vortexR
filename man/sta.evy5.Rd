@@ -3,7 +3,9 @@
 \name{sta.evy5}
 \alias{sta.evy5}
 \title{Collated results from Vortex scenarios - Campbell et al (2016)}
-\format{a \code{data.frame} with 1020 observations of 47 variables.}
+\format{
+a \code{data.frame} with 1020 observations of 47 variables.
+}
 \source{
 Campbell et al. (2016). Assessing the economic benefits of starling
  detection and control to Western Australia. Australasian Journal of

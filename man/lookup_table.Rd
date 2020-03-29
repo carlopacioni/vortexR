@@ -4,8 +4,15 @@
 \alias{lookup_table}
 \title{Summary table of simulation parameters}
 \usage{
-lookup_table(data, project, scenario, pop = "Population 1",
-  SVs = c("SV1"), save2disk = TRUE, dir_out = "ProcessedData")
+lookup_table(
+  data,
+  project,
+  scenario,
+  pop = "Population 1",
+  SVs = c("SV1"),
+  save2disk = TRUE,
+  dir_out = "ProcessedData"
+)
 }
 \arguments{
 \item{data}{The output from \code{collate_dat}}
