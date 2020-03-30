@@ -44,5 +44,15 @@ test_that("fit-regressin", {
     coefs <- coef(reg.prop@objects[[1]])
     expect_true(round(1.663474e-04, 6)==round(coefs["SV1"], 6))
 
+    reg.prop2 <- fit_regression(data=lrun.ST_LHS.no.base, lookup=lkup.ST_LHS,
+                               census=FALSE,
+                               links = c("logit", "probit", "cauchit", "loglog"),
+                               project="Pacioni_et_al", scenario="ST_LHS", popn=1,
+                               param="GeneDiv", vs=c("SV1", "SV2", "SV3"), l=2,
+                               ncand=30,
+                               save2disk=FALSE)
+    coefs <- coef(reg.prop2@objects[[1]])
+    expect_true(round(0.0002583495, 6)==round(coefs["SV1"], 6))
+
 })
 
