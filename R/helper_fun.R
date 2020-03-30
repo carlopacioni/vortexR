@@ -122,6 +122,6 @@ CompileIter <- function(iter, filename, n_rows, iter_ln, lines, header) {
         regexpr(pattern = "\\$Scenario: ", lines[1]), "match.length") + 1
     ScenName <- substr(lines[1], ScenNameStarts, nchar(lines[1]))
     Scenario <- rep(ScenName, length = length(temp.df$Year))
-    temp.df <- cbind(Scenario, Iteration, temp.df)
+    temp.df <- cbind(Scenario, Iteration, temp.df,  stringsAsFactors = TRUE)
     return(temp.df)
 }

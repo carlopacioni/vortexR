@@ -81,7 +81,8 @@ collate_one_dat <- function(filename, runs, verbose = FALSE) {
         SD.PExtinct. <- sapply(tmp$SE.PExtinct., se2sd, no = runs)
 
         # Add scenario name, popname, and probability SDs as data.frame columns
-        tmp <- cbind(scen.name, pop.name, tmp, SD.PExtant., SD.PExtinct.)
+        tmp <- cbind(scen.name, pop.name, tmp, SD.PExtant., SD.PExtinct.,
+                     stringsAsFactors = TRUE)
         if (pop == 1) x <- tmp else x <- rbind(x, tmp)
     }
     return(x)
@@ -262,7 +263,7 @@ collate_run <- function(project,
         Scenario <- gsub(" ", "", Scenario)[2]
 
         Scenario <- rep(Scenario, length = length(trun$Iteration))
-        trun <- cbind(Scenario, trun)
+        trun <- cbind(Scenario, trun,  stringsAsFactors = TRUE)
         run <- rbind(run, trun)
     }
 
@@ -284,7 +285,8 @@ collate_run <- function(project,
         Cstart <- 3 + (k * ncolpop)
         Cend <- 3 + ncolpop * numPop - 1
         Population <- rep(pop[numPop], nrow(run))
-        tlrun <- cbind(Population, run[, 1:2], run[, Cstart:Cend])
+        tlrun <- cbind(Population, run[, 1:2], run[, Cstart:Cend],
+                       stringsAsFactors = TRUE)
         lrun <- rbind(lrun, tlrun)
     }
 
