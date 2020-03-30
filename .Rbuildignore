@@ -6,6 +6,5 @@
 Rplots\.pdf$
 ^man-roxygen/
 ^revdep/
-^NEWS\.md$
 ^docs$
 ^revdep$
