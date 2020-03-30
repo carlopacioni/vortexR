@@ -29,6 +29,20 @@ test_that("fit-regressin", {
                           project="Pacioni_et_al", scenario="ST_LHS", popn=1,
                           param="N", vs=c("SV1", "SV2", "SV3"), l=2,  ncand=30,
                           save2disk=FALSE)
+
     expect_is(reg, "glmulti")
+    coefs <- coef(reg@objects[[1]])
+    expect_true(round(0.0038677, 6)==round(coefs["SV1"], 6))
+
+
+    reg.prop <- fit_regression(data=lrun.ST_LHS.no.base, lookup=lkup.ST_LHS,
+                          census=FALSE,
+                          project="Pacioni_et_al", scenario="ST_LHS", popn=1,
+                          param="GeneDiv", vs=c("SV1", "SV2", "SV3"), l=2,  ncand=30,
+                          save2disk=FALSE)
+    expect_is(reg.prop, "glmulti")
+    coefs <- coef(reg.prop@objects[[1]])
+    expect_true(round(1.663474e-04, 6)==round(coefs["SV1"], 6))
+
 })
 
