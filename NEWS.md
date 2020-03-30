@@ -1,3 +1,9 @@
+# vortexR 1.1.7
+Ensured copatibility with R 4.*
+fit_regression gains a new argument: `links`, which allows for a better control
+on how the Beta regression is fitted.
+Improved testing for fit_regression (this is for development only, not visible to users)
+
 # vortexR 1.1.6
 Ensured copatibility with irr 0.84.1
 
