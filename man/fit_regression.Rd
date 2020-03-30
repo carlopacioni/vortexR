@@ -21,6 +21,7 @@ fit_regression(
   l = 1,
   ncand = 30,
   set_size = NA,
+  links = c("logit", "probit", "cloglog", "cauchit", "loglog"),
   save2disk = TRUE,
   dir_out = "DataAnalysis/FitRegression"
 )
@@ -59,6 +60,8 @@ genetic search method, default: 30}
 \item{set_size}{Value to be used in confsetsize (from \code{\link[glmulti]{glmulti}}
  The number of models to be looked for, i.e. the size of the returned confidence
 set.)}
+
+\item{links}{Link functions to use in the Beta regression.}
 
 \item{save2disk}{Whether to save the output to disk, default: TRUE}
 

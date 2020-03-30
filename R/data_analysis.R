@@ -738,6 +738,7 @@ pairwise <- function(data,
 #' @param set_size Value to be used in confsetsize (from \code{\link[glmulti]{glmulti}}
 #'  The number of models to be looked for, i.e. the size of the returned confidence
 #' set.)
+#' @param links Link functions to use in the Beta regression.
 #' @param dir_out The local path to store the output.
 #'  Default: DataAnalysis/FitRegression
 #' @inheritParams pairwise
@@ -837,6 +838,7 @@ fit_regression <- function(data,
                            l = 1,
                            ncand = 30,
                            set_size = NA,
+                           links = c("logit", "probit", "cloglog", "cauchit", "loglog"),
                            save2disk = TRUE,
                            dir_out = "DataAnalysis/FitRegression") {
 
@@ -855,7 +857,7 @@ fit_regression <- function(data,
     LinkTest <- function(x) logLik(update(breg, link = x))
 
     # vector with available link functions to be used with betareg
-    links <- c("logit", "probit", "cloglog", "cauchit", "loglog")
+
 
     if(!is.null(lookup)) {
         data <- plyr::join(data, lookup, by = "Scenario", type = "left")
