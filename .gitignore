@@ -9,3 +9,4 @@ tests/testthat/*.mods.back
 tests/testthat/*.modgen.back
 revdep/*.
 revdep
+/revdep/.cache.rds
