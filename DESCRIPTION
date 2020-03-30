@@ -5,7 +5,7 @@ Description: Facilitate Post Vortex Simulation Analysis by offering
     tools to collate multiple Vortex (v10) output files into one R object, and
     analyse the collated output statistically. Vortex is a software for
     the development of individual-based model for population dynamic simulation
-    (see <http://www.vortex10.org/Vortex10.aspx>).
+    (see <https://scti.tools/vortex/>).
 Version: 1.1.7
 Authors@R: c(
     person("Carlo", "Pacioni", email="C.Pacioni@Murdoch.edu.au", role=c("aut", "cre")),
