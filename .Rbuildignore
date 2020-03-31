@@ -7,6 +7,7 @@ Rplots\.pdf$
 ^man-roxygen/
 ^revdep/
 ^docs$
+^docs/.*$
 ^revdep$
 ^CRAN-RELEASE$
 ^_pkgdown\.yml$
