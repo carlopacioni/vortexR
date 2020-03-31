@@ -103,7 +103,7 @@ If you customise a vortexR script to suit your specific needs, we would apprecia
 if you can still cite vortexR's main reference stating something like: 
 "we used a customised version of the script vortexR-*script-name* (Pacioni and Mayer, 2017)".
 
-**_Pacioni C, and Mayer F. 2017. VortexR: an R package for post Vortex simulation analysis. Methods in Ecology and Evolution._**  
+**_Pacioni C, and Mayer F. 2017. VortexR: an R package for post Vortex simulation analysis. Methods in Ecology and Evolution. 8, 1477-1481_**  
 
 Please note that no commercial use of any part of vortexR is allowed.
 
@@ -648,9 +648,9 @@ Kalinowski, S.T., and Waples, R.S. (2002) Relationship of Effective to Census Si
 
 Lacy, R. C., and J. P. Pollak. 2013. VORTEX: a stochastic simulation of the extinction process. Version 10. Chicago Zoological Society, Brookfield.  
 
-M Dowle, T Short, S Lianoglou, and A. S. w. c. f. R. S. a. E. Antonyan. 2014. data.table: Extension of data.frame. R package version 1.9.2. https://CRAN.R-project.org/package=data.table.  
+M Dowle, and Arun Srinivasan. 2019. data.table: Extension of data.frame. R package version 1.12.8. https://CRAN.R-project.org/package=data.table.  
 
-Pacioni, C., Williams, M., Lacy, R.C., Spencer, P.B.S., and Wayne, A.F. (in review) Predators and genetic fitness: key threatening factors for the conservation of bettong species. Pacific Conservation Biology. 
+Pacioni, C., Williams, M., Lacy, R.C., Spencer, P.B.S., and Wayne, A.F. (2017) Predators and genetic fitness: key threatening factors for the conservation of bettong species. Pacific Conservation Biology 23, 200-212. 
 
 Palstra, F.P., and Fraser, D.J. (2012) Effective/census population size ratio estimation: a compendium and appraisal. Ecology and evolution 2(9), 2357-2365.  
 

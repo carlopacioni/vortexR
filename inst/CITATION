@@ -6,13 +6,13 @@ citEntry(entry = "Article",
                         as.person("Florian W. Mayer")),
          journal      = "Methods in Ecology and Evolution.",
          year         = "2017",
-         volume       = "",
+         volume       = "8",
          number       = "",
-         pages        = "in press",
+         pages        = "1477-1481",
          url          = "",
 
          textVersion  =
-           paste("Pacioni, C. and Mayer, F. W. (in prep).",
+           paste("Pacioni, C. and Mayer, F. W. (2017).",
                  "vortexR: an R package for post Vortex simulation analysis.",
-                 "Methods in Ecology and Evolution.")
+                 "Methods in Ecology and Evolution.", "8: 1477-1481")
 )
