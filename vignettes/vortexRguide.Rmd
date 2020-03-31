@@ -249,7 +249,7 @@ pairw[[11]]
 
 Interestingly, the effects of these parameters, in terms of changes in the demography and heterozygosity of the population, are inconsistent. For example, note how the Adult Mortality (SV2) has a substantial effect on the final heterozygosity of the population, but not on the demography. This inconsistency is also confirmed by the non-significant Kendall's test (again, to keep it short, we only print out an extract for the test using SSMD).
 ```{r}
-pairw[[12]][[2]][c(1:2, 21:22, 24:25)]
+pairw[[12]][[2]]
 ```
 
 
