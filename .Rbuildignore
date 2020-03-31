@@ -8,3 +8,6 @@ Rplots\.pdf$
 ^revdep/
 ^docs$
 ^revdep$
+^CRAN-RELEASE$
+^_pkgdown\.yml$
+^pkgdown$
