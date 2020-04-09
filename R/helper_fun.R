@@ -20,8 +20,8 @@
 #'
 #' @examples
 #' my.df <- data.frame(1, 1:10, sample(LETTERS[1:3], 10, replace = TRUE))
-#' my.folder <- paste0(getwd(), '/test')
-#' df2disk(df=my.df, dirpath=getwd(), fname='testname')
+#' my.folder <- file.path(tempdir(check=TRUE), 'test')
+#' df2disk(df=my.df, dirpath=tempdir(check=TRUE), fname='testname')
 #' df2disk(df=my.df, dirpath=my.folder, fname='testname', postfix='_testpostfix')
 #' @export
 df2disk <- function(df, dirpath, fname, postfix = "", row_names=FALSE) {
