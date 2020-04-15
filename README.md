@@ -1,6 +1,8 @@
+<!-- badges: start -->
 [![Build Status](https://travis-ci.org/carlopacioni/vortexR.svg?branch=master)](https://travis-ci.org/carlopacioni/vortexR)
 [![Coverage Status](https://coveralls.io/repos/github/carlopacioni/vortexR/badge.svg?branch=master)](https://coveralls.io/github/carlopacioni/vortexR?branch=master)
-
+[![R CMD Check via {tic}](https://github.com/florianm/vortexR/workflows/R%20CMD%20Check%20via%20{tic}/badge.svg?branch=master)](https://github.com/florianm/vortexR/actions)
+<!-- badges: end -->
 # vortexR
 An R package for Post Vortex Simulation Analysis.  
 
@@ -20,9 +22,9 @@ The latest development versions of `vortexR` and its supplementary data package
 `vortexRdata` can be installed with:
 
 ```R
-# install.packages("devtools")
-devtools::install_github("carlopacioni/vortexRdata")
-devtools::install_github("carlopacioni/vortexR")
+# install.packages("remotes")
+remotes::install_github("carlopacioni/vortexRdata")
+remotes::install_github("carlopacioni/vortexR")
 ```
 
 Fresh Windows installations of R will require 
@@ -34,7 +36,7 @@ you can run ```install_github("carlopacioni/vortexR")```.
 ### Java-based packages
 The packages ```glmulti``` and ```rJava``` require a Java Development Kit (JDK) 
 installed and registered correctly with R. 
-Make sure to install a 64-bit JDK if you are using a 64-bit version of R. 
+Make sure to install a **64-bit JDK** if you are using a 64-bit version of R. 
 
 A typical installation path for Java-based packages like `glmulti` in a 
 GNU/Linux-based operating system (here: Ubuntu 16.04 LTS) along the lines of 
