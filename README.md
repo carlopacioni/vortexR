@@ -40,7 +40,7 @@ A typical installation path for Java-based packages like `glmulti` in a
 GNU/Linux-based operating system (here: Ubuntu 16.04 LTS) along the lines of 
 [DigitalOcean's tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get):
 
-* On the terminal, install Java: `sudo apt-get install openjdk-8-jdk` and verify with `java -version`
+* On the terminal, install Java: `sudo apt-get install default-jdk` and verify with `java -version`
 * Set default Java installation: `sudo update-alternatives --config java`
 * Set default Java compiler: `sudo update-alternatives --config javac`
 * Set the environment variable `JAVA_HOME` to your preferred Java installation: 
