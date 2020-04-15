@@ -15,3 +15,5 @@ Rplots\.pdf$
 ^\.ccache$
 ^\.github$
 ^clang-.*
+^gfortran.*
+^tic\.R$

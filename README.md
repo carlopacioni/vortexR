@@ -118,3 +118,14 @@ pkgdown::build_site()
 ```
 
 The documentation should be re-built before each submission.
+
+### GitHub Actions
+
+The GitHub Actions script was generated on a Ubuntu 19.10 system with the
+followign commands.
+
+```{r}
+# sudo apt install libsodium-dev
+remotes::install_github("ropensci/tic", dependencies = T)
+tic::use_tic()
+```
