@@ -19,9 +19,15 @@ jobs:
       matrix:
         config:
           # comment out lines if you do not want to build on certain platforms
+          - { os: windows-latest, r: "3.4" }
+          - { os: windows-latest, r: "3.5" }
           - { os: windows-latest, r: "release" }
           - { os: macOS-latest, r: "release", pkgdown: "true" }
+          - { os: macOS-latest, r: "3.4" }
+          - { os: macOS-latest, r: "3.5" }
           - { os: macOS-latest, r: "devel" }
+          - { os: ubuntu-latest, r: "3.4" }
+          - { os: ubuntu-latest, r: "3.5" }
           - { os: ubuntu-latest, r: "release" }
 
     env:
@@ -40,7 +46,7 @@ jobs:
       RGL_USE_NULL: true
       # if you use bookdown or blogdown, replace "PKGDOWN" by the respective
       # capitalized term. This also might need to be done in tic.R
-      BUILD_PKGDOWN: ${{ matrix.config.pkgdown }} 
+      BUILD_PKGDOWN: ${{ matrix.config.pkgdown }}
       # macOS >= 10.15.4 linking
       SDKROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
