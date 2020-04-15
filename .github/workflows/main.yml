@@ -19,16 +19,18 @@ jobs:
       matrix:
         config:
           # comment out lines if you do not want to build on certain platforms
-          - { os: windows-latest, r: "3.4" }
+          - { os: windows-latest, r: "3.4" } # df2disk examples: drop check=T
+          # my.folder <- file.path(tempdir(check=TRUE), 'test')
+          ##[error]Error in tempdir(check = TRUE) : unused argument (check = TRUE)
           - { os: windows-latest, r: "3.5" }
           - { os: windows-latest, r: "release" }
           - { os: macOS-latest, r: "release", pkgdown: "true" }
-          - { os: macOS-latest, r: "3.4" }
-          - { os: macOS-latest, r: "3.5" }
-          - { os: macOS-latest, r: "devel" }
-          - { os: ubuntu-latest, r: "3.4" }
-          - { os: ubuntu-latest, r: "3.5" }
-          - { os: ubuntu-latest, r: "release" }
+          - { os: macOS-latest, r: "3.4" } # install betareg, glmulti
+          - { os: macOS-latest, r: "3.5" } # install rJava
+          - { os: macOS-latest, r: "devel" } # install glmulti
+          - { os: ubuntu-latest, r: "3.4" } # install glmulti
+          - { os: ubuntu-latest, r: "3.5" } # install glmulti
+          - { os: ubuntu-latest, r: "release" } # install glmulti
 
     env:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
@@ -52,6 +54,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install Java JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '9.0.4' # The JDK version to make available on the path.
+          java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
+          architecture: x64 # (x64 or x86) - defaults to x64
 
       - uses: r-lib/actions/setup-r@master
         with:
