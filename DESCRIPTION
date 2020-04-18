@@ -38,3 +38,4 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0
+Encoding: UTF-8
