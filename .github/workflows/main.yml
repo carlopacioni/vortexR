@@ -67,6 +67,9 @@ jobs:
           r-version: ${{ matrix.config.r }}
           Ncpus: 4
 
+      - name: R CMD javareconf
+        run: R CMD javareconf
+
       # LaTeX. Installation time:
       # Linux: ~ 1 min
       # macOS: ~ 1 min 30s
