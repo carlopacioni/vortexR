@@ -19,18 +19,18 @@ jobs:
       matrix:
         config:
           # comment out lines if you do not want to build on certain platforms
-          - { os: windows-latest, r: "3.4" } # df2disk examples: drop check=T
-          # my.folder <- file.path(tempdir(check=TRUE), 'test')
-          ##[error]Error in tempdir(check = TRUE) : unused argument (check = TRUE)
+          - { os: windows-latest, r: "3.4" }
           - { os: windows-latest, r: "3.5" }
           - { os: windows-latest, r: "release" }
-          - { os: macOS-latest, r: "release", pkgdown: "true" }
+          - { os: windows-latest, r: "devel" }
           - { os: macOS-latest, r: "3.4" } # install betareg, glmulti
           - { os: macOS-latest, r: "3.5" } # install rJava
+          - { os: macOS-latest, r: "release", pkgdown: "true" }
           - { os: macOS-latest, r: "devel" } # install glmulti
           - { os: ubuntu-latest, r: "3.4" } # install glmulti
-          - { os: ubuntu-latest, r: "3.5" } # install glmulti
+          - { os: ubuntu-latest, r: "3.5" } # install rJava
           - { os: ubuntu-latest, r: "release" } # install glmulti
+          - { os: ubuntu-latest, r: "devel" } # install glmulti
 
     env:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
@@ -67,8 +67,13 @@ jobs:
           r-version: ${{ matrix.config.r }}
           Ncpus: 4
 
-      - name: R CMD javareconf
+      - name: R CMD javareconf (Non Windows with sudo)
+        if: runner.os != 'Windows'
         run: sudo R CMD javareconf
+
+      - name: R CMD javareconf (Windows without sudo)
+        if: runner.os == 'Windows'
+        run: R CMD javareconf
 
       # LaTeX. Installation time:
       # Linux: ~ 1 min
