@@ -68,7 +68,7 @@ jobs:
           Ncpus: 4
 
       - name: R CMD javareconf
-        run: R CMD javareconf
+        run: sudo R CMD javareconf
 
       # LaTeX. Installation time:
       # Linux: ~ 1 min
