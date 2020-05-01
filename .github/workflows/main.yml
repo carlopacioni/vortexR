@@ -19,18 +19,10 @@ jobs:
       matrix:
         config:
           # comment out lines if you do not want to build on certain platforms
-          - { os: windows-latest, r: "3.4" }
-          - { os: windows-latest, r: "3.5" }
           - { os: windows-latest, r: "release" }
-          - { os: windows-latest, r: "devel" }
-          - { os: macOS-latest, r: "3.4" } # install betareg, glmulti
-          - { os: macOS-latest, r: "3.5" } # install rJava
           - { os: macOS-latest, r: "release", pkgdown: "true" }
-          - { os: macOS-latest, r: "devel" } # install glmulti
-          - { os: ubuntu-latest, r: "3.4" } # install glmulti
-          - { os: ubuntu-latest, r: "3.5" } # install rJava
-          - { os: ubuntu-latest, r: "release" } # install glmulti
-          - { os: ubuntu-latest, r: "devel" } # install glmulti
+          - { os: macOS-latest, r: "devel" }
+          - { os: ubuntu-latest, r: "release" }
 
     env:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
@@ -48,32 +40,17 @@ jobs:
       RGL_USE_NULL: true
       # if you use bookdown or blogdown, replace "PKGDOWN" by the respective
       # capitalized term. This also might need to be done in tic.R
-      BUILD_PKGDOWN: ${{ matrix.config.pkgdown }}
+      BUILD_PKGDOWN: ${{ matrix.config.pkgdown }} 
       # macOS >= 10.15.4 linking
       SDKROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install Java JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: '9.0.4' # The JDK version to make available on the path.
-          java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
-          architecture: x64 # (x64 or x86) - defaults to x64
-
       - uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
           Ncpus: 4
-
-      - name: R CMD javareconf (Non Windows with sudo)
-        if: runner.os != 'Windows'
-        run: sudo R CMD javareconf
-
-      - name: R CMD javareconf (Windows without sudo)
-        if: runner.os == 'Windows'
-        run: R CMD javareconf
 
       # LaTeX. Installation time:
       # Linux: ~ 1 min
