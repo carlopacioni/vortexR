@@ -9,10 +9,13 @@
 #' (providing associated p-values) with a baseline scenario.
 #'
 #' The means and standard deviations are calculated as:
-#' **check how to insert formula in Roxy tags**
+#'
 #' rRec = sigma(Ni*Mi) / sigma(Ni)
-#' (N1*M1+N2*M2+N3*M3)/(N1+N2+N3)
-#' SD ={N1*S1+N2*S2+N3*S3}/(N1+N2+N3)
+#' SD = sigma(Ni*Si) / sigma(Ni)
+#' e.g. for a a three year dataset, that would be:
+#' rRec=(N1*M1+N2*M2+N3*M3)/(N1+N2+N3)
+#'
+#' SD={N1*S1+N2*S2+N3*S3}/(N1+N2+N3)
 #'
 #' Where M is the mean growth rate in each year, N is the sample size (number
 #' of simulation runs) and S is the standard deviation.
