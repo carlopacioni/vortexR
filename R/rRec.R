@@ -11,8 +11,11 @@
 #' The means and standard deviations are calculated as:
 #'
 #' rRec = sigma(Ni*Mi) / sigma(Ni)
+#'
 #' SD = sigma(Ni*Si) / sigma(Ni)
+#'
 #' e.g. for a a three year dataset, that would be:
+#'
 #' rRec=(N1*M1+N2*M2+N3*M3)/(N1+N2+N3)
 #'
 #' SD={N1*S1+N2*S2+N3*S3}/(N1+N2+N3)
