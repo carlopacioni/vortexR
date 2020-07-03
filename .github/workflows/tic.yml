@@ -26,7 +26,7 @@ jobs:
           - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
           # - { os: macOS-latest, r: "devel" }
           - { os: macOS-latest, r: "oldrel" }
-          - { os: ubuntu-latest, r: "release" }
+          # - { os: ubuntu-latest, r: "release" } # fails to install glmulti
 
     env:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
