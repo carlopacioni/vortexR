@@ -28,7 +28,7 @@ used as baseline if simulations were not conducted with the ST module}
 \item{ST}{Whether files are from sensitivity analysis (TRUE),
 or not (FALSE, default)}
 
-\item{runs}{The number of Vortex simulation runs}
+\item{runs}{The number of simulation runs}
 
 \item{yr0}{The time window to be considered (first and last year
 respectively)}

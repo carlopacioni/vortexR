@@ -9,6 +9,7 @@ collate_dat(
   runs,
   scenario = NULL,
   dir_in = NULL,
+  dec_sep = ".",
   save2disk = TRUE,
   dir_out = "ProcessedData",
   verbose = TRUE
@@ -17,12 +18,14 @@ collate_dat(
 \arguments{
 \item{project}{The Vortex project name to be imported}
 
-\item{runs}{The number of Vortex simulation runs}
+\item{runs}{The number of simulation runs}
 
 \item{scenario}{The scenario name if ST, default: NULL}
 
 \item{dir_in}{The local folder containing Vortex files, default: NULL. If
 not specified, will fall back to use current working directory.}
+
+\item{dec_sep}{Decimal separator (default ".")}
 
 \item{save2disk}{Whether to save the data as rda and csv, default: TRUE}
 
