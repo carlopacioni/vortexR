@@ -12,3 +12,6 @@ Rplots\.pdf$
 ^CRAN-RELEASE$
 ^_pkgdown\.yml$
 ^pkgdown$
+^\.ccache$
+^\.github$
+^tic\.R$
