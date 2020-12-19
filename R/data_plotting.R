@@ -93,8 +93,7 @@ line_plot_year <- function(data,
             file = paste0(dir_out, "/", fname_root, "_", "YearVsParams.rda"))
     }
 
-    names(r.line_plot_year) <- ls(
-        pattern = paste(fname_root, "_", ".*", "_", "plot", sep = ""))
+    names(r.line_plot_year) <- paste0(fname_root, "_", params)
     return(r.line_plot_year)
 }
 
@@ -188,7 +187,7 @@ line_plot_year_mid <- function(data,
              file = paste0(dir_out, "/", fname_root, "_", "YearMidVsParams.rda"))
     }
 
-    names(r.line_plot_year_mid) <- ls(pattern = pat)
+    names(r.line_plot_year_mid) <- paste(fname_root, params, sep = "_")
     return(r.line_plot_year_mid)
 }
 
@@ -309,7 +308,7 @@ dot_plot <- function(data,
              file = paste0(dir_out, "/", fname_root, "_", "dot_plots.rda"))
     }
 
-    names(r.dot_plot) <- ls(pattern = pat)
+    names(r.dot_plot) <- paste(fname_root, params, sep = "_")
     return(r.dot_plot)
 }
 
