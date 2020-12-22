@@ -1,6 +1,9 @@
 #' Cumulative probability of extinction at the end of the simulation
 #'
-#' \code{Pextinct} calculates the cumulative probability of extinction at the by
+#' Calculates the cumulative probability of extinction and statistically compares
+#' each scenario
+#'
+#' \code{Pextinct} calculates the cumulative probability of extinction by
 #' calculating the proportion of runs in which a population goes extinct for
 #' each scenario.
 #'
@@ -40,14 +43,14 @@ Pextinct <- function(data, project, scenario, ST = FALSE, save2disk = TRUE, dir_
     Iteration <- NULL
     Population <- NULL
     . <- NULL
-    
-    fname <- if (ST) 
+
+    fname <- if (ST)
         paste(project, "_", scenario, sep = "") else project
     data <- data.table(data)
-    
-    if (ST) 
+
+    if (ST)
         scenario <- grep("(Base)", data[, unique(Scenario)], value = TRUE)
-    
+
     setkey(data, YrExt)
     data[!.(NA), `:=`(Ext, 1)]
     data[.(NA), `:=`(Ext, 0)]
@@ -58,7 +61,7 @@ Pextinct <- function(data, project, scenario, ST = FALSE, save2disk = TRUE, dir_
     extTable <- merge(extTable, Base, by = "Population")
     extTable[, `:=`(SSMD, (base - Pext)/sqrt(SD^2 + SDbase^2))]
     extTable[, `:=`(pvalues, vortexR::pval(SSMD))]
-    
+
     if (save2disk) {
         df2disk(extTable, dir_out, fname, ".PextTable")
         df2disk(data, dir_out, fname, ".withExt")

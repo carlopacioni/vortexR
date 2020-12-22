@@ -36,11 +36,14 @@ A list with two elements, a table (\code{data.table}) with the mean
   iteration where extinction is coded as one (and zero for no extinction)
 }
 \description{
-\code{Pextinct} calculates the cumulative probability of extinction at the by
-calculating the proportion of runs in which a population goes extinct for
-each scenario.
+Calculates the cumulative probability of extinction and statistically compares
+each scenario
 }
 \details{
+\code{Pextinct} calculates the cumulative probability of extinction by
+calculating the proportion of runs in which a population goes extinct for
+each scenario.
+
 \code{Pextinct} then compares each scenario by calculating the strictly
 standardised mean difference (SSMD, Zhang 2007) and reports this statistic
 with its associated p values. Raw data are also reported.
