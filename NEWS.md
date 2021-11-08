@@ -1,3 +1,7 @@
+# vortexR 1.1.8
+collate_* functions gain dec_sep argument to control decimal separator charcter in order to solve reading numerical data on European machines
+Minor edits to help files
+
 # vortexR 1.1.7
 Ensured copatibility with R 4.*
 fit_regression gains a new argument: `links`, which allows for a better control

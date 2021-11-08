@@ -111,10 +111,13 @@ PrefixAndRepeat <- function(chars, times = 1, prefix = "") {
 #' @param iter_ln The number of rows to skip from the file
 #' @param lines An object returned from readLines()
 #' @param header A character vector of column names
+#' @param dec_sep Decimal separator (default ".")
 #' @return A data.frame
-CompileIter <- function(iter, filename, n_rows, iter_ln, lines, header) {
+CompileIter <- function(iter, filename, n_rows, iter_ln, lines, header,
+                        dec_sep = ".") {
     temp.df <- read.table(filename, header = FALSE, sep = ";", nrows = n_rows,
-                          skip = iter_ln[iter], colClasses = "numeric",
+                          skip = iter_ln[iter],
+                          dec = dec_sep, colClasses = "numeric",
                           comment.char = "")
     colnames(temp.df) <- header
     Iteration <- rep(iter, length = length(temp.df$Year))

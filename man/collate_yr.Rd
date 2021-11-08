@@ -8,6 +8,7 @@ collate_yr(
   project,
   scenario,
   npops_noMeta = 1,
+  dec_sep = ".",
   dir_in = NULL,
   save2disk = TRUE,
   dir_out = "ProcessedData",
@@ -21,6 +22,8 @@ collate_yr(
 
 \item{npops_noMeta}{The total number of populations excluding the
 metapopulation, default: 1}
+
+\item{dec_sep}{Decimal separator (default ".")}
 
 \item{dir_in}{The local folder containing Vortex files, default: NULL. If
 not specified, will fall back to use current working directory.}

@@ -4,12 +4,14 @@
 \alias{collate_one_dat}
 \title{Collate one local Vortex output file into a data.frame}
 \usage{
-collate_one_dat(filename, runs, verbose = FALSE)
+collate_one_dat(filename, runs, dec_sep = ".", verbose = FALSE)
 }
 \arguments{
 \item{filename}{The fully qualified filename of a Vortex .dat or .stdat file}
 
 \item{runs}{The number of simulation runs}
+
+\item{dec_sep}{Decimal separator (default ".")}
 
 \item{verbose}{Progress messages, default: FALSE}
 }

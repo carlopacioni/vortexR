@@ -4,7 +4,7 @@
 \alias{CompileIter}
 \title{Compile iterations from one .yr file}
 \usage{
-CompileIter(iter, filename, n_rows, iter_ln, lines, header)
+CompileIter(iter, filename, n_rows, iter_ln, lines, header, dec_sep = ".")
 }
 \arguments{
 \item{iter}{The iteration (run) number}
@@ -18,6 +18,8 @@ CompileIter(iter, filename, n_rows, iter_ln, lines, header)
 \item{lines}{An object returned from readLines()}
 
 \item{header}{A character vector of column names}
+
+\item{dec_sep}{Decimal separator (default ".")}
 }
 \value{
 A data.frame

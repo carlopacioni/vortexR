@@ -8,6 +8,7 @@ collate_run(
   project,
   scenario,
   npops = 1,
+  dec_sep = ".",
   dir_in = NULL,
   save2disk = TRUE,
   dir_out = "ProcessedData",
@@ -21,6 +22,8 @@ collate_run(
 
 \item{npops}{The total number of simulated populations including the
 metapopulation}
+
+\item{dec_sep}{Decimal separator (default ".")}
 
 \item{dir_in}{The local folder containing Vortex files, default: NULL. If
 not specified, will fall back to use current working directory.}

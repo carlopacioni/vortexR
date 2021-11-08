@@ -11,6 +11,7 @@
 #' @param filename The fully qualified filename of a Vortex .dat or .stdat file
 #' @param runs The number of simulation runs
 #' @param verbose Progress messages, default: FALSE
+#' @param dec_sep Decimal separator (default ".")
 #' @return A data.frame with data from one .dat or .stdat file and
 #'  population/scenario names as factors
 #' @import vortexRdata
@@ -21,7 +22,7 @@
 #' pac.dir <- system.file('extdata', 'pacioni', package='vortexRdata')
 #' f <- file.path(pac.dir, 'Pacioni_et_al_ST_Classic(Base).stdat')
 #' one.st.classic <- collate_one_dat(f, 3)
-collate_one_dat <- function(filename, runs, verbose = FALSE) {
+collate_one_dat <- function(filename, runs, dec_sep=".", verbose = FALSE) {
 
     if (verbose) message(cat("INFO vortexR::collate_one_dat parsing", filename))
     lines <- readLines(filename)
@@ -59,6 +60,7 @@ collate_one_dat <- function(filename, runs, verbose = FALSE) {
                           sep = ";",
                           nrows = readFor,
                           skip = readAfter,
+                          dec = dec_sep,
                           colClasses = "numeric",
                           comment.char = "")
         colnames(tmp) <- h
@@ -114,12 +116,12 @@ collate_one_dat <- function(filename, runs, verbose = FALSE) {
 #'
 #' @param project The Vortex project name to be imported
 #' @param scenario The scenario name if ST, default: NULL
-#' @param runs The number of Vortex simulation runs
 #' @param dir_in The local folder containing Vortex files, default: NULL. If
 #'   not specified, will fall back to use current working directory.
 #' @param save2disk Whether to save the data as rda and csv, default: TRUE
 #' @param dir_out The local path to store the output. Default: ProcessedData
 #' @param verbose Progress messages, default: TRUE
+#' @inheritParams collate_one_dat
 #' @return a data.frame with data from all matching Vortex files or NULL
 #' @import vortexRdata
 #' @export
@@ -152,6 +154,7 @@ collate_dat <- function(project,
                         runs,
                         scenario = NULL,
                         dir_in = NULL,
+                        dec_sep = ".",
                         save2disk = TRUE,
                         dir_out = "ProcessedData",
                         verbose = TRUE) {
@@ -176,7 +179,7 @@ collate_dat <- function(project,
     if (verbose) message("vortexR::collate_dat is parsing:")
     for (filename in files) {
         if (verbose) message(filename, "\r")
-        d <- rbind(d, collate_one_dat(filename, runs))
+        d <- rbind(d, collate_one_dat(filename, runs, dec_sep = dec_sep))
     }
     if (save2disk) df2disk(d, dir_out, fname, "_data")
     return(d)
@@ -219,6 +222,7 @@ collate_dat <- function(project,
 collate_run <- function(project,
                         scenario,
                         npops = 1,
+                        dec_sep = ".",
                         dir_in = NULL,
                         save2disk = TRUE,
                         dir_out = "ProcessedData",
@@ -250,7 +254,8 @@ collate_run <- function(project,
                            sep = ";",
                            skip = 3,
                            colClasses = "numeric",
-                           comment.char = "")
+                           comment.char = "",
+                           dec=dec_sep)
         colnames(trun) <- h
 
         Scenario <- read.table(filename,
@@ -343,6 +348,7 @@ collate_run <- function(project,
 collate_yr <- function(project,
                        scenario,
                        npops_noMeta = 1,
+                       dec_sep = ".",
                        dir_in = NULL,
                        save2disk = TRUE,
                        dir_out = "ProcessedData",
@@ -391,7 +397,8 @@ collate_yr <- function(project,
                          n_rows,
                          iter_ln,
                          lines,
-                         header)
+                         header,
+                         dec_sep = dec_sep)
 
         censusData[[i]] <- rbindlist(one_yr)
     }

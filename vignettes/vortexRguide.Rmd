@@ -360,7 +360,7 @@ You can access the help file for all functions typing ```?function_name```, wher
 
 ## Data handling
 
-As for the vortexR output files, the input files in all ```collate``` functions are searched in the working directory unless an alternative path is provided with ```dir_in```. In all ```collate```, the argument ```verbose=TRUE``` will result in R printing on the screen the number and progress of files found/read.
+As for the vortexR output files, the input files in all ```collate``` functions are searched in the working directory unless an alternative path is provided with ```dir_in```. In all ```collate```, the argument ```verbose=TRUE``` will result in R printing on the screen the number and progress of files found/read. By default, the decimal separator character is ".". In cases where the operating system uses a different separator (e.g. most of European countries use ","), this can be changed with the argument ```dec_sep``` (e.g. ```dec_sep=","```). This is omitted in all examples below for brevity, but is present in all ```collate``` functions.
 
 ### *collate_one_dat & collate_dat*
 These functions collate one or all the .dat or .stdat files within a folder. ```collate_one_dat```  takes only two arguments: the name of the file (```filename```) and the number of runs or iterations (```runs```) that were conducted, while ```collate_dat``` has three arguments (in addition to the standard ```dir_in```, ```dir_out```, ```verbose```, and ```save2disk```): the name of the project (```project```), the name of the scenario (```scenario```) and the number of runs or iterations (```runs```) that were conducted. There is no need to pass the number of populations or their names as vortexR will automatically detect these information from the files. 

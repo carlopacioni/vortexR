@@ -11,6 +11,9 @@ r_github_packages:
   - jimhester/covr
   - hadley/xml2
 
+before_install:
+  - sudo $(which R) CMD javareconf
+
 after_success:
   - Rscript -e 'library(covr); coveralls()'
 
