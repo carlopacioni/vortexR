@@ -12,3 +12,6 @@ Rplots\.pdf$
 ^CRAN-RELEASE$
 ^_pkgdown\.yml$
 ^pkgdown$
+tests/testthat/Rplots\.pdf$
+tests/testthat/*.mods.back$
+tests/testthat/*.modgen.back$
