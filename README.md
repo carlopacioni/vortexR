@@ -61,7 +61,7 @@ A typical installation under Windows could follow:
 
 * Download and install [Java](https://java.com/en/)
 * Find "Environment Variables", add variable `JAVA_HOME` 
-  ([Windows 10 tutorial](https://javatutorial.net/set-java-home-windows-10), 
+  ([Windows 10 tutorial](https://javatutorial.net/set-java-home-windows-10/), 
   [Windows 7 tutorial](http://www.robertsindall.co.uk/blog/setting-java-home-variable-in-windows/)),
   verify on Command Prompt (Win + r, "cmd", Enter): `echo %JAVA_HOME%`
 * Make sure that the environment variable 'JAVA_HOME' is set properly and points to a 64-bit version jof Java(JDK or SE
@@ -82,7 +82,7 @@ a 64 bit version of Java (most automatic installation via web browser will
 install a 32-bit version). 
 
 Your mileage may vary depending on your operating system and your versions of Java and R. 
-Stack Overflow's [R community](http://stackoverflow.com/questions/tagged/r) 
+Stack Overflow's [R community](https://stackoverflow.com/questions/tagged/r) 
 is a great source for troubleshooting.
 
 ## Learn
@@ -107,7 +107,7 @@ In a new environment, e.g. after an upgrade of R, running the tests could
 require to install vortexR's dependencies with 
 `install.packages("vortexR", dependencies = T)`.
 
-Note on R 3.4.0: update lintr to solve bug [roxygen #627](https://github.com/klutometis/roxygen/issues/627).
+Note on R 3.4.0: update lintr to solve bug [roxygen #627](https://github.com/r-lib/roxygen2/issues/627).
 
 ### Building the documentation
 The static HTML behind the GitHub pages is built with `pkgdown`. 
