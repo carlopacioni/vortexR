@@ -1,0 +1,41 @@
+{
+    "name": "R (rocker/r-ver base)",
+    "dockerFile": "Dockerfile",
+    "features": {
+        "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {
+            "version": "prerelease"
+        },
+        // "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+        //     "packages": "libudunits2-dev"
+        // },
+        "ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
+            "packages": "github::rstudio/renv,covr,tidyverse,git2r,here,httpgd,knitr,spelling,precommit,rmarkdown,roxygen2,testthat,usethis,betareg,data.table,ggplot2,glmulti,gtools,GGally,irr,plyr,stringr"
+        },
+        "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
+    },
+    "mounts": [
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=~/.gitconfig,type=bind,consistency=cached"
+    ],
+    "onCreateCommand": "pre-commit install && pre-commit run",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "mechatroner.rainbow-csv",
+                "REditorSupport.r",
+                "RDebugger.r-debugger",
+                "ms-azuretools.vscode-docker",
+                "usernamehw.errorlens",
+                "christian-kohler.path-intellisense",
+                "ms-vscode.live-server"
+                //"james-yu.latex-workshop",
+                //"tomoki1207.pdf"
+            ]
+        },
+        "codespaces": {
+            "openFiles": [
+                "DESCRIPTION",
+                "NEWS.md"
+            ]
+        }
+    }
+}
