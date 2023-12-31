@@ -38,3 +38,5 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 RoxygenNote: 7.1.2
+LazyData: yes
+Config/testthat/edition: 3

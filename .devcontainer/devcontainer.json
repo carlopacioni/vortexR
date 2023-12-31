@@ -1,6 +1,7 @@
 {
     "name": "R (rocker/r-ver base)",
-    "dockerFile": "Dockerfile",
+    // "dockerFile": "Dockerfile",
+    "image": "ghcr.io/rocker-org/devcontainer/r-ver:4.2",
     "features": {
         "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {
             "version": "prerelease"
@@ -27,8 +28,6 @@
                 "usernamehw.errorlens",
                 "christian-kohler.path-intellisense",
                 "ms-vscode.live-server"
-                //"james-yu.latex-workshop",
-                //"tomoki1207.pdf"
             ]
         },
         "codespaces": {
