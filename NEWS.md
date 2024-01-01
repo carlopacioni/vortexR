@@ -1,3 +1,10 @@
+# vortexR 2.0.0
+* Add CI checks via GitHub Actions.
+* Add test coverage reporting at codecov.io via GitHub Actions. 
+  Requires a repository secret via GitHub repo > Settings > Secrets and Variables > Actions > New repository secret
+  at the [upstream Gh repo settings](https://github.com/carlopacioni/vortexR/settings/secrets/actions) using the 
+  Token from [codecov](https://app.codecov.io/gh/carlopacioni/vortexR/settings).
+
 # vortexR 1.1.8
 collate_* functions gain dec_sep argument to control decimal separator charcter in order to solve reading numerical data on European machines
 Minor edits to help files

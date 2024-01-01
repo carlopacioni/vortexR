@@ -1,1 +1,9 @@
-destination: docs
+url: https://carlopacioni.github.io/vortexR/
+template:
+  bootstrap: 5
+  bootswatch: yeti
+  bslib:
+    pkgdown-nav-height: 100px
+home:
+  title: vortexR
+  description: An R package For Post Vortex Simulation Analysis

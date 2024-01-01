@@ -30,10 +30,7 @@ or not (FALSE, default)}
 
 \item{runs}{The number of simulation runs}
 
-\item{yr0}{The time window to be considered (first and last year
-respectively)}
-
-\item{yrt}{The time window to be considered (first and last year
+\item{yr0, yrt}{The time window to be considered (first and last year
 respectively)}
 
 \item{save2disk}{Whether to save the output to disk, default: TRUE}
@@ -61,9 +58,9 @@ SD = sigma(Ni*Si) / sigma(Ni)
 
 e.g. for a a three year dataset, that would be:
 
-rRec=(N1*M1+N2*M2+N3*M3)/(N1+N2+N3)
+rRec=(N1\emph{M1+N2}M2+N3*M3)/(N1+N2+N3)
 
-SD={N1*S1+N2*S2+N3*S3}/(N1+N2+N3)
+SD={N1\emph{S1+N2}S2+N3*S3}/(N1+N2+N3)
 
 Where M is the mean growth rate in each year, N is the sample size (number
 of simulation runs) and S is the standard deviation.

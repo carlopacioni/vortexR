@@ -8,16 +8,16 @@ a \code{data.frame} with 1020 observations of 47 variables.
 }
 \source{
 Campbell et al. (2016). Assessing the economic benefits of starling
- detection and control to Western Australia. Australasian Journal of
- Environmental Management, 23, 81-99.
- \href{https://dx.doi.org/10.1080/14486563.2015.1028486}{DOI:10.1080/14486563.2015.1028486}
+detection and control to Western Australia. Australasian Journal of
+Environmental Management, 23, 81-99.
+\href{https://dx.doi.org/10.1080/14486563.2015.1028486}{DOI:10.1080/14486563.2015.1028486}
 }
 \description{
 A dataset with the results from Vortex scenarios used in
- Campbell et al (2016) to simulate major application of control measures
- in every 5 year cycle. Vortex outputs, from the project named
- 'Starlingv3PopBased' and the sensitivity test scenario 'MReductEvy5'
- (.stdat files), were collated with \code{collate_dat}.
+Campbell et al (2016) to simulate major application of control measures
+in every 5 year cycle. Vortex outputs, from the project named
+'Starlingv3PopBased' and the sensitivity test scenario 'MReductEvy5'
+(.stdat files), were collated with \code{collate_dat}.
 }
 \examples{
 data("sta.evy5")

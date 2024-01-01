@@ -57,13 +57,13 @@ carlo.pacioni 'at' gmail.com.
 \emph{Below there are listed a few publications that used \code{vortexR}.}
 
 Campbell et al. (2016). Assessing the economic benefits of starling
- detection and control to Western Australia. Australasian Journal of
- Environmental Management, 23, 81-99.
- \doi{https://dx.doi.org/10.1080/14486563.2015.1028486}
+detection and control to Western Australia. Australasian Journal of
+Environmental Management, 23, 81-99.
+\doi{https://dx.doi.org/10.1080/14486563.2015.1028486}
 
 Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
- Predators and genetic fitness: key threatening factors for the conservation
- of bettong species. Pacific Conservation Biology.
- \doi{https://doi.org/10.1071/PC17002}
+Predators and genetic fitness: key threatening factors for the conservation
+of bettong species. Pacific Conservation Biology.
+\doi{https://doi.org/10.1071/PC17002}
 }
 

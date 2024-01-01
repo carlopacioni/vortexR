@@ -1,11 +1,11 @@
 #' Calculate the mean recovery rate (Pacioni et al 2017) and compare
 #' scenarios
 #'
-#' \code{rRec} calculates the mean and standard deviation growth rate between
-#' the time \code{yr0} and \code{yrt}, which was defined as 'recovery rate' by
+#' `rRec` calculates the mean and standard deviation growth rate between
+#' the time `yr0` and `yrt`, which was defined as 'recovery rate' by
 #' Pacioni et al (in press). The function then calculates the strictly
 #' standardised mean difference (SSMD, Zhang 2007) for each scenario, and each population
-#' contained in the data. \code{rRec} uses this statistic to compare each scenario
+#' contained in the data. `rRec` uses this statistic to compare each scenario
 #' (providing associated p-values) with a baseline scenario.
 #'
 #' The means and standard deviations are calculated as:
@@ -23,15 +23,15 @@
 #' Where M is the mean growth rate in each year, N is the sample size (number
 #' of simulation runs) and S is the standard deviation.
 #'
-#' The baseline scenario is selected with the argument \code{scenario}. However,
+#' The baseline scenario is selected with the argument `scenario`. However,
 #' if the simulations were part of a sensitivity testing (as indicated by
-#' \code{ST}) then the baseline scenario is selected using the scenario with the
+#' `ST`) then the baseline scenario is selected using the scenario with the
 #' suffix '(Base)'.
 #'
 #' @inheritParams pairwise
 #' @inheritParams Ne
 #' @inheritParams collate_dat
-#' @return A table (\code{data.table}) with the mean rRec and its SD, the SSMD
+#' @return A table (`data.table`) with the mean rRec and its SD, the SSMD
 #' and its associated p-value for each scenario and population
 #' @references Zhang, X. D. 2007. A pair of new statistical parameters for quality control
 #' in RNA interference high-throughput screening assays. Genomics 89:552-561.
@@ -46,8 +46,6 @@
 #' recov <- rRec(pac.clas, project='Pacioni_et_al', scenario='ST_Classic',
 #'               ST=TRUE, runs=3, yr0=1, yrt=120, save2disk=FALSE,
 #'               dir_out='DataAnalysis/rRec')
-
-
 rRec <- function(data,
                  project,
                  scenario,

@@ -1,9 +1,9 @@
 #' Generate a SSMD matrix with all possible pairwise comparisons
 #'
-#' \code{SSMD_matrix} conducts pairwise comparisons for all possible pairs
+#' `SSMD_matrix` conducts pairwise comparisons for all possible pairs
 #' using strictly standardised mean difference (SSDM, Zhang 2007).
 #'
-#' When \code{yrs='max'} (default), VortexR automatically sets  \code{yrs} to
+#' When `yrs='max'` (default), VortexR automatically sets  `yrs` to
 #' the last year of the simulation .
 #'
 #' @param dir_out The local path to store the output. Default: DataAnalysis/SSMD_matrix

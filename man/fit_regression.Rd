@@ -57,8 +57,8 @@ a Poisson error distribution}
 \item{ncand}{The threshold of candidate models after which switch to the
 genetic search method, default: 30}
 
-\item{set_size}{Value to be used in confsetsize (from \code{\link[glmulti]{glmulti}}
- The number of models to be looked for, i.e. the size of the returned confidence
+\item{set_size}{Value to be used in confsetsize (from \code{\link[glmulti:glmulti]{glmulti::glmulti()}}
+The number of models to be looked for, i.e. the size of the returned confidence
 set.)}
 
 \item{links}{Link functions to use in the Beta regression.}
@@ -104,11 +104,11 @@ function is also displayed.
 In the initial fit of the model the main and interactions effects are included.
 
 Successively, a search for the best model is carried out. This is performed
-with the R package \code{\link[glmulti]{glmulti}} (Calcagno & de Mazancourt 2010).
+with the R package \code{\link[glmulti:glmulti]{glmulti::glmulti()}} (Calcagno & de Mazancourt 2010).
 \code{fit_regression} will conduct an exhaustive search if ncand is less or
 equal to the number of candidate models, otherwise it will use a genetic
 search method (see glmulti documentations for more details about the search
-methods). When \code{\link[glmulti]{glmulti}} uses the genetic search method,
+methods). When \code{\link[glmulti:glmulti]{glmulti::glmulti()}} uses the genetic search method,
 two small files (with extension \code{.modgen.back} and \code{.mods.back.} are
 written in the working directory even if \code{save2disk=FALSE}.
 

@@ -31,10 +31,7 @@ default: FALSE}
 
 \item{gen}{The generation time express in years}
 
-\item{yr0}{The time window to be considered (first and last year
-respectively)}
-
-\item{yrt}{The time window to be considered (first and last year
+\item{yr0, yrt}{The time window to be considered (first and last year
 respectively)}
 
 \item{save2disk}{Whether to save the output to disk, default: TRUE}
@@ -44,8 +41,8 @@ respectively)}
 \item{dir_out}{The local path to store the output. Default: DataAnalysis}
 }
 \value{
-A \code{data.table} (\code{data.frame} if \code{\link[data.table]{data.table}} is not
- loaded) with Nb values
+A \code{data.table} (\code{data.frame} if \code{\link[data.table:data.table]{data.table::data.table()}} is not
+loaded) with Nb values
 }
 \description{
 \code{Nadults} calculates, for several scenarios, the harmonic mean of the total
@@ -55,7 +52,7 @@ calculate Ne/N ratios where relevant.
 \details{
 \code{yrt} is adjusted by subtracting the number of years of the generation
 time (rounded to the nearest integer). In this way the user can provide the
-same \code{yr0,yrt} and \code{gen} to \code{Nadults} and \code{Ne} and these
+same \verb{yr0,yrt} and \code{gen} to \code{Nadults} and \code{Ne} and these
 values are adjusted internally to correctly calculate the Ne/N ratios where
 relevant. If this behaviour is not desired, use \code{gen=0}.
 }

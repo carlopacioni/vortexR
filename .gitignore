@@ -10,3 +10,5 @@ tests/testthat/*.modgen.back
 revdep/*.
 revdep
 /revdep/.cache.rds
+docs
+README.html
