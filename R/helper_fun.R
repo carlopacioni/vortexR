@@ -5,10 +5,10 @@
 
 #' Save a data.frame as both Rdata and CSV
 #'
-#' \code{df2disk} saves to disk a given data.frame as both Rdata and CSV with a
+#' `df2disk` saves to disk a given data.frame as both Rdata and CSV with a
 #' given name and optional name postfix to a given location.
 #'
-#' \code{df2disk} is used by the \code{collate_} functions when the operator
+#' `df2disk` is used by the `collate_` functions when the operator
 #' chooses to save2disk.
 #'
 #' @param df A data.frame
@@ -37,7 +37,7 @@ df2disk <- function(df, dirpath, fname, postfix = "", row_names=FALSE) {
 
 #' Calculates p-values from z-values
 #'
-#' \code{pval} calculates one-tailed p values from a vector that contains
+#' `pval` calculates one-tailed p values from a vector that contains
 #'   z-values and it is geenrally used internally.
 #'
 #' @param x z-values

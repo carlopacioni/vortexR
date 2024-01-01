@@ -34,7 +34,7 @@ respectively)}
 }
 \value{
 A \code{data.table} (\code{data.frame} if
-  \code{\link[data.table]{data.table}} is not loaded) with Ne values
+\code{\link[data.table:data.table]{data.table::data.table()}} is not loaded) with Ne values
 }
 \description{
 \code{Ne} calculates the effective population size (Ne) between \code{yr0}
@@ -44,7 +44,7 @@ and \code{yrt} for several scenarios based on the loss of genetic diversity
 \details{
 \code{yr0} is adjusted by adding the number of years of the generation time
 (rounded to the nearest integer).  In this way the user can provide the same
-\code{yr0,yrt} and \code{gen} to \code{Nadults} and \code{Ne} and these
+\verb{yr0,yrt} and \code{gen} to \code{Nadults} and \code{Ne} and these
 values are adjusted internally to correctly calculate the Ne/N ratios where
 relevant. If this behaviour is not desired, use \code{gen=0}.
 

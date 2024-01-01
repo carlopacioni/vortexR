@@ -36,7 +36,7 @@ not specified, will fall back to use current working directory.}
 }
 \value{
 a list with two elements: run, a data.frame with data from all
-  Vortex files and lrun, where the same data are re-arranged in long format
+Vortex files and lrun, where the same data are re-arranged in long format
 }
 \description{
 \code{collate_run} collates all Vortex output files with extension .run

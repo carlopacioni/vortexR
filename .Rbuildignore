@@ -1,3 +1,5 @@
+^\.devcontainer
+^\.github
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^cran-comments\.md$
@@ -7,7 +9,6 @@ Rplots\.pdf$
 ^man-roxygen/
 ^revdep/
 ^docs$
-^docs/.*$
 ^revdep$
 ^CRAN-RELEASE$
 ^_pkgdown\.yml$
@@ -15,3 +16,15 @@ Rplots\.pdf$
 tests/testthat/Rplots\.pdf$
 tests/testthat/*.mods.back$
 tests/testthat/*.modgen.back$
+^\.\.Rcheck$
+^\.vscode
+^docs$
+^pkgdown$
+^_pkgdown\.yml$
+^\.gitignore$
+^\.lintr$
+^\.pre-commit-config\.yaml$
+^README\.Rmd$
+^codecov\.yml$
+^\.github$
+^LICENSE\.md$

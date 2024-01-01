@@ -37,8 +37,8 @@ or not (FALSE, default)}
 }
 \value{
 A list where each element is a matrix of SSMD (belowe the diagonal)
-        and related p-values (above the diagonal) for each combination of 'yrs',
-        population and 'params'
+and related p-values (above the diagonal) for each combination of 'yrs',
+population and 'params'
 }
 \description{
 \code{SSMD_matrix} conducts pairwise comparisons for all possible pairs

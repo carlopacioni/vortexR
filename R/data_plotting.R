@@ -5,13 +5,13 @@
 
 #' Line plots of Vortex parameters vs years
 #'
-#' \code{line_plot_year} generates line plots of the selected Vortex parameters
+#' `line_plot_year` generates line plots of the selected Vortex parameters
 #' for the selected populations, for all simulated years.
 #'
-#' Plots are ggplot objects. When \code{save2disk=TRUE} these are saved as .rda
+#' Plots are ggplot objects. When `save2disk=TRUE` these are saved as .rda
 #' and .pdf files
 #'
-#' @param data A df from \code{collate_dat}
+#' @param data A df from `collate_dat`
 #' @param project Vortex project name (used to name the output)
 #' @param scenario Vortex scenario name (used to name the output)
 #' @param params Vortex parameters to be plotted,
@@ -99,12 +99,12 @@ line_plot_year <- function(data,
 
 #' Line plots of Vortex parameters vs years
 #'
-#' \code{line_plot_year_mid} generates line plots of the selected Vortex parameters
+#' `line_plot_year_mid` generates line plots of the selected Vortex parameters
 #' for the selected populations, from year zero to yrmid. The purpose of these
 #' plots is to 'zoom' in the initial phase of the simulations to better
 #' appreciate dynamics of the parameters of interest.
 #'
-#' Plots are ggplot objects. When \code{save2disk=TRUE} these are saved as .rda
+#' Plots are ggplot objects. When `save2disk=TRUE` these are saved as .rda
 #' and .pdf files
 #'
 #' @param yrmid The last year to plot
@@ -194,17 +194,17 @@ line_plot_year_mid <- function(data,
 
 #' Dot plots of mean Vortex parameters
 #'
-#' \code{dot_plot} generates dot plots of mean parameter values for each population
+#' `dot_plot` generates dot plots of mean parameter values for each population
 #' (row) at each year value requested with 'yrs' (columns). Bars represent
 #' standard deviation.
 #'
-#' Plots are ggplot objects. When \code{save2disk=TRUE} these are saved as .rda
+#' Plots are ggplot objects. When `save2disk=TRUE` these are saved as .rda
 #' and .pdf files
 #'
-#' \code{yrs} can be a numeric vector of length >= 1 (e.g. \code{yrs=c(50,100)}).
+#' `yrs` can be a numeric vector of length >= 1 (e.g. `yrs=c(50,100)`).
 #' Each point in time will be plotted in different columns.
 #'
-#' If a continuous variable is passed to \code{setcolour}, a continuous gradient
+#' If a continuous variable is passed to `setcolour`, a continuous gradient
 #' of colour will be assigned to the marker (e.g. for example, a scale from blue
 #' to black). If a sharp change of colours between different values of a
 #' continuous variable is desired, it has to be converted into a factor.
@@ -314,18 +314,18 @@ dot_plot <- function(data,
 
 #' Generates a matrix of scatter plots
 #'
-#' \code{m_scatter} generates a matrix of pairwise scatter plots to graphically
+#' `m_scatter` generates a matrix of pairwise scatter plots to graphically
 #' investigate possible associations between variables.
 #'
-#' The output from \code{collate_dat} is the preferred input for this function
+#' The output from `collate_dat` is the preferred input for this function
 #' as large datasets will require a long time to be plotted.
 #'
 #' It may be convenient to pass the dependent variable of a regression model
-#' with \code{param} so that all the pairwise scatter plots of this variable
+#' with `param` so that all the pairwise scatter plots of this variable
 #' will be in one line.
 #'
-#' @param data  The output from \code{collate_dat}, the long format of the
-#' output from \code{collate_run} or the output from \code{con_l_yr}
+#' @param data  The output from `collate_dat`, the long format of the
+#' output from `collate_run` or the output from `con_l_yr`
 #' @param data_type The type of input data. Possible options are 'dat', 'yr' or 'run'
 #' @param lookup A table to add relevant variable matched using the scenarios
 #' names

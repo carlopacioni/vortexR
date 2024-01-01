@@ -50,21 +50,21 @@ scenarios, default: NA}
 \value{
 A list of six elements:
 \itemize{
-  \item A data.frame with SC values for all scenarios
-  \item A data.frame with SSMD values
-  \item A data.frame with p-values for SSMD values
-  \item A data.frame with the scenario ranks based on SC and one based on SSMD
-  \item The output of the Kendall's test
+\item A data.frame with SC values for all scenarios
+\item A data.frame with SSMD values
+\item A data.frame with p-values for SSMD values
+\item A data.frame with the scenario ranks based on SC and one based on SSMD
+\item The output of the Kendall's test
 }
 If \code{group_mean=TRUE} there will be six additional elements:
 \itemize{
-  \item A data.frame with the mean SC values for each parameter
-  \item A data.frame with the mean SSMD values
-  \item A data.frame with p-values calculated for the mean SSMD values
-  \item A data.frame with the parameter ranks based on the mean SC and one
-        based on the mean SSMD
-  \item The output of the Kendall's test performed on the ranking of the
-        parameters
+\item A data.frame with the mean SC values for each parameter
+\item A data.frame with the mean SSMD values
+\item A data.frame with p-values calculated for the mean SSMD values
+\item A data.frame with the parameter ranks based on the mean SC and one
+based on the mean SSMD
+\item The output of the Kendall's test performed on the ranking of the
+parameters
 }
 }
 \description{
@@ -98,9 +98,9 @@ the statistic is calculated (See vignette for more information).
 It is possible to evaluate the mean effect of a range of values for certain
 parameters on their outcome variables of interest (i.e. ranking the parameters,
 rather than scenarios). This is automatically done when the analysis is
-conducted on with \code{ST=TRUE,type='Single-Factor'} and there is more than
+conducted on with \verb{ST=TRUE,type='Single-Factor'} and there is more than
 one SV passed with the argument \code{SVs}. Alternatively, it is achievable
-with a combined use of \code{group.mean=TRUE,SVs}. The first argument result
+with a combined use of \verb{group.mean=TRUE,SVs}. The first argument result
 in the calculations, following Conroy and Brook (2003), of the mean SC and
 SSMD for each group of scenarios that have different parameter values. \code{SVs}
 provides the names of the parameters to be considered. Parameters are then

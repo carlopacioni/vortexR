@@ -3,20 +3,20 @@
 #' Calculates the cumulative probability of extinction and statistically compares
 #' each scenario
 #'
-#' \code{Pextinct} calculates the cumulative probability of extinction by
+#' `Pextinct` calculates the cumulative probability of extinction by
 #' calculating the proportion of runs in which a population goes extinct for
 #' each scenario.
 #'
-#' \code{Pextinct} then compares each scenario by calculating the strictly
+#' `Pextinct` then compares each scenario by calculating the strictly
 #' standardised mean difference (SSMD, Zhang 2007) and reports this statistic
 #' with its associated p values. Raw data are also reported.
 #'
 #' @param data The long format of run (lrun, the second element) of the output
-#'   from \code{collate_run}
+#'   from `collate_run`
 #' @inheritParams pairwise
-#' @return A list with two elements, a table (\code{data.table}) with the mean
+#' @return A list with two elements, a table (`data.table`) with the mean
 #'   Probability of extinction and its SD, the SSMD and its associated p-value
-#'   for each scenario and population, and a table (\code{data.table}) with each
+#'   for each scenario and population, and a table (`data.table`) with each
 #'   iteration where extinction is coded as one (and zero for no extinction)
 #' @references Zhang, X. D. 2007. A pair of new statistical parameters for
 #'   quality control in RNA interference high-throughput screening assays.

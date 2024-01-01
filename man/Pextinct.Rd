@@ -31,9 +31,9 @@ or not (FALSE, default)}
 }
 \value{
 A list with two elements, a table (\code{data.table}) with the mean
-  Probability of extinction and its SD, the SSMD and its associated p-value
-  for each scenario and population, and a table (\code{data.table}) with each
-  iteration where extinction is coded as one (and zero for no extinction)
+Probability of extinction and its SD, the SSMD and its associated p-value
+for each scenario and population, and a table (\code{data.table}) with each
+iteration where extinction is coded as one (and zero for no extinction)
 }
 \description{
 Calculates the cumulative probability of extinction and statistically compares
@@ -57,6 +57,6 @@ Pext <- Pextinct(pac.run.lhs[[2]], project='Pacioni_et_al',
 }
 \references{
 Zhang, X. D. 2007. A pair of new statistical parameters for
-  quality control in RNA interference high-throughput screening assays.
-  Genomics 89:552-561.
+quality control in RNA interference high-throughput screening assays.
+Genomics 89:552-561.
 }

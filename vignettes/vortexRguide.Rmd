@@ -4,7 +4,7 @@ author: "Carlo Pacioni and Florian Mayer"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{vortexR: user's guide}
+  %\VignetteIndexEntry{vortexR: user guide}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -39,13 +39,13 @@ to use `devtools`.
 From within R (or RStudio),  vortexR can be installed from the github repository with the command:
 
 ```{r eval=FALSE} 
-library(devtools, quietly=TRUE)
+library(devtools, quietly = TRUE)
 devtools::install_github("carlopacioni/vortexR")
 ```
 If you want to be able to access the vignette, you have to use:
 
 ```{r eval=FALSE}
-devtools::install_github("carlopacioni/vortexR", build_vignette=TRUE)
+devtools::install_github("carlopacioni/vortexR", build_vignette = TRUE)
 ```
 
 but this requires some setting up (e.g. installing Pandoc and MikTex on Windows).
@@ -89,7 +89,7 @@ When vortexR  is installed, a folder (named  *pacioni*) is created where several
 
 ```{r}
 library(vortexRdata)
-pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
+pac.dir <- system.file("extdata", "pacioni", package = "vortexRdata")
 ```
 
 Note that the data for Pacioni et al. (2017) are just a subset of the original (only three runs for 120 years, and only for a subset of scenarios), so your results do not match the ones reported in the original publication. 
@@ -134,8 +134,10 @@ First, we load vortexR. Then, running the following code will read the data from
  
 ```{r}
 library(vortexR)
-woylie.st.classic <- collate_dat("Pacioni_et_al", 3, scenario = "ST_Classic",
-                            dir_in = pac.dir, save2disk=FALSE, verbose=FALSE)
+woylie.st.classic <- collate_dat("Pacioni_et_al", 3,
+  scenario = "ST_Classic",
+  dir_in = pac.dir, save2disk = FALSE, verbose = FALSE
+)
 woylie.st.classic[1:5, 1:5]
 ```
 
@@ -143,16 +145,20 @@ As you can see, ```woylie.st.classic``` is a congregated database of mean parame
 
 OK, now you have the data ready and you want to know what changed in the demography of the simulated population between year 80 and 120. So, following from above, you run: 
 ```{r, fig.height=4.5, fig.width=7}
-dot <- dot_plot(data=woylie.st.classic, project="Pacioni_et_al", scenario="ST_Classic",
-               yrs=c(80, 120), params="Nall", save2disk=FALSE)
+dot <- dot_plot(
+  data = woylie.st.classic, project = "Pacioni_et_al", scenario = "ST_Classic",
+  yrs = c(80, 120), params = "Nall", save2disk = FALSE
+)
 ```
 
 As you can see, these are dot plots of mean values with standard deviations for specific years (in this case 80 and 120). Had you had more than one population, the page would have been divided in rows and plots for each population would have been on different rows. Parameter values are on the Y-axis and scenarios are on the X-axis. Note that the input is the data.frame we collated before with ```collate_dat``` and how parameters are identified in the function call (e.g. ```params="Nall"```) exactly how they are output by Vortex. You probably have noted that the simulated population goes extinct in Scenario 12, something terrible must be happening there... hang in there we will tell you what later...
 
 Now you got curious to see what actually happens throughout the whole simulation:
 ```{r, fig.height=4, fig.width=7}
-lineplot.st.classic <- line_plot_year(data=woylie.st.classic, project="Pacioni_et_al",
-                         scenario="ST_Classic", params="Nall", save2disk=FALSE)
+lineplot.st.classic <- line_plot_year(
+  data = woylie.st.classic, project = "Pacioni_et_al",
+  scenario = "ST_Classic", params = "Nall", save2disk = FALSE
+)
 ```
 
 Here you go, changes of population size through time are now plotted. Clearly this plot is a mess as it is not very legible with so many scenarios. However, note that this can still be useful to give an overview and that getting this from within Vortex would have required lots of clicking (especially if you have many populations and you want to plot each of them separately rather than the metapopulation. That being said, you are not happy yet, and decide to focus on the first 50 years of the simulation and 
@@ -160,53 +166,64 @@ include in a second plot only scenarios where the adult mortality is different f
 
 Likely, it is very easy to subset a data.frame based on parameter values or specific scenarios. To demonstrate this point, we include in the second plot only scenarios where the adult mortality (which is codified in the Vortex project as state variable "SV2") is different from the baseline scenarios. Note how the call limits the year to be plotted to 50 with the argument ```yrmid``` .
 ```{r, fig.height=4, fig.width=7}
-lineMidPlot.st.classic <- line_plot_year_mid(woylie.st.classic[woylie.st.classic$SV2 > 1, ], 
-                                             project="Pacioni_et_al", scenario="ST_Classic", 
-                                             yrmid=50, params="Nall", save2disk=FALSE)
+lineMidPlot.st.classic <- line_plot_year_mid(woylie.st.classic[woylie.st.classic$SV2 > 1, ],
+  project = "Pacioni_et_al", scenario = "ST_Classic",
+  yrmid = 50, params = "Nall", save2disk = FALSE
+)
 ```
 
 Before you dive deep into further data analysis, you may want to check a few other things to make sure everything was the way you wanted it to be. Running the following code will give you access to the 'census' data (and store the result in a list called ```yr.st.classic```).
 ```{r}
-yr.st.classic <- collate_yr(project="Pacioni_et_al", scenario="ST_Classic",
-                            dir_in = pac.dir, save2disk=FALSE, verbose=FALSE)
+yr.st.classic <- collate_yr(
+  project = "Pacioni_et_al", scenario = "ST_Classic",
+  dir_in = pac.dir, save2disk = FALSE, verbose = FALSE
+)
 ```
 
 ```collate_yr``` generates a list with two elements (which are both data.table): we can inspect the first few rows and columns of the first element of the list with:
 ```{r}
-yr.st.classic[[1]][1:5, 1:8, with=FALSE]
+yr.st.classic[[1]][1:5, 1:8, with = FALSE]
 ```
 
 The second element of the list includes the same data, but these are averaged across iterations. This is the dataset to look into in case you are interested in the mean number of animals that  moved between populations (e.g. migration or translocations), or subclasses of individuals (e.g. by gender or age):
 ```{r}
-yr.st.classic[[2]][1:5, 1:7, with=FALSE]
+yr.st.classic[[2]][1:5, 1:7, with = FALSE]
 ```
 
 Pacioni et al (2017) defined the recovery rate as the mean growth rate over a period of five years (20 Vortex time-units) and used this as indication of the capacity of the population to recover from low density. You can calculate this parameter with the function ```rRec``` starting from the data generated with the function ```collate_dat```. The output is a table of the mean recovery rate calculated between ```yr0``` and ```yrt```. This function also conducts statistical pairwise comparisons with a baseline scenario (the 'Base' scenario if the simulations were run with a ST module, or the scenario indicated in the argument ```scenario```) using the Strictly Standardised Mean Differece --- SSMD (if you want to have more details on this statistic, just scroll down to the detailed description of ```pairwise``` where we explain it). In case this may be useful for you, here is a demonstration of how it works:  
 
 ```{r}
-rec_rate <- rRec(data=woylie.st.classic, project="Pacioni_et_al", scenario="ST_Classic",
-                  ST=TRUE, runs=3, yr0=1, yrt=20, save2disk=FALSE)
-rec_rate[, c(2:4, 7:8), with=FALSE]
+rec_rate <- rRec(
+  data = woylie.st.classic, project = "Pacioni_et_al", scenario = "ST_Classic",
+  ST = TRUE, runs = 3, yr0 = 1, yrt = 20, save2disk = FALSE
+)
+rec_rate[, c(2:4, 7:8), with = FALSE]
 ```
 
 To give all these analyses some sense, the following creates a summary of the parameter' values used in the ST module that was collated before (e.g. SV1, SV2...) and user-made population variables (e.g. PS1, PS2...) requested with the argument ```SVs```.
 ```{r}
-lkup.st.classic <- lookup_table(data=woylie.st.classic, project="Pacioni_et_al",
-                   scenario="ST_Classic", pop="Population 1",
-                   SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
-                   save2disk=FALSE)
+lkup.st.classic <- lookup_table(
+  data = woylie.st.classic, project = "Pacioni_et_al",
+  scenario = "ST_Classic", pop = "Population 1",
+  SVs = c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+  save2disk = FALSE
+)
 head(lkup.st.classic)
 ```                        
 
 The names of the variables are from Vortex outputs. These may have little meaning to people not familiar with the project. We will replace the headings so we don't keep you in the dark anymore. This can also be useful if this data need to be used, for example, to generate a summary table in a report. 
 ```{r, fig.height=7.5, fig.width=7}
-library(data.table, quietly=TRUE)
-library(grid, quietly=TRUE)
-library(gridExtra, quietly=TRUE)
-setnames(lkup.st.classic, c("Scenario", "K", "Ad.Mor", "Juv.Mor", 
-                          "PY.Mor", "SD.Mor", "Mate.mon", "Init.N"))
-grid.table(lkup.st.classic, rows=NULL, 
-           theme=ttheme_default(core=list(bg_params=list(fill="white"))))
+library(data.table, quietly = TRUE)
+library(grid, quietly = TRUE)
+library(gridExtra, quietly = TRUE)
+setnames(lkup.st.classic, c(
+  "Scenario", "K", "Ad.Mor", "Juv.Mor",
+  "PY.Mor", "SD.Mor", "Mate.mon", "Init.N"
+))
+grid.table(lkup.st.classic,
+  rows = NULL,
+  theme = ttheme_default(core = list(bg_params = list(fill = "white")))
+)
 ```
 
 
@@ -221,10 +238,12 @@ Where:
 
 Now that you have everything under control, you can try to guess why in the Scenario 12 the population goes extinct. Also, you may want to see whether there is a substantial difference in the population size ('Nall') between the simulations generated by the ST module and the base scenario. Because genetics is an area of interest of ours, we threw in also heterozygosity ('Het')... To do these comparisons, you run the following:
 ```{r}
-pairw <- pairwise(data=woylie.st.classic, project="Pacioni_et_al", scenario="ST_Classic",
-                params=c("Nall", "Het"), yrs=120, ST=T, type="Single-Factor",
-                SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
-                save2disk=FALSE)
+pairw <- pairwise(
+  data = woylie.st.classic, project = "Pacioni_et_al", scenario = "ST_Classic",
+  params = c("Nall", "Het"), yrs = 120, ST = T, type = "Single-Factor",
+  SVs = c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+  save2disk = FALSE
+)
 ```
 
 This function returns a list with several elements that contained the results. The first three include the sensitivity coefficients (SC), the strictly standardised mean differences (SSMD), and the p-values associated with SSMD. If you want to have more details on these statistics, just scroll down where we explain in detail ```pairwise```. To keep it simple, let's focus on the p-values of the scenario comparisons with SSMD (the element 3 of the list).
@@ -257,9 +276,11 @@ Once you have done all this, you decide that you want to move to more advanced s
 
 First, we have to prepare the data obtained with the Latin hypercube sampling to be analysed with ```fit_regression``` with the following:
 ```{r}
-# Collate all .run 
-run <- collate_run(project="Pacioni_et_al", scenario="ST_LHS", 1, dir_in=pac.dir,
-                   save2disk=FALSE, verbose=FALSE)
+# Collate all .run
+run <- collate_run(
+  project = "Pacioni_et_al", scenario = "ST_LHS", 1, dir_in = pac.dir,
+  save2disk = FALSE, verbose = FALSE
+)
 
 # Remove base scenario from the output in long format
 lrun.ST_LHS.no.base <- run[[2]][!run[[2]]$Scenario == "ST_LHS(Base)", ]
@@ -273,34 +294,40 @@ data(pac.lhs)
 stdat.ST_LHS.no.base <- pac.lhs[!pac.lhs$scen.name == "ST_LHS(Base)", ]
 
 # Create the lookup table
-lkup.ST_LHS <- lookup_table(data=stdat.ST_LHS.no.base, project="Pacioni_et_al",
-                            scenario="ST_LHS", pop="Population 1",
-                            SVs=c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
-                            save2disk=FALSE)
+lkup.ST_LHS <- lookup_table(
+  data = stdat.ST_LHS.no.base, project = "Pacioni_et_al",
+  scenario = "ST_LHS", pop = "Population 1",
+  SVs = c("SV1", "SV2", "SV3", "SV4", "SV5", "SV6", "SV7"),
+  save2disk = FALSE
+)
 ```
 
 We can graphically inspect the data with the function ```m_scatter```.
 ```{r, fig.height=5, fig.width=7}
-scatter.plot <- m_scatter(data=stdat.ST_LHS.no.base[1:33], data_type="dat",
-                         lookup=lkup.ST_LHS, yr=120, popn=1, param="Nall",
-                         vs=c("SV1", "SV2", "SV3"), save2disk=FALSE)
+scatter.plot <- m_scatter(
+  data = stdat.ST_LHS.no.base[1:33], data_type = "dat",
+  lookup = lkup.ST_LHS, yr = 120, popn = 1, param = "Nall",
+  vs = c("SV1", "SV2", "SV3"), save2disk = FALSE
+)
 scatter.plot
 ```
 
 If we are happy with how the simulations were carried out, we can go ahead and carry out the analysis. In this example, ```fit_regression``` will fit a GLM. Just before the beginning of the search for the best model(s), a summary of the dependent variable is printed on the screen so that the user can check whether there is any problem or error. For the same reason, the distribution of the dependent variable is plotted. In this example, it is clear that there are lots of zeros and this is an example where you would stop the calculations and move to a different approach. Indeed, in the paper, we did use a zero-inflated model, but because here we are simply demonstrating the use of ```fit_regression```, we will ignore this and go ahead.  
 
 ```{r, fig.align='center', fig.width=4}
-reg <- fit_regression(data=lrun.ST_LHS.no.base, lookup=lkup.ST_LHS, census=F,
-                  project="Pacioni_et_al", scenario="ST_LHS", popn=1,
-                  param="N", vs=c("SV1", "SV2", "SV3"), l=2,  ncand=30, 
-                  save2disk=FALSE)
+reg <- fit_regression(
+  data = lrun.ST_LHS.no.base, lookup = lkup.ST_LHS, census = F,
+  project = "Pacioni_et_al", scenario = "ST_LHS", popn = 1,
+  param = "N", vs = c("SV1", "SV2", "SV3"), l = 2, ncand = 30,
+  save2disk = FALSE
+)
 ```
 
 Once the search is concluded, there are several pieces of information that can be retrieved. Detailed explanations and examples are in the documentations of the R package ```glmulti``` and we only report below a few examples. 
  
 It is possible to inspect the plot of the information criterion of the evaluated models. This is saved to disk if ```save2disk=TRUE```, otherwise it can be called from the ```glmulti``` object:
 ```{r, fig.width=4, fig.align='center'}
-plot(reg, type="p")
+plot(reg, type = "p")
 ```
 
 In our case, it is clear that one model (the full model) is markedly better that the others. The formula of the best model can be obtained with:
@@ -326,13 +353,13 @@ coef(reg@objects[[1]])
 
 The model averaged coefficients across the best 30 models:
 ```{r}
-library(glmulti, quietly=TRUE)
+library(glmulti, quietly = TRUE)
 coef.glmulti(reg)
 ```
 
 The plot of model averaged importance of terms:
 ```{r, fig.width=4.5, fig.align='center'}
-plot(reg, type="s")
+plot(reg, type = "s")
 ```
 
 In this case though, all terms have a model-averaged importance of 1.  
@@ -341,8 +368,10 @@ In this case though, all terms have a model-averaged importance of 1.
 Another parameter that it is generally of interest is the probability of extinction. Vortex reports this probability on a per-year basis, however, you may be interested in the cumulative probability of extinction. That is, the probability that your population may go extinct in any moment during the simulations. vortexR can calculate this with the function ```Pextinction```. This function takes as input the long format of the run data and returns a list where the first element is a summary table with the mean probability of extinction and a statistical comparison with a baseline scenario (the 'Base' scenario if the simulations were run with a ST module, or the scenario indicated in the argument ```scenario```). The second element of the list is a table with each iteration where extinction is coded as one (and zero for no extinction). For brevity, here we only print out the first element.
 
 ```{r}
-Pext <- Pextinct(data=run[[2]], project="Pacioni_et_al",
-               scenario="ST_LHS", ST=TRUE, save2disk=FALSE)
+Pext <- Pextinct(
+  data = run[[2]], project = "Pacioni_et_al",
+  scenario = "ST_LHS", ST = TRUE, save2disk = FALSE
+)
 head(Pext[[1]][, c(2:4, 7:8)])
 ```
 
@@ -393,16 +422,18 @@ The two elements of the list are written separately to disk (when ```save2disk=T
 
 An example, using Pacioni et al. (2017) example files (see ```?pacioni``` or above for more details) is :
 ```{r}
-library(data.table, quietly=TRUE)
+library(data.table, quietly = TRUE)
 library(vortexRdata)
-pac.dir <- system.file("extdata", "pacioni", package="vortexRdata")
+pac.dir <- system.file("extdata", "pacioni", package = "vortexRdata")
 
 # Run collate_yr on all .yr of the project 'Pacioni_et_al' and the ST scenario
 # 'ST_Classic' in the selected folder and store the result in 'yr.st.classic'
-yr.st.classic <- collate_yr(project="Pacioni_et_al", scenario="ST_Classic",
-                            dir_in = pac.dir, save2disk=FALSE, verbose=FALSE)
-yr.st.classic[[1]][, 1:7, with=FALSE]
-yr.st.classic[[2]][, 1:6, with=FALSE]
+yr.st.classic <- collate_yr(
+  project = "Pacioni_et_al", scenario = "ST_Classic",
+  dir_in = pac.dir, save2disk = FALSE, verbose = FALSE
+)
+yr.st.classic[[1]][, 1:7, with = FALSE]
+yr.st.classic[[2]][, 1:6, with = FALSE]
 ```
 
 Note that we have changed here the default values for ```save2disk``` and ```verbose``` and have requested to print only column 1 to 6/7 not to take a huge amount of space.
@@ -415,8 +446,8 @@ With the argument ```appendMeta```, you can ask (by using ```TRUE``` or ```FALSE
 As an example look at the following:
 ```{r}
 data(pac.yr)
-lyr.classic <- conv_l_yr(pac.yr[[1]] , yrs=c(60, 120), save2disk=FALSE)
-lyr.classic[, 1:6, with=FALSE]
+lyr.classic <- conv_l_yr(pac.yr[[1]], yrs = c(60, 120), save2disk = FALSE)
+lyr.classic[, 1:6, with = FALSE]
 ```
 
 ### *collate_proc_data*
@@ -426,7 +457,7 @@ As an example, we first load the data from Campbell et al. (in press), which wer
 ```{r}
 data(sta.main, sta.evy5, sta.evy5.b11) # load data
 dfs <- list(sta.main, sta.evy5, sta.evy5.b11) # make a list
-combined <- collate_proc_data(dfs, save2disk=FALSE) # combine
+combined <- collate_proc_data(dfs, save2disk = FALSE) # combine
 ```
 
 ### *lookup_table*
@@ -519,10 +550,12 @@ With the argument ```popn```, the users indicates what population(s) has(have) t
 
 ```fit_regression``` fits a different type of regression model depending on the dependent variable, which is passed with the argument ```param```. When this is a count (e.g. N or the number of alleles) the function will fit a Generalized Linear Model. The first fit is attempted with a Poisson error distribution and if the dispersion parameter, calculated as $\frac{residual  deviance}{df}$, is larger than (the somewhat arbitrary cut off of) 1.5, the model will be refitted with a quasipoisson error distribution (a message is displayed if this happens). If the users generated their own dependent variable (e.g. through a PS), this has to be listed in the ```count_data``` argument to indicate to ```fit_regression``` that it is analysing count data. Default values for ```count_data``` are all the count-data variables that are automatically generated in Vortex outputs:
 ```{r eval=FALSE}
-count_data=c("Nextant", "Nall", "Nalleles", "N", "AM", "AF", "Subadults",
-		"Juv", "nDams", "nBroods", "nProgeny", "nImmigrants",
-		"nEmigrants", "nHarvested", "nSupplemented", "YrExt", 
-		"Alleles")
+count_data <- c(
+  "Nextant", "Nall", "Nalleles", "N", "AM", "AF", "Subadults",
+  "Juv", "nDams", "nBroods", "nProgeny", "nImmigrants",
+  "nEmigrants", "nHarvested", "nSupplemented", "YrExt",
+  "Alleles"
+)
 ```
 
 Predictors are passed as character vector with the argument ```vs```. In the initial fit of the model the main and interaction effects are included. Successively, a search for the best model is carried out. This is performed with the package [glmulti](https://CRAN.R-project.org/package=glmulti) (Calcagno & de Mazancourt 2010). A brief description of this package is provided below, but the users are recommended to consult ```glmulti``` documentations to have a clear understanding of the functionality of this package.  
@@ -562,8 +595,10 @@ Note that if the population size of a population is zero, the result of ```Nadul
 For an example, consider the code below:
 ```{r, message=FALSE}
 data(pac.yr)
-NadultAll <- Nadults(data=pac.yr[[2]], scenarios="all", 
-  gen=2.54, yr0=50, yrt=120, save2disk=FALSE)
+NadultAll <- Nadults(
+  data = pac.yr[[2]], scenarios = "all",
+  gen = 2.54, yr0 = 50, yrt = 120, save2disk = FALSE
+)
 NadultAll
 ```
 
@@ -576,9 +611,11 @@ The user should be careful when using this function because if a population goes
 
 ```{r}
 data(pac.clas)
- 
-NeAll <- Ne(data=pac.clas, scenarios="all", gen=2.54, yr0=50, yrt=120,
-      save2disk=FALSE)
+
+NeAll <- Ne(
+  data = pac.clas, scenarios = "all", gen = 2.54, yr0 = 50, yrt = 120,
+  save2disk = FALSE
+)
 NeAll
 ```
 
@@ -594,31 +631,34 @@ require(data.table)
 setkey(NadultAll, Population)
 
 # Calculate the ratios
-NeNRatio <- data.table(NeAll[ , "Population 1", with=F]/NadultAll["pop1", Nad],
-                        Scenario=NeAll[ , Scenario])
+NeNRatio <- data.table(NeAll[, "Population 1", with = F] / NadultAll["pop1", Nad],
+  Scenario = NeAll[, Scenario]
+)
 ```
 
 If you want to write the results in a csv file, or you have more populations and you want to calculate *Ne:N* for all of them at once, run:
 
 ```{r, eval=FALSE}
 # write results to disk
-write.csv(NeNRatio, file="./DataAnalysis/NeNRatio.csv", row.names=F)
+write.csv(NeNRatio, file = "./DataAnalysis/NeNRatio.csv", row.names = F)
 
 # load required packages to calculate Ne:N ratios for several scenarios
 require(reshape2)
 require(data.table)
 
 # This stacks data based on the scenario's names
-NeStacked <- melt(NeAll, id="Scenario")
+NeStacked <- melt(NeAll, id = "Scenario")
 
 # set the key and name coloumns
 setkey(NeStacked, Scenario)
 setnames(NeStacked, c("variable", "value"), c("Population", "Ne"))
 
 # Calculate the ratios
-NeNRatio <- data.table(Scenario = NeStacked[ , Scenario], 
-         Population = NeStacked[ , Population], 
-         NeNRatio = NeStacked[, Ne]/NadultAll[, Nad])
+NeNRatio <- data.table(
+  Scenario = NeStacked[, Scenario],
+  Population = NeStacked[, Population],
+  NeNRatio = NeStacked[, Ne] / NadultAll[, Nad]
+)
 ```
 
 ### rRec & Pextinct 

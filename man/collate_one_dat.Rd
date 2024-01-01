@@ -17,7 +17,7 @@ collate_one_dat(filename, runs, dec_sep = ".", verbose = FALSE)
 }
 \value{
 A data.frame with data from one .dat or .stdat file and
- population/scenario names as factors
+population/scenario names as factors
 }
 \description{
 \code{collate_one_dat} parses one Vortex .dat or .stdat file, and returns the

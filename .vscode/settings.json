@@ -1,0 +1,7 @@
+{
+    "r.session.levelOfObjectDetail": "Detailed",
+    "r.workspaceViewer.showObjectSize": true,
+    "r.plot.useHttpgd": true,
+    "typescript.suggest.paths": false,
+    "javascript.suggest.paths": false
+}

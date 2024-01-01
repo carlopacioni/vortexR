@@ -4,20 +4,20 @@
 
 #' Calculate the effective population size (Ne)
 #'
-#' \code{Ne} calculates the effective population size (Ne) between \code{yr0}
-#' and \code{yrt} for several scenarios based on the loss of genetic diversity
+#' `Ne` calculates the effective population size (Ne) between `yr0`
+#' and `yrt` for several scenarios based on the loss of genetic diversity
 #' (expected heterozygosity) using the temporal approach.
 #'
-#' \code{yr0} is adjusted by adding the number of years of the generation time
+#' `yr0` is adjusted by adding the number of years of the generation time
 #' (rounded to the nearest integer).  In this way the user can provide the same
-#' \code{yr0,yrt} and \code{gen} to \code{Nadults} and \code{Ne} and these
+#' `yr0,yrt` and `gen` to `Nadults` and `Ne` and these
 #' values are adjusted internally to correctly calculate the Ne/N ratios where
-#' relevant. If this behaviour is not desired, use \code{gen=0}.
+#' relevant. If this behaviour is not desired, use `gen=0`.
 #'
-#' \strong{NOTE:} When a population goes extinct, the results of the
+#' **NOTE:** When a population goes extinct, the results of the
 #' calculations are spurious (they are 0.5). This may change in future versions.
 #'
-#' @param data The output from \code{collate_dat}
+#' @param data The output from `collate_dat`
 #' @param scenarios A vector of scenario names for which Ne needs to be
 #'   calculated, default: 'all'
 #' @param gen The generation time express in years
@@ -26,8 +26,8 @@
 #' @param save2disk Whether to save the output to disk, default: TRUE
 #' @param fname The name of the files where to save the output, defult: 'Ne'
 #' @param dir_out The local path to store the output. Default: DataAnalysis
-#' @return A \code{data.table} (\code{data.frame} if
-#'   \code{\link[data.table]{data.table}} is not loaded) with Ne values
+#' @return A `data.table` (`data.frame` if
+#'   [data.table::data.table()] is not loaded) with Ne values
 #' @import data.table
 #' @export
 #' @examples
@@ -88,24 +88,24 @@ Ne <- function(data = NULL,
 
 #' Calculate the harmonic mean of the total number of adults
 #'
-#' \code{Nadults} calculates, for several scenarios, the harmonic mean of the total
-#' number of adults between \code{yr0} and \code{yrt}. These can be use to
+#' `Nadults` calculates, for several scenarios, the harmonic mean of the total
+#' number of adults between `yr0` and `yrt`. These can be use to
 #' calculate Ne/N ratios where relevant.
 #'
-#' \code{yrt} is adjusted by subtracting the number of years of the generation
+#' `yrt` is adjusted by subtracting the number of years of the generation
 #' time (rounded to the nearest integer). In this way the user can provide the
-#' same \code{yr0,yrt} and \code{gen} to \code{Nadults} and \code{Ne} and these
+#' same `yr0,yrt` and `gen` to `Nadults` and `Ne` and these
 #' values are adjusted internally to correctly calculate the Ne/N ratios where
-#' relevant. If this behaviour is not desired, use \code{gen=0}.
+#' relevant. If this behaviour is not desired, use `gen=0`.
 #'
-#' @param data The second element (census_means) of the output from \code{collate_yr}
+#' @param data The second element (census_means) of the output from `collate_yr`
 #' @param npops_noMeta The total number of populations excluding the metapopulation,
 #' default: 1
 #' @param appendMeta Whether to calculate data for the metapopulation,
 #' default: FALSE
 #' @param fname The name of the files where to save the output, defult: 'Nadults'
 #' @inheritParams Ne
-#' @return A \code{data.table} (\code{data.frame} if \code{\link[data.table]{data.table}} is not
+#' @return A `data.table` (`data.frame` if [data.table::data.table()] is not
 #'  loaded) with Nb values
 #' @import data.table
 #' @export
@@ -199,17 +199,17 @@ Nadults <- function(data,
 
 #' Pairwise comparisons and ranks of scenarios
 #'
-#' \code{pairwise} conducts pairwise comparisons against a baseline scenario
+#' `pairwise` conducts pairwise comparisons against a baseline scenario
 #' using sensitivity coefficients and strictly standardised mean difference.
 #' It also ranks scenarios (and/or parameters when relevant) using these statistics.
-#' When \code{yrs='max'} (default), VortexR automatically sets  \code{yrs} to
+#' When `yrs='max'` (default), VortexR automatically sets  `yrs` to
 #' the last year of the simulation.
 #'
 #' Pairwise comparisons against a baseline scenario are conducted using
 #' sensitivity coefficients (SC, Drechsler et al. 1998) and strictly
 #' standardised mean difference (SSDM, Zhang 2007).
 #'
-#' \code{pairwise} ranks, for each population, the scenarios (and SVs if
+#' `pairwise` ranks, for each population, the scenarios (and SVs if
 #' relevant, see below) based on the absolute value of the statistics (either SC
 #' or SSMD) regardless of the sign. That is, the scenario with the absolute SC
 #' or SSMD value most different from zero will have a rank equal to '1'. The
@@ -218,7 +218,7 @@ Nadults <- function(data,
 #' The Kendall's coefficient of concordance is calculated to test whether the
 #' order of ranked scenarios (or SVs if relevant) is statistically consistent
 #' across the chosen points in time and parameters (or SVs). For example, if 100
-#' years were simulated, \code{yrs=c(50, 100)} and \code{params=c('Nall', 'Het')},
+#' years were simulated, `yrs=c(50, 100)` and `params=c('Nall', 'Het')`,
 #' the consistency of ranking will be tested across the four raters (i.e. Nall
 #' at year 50, and at year 100, Het at year 50 and at year 100). Kendall's test
 #' operates a listwise deletion of missing data. However, when data in a whole
@@ -228,15 +228,15 @@ Nadults <- function(data,
 #' It is possible to evaluate the mean effect of a range of values for certain
 #' parameters on their outcome variables of interest (i.e. ranking the parameters,
 #' rather than scenarios). This is automatically done when the analysis is
-#' conducted on with \code{ST=TRUE,type='Single-Factor'} and there is more than
-#' one SV passed with the argument \code{SVs}. Alternatively, it is achievable
-#' with a combined use of \code{group.mean=TRUE,SVs}. The first argument result
+#' conducted on with `ST=TRUE,type='Single-Factor'` and there is more than
+#' one SV passed with the argument `SVs`. Alternatively, it is achievable
+#' with a combined use of `group.mean=TRUE,SVs`. The first argument result
 #' in the calculations, following Conroy and Brook (2003), of the mean SC and
-#' SSMD for each group of scenarios that have different parameter values. \code{SVs}
+#' SSMD for each group of scenarios that have different parameter values. `SVs`
 #' provides the names of the parameters to be considered. Parameters are then
 #' ranked accordingly (See vignette for more information).
 #'
-#' The parameter values passed with \code{SVs} are evaluated at year=0. This is
+#' The parameter values passed with `SVs` are evaluated at year=0. This is
 #' done because these parameters may take value 'zero' if the relevant
 #' populations goes extinct. There are cases where Vortex may not evaluate these
 #' parameters even at year 0. This may happen, for example, when a population is
@@ -248,7 +248,7 @@ Nadults <- function(data,
 #' Single-Factor option is used in Vortex. This is because with Single-Factor,
 #' the parameters are modified one at the time (See vignette for more information).
 #'
-#' @param data A data.frame generated by \code{collate_dat}
+#' @param data A data.frame generated by `collate_dat`
 #' @param project The Vortex project name
 #' @param scenario The ST Vortex scenario name or the scenario that should be
 #' used as baseline if simulations were not conducted with the ST module
@@ -273,7 +273,7 @@ Nadults <- function(data,
 #'   \item A data.frame with the scenario ranks based on SC and one based on SSMD
 #'   \item The output of the Kendall's test
 #' }
-#' If \code{group_mean=TRUE} there will be six additional elements:
+#' If `group_mean=TRUE` there will be six additional elements:
 #' \itemize{
 #'   \item A data.frame with the mean SC values for each parameter
 #'   \item A data.frame with the mean SSMD values
@@ -289,7 +289,7 @@ Nadults <- function(data,
 #'
 #' Drechsler, M., M. A. Burgman, and P. W. Menkhorst. 1998. Uncertainty in
 #' population dynamics and its consequences for the management of the
-#' orange-bellied parrot \emph{Neophema chrysogaster}. Biological Conservation
+#' orange-bellied parrot *Neophema chrysogaster*. Biological Conservation
 #' 84:269-281.
 #'
 #' Zhang, X. D. 2007. A pair of new statistical parameters for quality control
@@ -670,11 +670,11 @@ pairwise <- function(data,
 #' Search for the best regression model(s)
 #'
 #'
-#' \code{fit_regression} fits either a Generalized Linear Model or a betareg model
+#' `fit_regression` fits either a Generalized Linear Model or a betareg model
 #' to the data and search for the best model(s) given a list of predictors using
 #' the R package glmulti.
 #'
-#' \code{fit_regression} fits a different type of regression model depending on the
+#' `fit_regression` fits a different type of regression model depending on the
 #' dependent variable. When this is a count (e.g. N or the number of alleles),
 #' the function will fit a Generalized Linear Model. The first fit is attempted
 #' with a Poisson error distribution and if the dispersion parameter (calculated
@@ -682,16 +682,16 @@ pairwise <- function(data,
 #' arbitrary cut off of) 1.5, the model will be refitted with a quasipoisson
 #' error distribution (a message is displayed if this happens).
 #'
-#' \code{fit_regression} establishes whether the dependent variable is a count
-#' by searching for it in \code{count_data}. If the users generated their own
-#' dependent variable (e.g. through a PS), this has to be included in \code{count_data}
-#' to indicate \code{fit_regression} that it is analysing count data.
+#' `fit_regression` establishes whether the dependent variable is a count
+#' by searching for it in `count_data`. If the users generated their own
+#' dependent variable (e.g. through a PS), this has to be included in `count_data`
+#' to indicate `fit_regression` that it is analysing count data.
 #'
 #' When the number of alleles is the dependent variable (from .run files), this
 #' is rounded to integer (to meet R requirement that count data are integers)
 #' before a GLM is fitted to the data.
 #'
-#' If \code{param} is a proportion (e.g. Gene Diversity and Inbreeding), then
+#' If `param` is a proportion (e.g. Gene Diversity and Inbreeding), then
 #' the function uses a Beta regression from the R package betareg (Cribari-Neto
 #' & Zeileis 2010). Different link functions are tested and the one with the
 #' lowest AIC value is selected. The selected link function is displayed on the
@@ -701,15 +701,15 @@ pairwise <- function(data,
 #' In the initial fit of the model the main and interactions effects are included.
 #'
 #' Successively, a search for the best model is carried out. This is performed
-#' with the R package \code{\link[glmulti]{glmulti}} (Calcagno & de Mazancourt 2010).
-#' \code{fit_regression} will conduct an exhaustive search if ncand is less or
+#' with the R package [glmulti::glmulti()] (Calcagno & de Mazancourt 2010).
+#' `fit_regression` will conduct an exhaustive search if ncand is less or
 #' equal to the number of candidate models, otherwise it will use a genetic
 #' search method (see glmulti documentations for more details about the search
-#' methods). When \code{\link[glmulti]{glmulti}} uses the genetic search method,
-#' two small files (with extension \code{.modgen.back} and \code{.mods.back.} are
-#' written in the working directory even if \code{save2disk=FALSE}.
+#' methods). When [glmulti::glmulti()] uses the genetic search method,
+#' two small files (with extension `.modgen.back` and `.mods.back.` are
+#' written in the working directory even if `save2disk=FALSE`.
 #'
-#' \code{fit_regression} explicitly ignores NA.
+#' `fit_regression` explicitly ignores NA.
 #'
 #' Depending on the data, fitting several Beta regression models to complete the
 #' search may be a long (and memory hungry) process. Also, the package betareg
@@ -717,10 +717,10 @@ pairwise <- function(data,
 #' analysis of data when the dependent variable takes value of either exactly 0
 #' or 1.
 #'
-#' See vignette for a more detailed explanation of \code{fit_regression}.
+#' See vignette for a more detailed explanation of `fit_regression`.
 #'
-#' @param data The long format of census (from \code{conv_l_yr}) or run (lrun,
-#' the second element) of the output from \code{collate_run}
+#' @param data The long format of census (from `conv_l_yr`) or run (lrun,
+#' the second element) of the output from `collate_run`
 #' @param lookup (Optional) A look-up table where the scenario names are listed
 #' together with the (missing) variables needed to fit the regression models
 #' @param census Whether the input is census data
@@ -735,14 +735,14 @@ pairwise <- function(data,
 #' @param l Level for glmulti search: 1 main effects, 2 main effects + interactions
 #' @param ncand The threshold of candidate models after which switch to the
 #' genetic search method, default: 30
-#' @param set_size Value to be used in confsetsize (from \code{\link[glmulti]{glmulti}}
+#' @param set_size Value to be used in confsetsize (from [glmulti::glmulti()]
 #'  The number of models to be looked for, i.e. the size of the returned confidence
 #' set.)
 #' @param links Link functions to use in the Beta regression.
 #' @param dir_out The local path to store the output.
 #'  Default: DataAnalysis/FitRegression
 #' @inheritParams pairwise
-#' @return A \code{glmulti} object with the best models found.
+#' @return A `glmulti` object with the best models found.
 #' @references Calcagno, V., and C. de Mazancourt. 2010. glmulti: an R package
 #' for easy automated model selection with (generalized) linear models. Journal
 #' of Statistical Software 34:1-29.

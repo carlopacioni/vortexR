@@ -8,15 +8,15 @@ A \code{data.frame} of 6171 observations of 68 variables.
 }
 \source{
 Pacioni, C., Williams, M., Lacy RC, Spencer, P.B.S. and Wayne, A.F. (2017)
- Predators and genetic fitness: key threatening factors for the conservation
- of bettong species. Pacific Conservation Biology.
- \href{https://doi.org/10.1071/PC17002}{DOI:10.1071/PC17002}
+Predators and genetic fitness: key threatening factors for the conservation
+of bettong species. Pacific Conservation Biology.
+\href{https://doi.org/10.1071/PC17002}{DOI:10.1071/PC17002}
 }
 \description{
 Data from Pacioni et al. (2017) used to conduct a sensitivity
- analysis on demographic parameters. Vortex outputs, from the project named
- 'Pacioni_et_al' and (Latin Hypercube Sampling) sensitivity test scenario
- 'ST_LHS' (.stdat files), were collated with \code{collate_dat}.
+analysis on demographic parameters. Vortex outputs, from the project named
+'Pacioni_et_al' and (Latin Hypercube Sampling) sensitivity test scenario
+'ST_LHS' (.stdat files), were collated with \code{collate_dat}.
 }
 \examples{
 data("pac.lhs")
